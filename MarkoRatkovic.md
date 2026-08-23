@@ -1,0 +1,7 @@
+# Marko Ratkovic
+
+## About Me
+I am Marko Ratkovic, and an interesting fact about me is that I am a first-generation child. I am also an only child, which has its upsides and downsides. I am known in the family as the "tech" guy when it comes to issues with technology. I have gotten to know lots of issues from all sorts of devices, from TVs, phones, and computers, which is where I spent most of my childhood, especially watching YouTube a lot. From there, I transitioned into enjoying video games and wanted to work in or create one, so I decided to go to college for CS with no programming experience at all; my knowledge is basically limited to what I've taught and learned in two languages I know well: Python and Java. I have dabbled in website building, know SQL and JavaScript a little, and built a website on my own that I keep evolving.
+
+## My CSC340 Goals
+My CSC340 goals are to learn more and hone in more on my programming skills, as I still feel like I am new to it and waiting for the click moment to happen. I wouldn't say I am a bad programmer, as I know the basics, but this is my real first experience (other than my personal website project) where I have actually used the knowledge outside of the classroom. So, at the end of this class, I hope I get better programming skills and learn more about software engineering.

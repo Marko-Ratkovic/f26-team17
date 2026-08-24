@@ -1,7 +1,7 @@
 ## Title
-> Your project title
+**Credex** (Credit decisions, simplified)
 
 ## Team Members
 Marko Ratkovic
-
-> Team Member #2 name
+Alisena Nasirali
+Team Member #3 name

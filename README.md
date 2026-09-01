@@ -15,7 +15,18 @@ GlowUp is a software that connects customers who needs theirs hairs, nails or ma
 
 ## App Functions
 1. Customer:
-    
+    1. Create/modify customer profile - Register and manage a personal
+       profile with contact info and beauty/grooming preferences
+       (preferred services, stylist, notes like allergies).
+    2. View available services - Browse stylists, barbers, and makeup
+       artists by service menu, portfolio, price, and available time
+       slots; filter by service type and location.
+    3. Subscribe to available services - Book an appointment for a
+       chosen service and time slot, pay online, and view booking
+       history and receipts.
+    4. Write reviews for subscribed services - Rate and review the
+       provider after a completed appointment, based on service
+       quality and experience.
 2. Provider (Stylist, barbers, makeup artist):
     1. **Create/modify/remove provider profile** - Register as a provider and showcase certifications, experience, address.
     2. **Create services** - Publish services include description, price and estimated service's time.

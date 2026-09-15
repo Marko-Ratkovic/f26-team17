@@ -10,12 +10,12 @@
 
 ## 1. Overview
 
-**Vision.** GlowUp is a platform that pairs customers seeking needs hairs, nails, or makeup services with professional stylists, barbers, and makeup artists.
+**Vision.** GlowUp is a platform that pairs customers seeking needs hairs, nails, or makeup services with professional nail technicians, barbers, and makeup artists.
 
 **Glossary** Terms used in the project
 
-- **Customer:** A person seeking professional stylists, barbers, or makeup artists.
-- **Provider:** Stylists, barbers, makeup artists.
+- **Customer:** A person seeking professional nail technicians, barbers, or makeup artists.
+- **Provider:** Nail technicians, barbers, makeup artists.
 - **Customer profile:**  Contains personal details, contact info, booking history, and service/style preferences.
 - **Provider profile:**  Contains personal details, contact info, service offerings, and professional certifications/licenses.
 - **Services:** The specific nail, hair, or beauty service. 
@@ -74,7 +74,7 @@
 
 ### 2.2 Provider Stories
 
-- **US-5 —** \
+- **US-5 — Create and update provider profile** \
   *Story:* As a provider, I want to create and update my profile so that customer can reach out to book my services.
   *Acceptance:*
 
@@ -86,7 +86,7 @@
     And   <the profile should be visible to customers>
   ```
 
-- **US-6 —** \
+- **US-6 — Define services and pricing** \
   *Story:* As a provider, I want to define and pricing my services so that customers can can select and schedule the right services.
   *Acceptance:*
 
@@ -97,7 +97,7 @@
     Then  <the services should be saved and visible to customers>
   ```
 
-  **US-7 —** \
+  **US-7 — Manage customer's booking** \
   *Story:* As a provider, I want to manage customer's booking slot so that I can be flexible with my schedule and customer’s schedule.
   *Acceptance:*
 
@@ -109,7 +109,7 @@
     And   <the customer should receive an automated notification reflecting the decision>
   ```
 
-**US-8 —** \
+**US-8 — Respond to reviews** \
   *Story:* As a provider, I want to respond to reviews, so that I can engage with customer.
   *Acceptance:*
 

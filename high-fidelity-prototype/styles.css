@@ -37,6 +37,13 @@ body{
     height: auto;
 }
 
+.service-image img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
 nav{
     display: flex;
     background-color:rgb(235, 221, 205);
@@ -86,6 +93,36 @@ nav{
 
 .hero{
     background-color: var(--primary-light);
+}
+
+.cta {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    padding: 2rem;
+    text-align: center;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Cards */
+.service-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--box-shadow-lg);
+  position: relative;
+  z-index: 1;
 }
 
 .btn-outline-darkbrown{

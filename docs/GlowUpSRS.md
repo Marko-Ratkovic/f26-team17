@@ -132,27 +132,53 @@
 
 ### 2.3 SysAdmin Stories
 
-- **US‑30 —** \
-  *Story:* As a sysadmin, I want … so that …\
-  *Acceptance:*
+**US-9 — Manage user access** \
+*Story:* As a SysAdmin, I want to approve, suspend, or 
+reinstate customer and provider accounts, so that I can keep
+the platform secure and enforce policies.\
+*Acceptance:*
 
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
+ Scenario: <Suspend a policy-violating account>
+  Given <I am logged in as a SysAdmin>
+  When <I suspend a provider or customer account for a policy violation>
+  Then <the user should immediately lose access to the platform>
   ```
 
-- **US‑31 —** \
-  *Story:* As a sysadmin, I want … so that …\
-  *Acceptance:*
+**US-10 — Moderate services** \
+*Story:* As a SysAdmin, I want to moderate services and content offered by providers,
+  so that I can remove fraudulent or policy-violating listings.\
+*Acceptance:*
 
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
+  Scenario: <Remove a fraudulent service>
+  Given <I am logged in as a SysAdmin>
+  When <I flag a provider's service listing as fraudulent>
+  Then <the service should be immediately removed from the public search menu>
   ```
+**US-11 — Moderate reviews** \
+*Story:* As a SysAdmin, I want to moderate customer and provider reviews, so that 
+I can ensure validity and remove spam\
+*Acceptance:*
+
+ ```gherkin
+  Scenario: <Delete a spam review>
+  Given <I am logged in as a SysAdmin>
+  When <I determine a posted review is spam or invalid>
+  Then <the review should be permanently deleted from the platform>
+   ```
+**US-12 — View usage statistics** \
+*Story:* As a SysAdmin, I want to view sale volume, bookings, and activities,
+so that I can manage and monitor platform growth.\
+*Acceptance:*
+
+```gherkin
+  Scenario: <View platform analytics>
+  Given <I am logged in as a SysAdmin>
+  When <I navigate to the admin dashboard>
+  Then <I should see accurate metrics for sales volume, active bookings, and user activity>
+   ```
+
 ---
 ## 3. Non‑Functional Requirements (make them measurable)
 - **Performance:** 95% of service search and provider listing responses should be returned in less than 2 seconds under typical load.

@@ -44,6 +44,14 @@ body{
   display: block;
 }
 
+.provider-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
 nav{
     display: flex;
     background-color:rgb(235, 221, 205);
@@ -117,12 +125,16 @@ nav{
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
 /* Cards */
-.service-card {
+.service-card, .provider-card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.service-card:hover {
+.service-card:hover, .provider-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--box-shadow-lg);
   position: relative;
@@ -165,6 +177,45 @@ nav{
   color: var(--text-dark);
   margin-bottom: 1.5rem;
 }
+
+.filter-card {
+  background: var(--background-primary);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin-bottom: 2rem;
+}
+
+.filter-title {
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+}
+
+.filter-card label {
+  margin-bottom: 0.5rem;
+}
+
+.filter-card select {
+  width: 100%;
+}
+
+.provider-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.provider-card .d-flex.mt-3 {
+  margin-top: auto;
+}
+
+.provider-cost, .provider-rating, .provider-availability {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  margin: 0.5rem 0;
+}
+
 
 /* Forms */
 .form-group {
@@ -275,8 +326,28 @@ textarea:focus {
   color: white;
 }
 
+.filter-btn-wrap {
+  display: flex;
+  align-items: flex-end;
+}
+
+.filter-apply-btn {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  font-weight: 700;
+  border-radius: var(--border-radius);
+  padding: 0.6rem 1rem;
+}
+
+.filter-apply-btn:hover {
+  background-color: var(--dark-gray);
+  color: white;
+}
+
 /* Customer Dashboard */
-.customer-dashboard-header, .my-profile-header, .edit-info-header {
+.customer-dashboard-header, .my-profile-header, .edit-info-header, .browse-services-header {
   background: var(--primary-color);
   color: white;
   padding: 2rem;
@@ -284,13 +355,13 @@ textarea:focus {
   margin-bottom: 2rem;
 }
 
-.customer-dashboard-title, .my-profile-title, .edit-info-title {
+.customer-dashboard-title, .my-profile-title, .edit-info-title, .browse-services-title {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
 
-.customer-dashboard-subtitle, .my-profile-subtitle, .edit-info-subtitle {
+.customer-dashboard-subtitle, .my-profile-subtitle, .edit-info-subtitle, .browse-services-subtitle {
   opacity: 0.9;
 }
 

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="sticky-top">
+            <div class="navbar">
+                <a href="../index.html" class="navbar-brand mb-2">
+                    <img src="../images/logo.png" alt="" class="img-fluid logo" style="width: 150px; height: 50px;">
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="manage-services.html" class="nav-link fw-bold"
+                            style="border-bottom: 1px solid;">My Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="booking.html" class="nav-link under-scored">My Clients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.html" class="nav-link under-scored">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link fw-bold">Log out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <!--Edit Service Form-->
+        <section class="section">
+            <div class="container" style="max-width: 700px;">
+                <div class="card rounded-4">
+                    <div class="card-content">
+                        <div class="card-title text-center align-items-center gap-2 mt-4">
+                            <h2>Add a new service</h2>
+                            <p class="text-secondary sm ">Register a new service to offer your customer base</p>
+
+                        </div>
+                        <form class="provider-form">
+                            <div class="mb-3">
+                                <label for="svImg" class="form-label fw-bold">Upload Service's Image</label>
+                                <input class="form-control" type="file" id="svImg">
+                            </div>
+                            <div class="mb-3">
+                                <label for="svName" class="form-label fw-bold">Service Name</label>
+                                <input type="text" class="form-control" id="svName" placeholder="Pedicure">
+                            </div>
+                            <div class="mb-3">
+                                <label for="svDescript" class="form-label fw-bold">Description</label>
+                            <textarea class="form-control" id="svDescript" rows="3" placeholder="Describe your service..."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="svDuration" class="form-label fw-bold">Duration (mins)</label><br>
+                                <input type="number" class="form-control" id="svDuration" placeholder="30">
+                            </div>
+                            <div class="mb-3">
+                                <label for="svPrice" class="form-label fw-bold">Price ($)</label>
+                                <input type="tel" class="form-control" id="svPrice" placeholder="$45">
+                            </div>
+                            <div class="d-flex justify-content-end align-items-center gap-2 mt-4">
+                                <button type="submit" class="btn btn-dark">Add Service</button>
+                                <a href="manage-services.html">
+                                    <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!--Footer-->
+        <footer>
+            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.
+            </p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+        </script>
+</body>
+
+</html>

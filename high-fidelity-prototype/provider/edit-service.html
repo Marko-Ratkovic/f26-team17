@@ -24,14 +24,14 @@
                         <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" aria-current="page" class="nav-link fw-bold"
+                        <a href="manage-services.html" class="nav-link fw-bold"
                             style="border-bottom: 1px solid;">My Services</a>
                     </li>
                     <li class="nav-item">
                         <a href="booking.html" class="nav-link under-scored">My Clients</a>
                     </li>
                     <li class="nav-item">
-                        <a href="reviews.html" class="nav-link under-scored">Profile</a>
+                        <a href="profile.html" class="nav-link under-scored">Profile</a>
                     </li>
                     <li class="nav-item">
                         <a href="../index.html" class="nav-link fw-bold">Log out</a>
@@ -41,9 +41,55 @@
         </nav>
 
 
+        <!--Edit Service Form-->
+        <section class="section">
+            <div class="container" style="max-width: 700px;">
+                <div class="card rounded-4">
+                    <div class="card-content">
+                        <div class="card-title text-center align-items-center gap-2 mt-4">
+                            <h2>Edit service detail</h2>
+                            <p class="text-secondary sm ">Update the details of your service</p>
+
+                        </div>
+                        <form class="provider-form">
+                            <div class="mb-3">
+                                <div class="text-center">
+                                    <img src="../images/pedicure.jpg" class="img-fluid rounded mb-3 w-100 object-fit-cover" style="max-width: 450px; max-height: 300px;">
+                                </div>
+                                <label for="svImg" class="form-label fw-bold">Replace Service's Image</label>
+                                <input class="form-control" type="file" id="svImg">
+                            </div>
+                            <div class="mb-3">
+                                <label for="svName" class="form-label fw-bold">Service Name</label>
+                                <input type="text" class="form-control" id="svName" placeholder="Pedicure">
+                            </div>
+                            <div class="mb-3">
+                                <label for="svDescript" class="form-label fw-bold">Description</label>
+                            <textarea class="form-control" id="svDescript" rows="3" placeholder="Foot spa treatment with nail care include lotion, hot towel, and polish."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="svDuration" class="form-label fw-bold">Duration (mins)</label><br>
+                                <input type="number" class="form-control" id="svDuration" placeholder="30">
+                            </div>
+                            <div class="mb-3">
+                                <label for="svPrice" class="form-label fw-bold">Price ($)</label>
+                                <input type="tel" class="form-control" id="svPrice" placeholder="$45">
+                            </div>
+                            <div class="d-flex justify-content-end align-items-center gap-2 mt-4">
+                                <button type="submit" class="btn btn-dark">Save changes</button>
+                                <a href="manage-services.html">
+                                    <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
 
 
-<!--Footer-->
+
+        <!--Footer-->
         <footer>
             <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.
             </p>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Services - Glow Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="sticky-top">
+            <div class="navbar">
+                <a href="../index.html" class="navbar-brand mb-2">
+                    <img src="../images/logo.png" alt="" class="img-fluid logo" style="width: 150px; height: 50px;">
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="browse-services.html" aria-current="page" class="nav-link fw-bold"
+                            style="border-bottom: 1px solid;">Browse Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="my-appointments.html" class="nav-link under-scored">My Appointments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.html" class="nav-link under-scored">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link fw-bold">Log out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Browse Services Header -->
+        <section class="section ">
+            <div class="container">
+                <div class="browse-services-header">
+                    <div class="browse-services-title">Browse Our Providers</div>
+                    <div class="browse-services-subtitle">Browse certified beauty professionals and book the service that's right for you</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="section">
+            <div class="container">
+                <div class="filter-card">
+                    <h3 class="filter-title">Filter Providers</h3>
+                    <div class="grid grid-4">
+                        <div>
+                            <label>Service</label>
+                            <select>
+                                <option>All Services</option>
+                                <optgroup label="Hair Styling">
+                                    <option>Haircuts</option>
+                                    <option>Hair Colorings</option>
+                                    <option>Hair Extensions</option>
+                                </optgroup>
+                                <optgroup label="Nail Care">
+                                    <option>Nail Paintings</option>
+                                    <option>Manicures</option>
+                                    <option>Pedicures</option>
+                                </optgroup>
+                                <optgroup label="Makeup Artistry">
+                                    <option>Makeup Applications</option>
+                                    <option>Consultations</option>
+                                </optgroup>
+                                <optgroup label="Skincare">
+                                    <option>Skincare Treatments</option>
+                                    <option>Consultations</option>
+                                </optgroup>
+                                <optgroup label="Brows & Lashes">
+                                    <option>Brow Shaping</option>
+                                    <option>Lash Extensions</option>
+                                </optgroup>
+                                <optgroup label="Hair Removal & Body Grooming">
+                                    <option>Waxing</option>
+                                    <option>Tanning</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Availability</label>
+                            <select>
+                                <option>Any Time</option>
+                                <optgroup label="Weekdays">
+                                    <option>Monday</option>
+                                    <option>Tuesday</option>
+                                    <option>Wednesday</option>
+                                    <option>Thursday</option>
+                                    <option>Friday</option>
+                                </optgroup>
+                                <optgroup label="Weekends">
+                                    <option>Saturday</option>
+                                    <option>Sunday</option>
+                                </optgroup>
+                                <optgroup label="Times">
+                                    <option>9:00 AM - 12:00 PM</option>
+                                    <option>12:00 PM - 3:00 PM</option>
+                                    <option>3:00 PM - 6:00 PM</option>
+                                    <option>6:00 PM - 9:00 PM</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Minimum Rating</label>
+                            <select>
+                                <option>Any Rating</option>
+                                <option>4.8+ Stars</option>
+                                <option>4.5+ Stars</option>
+                                <option>4.0+ Stars</option>
+                                <option>3.5+ Stars</option>
+                            </select>
+                        </div>
+                        <div class="filter-btn-wrap">
+                            <button class="btn filter-apply-btn">Apply Filters</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Providers Grid -->
+        <section class="section">
+            <div class="container">
+                <div class="grid grid-3">
+                    
+                    <!-- Provider 1 -->
+                    <div class="provider-card">
+                        <div class="provider-image">
+                            <img class="card-img-top" src="../images/haircut.jpg" alt="Brian Davis" />
+                        </div>
+                        <div class="provider-info">
+                            <h3 class="provider-name">Brian Davis</h3>
+                            <p class="provider-specialty">Haircuts, Hair Colorings</p>
+                            <p class="provider-bio">Brian is a licensed hairstylist with over 10 years of experience. He specializes in modern haircuts and expert hair coloring for both men and women.</p>
+                            <p class="provider-availability">Available: Weekdays Evenings</p>
+                            <p class="fw-bold">Rating: 4.9/5 (40 reviews)</p>
+                            <p class="provider-cost">Cost: $20/appointment</p>
+                            <div class="d-flex gap-2 mt-3">
+                                <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Provider 2 -->
+                    <div class="provider-card">
+                        <div class="provider-image">
+                            <img class="card-img-top" src="../images/nail-painting.jpg" alt="Laura Johnson" />
+                        </div>
+                        <div class="provider-info">
+                            <h3 class="provider-name">Laura Johnson</h3>
+                            <p class="provider-specialty">Nail Paintings, Manicures, Pedicures</p>
+                            <p class="provider-bio">Laura is a licensed nail technician with over 5 years of experience. She specializes in long-lasting nail art as well as classic manicures and pedicures.</p>
+                            <p class="provider-availability">Available: Weekdays Afternoons</p>
+                            <p class="fw-bold">Rating: 4.7/5 (20 reviews)</p>
+                            <p class="provider-cost">Cost: $45/appointment</p>
+                            <div class="d-flex gap-2 mt-3">
+                                <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Provider 3 -->
+                    <div class="provider-card">
+                        <div class="provider-image">
+                            <img class="card-img-top" src="../images/makeup.jpg" alt="Sarah Williams" />
+                        </div>
+                        <div class="provider-info">
+                            <h3 class="provider-name">Sarah Williams</h3>
+                            <p class="provider-specialty">Makeup Applications, Consultations</p>
+                            <p class="provider-bio">Sarah is a professional makeup artist with over 8 years of experience. She specializes in flawless makeup for any occasion, plus personalized consultations.</p>
+                            <p class="provider-availability">Available: Weekdays Mornings</p>
+                            <p class="fw-bold">Rating: 5/5 (30 reviews)</p>
+                            <p class="provider-cost">Cost: $100/appointment</p>
+                            <div class="d-flex gap-2 mt-3">
+                                <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Second Providers Grid -->
+        <section class="section">
+            <div class="container">
+                <div class="grid grid-3">
+                    
+                    <!-- Provider 4 -->
+                    <div class="provider-card">
+                        <div class="provider-image">
+                            <img class="card-img-top" src="../images/skincare.jpg" alt="Emily Brown" />
+                        </div>
+                        <div class="provider-info">
+                            <h3 class="provider-name">Emily Willison</h3>
+                            <p class="provider-specialty">Skincare Treatments, Consultations</p>
+                            <p class="provider-bio">Emily is a licensed esthetician with over 6 years of experience. She specializes in personalized skincare treatments and 
+                                consultations for all skin types.
+                            </p>
+                            <p class="provider-availability">Available: Mondays and Wednesdays Mornings through Afternoons</p>
+                            <p class="fw-bold">Rating: 4.9/5 (25 reviews)</p>
+                            <p class="provider-cost">Cost: $110/appointment</p>
+                            <div class="d-flex gap-2 mt-3">
+                                <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Provider 5 -->
+                    <div class="provider-card">
+                        <div class="provider-image">
+                            <img class="card-img-top" src="../images/browlash.jpg" alt="Jessica Davis" />
+                        </div>
+                        <div class="provider-info">
+                            <h3 class="provider-name">Jessica Davis</h3>
+                            <p class="provider-specialty">Eyebrow Shaping, Lash Extensions</p>
+                            <p class="provider-bio">Jessica is a certified brow and lash specialist with over 5 years of experience. She specializes in precision brow 
+                                shaping and long-lasting lash extensions.
+                            </p>
+                            <p class="provider-availability">Available: Saturdays and Sundays 2:00 PM - 5:00 PM</p>
+                            <p class="fw-bold">Rating: 4.8/5 (15 reviews)</p>
+                            <p class="provider-cost">Cost: $60/appointment</p>
+                            <div class="d-flex gap-2 mt-3">
+                                <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Provider 6 -->
+                    <div class="provider-card">
+                        <div class="provider-image">
+                            <img class="card-img-top" src="../images/customer-waxing.jpg" alt="Erica Nyguen" />
+                        </div>
+                        <div class="provider-info">
+                            <h3 class="provider-name">Erica Nyguen</h3>
+                            <p class="provider-specialty">Waxing, Tanning</p>
+                            <p class="provider-bio">Erica is a licensed waxing specialist with over 4 years of experience. She specializes in precision waxing for men and women, 
+                                plus safe, effective tanning.
+                            </p>
+                            <p class="provider-availability">Available: Tuesdays and Thursdays 9:00 AM - 3:00 PM</p>
+                            <p class="fw-bold">Rating: 4.5/5 (30 reviews)</p>
+                            <p class="provider-cost">Cost: $35/appointment</p>
+                            <div class="d-flex gap-2 mt-3">
+                                <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="sticky-top">
+            <div class="navbar">
+                <a href="../index.html" class="navbar-brand mb-2">
+                    <img src="../images/logo.png" alt="" class="img-fluid logo" style="width: 150px; height: 50px;">
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="manage-services.html" class="nav-link under-scored">My Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="booking.html" class="nav-link under-scored">My Clients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.html" aria-current="page" class="nav-link fw-bold"
+                            style="border-bottom: 1px solid;">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link fw-bold">Log out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!--Header-->
+        <section class="section" style="background-color: #d6c5b6;">
+            <div class="container p-4">
+                <h1 style="font-size: 2rem; font-weight: 700;">Edit Personal Information</h1>
+                <p class="text-muted">Update your personal details below</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container" style="max-width: 700px;">
+                <div class="card rounded-4">
+                    <div class="card-content">
+                        <form class="provider-form">
+                            <div class="mb-3">
+                                <label for="firstName" class="form-label fw-bold">First Name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="Michelle">
+                            </div>
+                            <div class="mb-3">
+                                <label for="lasttName" class="form-label fw-bold">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Thompson">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label fw-bold">Email</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="michelle@example.com">
+                            </div>
+                            <div class="mb-3">
+                                <label for="phoneNumb" class="form-label fw-bold">Phone</label>
+                                <input type="tel" class="form-control" id="phoneNumb" placeholder="+1 (336) 123-4567">
+                            </div>
+                            <div class="d-flex justify-content-end align-items-center gap-2 mt-4">
+                                <button type="submit" class="btn btn-dark">Save changes</button>
+                                <a href="profile.html">
+                                    <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <!--Footer-->
+        <footer>
+            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.
+            </p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+        </script>
+</body>
+
+</html>

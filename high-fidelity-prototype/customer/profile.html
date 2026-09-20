@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Glow Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="sticky-top">
+            <div class="navbar">
+                <a href="../index.html" class="navbar-brand mb-2">
+                    <img src="../images/logo.png" alt="" class="img-fluid logo" style="width: 150px; height: 50px;">
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="browse-services.html" class="nav-link under-scored">Browse Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="my-appointments.html" class="nav-link under-scored">My Appointments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.html" aria-current="page" class="nav-link fw-bold" style="border-bottom: 1px solid;">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link fw-bold">Log out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- My Profile header -->
+        <section class="section ">
+            <div class="container">
+                <div class="my-profile-header">
+                    <div class="my-profile-title">My Profile</div>
+                    <div class="my-profile-subtitle">View and update your account information</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Profile Content -->
+        <section class="section">
+            <div class="container" style="max-width: 800px;">
+
+                <!-- Personal Information Card -->
+                <div class="card profile-card">
+                    <div class="profile-card-header">
+                        <h2 class="profile-card-title">Personal Information</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="grid grid-2">
+                            <div>
+                                <p class="profile-field-label">First Name</p>
+                                <p class="profile-field-value">Linda</p>
+                            </div>
+                            <div>
+                                <p class="profile-field-label">Last Name</p>
+                                <p class="profile-field-value">Johnson</p>
+                            </div>
+                            <div>
+                                <p class="profile-field-label">Email</p>
+                                <p class="profile-field-value">linda@example.com</p>
+                            </div>
+                            <div>
+                                <p class="profile-field-label">Phone</p>
+                                <p class="profile-field-value">+1 (336) 456-7890</p>
+                            </div>
+                        </div>
+                        <button class="btn profile-edit-btn" onclick="window.location.href='edit-info.html'">Edit Personal Info</button>
+                    </div>
+                </div>
+
+                <!-- Allergies and Sensitivities Card -->
+                <div class="card profile-card">
+                    <div class="profile-card-header">
+                        <h2 class="profile-card-title">Allergies and Sensitivities</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="grid grid-2">
+                            <div>
+                                <p class="profile-field-label">Allergies</p>
+                                <p class="profile-field-value">PPD, Acrylic/gel</p>
+                            </div>
+                            <div>
+                                <p class="profile-field-label">Sensitivities</p>
+                                <p class="profile-field-value">Sensitive skin, Thin/weak nails</p>
+                            </div>
+                        </div>
+                        <button class="btn profile-edit-btn" onclick="window.location.href='edit-allergies.html'">Edit Allergies and Sensitivities</button>
+                    </div>
+                </div>
+
+                <!-- Preferences Card -->
+                <div class="card profile-card">
+                    <div class="profile-card-header">
+                        <h2 class="profile-card-title">Preferences</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="grid grid-2">
+                            <div>
+                                <p class="profile-field-label">Preferred Service(s)</p>
+                                <p class="profile-field-value">Haircuts, Nail Care</p>
+                            </div>
+                            <div>
+                                <p class="profile-field-label">Preferred Provider(s)</p>
+                                <p class="profile-field-value">Brian Davis</p>
+                            </div>
+                            <div>
+                                <p class="profile-field-label">Preferred Appointment Time(s)</p>
+                                <p class="profile-field-value">Weekdays, 11 AM - 7 PM</p>
+                            </div>
+                            <div>
+                                <p class="profile-field-label">Communication Preference(s)</p>
+                                <p class="profile-field-value">Email & Text Reminders</p>
+                            </div>
+                        </div>
+                        <button class="btn profile-edit-btn" onclick="window.location.href='edit-preferences.html'">Edit Preferences</button>
+                    </div>
+                </div>
+
+                <!-- Active Providers Card -->
+                <div class="card profile-card">
+                    <div class="profile-card-header">
+                        <h2 class="profile-card-title">Your Providers</h2>
+                    </div>
+                    <div class="card-content">
+                        <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--medium-gray);">
+                            <p style="font-weight: 600; margin-bottom: 0.25rem;">Brian Davis - Haircuts</p>
+                            <p class="text-muted" style="font-size: 0.9rem;">3 sessions completed • Rating: 5/5</p>
+                        </div>
+                        <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--medium-gray);">
+                            <p style="font-weight: 600; margin-bottom: 0.25rem;">Laura Johnson - Nail Painting</p>
+                            <p class="text-muted" style="font-size: 0.9rem;">5 sessions completed • Rating: 5/5</p>
+                        </div>
+                        <div>
+                        <p style="font-weight: 600; margin-bottom: 0.25rem;">Sarah Williams - Makeup Application</p>
+                        <p class="text-muted" style="font-size: 0.9rem;">2 sessions completed • Rating: 5/5</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Account Settings Card -->
+                <div class="card profile-card">
+                    <div class="profile-card-header">
+                        <h2 class="profile-card-title">Account Settings</h2>
+                    </div>
+                    <div class="card-content">
+                        <button class="btn settings-btn" onclick="alert('Change password clicked')">Change Password</button>
+                        <button class="btn settings-btn" onclick="alert('Notification settings clicked')">Notification Settings</button>
+                        <button class="btn settings-btn" onclick="alert('Privacy settings clicked')">Privacy Settings</button>
+                        <button class="btn settings-btn settings-btn-danger" onclick="alert('Delete account - account will be deleted')">Delete Account</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

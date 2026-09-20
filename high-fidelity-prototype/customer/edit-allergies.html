@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Allergies and Sensitivities - Glow Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="sticky-top">
+            <div class="navbar">
+                <a href="../index.html" class="navbar-brand mb-2">
+                    <img src="../images/logo.png" alt="" class="img-fluid logo" style="width: 150px; height: 50px;">
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="browse-services.html" class="nav-link under-scored">Browse Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="my-appointments.html" class="nav-link under-scored">My Appointments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.html" aria-current="page" class="nav-link fw-bold" style="border-bottom: 1px solid;">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link fw-bold">Log out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Edit Allergies and Sensitivities header -->
+        <section class="section ">
+            <div class="container">
+                <div class="edit-info-header">
+                    <div class="edit-info-title">Edit Allergies and Sensitivities</div>
+                    <div class="edit-info-subtitle">Update your allergy and sensitivity information below</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Edit Allergies and Sensitivities Form -->
+        <section class="section">
+            <div class="container" style="max-width: 600px;">
+                <div class="card profile-card">
+                    <div class="profile-card-header">
+                        <h2 class="profile-card-title">Edit Allergies and Sensitivities</h2>
+                    </div>
+                    <div class="card-content">
+                        <form id="editAllergiesForm">
+                            <div class="form-group">
+                                <label for="allergies">Allergies</label>
+                                <input type="text" id="allergies" placeholder="e.g., PPD, Acrylic/gel" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="sensitivities">Sensitivities</label>
+                                <input type="text" id="sensitivities" placeholder="e.g., Sensitive skin, Thin/weak nails" required>
+                            </div>
+                            <button type="button" onclick="window.location.href='profile.html'" class="btn settings-btn settings-btn-sm">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

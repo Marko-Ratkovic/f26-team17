@@ -73,7 +73,7 @@ nav{
     color: var(--text-dark);
     text-decoration: none;
     padding: 4px;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .under-scored:hover{
@@ -276,10 +276,12 @@ nav{
 }
 
 /*provider-dashboard*/
-.dashboard-header{
+.dashboard-header,
+.manage-services-header{
     display: flex;
     justify-content: space-between;
 }
+
 
 .badge.rounded-pill{
     background-color: var(--primary-light);
@@ -353,10 +355,21 @@ nav{
 }
 
 .business-stat .card:hover,
-.reviews .card:hover{
+.reviews .card:hover,
+.service-grid .card:hover,
+.provider-profile .card:hover{
     transform: translateY(-1px);
     box-shadow: 0 12px 24px rgba(0,0,0,0.15);
 }
+
+.provider-profile .card .card-header{
+    background-color: #cfddee;
+}
+
+.provider-profile .card{
+    box-shadow: 0 2px 8px #8ea7c4;
+}
+
 
 footer{
     bottom: 0;

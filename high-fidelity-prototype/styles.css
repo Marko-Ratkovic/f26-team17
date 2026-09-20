@@ -22,7 +22,7 @@
 }
 
 body{
-    font-family: 'Gordita Medium', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     background: var(--background-light);
     min-height: 100vh;
 }
@@ -493,12 +493,29 @@ textarea:focus {
     box-shadow: 0 12px 24px rgba(0,0,0,0.15);
 }
 
+
 .provider-profile .card .card-header{
-    background-color: #cfddee;
+    background-color: #eecbaf;
 }
 
 .provider-profile .card{
-    box-shadow: 0 2px 8px #8ea7c4;
+    box-shadow: 0 2px 8px #ebbfa6;
+}
+
+.setting-btn{
+  padding: 10px 20px;
+  text-align: left;
+  outline: 2px;
+  border-width: 2px;
+}
+
+.provider-form{
+  padding: 1.5rem 2rem;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+.provider-form input{
+  padding: 0.8rem;
 }
 
 

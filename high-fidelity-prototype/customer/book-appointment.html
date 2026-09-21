@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - Glow Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="sticky-top">
+            <div class="navbar">
+                <a href="../index.html" class="navbar-brand mb-2">
+                    <img src="../images/logo.png" alt="" class="img-fluid logo" style="width: 150px; height: 50px;">
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="browse-services.html" aria-current="page" class="nav-link fw-bold"
+                            style="border-bottom: 1px solid;">Browse Services & Providers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="my-appointments.html" class="nav-link under-scored">My Appointments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.html" class="nav-link under-scored">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link fw-bold">Log out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Book Appointments Header -->
+        <section class="section ">
+            <div class="container">
+                <div class="book-appointment-header">
+                    <div class="book-appointment-title">Book an Appointment with Brian Davis</div>
+                    <div class="book-appointment-subtitle">Select a time and date slot from Brian's availability that works for you</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Available Appointments -->
+        <section class="section">
+            <div class="mb-3">
+                <a href="browse-services.html" class="btn btn-appt-secondary">&larr; Back to Browse Services & Providers</a>
+            </div>
+            
+            <!-- Appointment Listing 1 -->
+            <div class="customer-appt-item">
+                <h3 class="customer-appt-title">Hair Coloring</h3>
+                <span class="customer-appt-status-badge">Available</span>
+
+                <div class="row g-2 mt-3">
+                    <div class="col-md-6">
+                        <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Friday, Oct 3 • 5:00 PM</span></div>
+                        <div class="mt-2"><span class="fw-bold">Location:</span> <span class="text-muted">Downtown Salon</span></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div><span class="fw-bold">Duration:</span> <span class="text-muted">2 hours</span></div>
+                        <div class="mt-2"><span class="fw-bold">Price:</span> <span class="text-accent">$75</span></div>
+                    </div>
+                </div>
+                
+                <div class="d-flex gap-2 mt-4">
+                    <button type="button" class="btn btn-appt-primary" onclick="confirmBooking()">Confirm Booking</button>
+                </div>
+            </div>
+
+            <!-- Appointment Listing 2 -->
+            <div class="customer-appt-item">
+                <h3 class="customer-appt-title">Haircut</h3>
+                <span class="customer-appt-status-badge">Available</span>
+
+                <div class="row g-2 mt-3">
+                    <div class="col-md-6">
+                        <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Saturday, Oct 4 • 6:00 PM</span></div>
+                        <div class="mt-2"><span class="fw-bold">Location:</span> <span class="text-muted">Downtown Salon</span></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div><span class="fw-bold">Duration:</span> <span class="text-muted">15 minutes</span></div>
+                        <div class="mt-2"><span class="fw-bold">Price:</span> <span class="text-accent">$20</span></div>
+                    </div>
+                </div>
+                
+                <div class="d-flex gap-2 mt-4">
+                    <button type="button" class="btn btn-appt-primary" onclick="confirmBooking()">Confirm Booking</button>
+                </div>
+            </div>
+
+            <!-- Appointment Listing 3 -->
+            <div class="customer-appt-item">
+                <h3 class="customer-appt-title">Haircut</h3>
+                <span class="customer-appt-status-badge">Available</span>
+
+                <div class="row g-2 mt-3">
+                    <div class="col-md-6">
+                        <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Saturday, Oct 4 • 6:15 PM</span></div>
+                        <div class="mt-2"><span class="fw-bold">Location:</span> <span class="text-muted">Downtown Salon</span></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div><span class="fw-bold">Duration:</span> <span class="text-muted">15 minutes</span></div>
+                        <div class="mt-2"><span class="fw-bold">Price:</span> <span class="text-accent">$20</span></div>
+                    </div>
+                </div>
+                
+                <div class="d-flex gap-2 mt-4">
+                    <button type="button" class="btn btn-appt-primary" onclick="confirmBooking()">Confirm Booking</button>
+                </div>
+            </div>
+            
+            <!-- Appointment Listing 4 -->
+            <div class="customer-appt-item">
+                <h3 class="customer-appt-title">Hair Coloring</h3>
+                <span class="customer-appt-status-badge">Available</span>
+
+                <div class="row g-2 mt-3">
+                    <div class="col-md-6">
+                        <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Saturday, Oct 4 • 6:30 PM</span></div>
+                        <div class="mt-2"><span class="fw-bold">Location:</span> <span class="text-muted">Downtown Salon</span></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div><span class="fw-bold">Duration:</span> <span class="text-muted">2 hours</span></div>
+                        <div class="mt-2"><span class="fw-bold">Price:</span> <span class="text-accent">$75</span></div>
+                    </div>
+                </div>
+                
+                <div class="d-flex gap-2 mt-4">
+                    <button type="button" class="btn btn-appt-primary" onclick="confirmBooking()">Confirm Booking</button>
+                </div>
+            </div>
+
+            <!-- Appointment Listing 5 -->
+            <div class="customer-appt-item">
+                <h3 class="customer-appt-title">Haircut</h3>
+                <span class="customer-appt-status-badge">Available</span>
+
+                <div class="row g-2 mt-3">
+                    <div class="col-md-6">
+                        <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Saturday, Oct 4 • 8:45 PM</span></div>
+                        <div class="mt-2"><span class="fw-bold">Location:</span> <span class="text-muted">Downtown Salon</span></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div><span class="fw-bold">Duration:</span> <span class="text-muted">15 minutes</span></div>
+                        <div class="mt-2"><span class="fw-bold">Price:</span> <span class="text-accent">$20</span></div>
+                    </div>
+                </div>
+                
+                <div class="d-flex gap-2 mt-4">
+                    <button type="button" class="btn btn-appt-primary" onclick="confirmBooking()">Confirm Booking</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+         <footer>
+            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.</p>
+        </footer>
+    </div>
+
+    <script>
+        function confirmBooking() {
+            alert("Your appointment has been booked successfully!");
+            window.location.href = "my-appointments.html"; // Redirect to My Appointments page
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

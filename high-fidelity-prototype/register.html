@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started - Glow Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="sticky-top">
+            <div class="navbar">
+                <a href="index.html" class="navbar-brand mb-2">
+                    <img src="images/logo.png" alt="Glow Up home" class="img-fluid logo"
+                        style="width: 150px; height: 50px;">
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="index.html#features" class="nav-link under-scored">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#how-it-works" class="nav-link under-scored">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="login.html" class="nav-link fw-bold pill-badge">Log in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="register.html" aria-current="page" class="nav-link fw-bold pill-badge">Get started</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="login-page section">
+            <div class="login-card signup-card">
+                <div class="login-card-intro">
+                    <p class="login-eyebrow">JOIN GLOW UP</p>
+                    <h1>Find your place in our beauty community.</h1>
+                    <p>Whether you are booking your next appointment or growing your beauty business, Glow Up helps you connect with the right people.</p>
+                </div>
+
+                <div class="login-form-wrap">
+                    <h2>Create your account</h2>
+                    <p class="login-form-subtitle">Choose an account type to get started.</p>
+
+                    <form>
+                        <fieldset class="role-selector">
+                            <legend>I am signing up as a</legend>
+                            <div class="role-options">
+                                <label class="role-option">
+                                    <input type="radio" name="signup-role" value="customer" checked>
+                                    <span>
+                                        <strong>Customer</strong>
+                                        <small>Discover and book beauty services</small>
+                                    </span>
+                                </label>
+                                <label class="role-option">
+                                    <input type="radio" name="signup-role" value="provider">
+                                    <span>
+                                        <strong>Provider</strong>
+                                        <small>Offer services and manage clients</small>
+                                    </span>
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-group">
+                            <label for="full-name">Full name</label>
+                            <input type="text" id="full-name" name="full-name" placeholder="Your full name"
+                                autocomplete="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signup-email">Email address</label>
+                            <input type="email" id="signup-email" name="email" placeholder="you@example.com"
+                                autocomplete="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" id="signup-password" name="password"
+                                placeholder="Create a password" autocomplete="new-password" minlength="8" required>
+                            <small class="form-help">Use at least 8 characters.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm password</label>
+                            <input type="password" id="confirm-password" name="confirm-password"
+                                placeholder="Re-enter your password" autocomplete="new-password" minlength="8" required>
+                        </div>
+
+                        <div id="customer-fields" class="signup-role-fields">
+                            <div class="form-group">
+                                <label for="customer-phone">Phone number <span class="optional-label">(optional)</span></label>
+                                <input type="tel" id="customer-phone" name="customer-phone"
+                                    placeholder="(555) 555-5555" autocomplete="tel">
+                            </div>
+                            <div class="form-group">
+                                <label for="service-interest">What service are you interested in?</label>
+                                <select id="service-interest" name="service-interest">
+                                    <option value="">Select a service</option>
+                                    <option>Hair Styling</option>
+                                    <option>Nail Care</option>
+                                    <option>Makeup Artistry</option>
+                                    <option>Skincare</option>
+                                    <option>Brows &amp; Lashes</option>
+                                    <option>Hair Removal &amp; Body Grooming</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="provider-fields" class="signup-role-fields">
+                            <div class="signup-section-heading">
+                                <h3>Tell clients about your services</h3>
+                                <p>This information helps customers find the right provider.</p>
+                            </div>
+                            <div class="signup-form-grid">
+                                <div class="form-group">
+                                    <label for="business-name">Business or professional name</label>
+                                    <input type="text" id="business-name" name="business-name"
+                                        placeholder="Your business name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="provider-service">Primary service</label>
+                                    <select id="provider-service" name="provider-service">
+                                        <option value="">Select a service</option>
+                                        <option>Hair Styling</option>
+                                        <option>Nail Care</option>
+                                        <option>Makeup Artistry</option>
+                                        <option>Skincare</option>
+                                        <option>Brows &amp; Lashes</option>
+                                        <option>Hair Removal &amp; Body Grooming</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="provider-experience">Years of experience</label>
+                                    <input type="number" id="provider-experience" name="provider-experience"
+                                        placeholder="e.g. 5" min="0" max="70">
+                                </div>
+                                <div class="form-group">
+                                    <label for="provider-phone">Business phone</label>
+                                    <input type="tel" id="provider-phone" name="provider-phone"
+                                        placeholder="(555) 555-5555" autocomplete="tel">
+                                </div>
+                                <div class="form-group">
+                                    <label for="provider-location">Service location</label>
+                                    <input type="text" id="provider-location" name="provider-location"
+                                        placeholder="City or salon name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="certification">Certification or license</label>
+                                    <input type="text" id="certification" name="certification"
+                                        placeholder="e.g. State cosmetology license">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="provider-bio">Professional bio</label>
+                                <textarea id="provider-bio" name="provider-bio" rows="4"
+                                    placeholder="Share your experience, specialties, and what clients can expect."></textarea>
+                                <small class="form-help">A short introduction helps customers feel confident booking with you.</small>
+                            </div>
+
+                            <div class="signup-section-heading availability-heading">
+                                <h3>Set your availability</h3>
+                                <p>Let customers know when you usually accept appointments. You can update this later.</p>
+                            </div>
+                            <div class="availability-panel">
+                                <div class="availability-group">
+                                    <h4>Days you are available</h4>
+                                    <div class="availability-options">
+                                        <label class="availability-option">
+                                            <input type="checkbox" name="available-days" value="monday">
+                                            <span>Monday</span>
+                                        </label>
+                                        <label class="availability-option">
+                                            <input type="checkbox" name="available-days" value="tuesday">
+                                            <span>Tuesday</span>
+                                        </label>
+                                        <label class="availability-option">
+                                            <input type="checkbox" name="available-days" value="wednesday">
+                                            <span>Wednesday</span>
+                                        </label>
+                                        <label class="availability-option">
+                                            <input type="checkbox" name="available-days" value="thursday">
+                                            <span>Thursday</span>
+                                        </label>
+                                        <label class="availability-option">
+                                            <input type="checkbox" name="available-days" value="friday">
+                                            <span>Friday</span>
+                                        </label>
+                                        <label class="availability-option">
+                                            <input type="checkbox" name="available-days" value="saturday">
+                                            <span>Saturday</span>
+                                        </label>
+                                        <label class="availability-option">
+                                            <input type="checkbox" name="available-days" value="sunday">
+                                            <span>Sunday</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="availability-group">
+                                    <h4>Typical appointment hours</h4>
+                                    <div class="availability-options availability-time-options">
+                                        <label class="availability-option">
+                                            <input type="checkbox" name="available-hours" value="morning">
+                                            <span>Morning <small>9 AM - 12 PM</small></span>
+                                        </label>
+                                        <label class="availability-option">
+                                            <input type="checkbox" name="available-hours" value="afternoon">
+                                            <span>Afternoon <small>12 PM - 5 PM</small></span>
+                                        </label>
+                                        <label class="availability-option">
+                                            <input type="checkbox" name="available-hours" value="evening">
+                                            <span>Evening <small>5 PM - 9 PM</small></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="terms" required>
+                            <label class="form-check-label" for="terms">
+                                I agree to the Glow Up terms and privacy policy.
+                            </label>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="button" class="btn btn-login">Create account</button>
+                        </div>
+                    </form>
+
+                    <p class="login-register-prompt signup-existing">
+                        Already have an account?
+                        <a href="login.html" class="login-link fw-bold">Log in</a>
+                    </p>
+
+                    <div class="login-role-links">
+                        <span>View demo dashboard:</span>
+                        <a href="customer/dashboard.html">Customer demo</a>
+                        <a href="provider/dashboard.html">Provider demo</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

@@ -110,6 +110,414 @@ nav{
     text-align: center;
 }
 
+/* Login */
+.login-page {
+  min-height: calc(100vh - 150px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.9fr) minmax(320px, 1.1fr);
+  width: min(900px, 100%);
+  overflow: hidden;
+  background-color: var(--background-neutral-medium);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-lg);
+}
+
+.login-card-intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.login-card-intro h1 {
+  margin-bottom: 1rem;
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+.login-card-intro p:last-child {
+  margin-bottom: 0;
+  line-height: 1.7;
+  opacity: 0.9;
+}
+
+.login-eyebrow {
+  margin-bottom: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15rem;
+}
+
+.login-form-wrap {
+  padding: 3rem;
+}
+
+.login-form-wrap h2 {
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.login-form-subtitle {
+  margin-bottom: 2rem;
+  color: var(--text-light);
+}
+
+.role-selector {
+  margin-bottom: 1.5rem;
+  padding: 0;
+  border: 0;
+}
+
+.role-selector legend {
+  margin-bottom: 0.75rem;
+  color: var(--text-dark);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.role-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.role-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  min-height: 72px;
+  margin: 0;
+  padding: 0.8rem;
+  border: 1px solid var(--background-neutral-strong);
+  border-radius: var(--border-radius);
+  background-color: white;
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.role-option:has(input:checked) {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(129, 119, 115, 0.15);
+}
+
+.role-option input {
+  margin-top: 0.2rem;
+  accent-color: var(--primary-color);
+}
+
+.role-option span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.role-option small,
+.form-help,
+.optional-label {
+  color: var(--text-light);
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.form-help {
+  display: block;
+  margin-top: 0.35rem;
+}
+
+.signup-card .login-form-wrap {
+  max-height: none;
+}
+
+.signup-card {
+  align-items: stretch;
+  width: min(1100px, 100%);
+  grid-template-columns: minmax(240px, 0.75fr) minmax(0, 1.25fr);
+}
+
+.signup-card .login-card-intro {
+  background: linear-gradient(145deg, var(--primary-color), var(--primary-dark));
+}
+
+.signup-card .login-form-wrap {
+  background-color: #f7f7f8;
+}
+
+.signup-role-fields {
+  display: block;
+}
+
+.signup-card:has(input[name="signup-role"][value="provider"]:checked) #customer-fields {
+  display: none;
+}
+
+.signup-card:has(input[name="signup-role"][value="customer"]:checked) #provider-fields {
+  display: none;
+}
+
+.signup-card:has(input[name="signup-role"][value="provider"]:checked) .signup-form-subtitle::after {
+  content: " Provider profiles include service details, credentials, and availability.";
+}
+
+.signup-section-heading {
+  margin: 1.75rem 0 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--background-neutral-strong);
+}
+
+.signup-section-heading h3 {
+  margin-bottom: 0.25rem;
+  color: var(--primary-color);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.signup-section-heading p {
+  margin-bottom: 0;
+  color: var(--text-light);
+  font-size: 0.85rem;
+}
+
+.signup-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 1rem;
+}
+
+.signup-form-grid > *,
+.availability-panel,
+.availability-group {
+  min-width: 0;
+}
+
+.signup-form-grid .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.signup-card textarea {
+  resize: vertical;
+  min-height: 105px;
+}
+
+.availability-heading {
+  margin-top: 2rem;
+}
+
+.availability-panel {
+  display: grid;
+  gap: 1.75rem;
+  margin: 1.25rem 0 2.25rem;
+  padding: 1.5rem;
+  border: 1px solid #d8d1cd;
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 10px rgba(57, 61, 63, 0.06);
+}
+
+.availability-group {
+  padding: 0.25rem 0 0.5rem;
+}
+
+.availability-group + .availability-group {
+  padding-top: 1.5rem;
+  border-top: 1px solid #e4dedb;
+}
+
+.availability-group h4 {
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.availability-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.availability-option {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 54px;
+  margin: 0;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid #d8d1cd;
+  border-radius: 10px;
+  background-color: #fbfaf9;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.availability-option:hover {
+  border-color: var(--primary-dark);
+  background-color: var(--primary-light);
+  box-shadow: 0 2px 6px rgba(57, 61, 63, 0.08);
+}
+
+.availability-option:has(input:checked) {
+  border-color: var(--primary-color);
+  background-color: #eee7e3;
+  box-shadow: 0 0 0 2px rgba(129, 119, 115, 0.12);
+}
+
+.availability-option input {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin: 0;
+  accent-color: var(--primary-color);
+  flex: 0 0 auto;
+}
+
+.availability-option span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.availability-option small {
+  color: var(--text-light);
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.availability-time-options {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.signup-existing {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
+.login-link {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.login-link:hover {
+  color: var(--dark-gray);
+  text-decoration: underline;
+}
+
+.form-check-input:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-login {
+  padding: 0.75rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 700;
+}
+
+.btn-login:hover {
+  background-color: var(--dark-gray);
+  color: white;
+}
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0 1.5rem;
+  color: var(--text-light);
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background-color: var(--background-neutral-strong);
+}
+
+.login-register-prompt {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.login-role-links {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+  border-top: 1px solid var(--background-neutral-strong);
+  color: var(--text-light);
+  font-size: 0.85rem;
+}
+
+.login-role-links a {
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-role-links a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+  .login-card {
+    grid-template-columns: 1fr;
+  }
+
+  .login-card-intro,
+  .login-form-wrap {
+    padding: 2rem;
+  }
+
+  .role-options {
+    grid-template-columns: 1fr;
+  }
+
+  .signup-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .availability-options,
+  .availability-time-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card-intro,
+  .login-form-wrap {
+    padding: 1.5rem;
+  }
+
+  .availability-panel {
+    gap: 1.25rem;
+    padding: 1rem;
+  }
+
+  .availability-options,
+  .availability-time-options {
+    grid-template-columns: 1fr;
+  }
+
+  .availability-option {
+    min-height: 52px;
+  }
+}
+
 /* Grid */
 .grid {
   display: grid;

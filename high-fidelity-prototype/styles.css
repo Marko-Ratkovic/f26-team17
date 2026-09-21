@@ -557,7 +557,7 @@ textarea:focus {
 }
 
 .business-stat .card:hover,
-.reviews .card:hover,
+.reviews > .card:hover,
 .service-grid .card:hover,
 .provider-profile .card:hover{
     transform: translateY(-1px);
@@ -589,6 +589,25 @@ textarea:focus {
   padding: 0.8rem;
 }
 
+.appt-list table tbody tr > th{
+  font-weight: 400;
+}
+
+.appt-list th,
+.appt-list td{
+  align-content: center;
+}
+
+.appt-list-btn button{
+  width: 100px;               /* Uniform width */
+  height: 38px;               /* Exact fixed height */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;        /* Keeps "View profile" on one line */
+  font-size: 0.875rem;
+  font-weight: 500;
+}
 
 footer{
     bottom: 0;

@@ -28,7 +28,7 @@
                         <a href="manage-services.html" class="nav-link under-scored">My Services</a>
                     </li>
                     <li class="nav-item">
-                        <a href="booking.html" class="nav-link under-scored">My Clients</a>
+                        <a href="appoinment.html" class="nav-link under-scored">My Appointments</a>
                     </li>
                     <li class="nav-item">
                         <a href="profile.html" class="nav-link under-scored">Profile</a>
@@ -88,7 +88,7 @@
         <section class="section">
             <div class="d-flex justify-content-between align-items-center mt-3 py-2 mb-3">
                 <h2 class="fw-bold mb-0">Upcomming Appointments This Week</h2>
-                <a href="">
+                <a href="appoinment.html">
                     <button class="badge rounded-pill">Manage appointments</button>
                 </a>
             </div>
@@ -104,7 +104,8 @@
                             <button class="btn btn-link text-secondary p-0 appt-btn" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">&#8942;</button>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">View profile</a></li>
+                                <li><a class="dropdown-item" href="customer-info.html">View profile</a></li>
+                                <li><a class="dropdown-item" href="#">Reschedule</a></li>
                                 <li><a class="dropdown-item" href="#">Cancel appointment</a></li>
                             </ul>
                         </div>
@@ -136,7 +137,8 @@
                             <button class="btn btn-link text-secondary p-0 appt-btn" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">&#8942;</button>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">View profile</a></li>
+                                <li><a class="dropdown-item" href="customer-info.html">View profile</a></li>
+                                <li><a class="dropdown-item" href="#">Reschedule</a></li>
                                 <li><a class="dropdown-item" href="#">Cancel appointment</a></li>
                             </ul>
                         </div>
@@ -168,7 +170,8 @@
                             <button class="btn btn-link text-secondary p-0 appt-btn" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">&#8942;</button>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">View profile</a></li>
+                                <li><a class="dropdown-item" href="customer-info.html">View profile</a></li>
+                                <li><a class="dropdown-item" href="#">Reschedule</a></li>
                                 <li><a class="dropdown-item">Cancel appointment</a></li>
                             </ul>
                         </div>
@@ -241,7 +244,8 @@
             <div class="reviews">
                 <div class="d-flex justify-content-between mb-4">
                     <h2 class="fw-bold mb-0">Recent reviews</h2>
-                    <a href="" class="align-content-center text-decoration-none" style="color: var(--text-dark);">All reviews</a>
+                    <a href="#" class="align-content-center text-decoration-none" style="color: var(--text-dark);">All
+                        reviews</a>
                 </div>
                 <div class="card p-4 mb-3">
                     <div class="card-content">
@@ -255,6 +259,28 @@
                         <div>
                             <p>"Great service! Clean and friendly! All of my requirements for a fabulous nail salon!"</p>
                         </div>
+                        <div>
+                            <div class="d-flex justify-content-end mb-2">
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#reviewId1" aria-expanded="false"
+                                    aria-controls="reviewId1">
+                                        Reply
+                                </button>
+                            </div>
+                            <div class="collapse" id="reviewId1">
+                                <div class="card card-body">
+                                    <form>
+                                        <textarea class="form-control" id="reviewReply"></textarea>
+                                        <div class="d-flex justify-content-end mt-3 gap-2">
+                                        <button type="submit" class="btn btn-dark">Submit</button>
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="collapse"
+                                            data-bs-target="#reviewId1" aria-expanded="false">Cancel</button>
+                                    </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card p-4 mb-3">
@@ -267,7 +293,12 @@
                             <p class="text-muted" style="font-size: 0.8rem;">4 days ago</p>
                         </div>
                         <div>
-                            <p>""I have been a customer here for years! Very patient, attentive and kind. ALWAYS make sure you are HAPPY "</p>
+                            <p>""I have been a customer here for years! Very patient, attentive and kind. ALWAYS make
+                                sure you are HAPPY "</p>
+                        </div>
+                        <div class="card card-body">
+                            <p>Michelle T.</p>
+                            <textarea disabled class="p-3" id="reviewId2">Thank you for choosing my service! Hope to see you next time.</textarea>
                         </div>
                     </div>
                 </div>
@@ -281,7 +312,30 @@
                             <p class="text-muted" style="font-size: 0.8rem;">1 week ago</p>
                         </div>
                         <div>
-                            <p>"It was an awesome experience! Michelle is very kind and great at her jobs. Always making sure things were the right temp or pressure…"</p>
+                            <p>"It was an awesome experience! Michelle is very kind and great at her jobs. Always making
+                                sure things were the right temp or pressure…"</p>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-end mb-2">
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#reviewId3" aria-expanded="false"
+                                    aria-controls="reviewId3">
+                                        Reply
+                                </button>
+                            </div>
+                            <div class="collapse" id="reviewId3">
+                                <div class="card card-body">
+                                    <form>
+                                        <textarea class="form-control" id="reviewReply"></textarea>
+                                        <div class="d-flex justify-content-end mt-3 gap-2">
+                                        <button type="submit" class="btn btn-dark">Submit</button>
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="collapse"
+                                            data-bs-target="#reviewId3" aria-expanded="false">Cancel</button>
+                                    </div>
+                                    </form>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>

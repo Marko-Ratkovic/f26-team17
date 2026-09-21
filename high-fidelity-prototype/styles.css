@@ -754,8 +754,8 @@ textarea:focus {
   color: white;
 }
 
-/* Customer Dashboard */
-.customer-dashboard-header, .my-profile-header, .edit-info-header, .browse-services-header {
+/* Header, Title, and Subtitle styles */
+.customer-dashboard-header, .my-profile-header, .edit-info-header, .browse-services-header, .book-appointment-header {
   background: var(--primary-color);
   color: white;
   padding: 2rem;
@@ -763,13 +763,13 @@ textarea:focus {
   margin-bottom: 2rem;
 }
 
-.customer-dashboard-title, .my-profile-title, .edit-info-title, .browse-services-title {
+.customer-dashboard-title, .my-profile-title, .edit-info-title, .browse-services-title, .book-appointment-title {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
 
-.customer-dashboard-subtitle, .my-profile-subtitle, .edit-info-subtitle, .browse-services-subtitle {
+.customer-dashboard-subtitle, .my-profile-subtitle, .edit-info-subtitle, .browse-services-subtitle, .book-appointment-subtitle {
   opacity: 0.9;
 }
 

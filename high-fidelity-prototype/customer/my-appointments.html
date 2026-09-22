@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Appointments - Glow Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="sticky-top">
+            <div class="navbar">
+                <a href="../index.html" class="navbar-brand mb-2">
+                    <img src="../images/logo.png" alt="" class="img-fluid logo" style="width: 150px; height: 50px;">
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="browse-services.html" class="nav-link under-scored">Browse Services & Providers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="my-appointments.html" aria-current="page" class="nav-link fw-bold"
+                            style="border-bottom: 1px solid;">My Appointments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.html" class="nav-link under-scored">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link fw-bold">Log out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- My Appointments Header -->
+        <section class="section ">
+            <div class="container">
+                <div class="my-appointments-header">
+                    <div class="my-appointments-title">My Appointments</div>
+                    <div class="my-appointments-subtitle">Track, view, and manage your past and upcoming appointments</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Appointments Content -->
+        <section class="section">
+            <div class="container">
+                
+                <!-- Appointment Status Tabs -->
+                <ul class="nav appt-tabs mb-4" id="appointmentTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab">Upcoming (3)</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed" type="button" role="tab">Completed (2)</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="cancelled-tab" data-bs-toggle="tab" data-bs-target="#cancelled" type="button" role="tab">Cancelled (1)</button>
+                    </li>
+                </ul>
+
+                <!-- Appointment Cards -->
+                <div class="tab-content" id="appointmentTabsContent">
+                    <div class="tab-pane fade show active" id="upcoming" role="tabpanel">
+
+                        <!-- Upcoming Appointment Cards -->
+                        <div class="customer-appt-item">
+                            <!-- Appointment Card 1-->
+                            <h3 class="customer-appt-title">Haircut with Brian Davis</h3>
+                            <span class="customer-appt-status-badge">Scheduled</span>
+
+                            <div class="row g-2 mt-3">
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Friday, Sep 28 • 6:00 PM</span></div>
+                                    <div class="mt-2"><span class="fw-bold">Location:</span> <span class="text-muted">Downtown Salon</span></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Duration:</span> <span class="text-muted">15 minutes</span></div>
+                                    <div class="mt-2"><span class="fw-bold">Price:</span> <span class="text-accent">$20</span></div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 mt-4">
+                                <button type="button" class="btn btn-appt-secondary" onclick="alert('Rescheduled')">Reschedule</button>
+                                <button type="button" class="btn btn-appt-cancel" onclick="alert('Appointment canceled')">Cancel</button>
+                            </div>
+                        </div>
+
+                        
+                        <div class="customer-appt-item">
+                            <!-- Appointment Card 2 -->
+                            <h3 class="customer-appt-title">Nail Painting with Laura Johnson</h3>
+                            <span class="customer-appt-status-badge">Scheduled</span>
+
+                            <div class="row g-2 mt-3">
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Wednesday, Sep 30 • 2:00 PM</span></div>
+                                    <div class="mt-2"><span class="fw-bold">Location:</span> <span class="text-muted">Nail Studio</span></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Duration:</span> <span class="text-muted">30 minutes</span></div>
+                                    <div class="mt-2"><span class="fw-bold">Price:</span> <span class="text-accent">$45</span></div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 mt-4">
+                                <button type="button" class="btn btn-appt-secondary" onclick="alert('Rescheduled')">Reschedule</button>
+                                <button type="button" class="btn btn-appt-cancel" onclick="alert('Appointment canceled')">Cancel</button>
+                            </div>
+                        </div>
+
+                        <div class="customer-appt-item">
+                            <!-- Appointment Card 3 -->
+                            <h3 class="customer-appt-title">Makeup Application with Sarah Williams</h3>
+                            <span class="customer-appt-status-badge">Scheduled</span>
+
+                            <div class="row g-2 mt-3">
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Friday, Oct 9 • 11:00 AM</span></div>
+                                    <div class="mt-2"><span class="fw-bold">Location:</span> <span class="text-muted">The Beauty Bar</span></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Duration:</span> <span class="text-muted">1 hour</span></div>
+                                    <div class="mt-2"><span class="fw-bold">Price:</span> <span class="text-accent">$100</span></div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 mt-4">
+                                <button type="button" class="btn btn-appt-secondary" onclick="alert('Rescheduled')">Reschedule</button>
+                                <button type="button" class="btn btn-appt-cancel" onclick="alert('Appointment canceled')">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="completed" role="tabpanel">
+
+                        <!-- Completed Appointment Cards -->
+                        <div class="customer-appt-item">
+                            <!-- Appointment Card 1 -->
+                            <h3 class="customer-appt-title">Haircut with Brian Davis</h3>
+                            <span class="customer-appt-status-badge" style="background-color: green;">Completed</span>
+
+                            <div class="row g-2 mt-3">
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Thursday, Sep 17 • 6:00 PM</span></div>
+                                    <div class="mt-2"><span class="fw-bold">Your Rating:</span> <span class="text-muted">5/5 stars</span></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Duration:</span> <span class="text-muted">15 minutes</span></div>
+                                    <div class="mt-2"><span class="fw-bold">Your Review:</span> <span class="text-accent">Great service! Brian really listened to what I wanted and 
+                                        gave me the perfect cut.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 mt-4">
+                                <button type="button" class="btn btn-appt-primary" onclick="window.location.href='review.html'">View/Edit Review</button>
+                                <button type="button" class="btn btn-appt-secondary" onclick="window.location.href='book-appointment.html'">Book Again</button>
+                            </div>
+                        </div>
+
+                        <div class="customer-appt-item">
+                            <!-- Appointment Card 2 -->
+                            <h3 class="customer-appt-title">Tanning with Erica Nyguen</h3>
+                            <span class="customer-appt-status-badge" style="background-color: green;">Completed</span>
+
+                            <div class="row g-2 mt-3">
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Tuesday, Sep 15 • 12:00 PM</span></div>
+                                    <div class="mt-2"><span class="fw-bold">Your Rating:</span> <span class="text-muted">5/5 stars</span></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Duration:</span> <span class="text-muted">15 minutes</span></div>
+                                    <div class="mt-2"><span class="fw-bold">Your Review:</span> <span class="text-accent">Great service! Erica made sure the bed was set up 
+                                        perfectly and gave me great tips on timing.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 mt-4">
+                                <button type="button" class="btn btn-appt-primary" onclick="window.location.href='review.html'">View/Edit Review</button>
+                                <button type="button" class="btn btn-appt-secondary" onclick="window.location.href='book-appointment.html'">Book Again</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="cancelled" role="tabpanel">
+                        
+                        <!-- Cancelled Appointment Cards -->
+                        <div class="customer-appt-item">
+                            <!-- Appointment Card 1 -->
+                            <h3 class="customer-appt-title">Haircut with Brian Davis</h3>
+                            <span class="customer-appt-status-badge" style="background-color: red;">Cancelled</span>
+
+                            <div class="row g-2 mt-3">
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Original Date:</span> <span class="text-muted">Monday, Sep 14 • 6:00 PM</span></div>
+                                    <div class="mt-2"><span class="fw-bold">Refund Status:</span> <span class="text-muted">Refunded</span></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Canceled By:</span> <span class="text-muted">Customer</span></div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 mt-4">
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

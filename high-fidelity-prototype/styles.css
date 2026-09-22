@@ -990,8 +990,9 @@ textarea:focus {
 
 .provider-form{
   padding: 1.5rem 2rem;
-  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
 }
+
+
 
 .provider-form input{
   padding: 0.8rem;
@@ -1007,14 +1008,18 @@ textarea:focus {
 }
 
 .appt-list-btn button{
-  width: 100px;               /* Uniform width */
-  height: 38px;               /* Exact fixed height */
+  width: 100px;               
+  height: 38px;              
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  white-space: nowrap;        /* Keeps "View profile" on one line */
+  white-space: nowrap;        
   font-size: 0.875rem;
   font-weight: 500;
+}
+
+.provider-profile table input{
+  padding: 0;
 }
 
 footer{

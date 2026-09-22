@@ -33,7 +33,7 @@ GlowUp is a software that connects customers who needs theirs hairs, nails or ma
     3. **Manage customer's booking** -  Manage customer's booking slot including customer's information.
     4. **Reply to reviews** - Respond professionally to customer feedback.
 3. SysAdmin: (the user with the admin role if applicable):
-    1. **Manage user access** - Approve, suspend, or reinstate customer and provider accounts.
-    2. **Moderate services** - Control and moderate services and contend offered by provider for fraudulent and against policy .
-    3. **Moderate reviews** - Control and moderate reviews for both provider and customers validity after review.
-    4. **View usage statistics** - Manage and view sale volume, bookings and activities.    
+    1. **Manage user access** - Approve, suspend, or reinstate customer and provider accounts, review suspicious profiles, and maintain an audit log of access-related actions.
+    2. **Moderate services** - Review provider-offered services, approve or reject listings, remove fraudulent or policy-violating content, and maintain moderation audit logs.
+    3. **Moderate reviews** - Validate or remove inappropriate reviews for both providers and customers, investigate flagged feedback, and keep a record of moderation decisions.
+    4. **View usage statistics** - Monitor bookings, sales volume, provider activity, and overall platform usage trends while tracking admin actions and audit records for reporting and accountability.

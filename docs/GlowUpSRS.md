@@ -8,7 +8,7 @@
 
 ---
 ## 1. Overview
-**Vision.** GlowUp is a platform that pairs customers seeking needs hairs, nails, or makeup services with professional nail technicians, barbers, and makeup artists.
+**Vision.** GlowUp is a platform that pairs customers who needs hair, nail, or makeup services with professional nail technicians, barbers, and makeup artists.
 
 **Glossary** Terms used in the project
 - **Customer:** A person seeking professional nail technicians, barbers, or makeup artists.
@@ -107,7 +107,7 @@
     Then  <the services should be saved and visible to customers>
   ```
 
-  **US-7 — Manage customer's booking** \
+- **US-7 — Manage customer's booking** \
   *Story:* As a provider, I want to manage customer's booking slot so that I can be flexible with my schedule and customer’s schedule.
   *Acceptance:*
 
@@ -119,7 +119,7 @@
     And   <the customer should receive an automated notification reflecting the decision>
   ```
 
-**US-8 — Respond to reviews** \
+- **US-8 — Respond to reviews** \
   *Story:* As a provider, I want to respond to reviews, so that I can engage with customer.
   *Acceptance:*
 
@@ -188,7 +188,8 @@ so that I can manage and monitor platform growth.\
 ---
 
 ## 4. Assumptions, Constraints, and Policies
-- list any rules, policies, assumptions, etc.
+- Modern browsers (latest Chrome/Firefox/Edge/Safari) and stable connectivity.
+- Course timeline and campus infrastructure constraints apply.
 
 ---
 

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlowUp Admin - User Access</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-page">
+<div class="admin-shell">
+  <nav class="admin-nav">
+    <div class="navbar">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../images/logo.png" alt="GlowUp logo" class="admin-logo">
+      </a>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+        <li class="nav-item"><a href="users.html" class="nav-link active">User Access</a></li>
+        <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+        <li class="nav-item"><a href="reviews.html" class="nav-link">Reviews</a></li>
+        <li class="nav-item"><a href="analytics.html" class="nav-link">Usage Stats</a></li>
+        <li class="nav-item"><a href="../index.html" class="nav-link admin-logout">Log out</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="admin-header">
+    <div>
+      <div class="admin-subtitle">Admin controls</div>
+      <h1 class="admin-title">Manage user access</h1>
+    </div>
+    <div class="admin-actions">
+      <button type="button" class="admin-btn-secondary">Export account list</button>
+      <button type="button" class="admin-btn">+ Add admin note</button>
+    </div>
+  </header>
+
+  <section class="admin-panel">
+    <div class="panel-header">
+      <h2 class="panel-title">Account approvals</h2>
+    </div>
+    <div class="table-wrap">
+      <table class="admin-table">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Last activity</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Jordan Lee</td>
+          <td>Customer</td>
+          <td><span class="badge pending">Pending</span></td>
+          <td>Today</td>
+          <td>
+            <div class="action-group">
+              <button type="button" class="admin-btn-secondary">Approve</button>
+              <button type="button" class="admin-btn-danger">Reject</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Emma Torres</td>
+          <td>Provider</td>
+          <td><span class="badge approved">Active</span></td>
+          <td>2h ago</td>
+          <td>
+            <div class="action-group">
+              <button type="button" class="admin-btn-secondary">View</button>
+              <button type="button" class="admin-btn-danger">Flag</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Michael Hart</td>
+          <td>Customer</td>
+          <td><span class="badge flagged">Suspended</span></td>
+          <td>1 week ago</td>
+          <td>
+            <div class="action-group">
+              <button type="button" class="admin-btn-secondary">Review</button>
+              <button type="button" class="admin-btn">Reinstate</button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlowUp Admin - Service Moderation</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-page">
+<div class="admin-shell">
+  <nav class="admin-nav">
+    <div class="navbar">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../images/logo.png" alt="GlowUp logo" class="admin-logo">
+      </a>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+        <li class="nav-item"><a href="users.html" class="nav-link">User Access</a></li>
+        <li class="nav-item"><a href="services.html" class="nav-link active">Services</a></li>
+        <li class="nav-item"><a href="reviews.html" class="nav-link">Reviews</a></li>
+        <li class="nav-item"><a href="analytics.html" class="nav-link">Usage Stats</a></li>
+        <li class="nav-item"><a href="../index.html" class="nav-link admin-logout">Log out</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="admin-header">
+    <div>
+      <div class="admin-subtitle">Admin controls</div>
+      <h1 class="admin-title">Moderate services</h1>
+    </div>
+    <div class="admin-actions">
+      <button type="button" class="admin-btn-secondary">Export flagged items</button>
+      <button type="button" class="admin-btn">+ Review queue</button>
+    </div>
+  </header>
+
+  <section class="admin-panel">
+    <div class="panel-header">
+      <h2 class="panel-title">Service moderation queue</h2>
+    </div>
+    <div class="table-wrap">
+      <table class="admin-table">
+        <thead>
+        <tr>
+          <th>Service</th>
+          <th>Provider</th>
+          <th>Status</th>
+          <th>Violation</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Luxury Spa Set</td>
+          <td>Laura Gomez</td>
+          <td><span class="badge flagged">Flagged</span></td>
+          <td>Policy mismatch</td>
+          <td>
+            <div class="action-group">
+              <button type="button" class="admin-btn-secondary">Approve</button>
+              <button type="button" class="admin-btn-danger">Reject</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Signature Nail Art</td>
+          <td>Emma Torres</td>
+          <td><span class="badge pending">Pending</span></td>
+          <td>Awaiting review</td>
+          <td>
+            <div class="action-group">
+              <button type="button" class="admin-btn-secondary">Review</button>
+              <button type="button" class="admin-btn-danger">Hide</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Bridal Makeup Package</td>
+          <td>Rachel Smith</td>
+          <td><span class="badge approved">Approved</span></td>
+          <td>None</td>
+          <td><button type="button" class="admin-btn-secondary">Details</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+</body>
+</html>

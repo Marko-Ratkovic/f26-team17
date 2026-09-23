@@ -1,0 +1,72 @@
+.login-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.login-logo {
+    width: 150px;
+    height: 50px;
+}
+
+.login-container .nav-link.active,
+.login-container .nav-link.active-link {
+    font-weight: 700;
+}
+
+.login-page .login-card {
+    grid-template-columns: 40% 60%;
+    width: 900px;
+    max-width: 100%;
+}
+
+.password-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.password-row label {
+    margin-bottom: 0.5rem;
+}
+
+.remember-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.remember-row label {
+    margin-bottom: 0;
+}
+
+.remember-row input {
+    accent-color: var(--primary-color);
+}
+
+.login-button {
+    display: block;
+}
+
+.login-button button {
+    width: 100%;
+}
+
+.login-page .role-options {
+    grid-template-columns: 1fr 1fr;
+}
+
+.btn-login {
+    display: block;
+}
+
+.create-account {
+    font-weight: 700;
+}
+
+@media (max-width: 700px) {
+    .login-page .login-card {
+        grid-template-columns: 1fr;
+    }
+}

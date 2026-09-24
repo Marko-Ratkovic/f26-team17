@@ -1055,6 +1055,14 @@ textarea:focus {
   padding: 0;
 }
 
+tr.tab-pane{
+  display: none;
+}
+
+tr.tab-pane.active{
+  display: table-row;
+}
+
 footer{
     bottom: 0;
     width: 100%;

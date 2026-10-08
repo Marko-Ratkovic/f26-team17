@@ -1,6 +1,6 @@
 # Provider Workflow Design
 
-This note describes a proposed future Spring Boot implementation. Provider screens currently contain static examples only: they do not save profile or schedule changes, process bookings, verify credentials, send notifications, or enforce authorization. Confirm appointment cancellation, provider verification, and record-retention policies before launch.
+This note describes a proposed future Spring Boot implementation. Provider screens currently contain static examples only: they do not save profile or schedule changes, process bookings or payments, verify credentials, send notifications, or enforce authorization. Their fictional sample data is illustrative per screen and is not a synchronized fixture or shared source of truth. When the backend is implemented, replace these examples with consistent records loaded from the server. Confirm appointment cancellation, provider verification, and record-retention policies before launch.
 
 ## Domain boundaries
 
@@ -29,11 +29,13 @@ Keep private login/contact data separate from fields returned by customer search
 
 ## Appointment and schedule behavior
 
-Suggested appointment states are `REQUESTED`, `CONFIRMED`, `DECLINED`, `CANCELLED`, and `COMPLETED`. Define cancellation windows and who may transition a confirmed booking before implementation. Keep an append-only status history with the acting user and reason when applicable.
+Suggested appointment states are `REQUESTED`, `CONFIRMED`, `DECLINED`, `CANCELLED`, and `COMPLETED`. Customers submit a request for an available slot; the request is not a confirmed booking until the provider confirms it. The provider may decline a request. Define cancellation windows and who may transition a confirmed booking before implementation. Keep an append-only status history with the acting user and reason when applicable.
 
 Confirmation must run transactionally: verify the request is still actionable, the provider and approved service are active, and the slot is still available; reserve it with a database constraint or locking strategy; then commit the status transition. Send notifications only after the state change commits, using retry-safe delivery so notification failures do not fabricate or roll back booking state.
 
 Model weekly availability with an explicit time zone and effective dates. Reject invalid ranges and overlapping provider availability. Availability governs new requests; changing it must not silently cancel or move confirmed bookings. Define how holidays, buffers, travel time, and daylight-saving transitions work before launch.
+
+Payment processing is out of scope for this project. A request or confirmation must not collect, authorize, or imply a charge. Any future payment feature needs separately approved rules for payment timing, cancellations, refunds, disputes, taxes, and provider payouts.
 
 ## Access rules
 

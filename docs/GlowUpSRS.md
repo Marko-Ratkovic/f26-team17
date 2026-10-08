@@ -109,15 +109,25 @@
 ### 2.2 Provider Stories
 
 - **US-5 — Create and update provider profile** \
-  *Story:* As a provider, I want to create and update my profile so that customer can reach out to book my services.
+  *Story:* As a provider, I want to manage private account details separately from my public professional profile so customers can evaluate and contact me appropriately.
   *Acceptance:*
 
   ```gherkin
-  Scenario: <Create and update provider profile>
-    Given <I do not have a profile>
-    When  <I provide my details and submit the form>
-    Then  <my profile should be created>
-    And   <the profile should be visible to customers>
+  Scenario: Create a provider profile
+    Given I choose the Provider role during registration
+    When I submit valid account and professional profile information
+    Then my private account details are stored separately from public profile fields
+    And only approved public profile information is discoverable by customers
+    And any provider verification state is clearly shown to the provider
+  ```
+
+  ```gherkin
+  Scenario: Update public provider profile
+    Given I am authenticated as a provider
+    When I update my professional biography, service area, or credentials
+    Then the server validates and saves the update
+    And private contact details are not added to public search results
+    And credential claims are not presented as verified unless they have been checked
   ```
 
 - **US-6 — Define services and pricing** \
@@ -140,16 +150,35 @@
     And it should remain unavailable to customers until approved
   ```
 
-- **US-7 — Manage customer's booking** \
-  *Story:* As a provider, I want to manage customer's booking slot so that I can be flexible with my schedule and customer’s schedule.
+- **US-7 — Manage availability and appointments** \
+  *Story:* As a provider, I want to define weekly availability and manage booking requests so that customers can request realistic appointment times.
   *Acceptance:*
 
   ```gherkin
-  Scenario: <Manage booking>
-    Given <I am logged in as a provider>
-    When  <I need to confirm or cancel the booking>
-    Then  <the appointment status should update accordingly on my schedule>
-    And   <the customer should receive an automated notification reflecting the decision>
+  Scenario: Publish weekly availability
+    Given I am authenticated as a provider
+    When I set available time ranges for each day
+    Then the server validates the ranges and prevents overlapping availability
+    And new booking requests can use only available slots for approved services
+    And changing availability does not silently cancel existing confirmed appointments
+  ```
+
+  ```gherkin
+  Scenario: Confirm or decline a booking request
+    Given a customer has requested an available slot for an approved service
+    When I confirm or decline the request
+    Then the appointment transitions to Confirmed or Declined with an audit timestamp
+    And confirming reserves the slot atomically so it cannot be double-booked
+    And the customer receives a notification reflecting the outcome
+  ```
+
+  ```gherkin
+  Scenario: View customer appointment details
+    Given I am the provider assigned to a confirmed appointment
+    When I open its appointment details
+    Then I can see only the contact and private safety information needed for that appointment
+    And the server denies access to providers who are not assigned to the appointment
+    And the appointment remains in booking history when later cancelled or completed
   ```
 
 - **US-8 — Respond to reviews** \
@@ -212,7 +241,16 @@ the platform secure and enforce policies.\
 - Admins check service name, category, description, image, duration, price, and compliance with GlowUp's terms and safety expectations.
 - Approve compliant listings, request specific changes for fixable issues, and reject listings offering prohibited services.
 - A requested-change listing remains hidden until the provider resubmits it and it is approved.
+- Editing an already approved listing creates a pending revision; the currently approved version remains visible and unchanged until the revision is approved.
 - Show providers their current review status and any reason or requested changes. Keep the decision and reason in the moderation history.
+
+**Provider appointment and availability policy**
+- Booking requests, confirmed appointments, completed appointments, and cancellations are distinct states; preserve transitions and timestamps in history rather than deleting records.
+- Confirming a request must reserve the selected slot atomically. Notifications report committed state changes and must not be sent as if a failed transition succeeded.
+- Weekly availability governs new requests. Editing a schedule does not automatically move or cancel existing confirmed bookings.
+- Providers may access customer contact details and safety notes only through appointments assigned to them and only for the appointment status authorized by the service policy. Enforce this in the backend, not through UI visibility.
+- The prototype's October 2026 appointment examples are fictional and are not a live schedule, payment record, or provider commitment.
+
 **US-11 — Moderate reported reviews and replies** \
 *Story:* As a SysAdmin, I want to review reports about customer reviews and provider replies, so that I can address policy violations without delaying ordinary feedback.\
 *Acceptance:*

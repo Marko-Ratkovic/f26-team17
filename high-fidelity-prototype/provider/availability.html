@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Availability - GlowUp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="sticky-top" aria-label="Provider navigation">
+            <div class="navbar">
+                <a href="../index.html" class="navbar-brand mb-2"><img src="../images/logo.png" alt="GlowUp home" class="img-fluid logo" style="width: 150px; height: 50px;"></a>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link under-scored">Dashboard</a></li>
+                    <li class="nav-item"><a href="manage-services.html" class="nav-link under-scored">My Services</a></li>
+                    <li class="nav-item"><a href="appointments.html" class="nav-link under-scored">My Appointments</a></li>
+                    <li class="nav-item"><a href="profile.html" aria-current="page" class="nav-link fw-bold">Profile</a></li>
+                    <li class="nav-item"><a href="../index.html" class="nav-link fw-bold">Log out</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+            <section class="section"><div class="container"><div class="edit-info-header">
+                <h1 class="edit-info-title">Manage availability</h1>
+                <p class="edit-info-subtitle">Set the weekly hours when customers may request an appointment.</p>
+            </div></div></section>
+            <section class="section">
+                <div class="container">
+                    <div class="card profile-card">
+                        <div class="profile-card-header"><h2 class="profile-card-title">Weekly schedule</h2></div>
+                        <div class="card-content">
+                            <p class="profile-prototype-note" role="note">Prototype preview: schedule changes are not saved. Changes to availability do not cancel or move already confirmed appointments.</p>
+                            <form method="post">
+                                <div class="table-responsive">
+                                    <table class="table provider-schedule-table">
+                                        <caption class="visually-hidden">Provider weekly opening hours</caption>
+                                        <thead><tr><th scope="col">Day</th><th scope="col">Available</th><th scope="col">Opens</th><th scope="col">Closes</th></tr></thead>
+                                        <tbody>
+                                            <tr><th scope="row">Monday</th><td><input class="form-check-input" type="checkbox" id="monday-open" name="mondayOpen" checked><label class="visually-hidden" for="monday-open">Available Monday</label></td><td><label class="visually-hidden" for="monday-start">Monday opening time</label><input type="time" id="monday-start" name="mondayStart" value="09:30"></td><td><label class="visually-hidden" for="monday-end">Monday closing time</label><input type="time" id="monday-end" name="mondayEnd" value="18:30"></td></tr>
+                                            <tr><th scope="row">Tuesday</th><td><input class="form-check-input" type="checkbox" id="tuesday-open" name="tuesdayOpen" checked><label class="visually-hidden" for="tuesday-open">Available Tuesday</label></td><td><label class="visually-hidden" for="tuesday-start">Tuesday opening time</label><input type="time" id="tuesday-start" name="tuesdayStart" value="09:30"></td><td><label class="visually-hidden" for="tuesday-end">Tuesday closing time</label><input type="time" id="tuesday-end" name="tuesdayEnd" value="18:30"></td></tr>
+                                            <tr><th scope="row">Wednesday</th><td><input class="form-check-input" type="checkbox" id="wednesday-open" name="wednesdayOpen" checked><label class="visually-hidden" for="wednesday-open">Available Wednesday</label></td><td><label class="visually-hidden" for="wednesday-start">Wednesday opening time</label><input type="time" id="wednesday-start" name="wednesdayStart" value="09:30"></td><td><label class="visually-hidden" for="wednesday-end">Wednesday closing time</label><input type="time" id="wednesday-end" name="wednesdayEnd" value="18:30"></td></tr>
+                                            <tr><th scope="row">Thursday</th><td><input class="form-check-input" type="checkbox" id="thursday-open" name="thursdayOpen" checked><label class="visually-hidden" for="thursday-open">Available Thursday</label></td><td><label class="visually-hidden" for="thursday-start">Thursday opening time</label><input type="time" id="thursday-start" name="thursdayStart" value="09:30"></td><td><label class="visually-hidden" for="thursday-end">Thursday closing time</label><input type="time" id="thursday-end" name="thursdayEnd" value="18:30"></td></tr>
+                                            <tr><th scope="row">Friday</th><td><input class="form-check-input" type="checkbox" id="friday-open" name="fridayOpen" checked><label class="visually-hidden" for="friday-open">Available Friday</label></td><td><label class="visually-hidden" for="friday-start">Friday opening time</label><input type="time" id="friday-start" name="fridayStart" value="09:30"></td><td><label class="visually-hidden" for="friday-end">Friday closing time</label><input type="time" id="friday-end" name="fridayEnd" value="18:30"></td></tr>
+                                            <tr><th scope="row">Saturday</th><td><input class="form-check-input" type="checkbox" id="saturday-open" name="saturdayOpen" checked><label class="visually-hidden" for="saturday-open">Available Saturday</label></td><td><label class="visually-hidden" for="saturday-start">Saturday opening time</label><input type="time" id="saturday-start" name="saturdayStart" value="09:30"></td><td><label class="visually-hidden" for="saturday-end">Saturday closing time</label><input type="time" id="saturday-end" name="saturdayEnd" value="18:30"></td></tr>
+                                            <tr><th scope="row">Sunday</th><td><input class="form-check-input" type="checkbox" id="sunday-open" name="sundayOpen"><label class="visually-hidden" for="sunday-open">Available Sunday</label></td><td><label class="visually-hidden" for="sunday-start">Sunday opening time</label><input type="time" id="sunday-start" name="sundayStart" disabled></td><td><label class="visually-hidden" for="sunday-end">Sunday closing time</label><input type="time" id="sunday-end" name="sundayEnd" disabled></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p class="profile-helper">The live backend should reject closing times that are not after opening times, prevent overlapping availability ranges, and preserve existing bookings when hours change.</p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button type="submit" class="btn settings-btn settings-btn-sm" disabled>Save schedule (backend not connected)</button>
+                                    <a href="profile.html#provider-availability" class="btn btn-appt-secondary">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer><p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p></footer>
+    </div>
+</body>
+
+</html>

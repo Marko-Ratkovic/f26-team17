@@ -1,6 +1,6 @@
 # Customer Profile and Privacy Design
 
-This is a proposed design note for the future Spring Boot implementation. The current HTML prototype is static: it does not persist edits, authenticate requests, or enforce the access rules below. Confirm final retention periods and account-request timelines before launch.
+This is a proposed design note for the future Spring Boot implementation. The current HTML prototype is static: it does not persist edits, authenticate requests, or enforce the access rules below. The lifecycle rules below are recommended MVP defaults; the team must approve the retention schedule and service target before launch.
 
 ## Data ownership
 
@@ -32,9 +32,9 @@ Keep allergy status and details consistent: `KNOWN` requires at least one allerg
 
 ## Account lifecycle and retained history
 
-Model temporary deactivation and deletion requests as explicit states, not as a destructive delete button. Re-authenticate and confirm sensitive requests, record request status, explain how existing confirmed appointments will be handled, and prevent ambiguous partial processing.
+Model temporary deactivation and deletion requests as explicit states, not as a destructive delete button. Re-authenticate and confirm sensitive requests, record request status, explain how existing confirmed appointments will be handled, and prevent ambiguous partial processing. Acknowledge each request immediately and provide a status view. A proposed service target is to complete or explain a blocked request within 30 calendar days; make the target configurable and confirm it against applicable legal requirements before promising it publicly.
 
-Do not cascade-delete appointment, review, report, or moderation history when a user requests deletion. Before launch, GlowUp must define retention periods and purposes. When personal account details no longer need to be retained, remove or de-identify those details while preserving only the records required by the approved retention policy.
+Do not cascade-delete appointment, review, report, or moderation history when a user requests deletion. Do not invent a single blanket retention period: before launch, approve a record-class retention schedule that states each purpose, retention trigger, access, and deletion/de-identification action. Once a request is approved and outstanding appointments are resolved, remove or de-identify optional profile, preference, and safety-note data unless a documented legal or operational need requires retention. Keep only the minimum identity and audit metadata needed to honor the request and preserve records under that schedule; do not retain sensitive safety-note contents in account-request history.
 
 ## Spring Boot implementation boundary
 

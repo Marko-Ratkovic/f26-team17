@@ -34,9 +34,11 @@
 
 **Out of scope (deferred).**
 - Payment processing, provider payouts, refunds, and other automated financial policies
-- Complex rescheduling & Negotiations
+- Complex rescheduling and negotiation workflows
 
 Booking requests do not collect or authorize payment in this project. A customer selects an available slot and submits a request; the provider confirms or declines it. Only a confirmed appointment is treated as a scheduled booking. Any future payment integration requires a separately defined payment, cancellation, refund, and payout policy.
+
+Recommended MVP cancellation, provider-verification, and availability defaults are documented in `ProviderWorkflowDesign.md`. Treat them as proposals requiring team approval before backend implementation, not as finalized customer-facing policy.
 
 > This document is **requirements‑level** and solution‑neutral; design decisions (UI layouts, API endpoints, schemas) are documented separately.
 ---
@@ -326,11 +328,13 @@ so that I can manage and monitor platform operations.\
 - **Availability/Reliability:** The system should be available 99.5% of the time, with planned maintenance windows communicated in advance.
 - **Security/Privacy:** The system must implement secure authentication and authorization mechanisms. All sensitive data should be encrypted in transit and at rest.
 - **Usability:** New customers should be able to complete registration and submit their first appointment request within 5 minutes without external assistance.
+- **Accessibility:** Meet WCAG 2.2 AA for implemented interfaces, including at least 4.5:1 contrast for normal text, keyboard-operable controls with visible focus, semantic page headings, and reflow at narrow viewport widths.
 ---
 
 ## 4. Assumptions, Constraints, and Policies
 - Modern browsers (latest Chrome/Firefox/Edge/Safari) and stable connectivity.
 - Course timeline and campus infrastructure constraints apply.
+- Before launch, the team must approve record-class retention periods, an account-request completion target, provider-verification criteria by service/jurisdiction, and the proposed appointment cancellation and time-zone rules in the design documents.
 
 ---
 

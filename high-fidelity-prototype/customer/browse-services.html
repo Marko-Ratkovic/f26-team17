@@ -44,8 +44,8 @@
         <section class="section ">
             <div class="container">
                 <div class="browse-services-header">
-                    <div class="browse-services-title">Browse Our Services & Providers</div>
-                    <div class="browse-services-subtitle">Browse certified beauty professionals and book the service that's right for you</div>
+                    <h1 class="browse-services-title">Browse Our Services &amp; Providers</h1>
+                    <div class="browse-services-subtitle">Browse beauty professionals and find the service that's right for you</div>
                     <p class="small mt-2 mb-0">New provider services are reviewed before they appear here.</p>
                 </div>
             </div>
@@ -56,6 +56,7 @@
             <div class="container">
                 <div class="filter-card">
                     <h3 class="filter-title">Filter Providers</h3>
+                    <p class="profile-helper">Filters are a visual preview and do not change the sample results.</p>
                     <div class="grid grid-4">
                         <div>
                             <label for="service-filter">Service</label>
@@ -123,7 +124,7 @@
                             </select>
                         </div>
                         <div class="filter-btn-wrap">
-                            <button class="btn filter-apply-btn">Apply Filters</button>
+                            <button type="button" class="btn filter-apply-btn" disabled>Apply filters (backend not connected)</button>
                         </div>
                     </div>
                 </div>
@@ -149,9 +150,9 @@
                             <p class="fw-bold">Rating: 4.9/5 (40 reviews)</p>
                             <p class="provider-cost">Cost: $20/appointment</p>
                             <div class="d-flex flex-wrap gap-2 mt-3">
-                                <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-secondary" disabled>Details preview only</button>
                                 <button type="button" class="btn btn-appt-secondary" disabled aria-label="Brian Davis is already saved">Saved</button>
-                                <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
+                                <a href="book-appointment.html" class="btn btn-appt-primary">Book Appointment</a>
                             </div>
                         </div>
                     </div>
@@ -169,9 +170,9 @@
                             <p class="fw-bold">Rating: 4.7/5 (20 reviews)</p>
                             <p class="provider-cost">Cost: $45/appointment</p>
                             <div class="d-flex flex-wrap gap-2 mt-3">
-                                <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-secondary" disabled>Details preview only</button>
                                 <button type="button" class="btn btn-appt-secondary" disabled aria-label="Save Laura Johnson; saving is unavailable in this demo">Save provider (demo only)</button>
-                                <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
+                                <a href="book-appointment.html" class="btn btn-appt-primary">Book Appointment</a>
                             </div>
                         </div>
                     </div>
@@ -189,9 +190,9 @@
                             <p class="fw-bold">Rating: 5/5 (30 reviews)</p>
                             <p class="provider-cost">Cost: $100/appointment</p>
                             <div class="d-flex flex-wrap gap-2 mt-3">
-                                <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-secondary" disabled>Details preview only</button>
                                 <button type="button" class="btn btn-appt-secondary" disabled aria-label="Save Sarah Williams; saving is unavailable in this demo">Save provider (demo only)</button>
-                                <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
+                                <a href="book-appointment.html" class="btn btn-appt-primary">Book Appointment</a>
                             </div>
                         </div>
                     </div>
@@ -219,9 +220,9 @@
                             <p class="fw-bold">Rating: 4.9/5 (25 reviews)</p>
                             <p class="provider-cost">Cost: $110/appointment</p>
                             <div class="d-flex flex-wrap gap-2 mt-3">
-                                <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-secondary" disabled>Details preview only</button>
                                 <button type="button" class="btn btn-appt-secondary" disabled aria-label="Save Emily Willison; saving is unavailable in this demo">Save provider (demo only)</button>
-                                <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
+                                <a href="book-appointment.html" class="btn btn-appt-primary">Book Appointment</a>
                             </div>
                         </div>
                     </div>
@@ -234,16 +235,15 @@
                         <div class="provider-info">
                             <h3 class="provider-name">Jessica Davis</h3>
                             <p class="provider-specialty">Eyebrow Shaping, Lash Extensions</p>
-                            <p class="provider-bio">Jessica is a certified brow and lash specialist with over 5 years of experience. She specializes in precision brow 
-                                shaping and long-lasting lash extensions.
+                            <p class="provider-bio">Jessica is a brow and lash specialist with over 5 years of experience. She offers precise brow shaping and long-lasting lash extensions.
                             </p>
                             <p class="provider-availability">Available: Saturdays and Sundays 2:00 PM - 5:00 PM</p>
                             <p class="fw-bold">Rating: 4.8/5 (15 reviews)</p>
                             <p class="provider-cost">Cost: $60/appointment</p>
                             <div class="d-flex flex-wrap gap-2 mt-3">
-                                <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-secondary" disabled>Details preview only</button>
                                 <button type="button" class="btn btn-appt-secondary" disabled aria-label="Save Jessica Davis; saving is unavailable in this demo">Save provider (demo only)</button>
-                                <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
+                                <a href="book-appointment.html" class="btn btn-appt-primary">Book Appointment</a>
                             </div>
                         </div>
                     </div>
@@ -263,9 +263,9 @@
                             <p class="fw-bold">Rating: 4.5/5 (30 reviews)</p>
                             <p class="provider-cost">Cost: $35/appointment</p>
                             <div class="d-flex flex-wrap gap-2 mt-3">
-                                <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-secondary" disabled>Details preview only</button>
                                 <button type="button" class="btn btn-appt-secondary" disabled aria-label="Save Erica Nyguen; saving is unavailable in this demo">Save provider (demo only)</button>
-                                <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
+                                <a href="book-appointment.html" class="btn btn-appt-primary">Book Appointment</a>
                             </div>
                         </div>
                     </div>
@@ -283,7 +283,7 @@
                             <h3 class="h5 mb-1">Laura Johnson</h3>
                             <p class="text-muted mb-2">Nail Painting · 5/5 stars · Completed appointment</p>
                         </div>
-                        <button type="button" class="btn btn-outline-secondary btn-sm text-nowrap">Report review</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm text-nowrap" disabled>Report review (backend not connected)</button>
                     </div>
                     <p class="mb-3">"Laura was kind, professional, and made sure I was happy with the final result."</p>
                     <div class="card card-body">
@@ -292,7 +292,7 @@
                                 <h4 class="h6 mb-1">Provider response</h4>
                                 <p class="mb-0">Thank you for visiting! I am glad you enjoyed your appointment.</p>
                             </div>
-                            <button type="button" class="btn btn-outline-secondary btn-sm text-nowrap">Report response</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm text-nowrap" disabled>Report response (backend not connected)</button>
                         </div>
                     </div>
                 </article>
@@ -305,13 +305,10 @@
 
         <!-- Footer -->
         <footer>
-            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.</p>
+            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p>
         </footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-    </script>
 </body>
 
 </html>

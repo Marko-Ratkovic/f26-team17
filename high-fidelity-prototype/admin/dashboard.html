@@ -32,21 +32,21 @@
     </div>
     <div class="admin-actions">
       <a href="users.html" class="admin-btn-secondary">Review approvals</a>
-      <a href="services.html" class="admin-btn">+ Moderate content</a>
+      <a href="services.html" class="admin-btn">Review service listings</a>
     </div>
   </header>
 
   <div class="admin-grid">
     <div class="admin-card">
-      <div class="stat-label">Pending approvals</div>
-      <div class="stat-value">18</div>
-      <div class="stat-trend">+6 this week</div>
+      <div class="stat-label">Pending service listings</div>
+      <div class="stat-value">1</div>
+      <div class="stat-trend">Hidden from customers</div>
     </div>
 
     <div class="admin-card">
-      <div class="stat-label">Flagged reviews</div>
-      <div class="stat-value">9</div>
-      <div class="stat-trend stat-danger">3 require action</div>
+      <div class="stat-label">Reported reviews &amp; replies</div>
+      <div class="stat-value">2</div>
+      <div class="stat-trend stat-danger">Both need review</div>
     </div>
 
     <div class="admin-card">
@@ -82,31 +82,38 @@
         <tbody>
         <tr>
           <td>Jordan Lee</td>
-          <td>Customer account</td>
-          <td><span class="badge pending">Pending</span></td>
-          <td>Registration review</td>
+          <td>Provider account</td>
+          <td><span class="badge pending">Verification pending</span></td>
+          <td>Credential review</td>
           <td><a href="users.html" class="admin-btn-secondary">Review</a></td>
         </tr>
         <tr>
-          <td>Luxury Spa Set</td>
+          <td>Signature Nail Art</td>
           <td>Service listing</td>
-          <td><span class="badge flagged">Flagged</span></td>
-          <td>Policy check</td>
-          <td><a href="services.html" class="admin-btn-secondary">Moderate</a></td>
+          <td><span class="badge pending">Pending review</span></td>
+          <td>New listing review</td>
+          <td><a href="service-detail.html" class="admin-btn-secondary">Moderate</a></td>
         </tr>
         <tr>
           <td>Review #1248</td>
-          <td>Customer review</td>
-          <td><span class="badge flagged">Flagged</span></td>
-          <td>Content review</td>
-          <td><a href="reviews.html" class="admin-btn-secondary">Resolve</a></td>
+          <td>Review report</td>
+          <td><span class="badge flagged">Reported</span></td>
+          <td>Off-topic content</td>
+          <td><a href="report-detail.html" class="admin-btn-secondary">Resolve</a></td>
+        </tr>
+        <tr>
+          <td>Reply #221</td>
+          <td>Provider reply report</td>
+          <td><span class="badge flagged">Reported</span></td>
+          <td>Personal information</td>
+          <td><a href="report-reply-detail.html" class="admin-btn-secondary">Resolve</a></td>
         </tr>
         <tr>
           <td>Emma Torres</td>
           <td>Provider account</td>
           <td><span class="badge approved">Verified</span></td>
           <td>Completed</td>
-          <td><a href="users.html" class="admin-btn-secondary">Profile</a></td>
+          <td><a href="user-detail.html" class="admin-btn-secondary">Profile</a></td>
         </tr>
         </tbody>
       </table>
@@ -130,16 +137,16 @@
 
         <div class="audit-item">
           <div>
-            <strong>Service flagged for review</strong>
-            <div class="audit-meta">Luxury Spa Set • 10:42 AM</div>
+            <strong>New service submitted for review</strong>
+            <div class="audit-meta">Signature Nail Art • 10:42 AM</div>
           </div>
-          <span class="badge flagged">Flagged</span>
+          <span class="badge pending">Pending</span>
         </div>
 
         <div class="audit-item">
           <div>
-            <strong>Review removed</strong>
-            <div class="audit-meta">Review #1083 • 1:20 PM</div>
+            <strong>Review hidden after report</strong>
+            <div class="audit-meta">Review #1083 · policy violation • 1:20 PM</div>
           </div>
           <span class="badge approved">Resolved</span>
         </div>
@@ -175,4 +182,3 @@
 </div>
 </body>
 </html>
-

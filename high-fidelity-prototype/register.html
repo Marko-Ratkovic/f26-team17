@@ -67,9 +67,22 @@
                         </fieldset>
 
                         <div class="form-group">
-                            <label for="full-name">Full name</label>
-                            <input type="text" id="full-name" name="full-name" placeholder="Your full name"
-                                autocomplete="name" required>
+                            <label for="first-name">First name</label>
+                            <input type="text" id="first-name" name="firstName" placeholder="Your first name"
+                                autocomplete="given-name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="middle-name">Middle name <span class="optional-label">(optional)</span></label>
+                            <input type="text" id="middle-name" name="middleName" placeholder="Your middle name"
+                                autocomplete="additional-name">
+                            <small class="form-help">Leave blank if you do not have or use a middle name.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="last-name">Last name</label>
+                            <input type="text" id="last-name" name="lastName" placeholder="Your last name"
+                                autocomplete="family-name" required>
                         </div>
 
                         <div class="form-group">
@@ -93,7 +106,7 @@
 
                         <div id="customer-fields" class="signup-role-fields">
                             <div class="form-group">
-                                <label for="customer-phone">Phone number <span class="optional-label">(optional)</span></label>
+                                <label for="customer-phone">Phone number <span class="optional-label"></span></label>
                                 <input type="tel" id="customer-phone" name="customer-phone"
                                     placeholder="(555) 555-5555" autocomplete="tel">
                             </div>
@@ -221,10 +234,31 @@
                             </div>
                         </div>
 
+                        <details class="signup-policy">
+                            <summary>Review the Terms &amp; Privacy Policy</summary>
+                            <div class="signup-policy-content">
+                                <p>Before creating an account, please review how Glow Up expects customers and providers
+                                    to use the platform and how account information is handled.</p>
+                                <ul>
+                                    <li>Keep account, service, pricing, and booking information accurate.</li>
+                                    <li>Communicate respectfully and do not post fraudulent, harassing, or abusive content.</li>
+                                    <li>New provider service listings are reviewed before they become visible to customers.</li>
+                                    <li>Reviews are for completed appointments and publish when submitted; reported content
+                                        may be reviewed under the community guidelines.</li>
+                                </ul>
+                                <p class="signup-policy-links">
+                                    <a href="policies/terms.html" target="_blank" rel="noopener">Read the full Terms of Service</a>
+                                    <a href="policies/privacy.html" target="_blank" rel="noopener">Read the Privacy Policy</a>
+                                </p>
+                            </div>
+                        </details>
+
                         <div class="register-checkbox">
-                            <input type="checkbox" id="terms" required>
+                            <input type="checkbox" id="terms" name="termsAccepted" value="true" required>
                             <label for="terms">
-                                I agree to the Glow Up terms and privacy policy.
+                                I have read and agree to the
+                                <a href="policies/terms.html" target="_blank" rel="noopener">Terms of Service</a>
+                                and <a href="policies/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
                             </label>
                         </div>
 

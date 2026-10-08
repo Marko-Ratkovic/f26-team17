@@ -60,11 +60,19 @@
                         <form id="editPersonalInfoForm">
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
-                                <input type="text" id="firstName" placeholder="Linda" required>
+                                <input type="text" id="firstName" name="firstName" placeholder="Linda"
+                                    autocomplete="given-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="middleName">Middle Name <span class="optional-label">(optional)</span></label>
+                                <input type="text" id="middleName" name="middleName" placeholder="Marie"
+                                    autocomplete="additional-name">
+                                <small class="form-help">Leave blank if you do not have or use a middle name.</small>
                             </div>
                             <div class="form-group">
                                 <label for="lastName">Last Name</label>
-                                <input type="text" id="lastName" placeholder="Johnson" required>
+                                <input type="text" id="lastName" name="lastName" placeholder="Johnson"
+                                    autocomplete="family-name" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>

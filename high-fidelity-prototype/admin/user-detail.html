@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlowUp Admin - User Details</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-page">
+<div class="admin-shell">
+  <nav class="admin-nav">
+    <div class="navbar">
+      <a href="../index.html" class="navbar-brand"><img src="../images/logo.png" alt="GlowUp logo" class="admin-logo"></a>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+        <li class="nav-item"><a href="users.html" class="nav-link active" aria-current="page">User Access</a></li>
+        <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+        <li class="nav-item"><a href="reviews.html" class="nav-link">Reviews</a></li>
+        <li class="nav-item"><a href="analytics.html" class="nav-link">Usage Stats</a></li>
+        <li class="nav-item"><a href="../index.html" class="nav-link admin-logout">Log out</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="admin-header">
+    <div>
+      <div class="admin-subtitle">Account overview</div>
+      <h1 class="admin-title">Emma Torres</h1>
+      <p class="admin-content-meta">Provider · Member since September 2, 2026</p>
+    </div>
+    <div class="admin-actions">
+      <span class="badge approved">Active account</span>
+      <a href="users.html" class="admin-btn-secondary">Back to users</a>
+    </div>
+  </header>
+
+  <p class="admin-demo-note">Prototype preview: fictional sample profile. Admin views should expose only information needed for access and safety decisions; payment or bank details do not belong in this screen.</p>
+
+  <div class="admin-grid">
+    <div class="admin-card"><div class="stat-label">Completed appointments</div><div class="stat-value">42</div><div class="stat-trend">Sample account activity</div></div>
+    <div class="admin-card"><div class="stat-label">Active services</div><div class="stat-value">3</div><div class="stat-trend">One new listing pending review</div></div>
+    <div class="admin-card"><div class="stat-label">Average customer rating</div><div class="stat-value">4.8</div><div class="stat-trend">From 38 completed reviews</div></div>
+    <div class="admin-card"><div class="stat-label">Lifetime booking value</div><div class="stat-value">$3.4k</div><div class="stat-trend">Sample gross service value</div></div>
+  </div>
+
+  <div class="admin-detail-grid">
+    <section class="admin-panel">
+      <div class="panel-header"><h2 class="panel-title">Contact and account</h2></div>
+      <dl class="admin-detail-list">
+        <dt>Full name</dt><dd>Emma Torres</dd>
+        <dt>Account role</dt><dd>Provider</dd>
+        <dt>Email</dt><dd>emma.torres@example.com</dd>
+        <dt>Phone</dt><dd>(555) 010-2048</dd>
+        <dt>Account status</dt><dd>Active</dd>
+        <dt>Provider verification</dt><dd>Verified · Sep 4, 2026</dd>
+        <dt>Last activity</dt><dd>Oct 8, 2026 at 9:42 AM</dd>
+      </dl>
+    </section>
+    <section class="admin-panel">
+      <div class="panel-header"><h2 class="panel-title">Admin action preview</h2></div>
+      <p class="admin-guidance">If an account action is needed, document the policy reason and communicate it to the user. This control is a prototype only.</p>
+      <form>
+        <div class="admin-field">
+          <label for="account-action">Action</label>
+          <select id="account-action"><option>Suspend account</option><option>Reinstate account</option></select>
+        </div>
+        <div class="admin-field mt-3">
+          <label for="account-reason">Reason (required)</label>
+          <textarea id="account-reason" rows="3" placeholder="Describe the policy reason" required></textarea>
+        </div>
+        <button type="button" class="admin-btn-danger mt-3">Preview account action</button>
+      </form>
+    </section>
+  </div>
+
+  <section class="admin-panel">
+    <div class="panel-header"><h2 class="panel-title">Recent account activity</h2></div>
+    <ul class="admin-timeline">
+      <li><strong>Signature Nail Art submitted for review</strong> <span class="admin-muted">· Oct 8, 2026</span></li>
+      <li><strong>Provider verification completed</strong> <span class="admin-muted">· Sep 4, 2026</span></li>
+      <li><strong>Account created</strong> <span class="admin-muted">· Sep 2, 2026</span></li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>

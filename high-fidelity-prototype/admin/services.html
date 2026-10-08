@@ -27,65 +27,154 @@
 
   <header class="admin-header">
     <div>
-      <div class="admin-subtitle">Admin controls</div>
-      <h1 class="admin-title">Moderate services</h1>
+      <div class="admin-subtitle">Provider listing review</div>
+      <h1 class="admin-title">Review new services</h1>
     </div>
     <div class="admin-actions">
-      <button type="button" class="admin-btn-secondary">Export flagged items</button>
-      <button type="button" class="admin-btn">+ Review queue</button>
+      <a href="#review-checklist" class="admin-btn-secondary">Review checklist</a>
     </div>
   </header>
 
   <section class="admin-panel">
     <div class="panel-header">
-      <h2 class="panel-title">Service moderation queue</h2>
+      <h2 class="panel-title">Listings awaiting review</h2>
+      <span class="badge pending">1 awaiting review</span>
+    </div>
+    <p class="admin-guidance">
+      New service listings remain hidden from customers until approved. Check that the service, description, image,
+      duration, and price are accurate and comply with the GlowUp terms. Return fixable issues with clear guidance;
+      reject listings that offer prohibited services.
+    </p>
+    <p class="admin-demo-note">Prototype preview: sample data only. Search, filters, bulk actions, sorting, and pagination are visual placeholders and will connect to the backend later.</p>
+    <form class="admin-toolbar" role="search">
+      <div class="admin-field">
+        <label for="service-search">Search listings</label>
+        <input id="service-search" type="search" placeholder="Service or provider">
+      </div>
+      <div class="admin-field">
+        <label for="service-status">Status</label>
+        <select id="service-status">
+          <option>All statuses</option>
+          <option>Pending review</option>
+          <option>Changes requested</option>
+          <option>Approved</option>
+          <option>Rejected</option>
+        </select>
+      </div>
+      <div class="admin-field">
+        <label for="service-sort">Sort by</label>
+        <select id="service-sort">
+          <option>Newest submitted</option>
+          <option>Service A-Z</option>
+          <option>Provider A-Z</option>
+          <option>Oldest submitted</option>
+        </select>
+      </div>
+      <button type="button" class="admin-btn-secondary">Apply</button>
+    </form>
+    <div class="admin-bulkbar">
+      <label><input type="checkbox" aria-label="Select all services on this page"> Select page</label>
+      <div class="admin-bulk-actions">
+        <button type="button" class="admin-btn-secondary">Bulk export</button>
+        <button type="button" class="admin-btn-secondary" disabled>Bulk approve · future</button>
+        <button type="button" class="admin-btn-secondary" disabled>Bulk reject · future</button>
+      </div>
     </div>
     <div class="table-wrap">
       <table class="admin-table">
         <thead>
         <tr>
-          <th>Service</th>
-          <th>Provider</th>
-          <th>Status</th>
-          <th>Violation</th>
-          <th>Action</th>
+          <th scope="col"><span class="visually-hidden">Select</span></th>
+          <th scope="col">Listing</th>
+          <th scope="col">Provider</th>
+          <th scope="col">Status</th>
+          <th scope="col">Review notes</th>
+          <th scope="col">Submitted</th>
+          <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-          <td>Luxury Spa Set</td>
+          <td>
+            <input type="checkbox" aria-label="Select Signature Nail Art">
+          </td>
+          <td>
+            <a href="service-detail.html"><strong>Signature Nail Art</strong></a>
+            <div class="admin-content-meta">Nail Care · $35 · 45 min</div>
+          </td>
+          <td><a href="user-detail.html">Emma Torres</a></td>
+          <td><span class="badge pending">Pending review</span></td>
+          <td>New listing · not yet reviewed</td>
+          <td>Oct 8, 2026</td>
+          <td>
+            <div class="action-group">
+              <a href="service-detail.html" class="admin-btn-secondary">Review</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" aria-label="Select Eyebrow Waxing">
+          </td>
+          <td>
+            <strong>Eyebrow Waxing</strong>
+            <div class="admin-content-meta">Brows &amp; Lashes · $15 · 10 min</div>
+          </td>
           <td>Laura Gomez</td>
-          <td><span class="badge flagged">Flagged</span></td>
-          <td>Policy mismatch</td>
-          <td>
-            <div class="action-group">
-              <button type="button" class="admin-btn-secondary">Approve</button>
-              <button type="button" class="admin-btn-danger">Reject</button>
-            </div>
-          </td>
+          <td><span class="badge changes">Changes requested</span></td>
+          <td>Clarify which products are included in the service.</td>
+          <td>Oct 6, 2026</td>
+          <td><span class="admin-muted">Awaiting provider resubmission</span></td>
         </tr>
         <tr>
-          <td>Signature Nail Art</td>
-          <td>Emma Torres</td>
-          <td><span class="badge pending">Pending</span></td>
-          <td>Awaiting review</td>
           <td>
-            <div class="action-group">
-              <button type="button" class="admin-btn-secondary">Review</button>
-              <button type="button" class="admin-btn-danger">Hide</button>
-            </div>
+            <input type="checkbox" aria-label="Select Bridal Makeup Package">
           </td>
-        </tr>
-        <tr>
-          <td>Bridal Makeup Package</td>
+          <td>
+            <strong>Bridal Makeup Package</strong>
+            <div class="admin-content-meta">Makeup Artistry · $120 · 90 min</div>
+          </td>
           <td>Rachel Smith</td>
           <td><span class="badge approved">Approved</span></td>
-          <td>None</td>
-          <td><button type="button" class="admin-btn-secondary">Details</button></td>
+          <td>Listing meets the review criteria.</td>
+          <td>Oct 3, 2026</td>
+          <td><span class="admin-muted">Visible to customers</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" aria-label="Select Classic Pedicure"></td>
+          <td><strong>Classic Pedicure</strong><div class="admin-content-meta">Nail Care · $45 · 30 min</div></td>
+          <td>Laura Gomez</td>
+          <td><span class="badge approved">Approved</span></td>
+          <td>Listing meets the review criteria.</td>
+          <td>Sep 28, 2026</td>
+          <td><span class="admin-muted">Visible to customers</span></td>
         </tr>
         </tbody>
       </table>
     </div>
+    <nav class="admin-pagination" aria-label="Service list pages">
+      <span>Showing 1–4 of 46 sample listings</span>
+      <div class="admin-page-links">
+        <span aria-disabled="true">Previous</span><span aria-current="page">1</span><a href="?page=2">2</a><a href="?page=3">3</a><a href="?page=2">Next</a>
+      </div>
+    </nav>
+  </section>
+
+  <section class="admin-panel" id="review-checklist">
+    <div class="panel-header">
+      <h2 class="panel-title">Review checklist</h2>
+    </div>
+    <ul class="admin-guidance admin-checklist">
+      <li>Service name and category accurately describe the offering.</li>
+      <li>Description is clear, relevant, and does not make misleading claims.</li>
+      <li>Image is appropriate and represents the service.</li>
+      <li>Duration and price are provided and understandable.</li>
+      <li>Service complies with GlowUp's terms and safety expectations.</li>
+    </ul>
+    <p class="admin-guidance mb-0">
+      Request changes for fixable problems and include specific guidance. Reject only listings that cannot be made
+      compliant. Keep the provider's decision and reason in the moderation history.
+    </p>
   </section>
 </div>
 </body>

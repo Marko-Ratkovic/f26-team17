@@ -16,6 +16,7 @@
 - **System Admin:** The platform user responsible for overseeing GlowUp's daily operation.
 - **Customer profile:**  Contains personal details, contact info, booking history, and service/style preferences.
 - **Provider profile:**  Contains personal details, contact info, service offerings, and professional certifications/licenses.
+- **Name:** A user's first and last name; middle name is optional.
 - **Services:** The specific nail, hair, or beauty service. 
 - **Session:** A scheduled appointment between a customer and a provider for service.
 
@@ -47,9 +48,10 @@
   ```gherkin
   Scenario: Register with valid credentials
     Given I am not registered
-    When  I provide valid registration details
+    When  I provide my first and last name, valid credentials, and optionally a middle name
     Then  I should be successfully registered and logged in
     And I can view and modify my profile
+    And my middle name may be left blank
   ```
 
 - **US‑2 — Browse providers via a service menu**  
@@ -76,10 +78,12 @@
   _Story:_ As a customer, I want to write a review after my appointment so that other customers can make informed decisions about the provider.
   _Acceptance:_
   ```gherkin
-  Scenario: Write a review after a appointment
+  Scenario: Publish a review for a completed appointment
     Given I have completed a service appointment with a provider
-    When  I submit a review for that appointment
-    Then  the review should be saved and visible to other customers and the provider  
+    And I have not already reviewed that appointment
+    When I submit a rating and review for the appointment
+    Then the review should be published and visible to other customers and the provider
+    And I should be able to report a review or provider reply that violates the community guidelines
   ```
 
 ### 2.2 Provider Stories
@@ -97,14 +101,23 @@
   ```
 
 - **US-6 — Define services and pricing** \
-  *Story:* As a provider, I want to define and pricing my services so that customers can can select and schedule the right services.
+  *Story:* As a provider, I want to submit accurate service details for review so that compliant services can be published for customers.
   *Acceptance:*
 
   ```gherkin
-  Scenario: <Define and pricing>
-    Given <I am logged in as a provider>
-    When  <I add my services and set pricing>
-    Then  <the services should be saved and visible to customers>
+  Scenario: Submit a new service for approval
+    Given I am logged in as a provider
+    When I submit a service name, category, description, image, duration, and price
+    Then the listing should have Pending review status
+    And customers should not see or book the listing before approval
+  ```
+
+  ```gherkin
+  Scenario: Revise a service listing after review
+    Given an admin requested changes to my listing with an explanation
+    When I update the listing and submit it again
+    Then the listing should return to Pending review
+    And it should remain unavailable to customers until approved
   ```
 
 - **US-7 — Manage customer's booking** \
@@ -124,10 +137,11 @@
   *Acceptance:*
 
   ```gherkin
-  Scenario: <Response to reviews>
-    Given <I am logged in as a provider>
-    When  <I receive a review for one of my sessions>
-    Then  <I should be able to submit a response to the review>
+  Scenario: Respond to a review
+    Given I am logged in as the provider for a completed appointment
+    When I submit a response to the customer's review
+    Then the response should be visible with the review
+    And users should be able to report the response if it violates the community guidelines
   ```
 
 ### 2.3 SysAdmin Stories
@@ -146,27 +160,59 @@ the platform secure and enforce policies.\
   ```
 
 **US-10 — Moderate services** \
-*Story:* As a SysAdmin, I want to moderate services and content offered by providers,
-  so that I can remove fraudulent or policy-violating listings.\
+*Story:* As a SysAdmin, I want to review new service listings before publication, so that customers can discover accurate and policy-compliant services.\
 *Acceptance:*
 
   ```gherkin
-  Scenario: <Remove a fraudulent service>
-  Given <I am logged in as a SysAdmin>
-  When <I flag a provider's service listing as fraudulent>
-  Then <the service should be immediately removed from the public search menu>
+  Scenario: Approve a compliant new service
+  Given I am logged in as a SysAdmin
+  And a provider has submitted a new service listing
+  When I verify the service details comply with GlowUp's terms
+  Then I can approve the listing and make it visible to customers
   ```
-**US-11 — Moderate reviews** \
-*Story:* As a SysAdmin, I want to moderate customer and provider reviews, so that 
-I can ensure validity and remove spam\
+
+  ```gherkin
+  Scenario: Request changes to a service listing
+  Given I am reviewing a new service listing with a fixable issue
+  When I return it to the provider with a specific explanation
+  Then the listing should have Changes requested status
+  And it should remain hidden until the provider resubmits and the listing is approved
+  ```
+
+  ```gherkin
+  Scenario: Reject a prohibited service
+  Given I am reviewing a new service listing that offers a prohibited service
+  When I reject the listing and record the reason
+  Then the listing should remain unavailable to customers
+  And the provider should be shown the decision and reason
+  ```
+
+**Service listing review policy**
+- Every new service listing is reviewed before it appears in customer search or can be booked.
+- Admins check service name, category, description, image, duration, price, and compliance with GlowUp's terms and safety expectations.
+- Approve compliant listings, request specific changes for fixable issues, and reject listings offering prohibited services.
+- A requested-change listing remains hidden until the provider resubmits it and it is approved.
+- Show providers their current review status and any reason or requested changes. Keep the decision and reason in the moderation history.
+**US-11 — Moderate reported reviews and replies** \
+*Story:* As a SysAdmin, I want to review reports about customer reviews and provider replies, so that I can address policy violations without delaying ordinary feedback.\
 *Acceptance:*
 
  ```gherkin
-  Scenario: <Delete a spam review>
-  Given <I am logged in as a SysAdmin>
-  When <I determine a posted review is spam or invalid>
-  Then <the review should be permanently deleted from the platform>
+  Scenario: Resolve a report about public review content
+  Given I am logged in as a SysAdmin
+  And a user has reported a customer review or provider reply
+  When I review the content and the report reason
+  Then I can keep compliant content visible or hide content that violates the guidelines
+  And the moderation decision and reason are recorded
    ```
+
+**Review and reply policy**
+- Reviews are available only for completed appointments, with at most one customer review per appointment.
+- Submitted reviews are published immediately; routine pre-approval is not required.
+- Customers and providers may report reviews or provider replies that violate the community guidelines.
+- Reportable violations include harassment, threats, hate or explicit content, personal information, spam, and unrelated content.
+- Low ratings, respectful criticism, or disagreement alone are not grounds for removal.
+- Moderators review the reported content and reason, then keep it visible or hide it. Moderation decisions include a reason and are retained in the audit history; content is not silently or permanently deleted as the default workflow.
 **US-12 — View usage statistics** \
 *Story:* As a SysAdmin, I want to view sale volume, bookings, and activities,
 so that I can manage and monitor platform growth.\

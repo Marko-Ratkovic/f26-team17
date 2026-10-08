@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GlowUp Admin - Review Moderation</title>
+  <title>GlowUp Admin - Reported Content</title>
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="admin.css" />
 </head>
@@ -27,60 +27,135 @@
 
   <header class="admin-header">
     <div>
-      <div class="admin-subtitle">Admin controls</div>
-      <h1 class="admin-title">Moderate reviews</h1>
+      <div class="admin-subtitle">Community standards</div>
+      <h1 class="admin-title">Review reported content</h1>
     </div>
     <div class="admin-actions">
-      <button type="button" class="admin-btn-secondary">Filter flagged</button>
-      <button type="button" class="admin-btn">+ Review queue</button>
+      <a href="#moderation-approach" class="admin-btn-secondary">Moderation policy</a>
     </div>
   </header>
 
   <section class="admin-panel">
     <div class="panel-header">
-      <h2 class="panel-title">Review moderation queue</h2>
+      <h2 class="panel-title">Reported reviews and provider replies</h2>
+      <span class="badge pending">2 need review</span>
+    </div>
+    <p class="admin-guidance">
+      Reviews publish after completed appointments. Review the report reason and the full context;
+      respectful criticism or a low rating alone is not a reason to remove content.
+    </p>
+    <p class="admin-demo-note">Prototype preview: sample data only. Search, filters, bulk export, sorting, and pagination are visual placeholders; moderation decisions remain individual so each report can be reviewed in context.</p>
+    <form class="admin-toolbar" role="search">
+      <div class="admin-field">
+        <label for="report-search">Search reports</label>
+        <input id="report-search" type="search" placeholder="Content, author, or reporter">
+      </div>
+      <div class="admin-field">
+        <label for="report-status">Status</label>
+        <select id="report-status">
+          <option>All statuses</option>
+          <option>Reported</option>
+          <option>Under review</option>
+          <option>Resolved</option>
+        </select>
+      </div>
+      <div class="admin-field">
+        <label for="report-sort">Sort by</label>
+        <select id="report-sort">
+          <option>Newest report</option>
+          <option>Oldest report</option>
+          <option>Content type</option>
+          <option>Report reason</option>
+        </select>
+      </div>
+      <button type="button" class="admin-btn-secondary">Apply</button>
+    </form>
+    <div class="admin-bulkbar">
+      <label><input type="checkbox" aria-label="Select all reports on this page"> Select page</label>
+      <div class="admin-bulk-actions">
+        <button type="button" class="admin-btn-secondary">Bulk export</button>
+      </div>
     </div>
     <div class="table-wrap">
       <table class="admin-table">
         <thead>
         <tr>
-          <th>Review</th>
-          <th>Author</th>
-          <th>Provider</th>
-          <th>Status</th>
-          <th>Action</th>
+          <th scope="col"><span class="visually-hidden">Select</span></th>
+          <th scope="col">Reported content</th>
+          <th scope="col">Type</th>
+          <th scope="col">Reported by</th>
+          <th scope="col">Report reason</th>
+          <th scope="col">Reported</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-          <td>Review #1248</td>
-          <td>Priya S.</td>
-          <td>Laura Gomez</td>
-          <td><span class="badge flagged">Flagged</span></td>
+          <td><input type="checkbox" aria-label="Select report for Review 1248"></td>
+          <td>
+            <a href="report-detail.html"><strong>Review #1248</strong></a>
+            <div class="admin-content-preview">"The weather was perfect for our beach trip."</div>
+            <div class="admin-content-meta">Priya S. · for Laura Gomez</div>
+          </td>
+          <td>Customer review</td>
+          <td>Provider</td>
+          <td>Off-topic content</td>
+          <td>Oct 8, 2026</td>
+          <td><span class="badge flagged">Reported</span></td>
           <td>
             <div class="action-group">
-              <button type="button" class="admin-btn-secondary">Approve</button>
-              <button type="button" class="admin-btn-danger">Remove</button>
+              <a href="report-detail.html" class="admin-btn-secondary">Review</a>
             </div>
           </td>
         </tr>
         <tr>
-          <td>Review #1187</td>
-          <td>Maria K.</td>
-          <td>Emma Torres</td>
-          <td><span class="badge pending">Pending</span></td>
-          <td><button type="button" class="admin-btn-secondary">Investigate</button></td>
+          <td><input type="checkbox" aria-label="Select report for Reply 221"></td>
+          <td>
+            <strong>Reply #221</strong>
+            <div class="admin-content-preview">"Please call me at [private phone number] so we can discuss."</div>
+            <div class="admin-content-meta">Laura Gomez · in response to Review #1248</div>
+          </td>
+          <td>Provider reply</td>
+          <td>Customer</td>
+          <td>Personal information</td>
+          <td>Oct 7, 2026</td>
+          <td><span class="badge flagged">Reported</span></td>
+          <td>
+            <div class="action-group">
+              <a href="report-reply-detail.html" class="admin-btn-secondary">Review</a>
+            </div>
+          </td>
         </tr>
         <tr>
-          <td>Review #1104</td>
-          <td>Sam N.</td>
-          <td>Rachel Smith</td>
-          <td><span class="badge approved">Accepted</span></td>
-          <td><button type="button" class="admin-btn-secondary">Details</button></td>
+          <td><input type="checkbox" aria-label="Select report for Review 1176"></td>
+          <td><strong>Review #1176</strong><div class="admin-content-preview">"I had to wait 20 minutes past my appointment time."</div><div class="admin-content-meta">Sam N. · for Rachel Smith</div></td>
+          <td>Customer review</td>
+          <td>Provider</td>
+          <td>Other · see report</td>
+          <td>Oct 5, 2026</td>
+          <td><span class="badge pending">Under review</span></td>
+          <td><span class="admin-muted">In review queue</span></td>
         </tr>
         </tbody>
       </table>
     </div>
+    <nav class="admin-pagination" aria-label="Reported content pages">
+      <span>Showing 1–3 of 27 sample reports</span>
+      <div class="admin-page-links">
+        <span aria-disabled="true">Previous</span><span aria-current="page">1</span><a href="?page=2">2</a><a href="?page=3">3</a><a href="?page=2">Next</a>
+      </div>
+    </nav>
+  </section>
+
+  <section class="admin-panel" id="moderation-approach">
+    <div class="panel-header">
+      <h2 class="panel-title">Moderation approach</h2>
+    </div>
+    <p class="admin-guidance">
+      Reports are reviewed individually. If content stays visible, the report is closed with a reason.
+      If content is hidden, retain the moderation decision and reason in the audit history.
+    </p>
   </section>
 </div>
 </body>

@@ -58,8 +58,8 @@
                     <h3 class="filter-title">Filter Providers</h3>
                     <div class="grid grid-4">
                         <div>
-                            <label>Service</label>
-                            <select>
+                            <label for="service-filter">Service</label>
+                            <select id="service-filter" name="service">
                                 <option>All Services</option>
                                 <optgroup label="Hair Styling">
                                     <option>Haircuts</option>
@@ -90,8 +90,8 @@
                             </select>
                         </div>
                         <div>
-                            <label>Availability</label>
-                            <select>
+                            <label for="availability-filter">Availability</label>
+                            <select id="availability-filter" name="availability">
                                 <option>Any Time</option>
                                 <optgroup label="Weekdays">
                                     <option>Monday</option>
@@ -113,8 +113,8 @@
                             </select>
                         </div>
                         <div>
-                            <label>Minimum Rating</label>
-                            <select>
+                            <label for="rating-filter">Minimum Rating</label>
+                            <select id="rating-filter" name="minimumRating">
                                 <option>Any Rating</option>
                                 <option>4.8+ Stars</option>
                                 <option>4.5+ Stars</option>
@@ -133,6 +133,7 @@
         <!-- Providers Grid -->
         <section class="section">
             <div class="container">
+                <p class="profile-prototype-note" role="note">Saved providers are separate from appointment history. Saving providers is preview-only and is not persisted in this static demo.</p>
                 <div class="grid grid-3">
                     
                     <!-- Provider 1 -->
@@ -147,8 +148,9 @@
                             <p class="provider-availability">Available: Weekdays Evenings</p>
                             <p class="fw-bold">Rating: 4.9/5 (40 reviews)</p>
                             <p class="provider-cost">Cost: $20/appointment</p>
-                            <div class="d-flex gap-2 mt-3">
+                            <div class="d-flex flex-wrap gap-2 mt-3">
                                 <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-secondary" disabled aria-label="Brian Davis is already saved">Saved</button>
                                 <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
                             </div>
                         </div>
@@ -166,8 +168,9 @@
                             <p class="provider-availability">Available: Weekdays Afternoons</p>
                             <p class="fw-bold">Rating: 4.7/5 (20 reviews)</p>
                             <p class="provider-cost">Cost: $45/appointment</p>
-                            <div class="d-flex gap-2 mt-3">
+                            <div class="d-flex flex-wrap gap-2 mt-3">
                                 <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-secondary" disabled aria-label="Save Laura Johnson; saving is unavailable in this demo">Save provider (demo only)</button>
                                 <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
                             </div>
                         </div>
@@ -185,8 +188,9 @@
                             <p class="provider-availability">Available: Weekdays Mornings</p>
                             <p class="fw-bold">Rating: 5/5 (30 reviews)</p>
                             <p class="provider-cost">Cost: $100/appointment</p>
-                            <div class="d-flex gap-2 mt-3">
+                            <div class="d-flex flex-wrap gap-2 mt-3">
                                 <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-secondary" disabled aria-label="Save Sarah Williams; saving is unavailable in this demo">Save provider (demo only)</button>
                                 <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
                             </div>
                         </div>
@@ -214,8 +218,9 @@
                             <p class="provider-availability">Available: Mondays and Wednesdays Mornings through Afternoons</p>
                             <p class="fw-bold">Rating: 4.9/5 (25 reviews)</p>
                             <p class="provider-cost">Cost: $110/appointment</p>
-                            <div class="d-flex gap-2 mt-3">
+                            <div class="d-flex flex-wrap gap-2 mt-3">
                                 <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-secondary" disabled aria-label="Save Emily Willison; saving is unavailable in this demo">Save provider (demo only)</button>
                                 <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
                             </div>
                         </div>
@@ -235,8 +240,9 @@
                             <p class="provider-availability">Available: Saturdays and Sundays 2:00 PM - 5:00 PM</p>
                             <p class="fw-bold">Rating: 4.8/5 (15 reviews)</p>
                             <p class="provider-cost">Cost: $60/appointment</p>
-                            <div class="d-flex gap-2 mt-3">
+                            <div class="d-flex flex-wrap gap-2 mt-3">
                                 <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-secondary" disabled aria-label="Save Jessica Davis; saving is unavailable in this demo">Save provider (demo only)</button>
                                 <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
                             </div>
                         </div>
@@ -256,8 +262,9 @@
                             <p class="provider-availability">Available: Tuesdays and Thursdays 9:00 AM - 3:00 PM</p>
                             <p class="fw-bold">Rating: 4.5/5 (30 reviews)</p>
                             <p class="provider-cost">Cost: $35/appointment</p>
-                            <div class="d-flex gap-2 mt-3">
+                            <div class="d-flex flex-wrap gap-2 mt-3">
                                 <button type="button" class="btn btn-appt-secondary">View Details</button>
+                                <button type="button" class="btn btn-appt-secondary" disabled aria-label="Save Erica Nyguen; saving is unavailable in this demo">Save provider (demo only)</button>
                                 <button type="button" class="btn btn-appt-primary" onclick="window.location.href='book-appointment.html'">Book Appointment</button>
                             </div>
                         </div>

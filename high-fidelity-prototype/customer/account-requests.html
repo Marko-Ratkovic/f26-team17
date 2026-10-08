@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy &amp; Account Requests - GlowUp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="sticky-top" aria-label="Customer navigation">
+            <div class="navbar">
+                <a href="../index.html" class="navbar-brand mb-2"><img src="../images/logo.png" alt="GlowUp home" class="img-fluid logo" style="width: 150px; height: 50px;"></a>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link under-scored">Dashboard</a></li>
+                    <li class="nav-item"><a href="browse-services.html" class="nav-link under-scored">Browse Services &amp; Providers</a></li>
+                    <li class="nav-item"><a href="my-appointments.html" class="nav-link under-scored">My Appointments</a></li>
+                    <li class="nav-item"><a href="profile.html" class="nav-link fw-bold">My Profile</a></li>
+                    <li class="nav-item"><a href="../index.html" class="nav-link fw-bold">Log out</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+            <section class="section">
+                <div class="container">
+                    <div class="edit-info-header">
+                        <h1 class="edit-info-title">Privacy &amp; account requests</h1>
+                        <p class="edit-info-subtitle">Review your data choices or request to pause or close your account.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="container" style="max-width: 760px;">
+                    <div class="card profile-card">
+                        <div class="profile-card-header"><h2 class="profile-card-title">Choose an account request</h2></div>
+                        <div class="card-content">
+                            <p class="profile-prototype-note" role="note">Prototype preview: no request is submitted. A live service should re-authenticate you, confirm the request, and show its status.</p>
+                            <div class="account-request-option">
+                                <h3>Deactivate temporarily</h3>
+                                <p>Pause sign-in and new activity. Reactivation should require an explicit request and identity check. Any confirmed appointment needs to be resolved through the booking process.</p>
+                            </div>
+                            <div class="account-request-option">
+                                <h3>Request account deletion</h3>
+                                <p>Deletion should not silently or immediately erase booking, review, report, or moderation records. GlowUp should explain which records must be retained, for what purpose and duration, and remove or de-identify personal account details when retention is no longer required.</p>
+                            </div>
+                            <p class="profile-privacy-callout"><strong>Before launch:</strong> GlowUp must define and publish its retention periods and deletion process. This prototype does not make legal or timing promises.</p>
+                            <form method="post">
+                                <fieldset class="form-group">
+                                    <legend class="profile-field-legend">I would like to</legend>
+                                    <label class="profile-choice"><input type="radio" name="accountRequest" value="deactivate" required> Deactivate my account temporarily</label>
+                                    <label class="profile-choice"><input type="radio" name="accountRequest" value="delete"> Request deletion of my account</label>
+                                </fieldset>
+                                <div class="form-group">
+                                    <label for="requestPassword">Confirm your password</label>
+                                    <input type="password" id="requestPassword" name="currentPassword" autocomplete="current-password" required>
+                                    <small class="form-help">A real service should verify your identity before changing account status.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="requestReason">Optional context</label>
+                                    <textarea id="requestReason" name="reason" rows="3" maxlength="1000" placeholder="Share anything you want us to know"></textarea>
+                                </div>
+                                <label class="profile-choice account-request-confirm">
+                                    <input type="checkbox" name="acknowledged" required>
+                                    I understand this is a request and that a live service must explain its effect on existing appointments and retained records before processing it.
+                                </label>
+                                <div class="d-flex flex-wrap gap-2 mt-3">
+                                    <button type="submit" class="btn settings-btn settings-btn-danger settings-btn-sm" disabled>Continue (backend not connected)</button>
+                                    <a href="profile.html" class="btn btn-appt-secondary">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer><p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p></footer>
+    </div>
+</body>
+
+</html>

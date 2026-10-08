@@ -48,11 +48,15 @@
                 <div class="manage-services-header mt-3 py-2 mb-5">
                     <div>
                         <h2 class="dashboard-title fw-bold mb-0 align-content-center">Manage Services</h2>
-                        <div class="text-muted">Add, edit, or remove service</div>
+                        <div class="text-muted">Track listing status and manage your service details.</div>
                     </div>
                     <a href="new-service.html">
                         <button class="badge rounded-pill">+ New service</button>
                     </a>
+                </div>
+                <div class="alert alert-info mb-4" role="note">
+                    New service listings are reviewed before customers can see or book them. If changes are requested,
+                    update the listing and submit it again.
                 </div>
 
                 <div class="service-grid">
@@ -62,6 +66,7 @@
                                 <div class="d-flex justify-content-between">
                                     <h4 class="fw-bold p-1">Pedicure</h4>
                                     <div class="d-flex flex-row flex-nowrap align-items-center gap-2">
+                                        <span class="badge bg-success-subtle text-success-emphasis">Approved</span>
                                         <a href="edit-service.html">
                                             <button
                                             class="btn btn-dark rounded-circle p-2 d-inline-flex align-items-center justify-content-center"
@@ -101,6 +106,7 @@
                                 <div class="d-flex justify-content-between">
                                     <h4 class="fw-bold p-1">Acrylic nail</h4>
                                     <div class="d-flex flex-row flex-nowrap align-items-center gap-2">
+                                        <span class="badge bg-success-subtle text-success-emphasis">Approved</span>
                                         <a href="edit-service.html">
                                             <button
                                             class="btn btn-dark rounded-circle p-2 d-inline-flex align-items-center justify-content-center"
@@ -138,8 +144,9 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="card h-100 p-3">
                                 <div class="d-flex justify-content-between">
-                                    <h4 class="fw-bold p-1">Nail design</h4>
+                                    <h4 class="fw-bold p-1">Signature Nail Art</h4>
                                     <div class="d-flex flex-row flex-nowrap align-items-center gap-2">
+                                        <span class="badge bg-warning-subtle text-warning-emphasis">Pending review</span>
                                         <a href="edit-service.html">
                                             <button
                                             class="btn btn-dark rounded-circle p-2 d-inline-flex align-items-center justify-content-center"
@@ -157,7 +164,7 @@
                                 <div class="card-body d-flex flex-column">
                                     <img src="../images/design.jpg"
                                         class="img-fluid rounded mb-3 w-100 object-fit-cover" alt="...">
-                                    <p class="text-muted mb-3">Simple nail design</p>
+                                    <p class="text-muted mb-3">Custom nail art designs with a choice of colors and finish.</p>
                                     <div class="mt-auto">
                                         <p class="text-secondary fw-semibold mb-2">Availability:
                                             <span class="fw-bold">Mon - Sat (9:30 AM - 6:30 PM)</span>
@@ -179,7 +186,8 @@
                                 <div class="d-flex justify-content-between">
                                     <h4 class="fw-bold p-1">Eyebrow waxing</h4>
                                     <div class="d-flex flex-row flex-nowrap align-items-center gap-2">
-                                        <a href="edit-service.html">
+                                        <span class="badge bg-warning-subtle text-warning-emphasis">Changes requested</span>
+                                        <a href="revise-service.html">
                                             <button
                                             class="btn btn-dark rounded-circle p-2 d-inline-flex align-items-center justify-content-center"
                                             style="width: 36px; height: 36px;">
@@ -194,6 +202,9 @@
                                     </div>
                                 </div>
                                 <div class="card-body d-flex flex-column">
+                                    <div class="alert alert-warning py-2 small">
+                                        Please clarify what products are included in this service before it can be approved.
+                                    </div>
                                     <img src="../images/waxing.jpg"
                                         class="img-fluid rounded mb-3 w-100 object-fit-cover" alt="...">
                                     <p class="text-muted mb-3">Expert shaping and clean hair removal for crisp, naturally defined arches.</p>

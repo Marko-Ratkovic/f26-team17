@@ -101,14 +101,23 @@
   ```
 
 - **US-6 — Define services and pricing** \
-  *Story:* As a provider, I want to define and pricing my services so that customers can can select and schedule the right services.
+  *Story:* As a provider, I want to submit accurate service details for review so that compliant services can be published for customers.
   *Acceptance:*
 
   ```gherkin
-  Scenario: <Define and pricing>
-    Given <I am logged in as a provider>
-    When  <I add my services and set pricing>
-    Then  <the services should be saved and visible to customers>
+  Scenario: Submit a new service for approval
+    Given I am logged in as a provider
+    When I submit a service name, category, description, image, duration, and price
+    Then the listing should have Pending review status
+    And customers should not see or book the listing before approval
+  ```
+
+  ```gherkin
+  Scenario: Revise a service listing after review
+    Given an admin requested changes to my listing with an explanation
+    When I update the listing and submit it again
+    Then the listing should return to Pending review
+    And it should remain unavailable to customers until approved
   ```
 
 - **US-7 — Manage customer's booking** \
@@ -151,16 +160,39 @@ the platform secure and enforce policies.\
   ```
 
 **US-10 — Moderate services** \
-*Story:* As a SysAdmin, I want to moderate services and content offered by providers,
-  so that I can remove fraudulent or policy-violating listings.\
+*Story:* As a SysAdmin, I want to review new service listings before publication, so that customers can discover accurate and policy-compliant services.\
 *Acceptance:*
 
   ```gherkin
-  Scenario: <Remove a fraudulent service>
-  Given <I am logged in as a SysAdmin>
-  When <I flag a provider's service listing as fraudulent>
-  Then <the service should be immediately removed from the public search menu>
+  Scenario: Approve a compliant new service
+  Given I am logged in as a SysAdmin
+  And a provider has submitted a new service listing
+  When I verify the service details comply with GlowUp's terms
+  Then I can approve the listing and make it visible to customers
   ```
+
+  ```gherkin
+  Scenario: Request changes to a service listing
+  Given I am reviewing a new service listing with a fixable issue
+  When I return it to the provider with a specific explanation
+  Then the listing should have Changes requested status
+  And it should remain hidden until the provider resubmits and the listing is approved
+  ```
+
+  ```gherkin
+  Scenario: Reject a prohibited service
+  Given I am reviewing a new service listing that offers a prohibited service
+  When I reject the listing and record the reason
+  Then the listing should remain unavailable to customers
+  And the provider should be shown the decision and reason
+  ```
+
+**Service listing review policy**
+- Every new service listing is reviewed before it appears in customer search or can be booked.
+- Admins check service name, category, description, image, duration, price, and compliance with GlowUp's terms and safety expectations.
+- Approve compliant listings, request specific changes for fixable issues, and reject listings offering prohibited services.
+- A requested-change listing remains hidden until the provider resubmits it and it is approved.
+- Show providers their current review status and any reason or requested changes. Keep the decision and reason in the moderation history.
 **US-11 — Moderate reported reviews and replies** \
 *Story:* As a SysAdmin, I want to review reports about customer reviews and provider replies, so that I can address policy violations without delaying ordinary feedback.\
 *Acceptance:*

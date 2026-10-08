@@ -4,610 +4,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glow Up</title>
+    <title>Provider Profile - GlowUp</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../styles.css">
 </head>
 
 <body>
     <div class="container">
-        <!-- Navigation -->
-        <nav class="sticky-top">
+        <nav class="sticky-top" aria-label="Provider navigation">
             <div class="navbar">
-                <a href="../index.html" class="navbar-brand mb-2">
-                    <img src="../images/logo.png" alt="" class="img-fluid logo" style="width: 150px; height: 50px;">
-                </a>
+                <a href="../index.html" class="navbar-brand mb-2"><img src="../images/logo.png" alt="GlowUp home" class="img-fluid logo" style="width: 150px; height: 50px;"></a>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="manage-services.html" class="nav-link under-scored">My Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="appoinment.html" class="nav-link under-scored">My Appointments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" aria-current="page" class="nav-link fw-bold"
-                            style="border-bottom: 1px solid;">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../index.html" class="nav-link fw-bold">Log out</a>
-                    </li>
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link under-scored">Dashboard</a></li>
+                    <li class="nav-item"><a href="manage-services.html" class="nav-link under-scored">My Services</a></li>
+                    <li class="nav-item"><a href="appointments.html" class="nav-link under-scored">My Appointments</a></li>
+                    <li class="nav-item"><a href="profile.html" aria-current="page" class="nav-link fw-bold">Profile</a></li>
+                    <li class="nav-item"><a href="../index.html" class="nav-link fw-bold">Log out</a></li>
                 </ul>
             </div>
         </nav>
 
-        <!--Header-->
-        <section class="section" style="background-color: #d6c5b6;">
-            <div class="container p-4">
-                <h1 style="font-size: 2rem; font-weight: 700;">My Profile</h1>
-                <p class="text-muted">Manage how you appear to potential customers</p>
-            </div>
-        </section>
-
-        <!--Profile-->
-        <section class="section">
-            <div class="container provider-profile" style="max-width: 800px;">
-                
-                <!--Personal Information-->
-                <div class="card rounded-4 overflow-hidden mb-4">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4 class=" p-4 fw-bold mb-0">Personal Information</h4>
-                        <a href="edit-details.html" class="align-content-center">
-                            <button type="button" class="btn btn-light "><i class="bi bi-pencil-fill"></i> Edit</button>
-                        </a>
+        <main>
+            <section class="section">
+                <div class="container">
+                    <div class="provider-profile-hero">
+                        <p class="provider-eyebrow">PROVIDER ACCOUNT</p>
+                        <h1>Michelle Thompson</h1>
+                        <p>Nail technician · Greensboro, NC</p>
+                        <span class="provider-visibility-badge">Profile visible to customers</span>
                     </div>
-                    <div class="card-body mt-3 px-5 py-3">
-                        <div class="row">
-                            <div class="col mb-5">
-                                <p class="text-secondary mb-2">First Name</p>
-                                <p class="fw-bold">Michelle</p>
-                            </div>
-                            <div class="col">
-                                <p class="text-secondary mb-2">Middle Name</p>
-                                <p class="fw-bold">Not provided</p>
-                            </div>
-                            <div class="col">
-                                <p class="text-secondary mb-2">Last Name</p>
-                                <p class="fw-bold">Thompson</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col mb-3">
-                                <p class="text-secondary mb-2">Email</p>
-                                <p class="fw-bold">michelle@example.com</p>
-                            </div>
-                            <div class="col">
-                                <p class="text-secondary mb-2">Phone</p>
-                                <p class="fw-bold">+1 (336) 123-4567</p>
-                            </div>
-                        </div>
-                    </div>
-
+                    <p class="provider-prototype-note" role="note">Prototype preview: information and statuses are sample data. Changes are not saved or sent for verification.</p>
                 </div>
+            </section>
 
-                <!--Professional Information-->
-                <div class="card rounded-4 overflow-hidden mb-4">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4 class=" p-4 fw-bold mb-0">Professional Information</h4>
-                        <a href="#" class="align-content-center">
-                            <button type="button" class="btn btn-light "><i class="bi bi-pencil-fill"></i> Edit</button>
-                        </a>
-                    </div>
-                    <div class="card-body mt-3 px-5 py-3">
-                        <div class="mb-4">
-                            <p class="fw-bold">Professional Bio</p>
-                            <p>With over 3 years in the beauty industry, I specialize in creating custom nail art and delivering spa-quality manicures and pedicures. My approach combines precision, creativity, and a client-first mindset, ensuring every visit is both relaxing and transformative. I use only cruelty-free, high-quality products and maintain the highest hygiene standards.</p>
+            <section class="section">
+                <div class="container provider-profile-content">
+                    <section class="card provider-settings-card" aria-labelledby="contact-heading">
+                        <div class="profile-card-header"><h2 class="profile-card-title" id="contact-heading">Account &amp; contact</h2></div>
+                        <div class="card-content">
+                            <dl class="profile-data-grid">
+                                <div><dt>Name</dt><dd>Michelle Thompson</dd></div>
+                                <div><dt>Email</dt><dd>michelle@example.com</dd></div>
+                                <div><dt>Phone</dt><dd>+1 (336) 123-4567</dd></div>
+                            </dl>
+                            <p class="profile-helper">Contact details are for account and appointment coordination. They should not be shown on a public profile unless explicitly approved for display.</p>
+                            <a href="edit-details.html" class="btn profile-edit-btn">Edit contact &amp; professional details</a>
                         </div>
-                        <div class="mb-3">
-                            <p class="text-secondary mb-2">Education & Certifications</p>
-                            <div class="fw-bold">
-                                <ul>
-                                    <li>Certified Nail Technician - [State Board of Cosmetology]</li> 
-                                    <li>Advanced Nail Art & Gel Application Certification</li>
-                                    <li>OSHA Bloodborne Pathogens Training</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <p class="text-secondary mb-2">Location</p>
-                            <p class="fw-bold">
-                                123 Tate St, Greensboro, NC 27404
-                            </p>
-                        </div>
-                    </div>
+                    </section>
 
+                    <section class="card provider-settings-card" aria-labelledby="professional-heading">
+                        <div class="profile-card-header"><h2 class="profile-card-title" id="professional-heading">Public professional profile</h2></div>
+                        <div class="card-content">
+                            <dl class="profile-data-grid">
+                                <div><dt>Specialty</dt><dd>Nail care and custom nail art</dd></div>
+                                <div><dt>Experience</dt><dd>3 years</dd></div>
+                                <div class="profile-data-wide"><dt>About</dt><dd>I create custom nail art and offer manicures and pedicures with a focus on clear service details and a welcoming client experience.</dd></div>
+                                <div><dt>Service area</dt><dd>Greensboro, NC</dd></div>
+                                <div><dt>Credentials</dt><dd>No credentials submitted in this sample</dd></div>
+                            </dl>
+                            <p class="profile-helper">Only claim licenses or certifications that are current and accurately represented. A credential is not GlowUp-verified unless its verification status is explicitly shown.</p>
+                            <a href="../index.html#features" class="btn btn-appt-secondary">Preview customer-facing profile</a>
+                        </div>
+                    </section>
+
+                    <section class="card provider-settings-card" id="provider-services" aria-labelledby="services-heading">
+                        <div class="profile-card-header provider-section-header">
+                            <h2 class="profile-card-title" id="services-heading">Service listings</h2>
+                            <a href="manage-services.html" class="btn btn-light">Manage services</a>
+                        </div>
+                        <div class="card-content">
+                            <div class="provider-listing-row"><div><h3>Pedicure</h3><p>Approved · 30 min · $45</p></div><span class="provider-listing-status is-approved">Visible</span></div>
+                            <div class="provider-listing-row"><div><h3>Acrylic nail</h3><p>Approved · 60 min · $65</p></div><span class="provider-listing-status is-approved">Visible</span></div>
+                            <div class="provider-listing-row"><div><h3>Signature Nail Art</h3><p>Pending review · 15 min · $20</p></div><span class="provider-listing-status is-pending">Hidden</span></div>
+                            <div class="provider-listing-row"><div><h3>Eyebrow Waxing</h3><p>Changes requested · 10 min · $15</p></div><span class="provider-listing-status is-pending">Hidden</span></div>
+                            <p class="profile-helper mb-0">Only approved listings appear in customer search and can be booked. Editing an approved listing submits a new version for review; the edited version stays hidden until approved.</p>
+                        </div>
+                    </section>
+
+                    <section class="card provider-settings-card" id="provider-availability" aria-labelledby="availability-heading">
+                        <div class="profile-card-header provider-section-header">
+                            <h2 class="profile-card-title" id="availability-heading">Availability</h2>
+                            <a href="availability.html" class="btn btn-light">Manage availability</a>
+                        </div>
+                        <div class="card-content">
+                            <dl class="provider-availability-list">
+                                <div><dt>Monday–Saturday</dt><dd>9:30 AM–6:30 PM</dd></div>
+                                <div><dt>Sunday</dt><dd>Closed</dd></div>
+                            </dl>
+                            <p class="profile-helper mb-0">Availability is not the same as a confirmed appointment. Existing bookings should remain reserved if you later change your hours.</p>
+                        </div>
+                    </section>
+
+                    <section class="card provider-settings-card" aria-labelledby="account-settings-heading">
+                        <div class="profile-card-header"><h2 class="profile-card-title" id="account-settings-heading">Account settings</h2></div>
+                        <div class="card-content profile-settings-links">
+                            <a href="security.html">Password &amp; sign-in security <span aria-hidden="true">→</span></a>
+                            <a href="notifications.html">Notification preferences <span aria-hidden="true">→</span></a>
+                            <a href="../policies/privacy.html">Read the privacy policy <span aria-hidden="true">→</span></a>
+                        </div>
+                    </section>
                 </div>
+            </section>
+        </main>
 
-                <!--Rate & Services-->
-                <div class="card rounded-4 overflow-hidden mb-4">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4 class=" p-4 fw-bold mb-0">Rates & Services</h4>
-                        <a href="manage-services.html" class="align-content-center">
-                            <button type="button" class="btn btn-light ">Manage Services</button>
-                        </a>
-                    </div>
-                    <div class="card-body mt-3 px-5 py-3">
-
-                    </div>
-
-                </div>
-
-                <!--Availability-->
-                <div class="card rounded-4 overflow-hidden mb-4">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4 class=" p-4 fw-bold mb-0">Availability</h4>
-                    </div>
-                    <div class="card-body mt-3 px-5 py-2">
-                        <div class="table-responsive">
-                            <table class="table table-borderless">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" style="width: 25%;"></th>
-                                        <th scope="col" style="width: 30%;">Open hour</th>
-                                        <th scope="col" style="width: 30%;">Close hour</th>
-                                        <th scope="col" style="width: 15%;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">Monday</th>
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle" style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-2">
-                                                <button type="button"
-                                                    class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center"
-                                                    style="width: 32px; height: 32px; padding: 0;">
-                                                    +
-                                                </button>
-                                                <div class="form-check form-switch m-0 p-0 d-flex align-items-center">
-                                                    <input class="form-check-input m-0" type="checkbox" role="switch"
-                                                        checked style="cursor: pointer;">
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row">Tuesday</th>
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle" style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-2">
-                                                <button type="button"
-                                                    class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center"
-                                                    style="width: 32px; height: 32px; padding: 0;">
-                                                    +
-                                                </button>
-                                                <div class="form-check form-switch m-0 p-0 d-flex align-items-center">
-                                                    <input class="form-check-input m-0" type="checkbox" role="switch"
-                                                        checked style="cursor: pointer;">
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row">Wednesday</th>
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle" style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-2">
-                                                <button type="button"
-                                                    class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center"
-                                                    style="width: 32px; height: 32px; padding: 0;">
-                                                    +
-                                                </button>
-                                                <div class="form-check form-switch m-0 p-0 d-flex align-items-center">
-                                                    <input class="form-check-input m-0" type="checkbox" role="switch"
-                                                        checked style="cursor: pointer;">
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row">Thursday</th>
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle" style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-2">
-                                                <button type="button"
-                                                    class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center"
-                                                    style="width: 32px; height: 32px; padding: 0;">
-                                                    +
-                                                </button>
-                                                <div class="form-check form-switch m-0 p-0 d-flex align-items-center">
-                                                    <input class="form-check-input m-0" type="checkbox" role="switch"
-                                                        checked style="cursor: pointer;">
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row">Friday</th>
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle" style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-2">
-                                                <button type="button"
-                                                    class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center"
-                                                    style="width: 32px; height: 32px; padding: 0;">
-                                                    +
-                                                </button>
-                                                <div class="form-check form-switch m-0 p-0 d-flex align-items-center">
-                                                    <input class="form-check-input m-0" type="checkbox" role="switch"
-                                                        checked style="cursor: pointer;">
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row">Saturday</th>
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle" style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-2">
-                                                <button type="button"
-                                                    class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center"
-                                                    style="width: 32px; height: 32px; padding: 0;">
-                                                    +
-                                                </button>
-                                                <div class="form-check form-switch m-0 p-0 d-flex align-items-center">
-                                                    <input class="form-check-input m-0" type="checkbox" role="switch"
-                                                        checked style="cursor: pointer;">
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row">Monday</th>
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle" style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-2">
-                                                <button type="button"
-                                                    class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center"
-                                                    style="width: 32px; height: 32px; padding: 0;">
-                                                    +
-                                                </button>
-                                                <div class="form-check form-switch m-0 p-0 d-flex align-items-center">
-                                                    <input class="form-check-input m-0" type="checkbox" role="switch"
-                                                        checked style="cursor: pointer;">
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row">Sunday</th>
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-
-                                        <td style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="1" max="12">
-                                                <span>:</span>
-                                                <input type="number" class="form-control form-control-sm text-center"
-                                                    style="width: 50px;" min="0" max="59">
-                                                <select class="form-select form-select-sm" style="width: auto;">
-                                                    <option value="AM">AM</option>
-                                                    <option value="PM">PM</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle" style="width: 1%; white-space: nowrap;">
-                                            <div class="d-inline-flex align-items-center gap-2">
-                                                <button type="button"
-                                                    class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center"
-                                                    style="width: 32px; height: 32px; padding: 0;">
-                                                    +
-                                                </button>
-                                                <div class="form-check form-switch m-0 p-0 d-flex align-items-center">
-                                                    <input class="form-check-input m-0" type="checkbox" role="switch"
-                                                        checked style="cursor: pointer;">
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="d-flex align-items-center gap-2 mt-3 mb-4 justify-content-end">
-                            <button type="button" class="btn btn-success">Save changed</button>
-                            <button type="button" class="btn btn-light">Cancel</button>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!--Profile Visibility-->
-                <div class="card rounded-4 overflow-hidden mb-4">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4 class=" p-4 fw-bold mb-0">Profile Visibility</h4>
-                    </div>
-                    <div class="card-body mt-3 px-5 py-3">
-                        <div class="form-check mb-4">
-                            <input class="form-check-input" type="radio" id="visibleProfile" checked>
-                            <label class="form-check-label fw-bold" for="visibleProfile">
-                                Visible to all customers
-                            </label>
-                            <div class="text-secondary small mt-2 px-3">Customers can find and book your services</div>
-                        </div>
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="radio" id="hiddenProfile">
-                            <label class="form-check-label fw-bold" for="hiddenProfile">
-                                Hidden from searcher
-                            </label>
-                            <div class="text-secondary small mt-2 px-3">Only existing clients can book appointment</div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Profile Statistic-->
-                <div class="card rounded-4 overflow-hidden mb-4">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4 class=" p-4 fw-bold mb-0">Profile Statistic</h4>
-                    </div>
-                    <div class="card-body mt-3 px-5 py-3">
-                        <div class="row">
-                            <div class="col">
-                                <p class="text-secondary small mb-2">Profile View (Months)</p>
-                                <h4 class="fw-bold">120</h4>
-                            </div>
-                            <div class="col">
-                                <p class="text-secondary small mb-2">Overall Rating</p>
-                                <h4 class="fw-bold">4.8/5 ⭐</h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <p class="text-secondary small mb-2">Total Reviews</p>
-                                <h4 class="fw-bold">30</h4>
-                            </div>
-                            <div class="col">
-                                <p class="text-secondary small mb-2">Response Rate</p>
-                                <h4 class="fw-bold">98%</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Account Settings-->
-                <div class="card rounded-4 overflow-hidden mb-4">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4 class=" p-4 fw-bold mb-0">Account Settings</h4>
-                    </div>
-                    <div class="card-body mt-3 px-5 py-3 mb-3">
-                        <div class="d-grid gap-2">
-                            <a href="#" class="btn btn-outline-dark setting-btn fw-bold" role="button"
-                                data-bs-toggle="button">Change Password</a>
-                            <a href="#" class="btn btn-outline-dark setting-btn fw-bold" role="button"
-                                data-bs-toggle="button">Notification Settings</a>
-                            <a href="#" class="btn btn-outline-dark setting-btn fw-bold" role="button"
-                                data-bs-toggle="button">Payout Settings</a>
-                            <a href="#" class="btn btn-outline-danger setting-btn fw-bold" role="button"
-                                data-bs-toggle="button">Delete Account</a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-
-
-
-
-        <!--Footer-->
-        <footer>
-            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.
-            </p>
-        </footer>
+        <footer><p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p></footer>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-        </script>
 </body>
 
 </html>

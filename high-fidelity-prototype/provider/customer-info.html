@@ -4,149 +4,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glow Up</title>
+    <title>Appointment Details - GlowUp</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
     <link rel="stylesheet" href="../styles.css">
 </head>
 
 <body>
     <div class="container">
-        <!-- Navigation -->
-        <nav class="sticky-top">
+        <nav class="sticky-top" aria-label="Provider navigation">
             <div class="navbar">
-                <a href="../index.html" class="navbar-brand mb-2">
-                    <img src="../images/logo.png" alt="" class="img-fluid logo" style="width: 150px; height: 50px;">
-                </a>
+                <a href="../index.html" class="navbar-brand mb-2"><img src="../images/logo.png" alt="GlowUp home" class="img-fluid logo" style="width: 150px; height: 50px;"></a>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="manage-services.html" class="nav-link under-scored">My Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="appoinment.html" class="nav-link under-scored">My Appointments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="profile.html" class="nav-link under-scored">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../index.html" class="nav-link fw-bold">Log out</a>
-                    </li>
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link under-scored">Dashboard</a></li>
+                    <li class="nav-item"><a href="manage-services.html" class="nav-link under-scored">My Services</a></li>
+                    <li class="nav-item"><a href="appointments.html" aria-current="page" class="nav-link fw-bold">My Appointments</a></li>
+                    <li class="nav-item"><a href="profile.html" class="nav-link under-scored">Profile</a></li>
+                    <li class="nav-item"><a href="../index.html" class="nav-link fw-bold">Log out</a></li>
                 </ul>
             </div>
         </nav>
-
-        <!--Header-->
-        <section class="section mb-3" style="background-color: #f1d3bf;">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <div class="d-flex align-items-center justify-content-center"
-                            style="width:150px; height: 150px; border-radius: 50%; font-size: 3rem; margin-bottom: 1.5rem;color: white; background-color: #fd774f;">
-                            A
+        <main>
+            <section class="section"><div class="container"><div class="edit-info-header">
+                <p class="provider-eyebrow">CONFIRMED BOOKING · SAMPLE DATA</p>
+                <h1 class="edit-info-title">Appointment details</h1>
+                <p class="edit-info-subtitle">Customer and service information for the associated booking.</p>
+            </div></div></section>
+            <section class="section">
+                <div class="container provider-profile-content">
+                    <p class="provider-prototype-note" role="note">Privacy preview: the live app should authorize this view only for the provider assigned to a confirmed appointment. This static page cannot enforce identity or access rules.</p>
+                    <section class="card provider-settings-card" id="confirmed-booking" aria-labelledby="booking-heading">
+                        <div class="profile-card-header"><h2 class="profile-card-title" id="booking-heading">Confirmed appointment</h2></div>
+                        <div class="card-content">
+                            <dl class="profile-data-grid">
+                                <div><dt>Customer</dt><dd>Laura Johnson</dd></div>
+                                <div><dt>Status</dt><dd>Confirmed</dd></div>
+                                <div><dt>Service</dt><dd>Full set acrylic nails</dd></div>
+                                <div><dt>Date &amp; time</dt><dd>Friday, Oct 9, 2026 · 9:00 AM</dd></div>
+                                <div><dt>Duration</dt><dd>30 minutes</dd></div>
+                                <div><dt>Price</dt><dd>$75</dd></div>
+                            </dl>
                         </div>
-                    </div>
-                    <div class="col">
-                        <h2 class="fw-bold">Alice Philips</h2>
-                        <p class="mb-3">Active Customer</p>
-                        <div class="d-flex justify-content-between text-nowrap gap-3">
-                            <div>
-                                <p class="text-secondary mb-1">Member Since</p>
-                                <h4>Aug 2026</h4>
-                            </div>
-                            <div>
-                                <p class="text-secondary mb-1">Total Appointments</p>
-                                <h4>4</h4>
-                            </div>
-                            <div>
-                                <p class="text-secondary mb-1">Customer Rating</p>
-                                <h4>5.0 / 5.0</h4>
-                            </div>
+                    </section>
+                    <section class="card provider-settings-card" aria-labelledby="contact-heading">
+                        <div class="profile-card-header"><h2 class="profile-card-title" id="contact-heading">Appointment contact</h2></div>
+                        <div class="card-content">
+                            <p class="profile-helper">Use this contact information only to coordinate this booking. It is not public profile information.</p>
+                            <dl class="profile-data-grid">
+                                <div><dt>Email</dt><dd>laura@example.com</dd></div>
+                                <div><dt>Phone</dt><dd>+1 (336) 555-0142</dd></div>
+                            </dl>
                         </div>
-
-                    </div>
+                    </section>
+                    <section class="card provider-settings-card" aria-labelledby="safety-heading">
+                        <div class="profile-card-header"><h2 class="profile-card-title" id="safety-heading">Private beauty &amp; safety notes</h2></div>
+                        <div class="card-content">
+                            <p class="profile-privacy-callout"><strong>Appointment-specific information.</strong> The live service should expose these notes only to the provider assigned to this confirmed appointment. Do not copy notes into general customer lists or use them for marketing.</p>
+                            <dl class="profile-data-grid">
+                                <div><dt>Allergy status</dt><dd>No known allergies reported</dd></div>
+                                <div><dt>Sensitivities</dt><dd>Not provided</dd></div>
+                            </dl>
+                            <p class="profile-helper mb-0">These customer-entered notes are not medical advice. Ask the customer if clarification is needed before proceeding.</p>
+                        </div>
+                    </section>
+                    <a href="appointments.html#confirmed" class="btn btn-appt-secondary">Back to confirmed appointments</a>
                 </div>
-            </div>
-        </section>
-
-        <!--Customer Info-->
-        <section class="section">
-            <div class="container provider-profile" style="max-width: 800px;">
-
-                <!--Contact Information-->
-                <div class="card rounded-4 overflow-hidden mb-4">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4 class=" p-4 fw-bold mb-0">Contact Information</h4>
-                    </div>
-                    <div class="card-body mt-3 px-5 py-3">
-                        <p class="alert alert-info">In the live app, show customer contact details only in an appointment context and only when needed to fulfill that booking. Do not expose them in public profiles or provider search.</p>
-                        <div class="mb-3">
-                            <p class="text-secondary small mb-2">Email</p>
-                            <p class="fw-bold">alice@example.com</p>
-                        </div>
-                        <div>
-                            <p class="text-secondary small mb-2">Phone</p>
-                            <p class="fw-bold">+1 (336) 123-4567</p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!--Appointment-specific safety notes-->
-                <div class="card rounded-4 overflow-hidden mb-4">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4 class=" p-4 fw-bold mb-0">Appointment-specific safety notes</h4>
-                    </div>
-                    <div class="card-body mt-3 px-5 py-3">
-                        <p class="alert alert-info">Private information: in the live app, show these notes only in the context of this customer’s confirmed appointment. Do not include them on public profiles or general customer lists. Backend access checks are required; this static preview does not enforce them.</p>
-                        <div class="mb-3">
-                            <p class="text-secondary small mb-2">Allergy status</p>
-                            <p class="fw-bold">Known allergies listed</p>
-                            <p class="text-secondary small mb-2">Allergies</p>
-                            <p class="fw-bold">PPD, Acrylic/gel</p>
-                        </div>
-                        <div>
-                            <p class="text-secondary small mb-2">Sensitivities</p>
-                            <p class="fw-bold">Sensitive skin, Thin/weak nails</p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!--Appointment Preferences-->
-                <div class="card rounded-4 overflow-hidden mb-4">
-                    <div class="card-header d-flex justify-content-between">
-                        <h4 class=" p-4 fw-bold mb-0">Appointment Preferences</h4>
-                    </div>
-                    <div class="card-body mt-3 px-5 py-3">
-                        <div class="mb-3">
-                            <p class="text-secondary small mb-2">Preferred Appointment Time(s)</p>
-                            <p class="fw-bold">Weekdays, 11 AM - 7 PM</p>
-                        </div>
-                        <p class="text-secondary small mb-0">Booking preferences are for customer convenience and should not be treated as medical or safety instructions.</p>
-                    </div>
-                </div>
-
-
-            </div>
-        </section>
-
-
-
-
-        <!--Footer-->
-        <footer>
-            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.
-            </p>
-        </footer>
+            </section>
+        </main>
+        <footer><p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p></footer>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-        </script>
 </body>
 
 </html>

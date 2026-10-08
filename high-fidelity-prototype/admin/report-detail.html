@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlowUp Admin - Report Details</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-page">
+<div class="admin-shell">
+  <nav class="admin-nav">
+    <div class="navbar">
+      <a href="../index.html" class="navbar-brand"><img src="../images/logo.png" alt="GlowUp logo" class="admin-logo"></a>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+        <li class="nav-item"><a href="users.html" class="nav-link">User Access</a></li>
+        <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+        <li class="nav-item"><a href="reviews.html" class="nav-link active" aria-current="page">Reviews</a></li>
+        <li class="nav-item"><a href="analytics.html" class="nav-link">Usage Stats</a></li>
+        <li class="nav-item"><a href="../index.html" class="nav-link admin-logout">Log out</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="admin-header">
+    <div>
+      <div class="admin-subtitle">Reported review · Oct 8, 2026</div>
+      <h1 class="admin-title">Report #R-1248</h1>
+      <p class="admin-content-meta">Status: <span class="badge flagged">Reported</span></p>
+    </div>
+    <div class="admin-actions"><a href="reviews.html" class="admin-btn-secondary">Back to reports</a></div>
+  </header>
+
+  <p class="admin-demo-note">Prototype preview: fictional sample report. Review context and policy before deciding; disagreement or a low rating alone is not grounds to hide a review.</p>
+
+  <div class="admin-detail-grid">
+    <section class="admin-panel">
+      <div class="panel-header"><h2 class="panel-title">Reported content</h2></div>
+      <div class="admin-detail-card">
+        <p class="mb-2"><strong>Priya S.</strong> · Customer review · 5/5 stars</p>
+        <blockquote class="mb-2">“The weather was perfect for our beach trip.”</blockquote>
+        <p class="admin-content-meta mb-0">For Laura Gomez · Nail Care appointment · Completed Oct 6, 2026</p>
+      </div>
+      <dl class="admin-detail-list mt-3">
+        <dt>Reported by</dt><dd>Laura Gomez · Provider</dd>
+        <dt>Report reason</dt><dd>Off-topic content</dd>
+        <dt>Submitted</dt><dd>Oct 8, 2026 at 8:52 AM</dd>
+      </dl>
+    </section>
+    <section class="admin-panel">
+      <div class="panel-header"><h2 class="panel-title">Context and decision</h2></div>
+      <p class="admin-guidance">A low rating and relevant service criticism are generally allowed. Assess whether the content itself violates the community guidelines.</p>
+      <form>
+        <div class="admin-field">
+          <label for="report-outcome">Outcome</label>
+          <select id="report-outcome"><option>Keep visible — no policy violation</option><option>Hide — policy violation</option></select>
+        </div>
+        <div class="admin-field mt-3">
+          <label for="moderation-reason">Decision reason</label>
+          <textarea id="moderation-reason" rows="4" placeholder="Record the policy-based decision reason" required></textarea>
+        </div>
+        <button type="button" class="admin-btn mt-3">Save decision (demo)</button>
+      </form>
+    </section>
+  </div>
+
+  <section class="admin-panel">
+    <div class="panel-header"><h2 class="panel-title">Report history</h2></div>
+    <ul class="admin-timeline">
+      <li><strong>Report submitted by provider</strong> <span class="admin-muted">· Oct 8, 2026 at 8:52 AM</span></li>
+      <li><strong>Review remains visible while awaiting review</strong> <span class="admin-muted">· Oct 8, 2026</span></li>
+      <li><strong>Appointment completed</strong> <span class="admin-muted">· Oct 6, 2026</span></li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>

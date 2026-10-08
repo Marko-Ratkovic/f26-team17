@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlowUp Admin - Service Details</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-page">
+<div class="admin-shell">
+  <nav class="admin-nav">
+    <div class="navbar">
+      <a href="../index.html" class="navbar-brand"><img src="../images/logo.png" alt="GlowUp logo" class="admin-logo"></a>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+        <li class="nav-item"><a href="users.html" class="nav-link">User Access</a></li>
+        <li class="nav-item"><a href="services.html" class="nav-link active" aria-current="page">Services</a></li>
+        <li class="nav-item"><a href="reviews.html" class="nav-link">Reviews</a></li>
+        <li class="nav-item"><a href="analytics.html" class="nav-link">Usage Stats</a></li>
+        <li class="nav-item"><a href="../index.html" class="nav-link admin-logout">Log out</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="admin-header">
+    <div>
+      <div class="admin-subtitle">New listing · submitted Oct 8, 2026</div>
+      <h1 class="admin-title">Signature Nail Art</h1>
+      <p class="admin-content-meta">Submitted by <a href="user-detail.html">Emma Torres</a></p>
+    </div>
+    <div class="admin-actions">
+      <span class="badge pending">Pending review</span>
+      <a href="services.html" class="admin-btn-secondary">Back to services</a>
+    </div>
+  </header>
+
+  <p class="admin-demo-note">Prototype preview: fictional sample listing. Only approved services should appear in customer search or be bookable.</p>
+
+  <div class="admin-detail-grid">
+    <section class="admin-panel">
+      <img src="../images/design.jpg" alt="Example nail art service" class="img-fluid rounded">
+      <h2 class="panel-title mt-3">Listing details</h2>
+      <p>Custom nail art designs with a choice of colors and finish, created to match your style.</p>
+      <dl class="admin-detail-list">
+        <dt>Category</dt><dd>Nail Care</dd>
+        <dt>Price</dt><dd>$35.00</dd>
+        <dt>Duration</dt><dd>45 minutes</dd>
+        <dt>Availability</dt><dd>Weekdays, 9:00 AM–5:00 PM</dd>
+        <dt>Visibility</dt><dd>Hidden while pending review</dd>
+      </dl>
+    </section>
+
+    <section class="admin-panel">
+      <div class="panel-header"><h2 class="panel-title">Review checklist</h2></div>
+      <ul class="admin-checklist admin-guidance">
+        <li>Service name and category accurately describe the offering.</li>
+        <li>Description is clear and does not make misleading claims.</li>
+        <li>Image is appropriate and represents the service.</li>
+        <li>Price and duration are clear and reasonable for the listed service.</li>
+        <li>Listing complies with GlowUp terms and safety expectations.</li>
+      </ul>
+      <form>
+        <div class="admin-field">
+          <label for="decision-reason">Decision note (required for changes/rejection)</label>
+          <textarea id="decision-reason" rows="4" placeholder="Explain any requested changes or rejection reason" required></textarea>
+        </div>
+        <div class="admin-actions mt-3">
+          <button type="button" class="admin-btn">Approve listing</button>
+          <button type="button" class="admin-btn-secondary">Request changes</button>
+          <button type="button" class="admin-btn-danger">Reject listing</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <section class="admin-panel">
+    <div class="panel-header"><h2 class="panel-title">Listing history</h2></div>
+    <ul class="admin-timeline">
+      <li><strong>Listing submitted for review</strong> <span class="admin-muted">· Oct 8, 2026</span></li>
+      <li><strong>Created by provider</strong> <span class="admin-muted">· Oct 8, 2026</span></li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>

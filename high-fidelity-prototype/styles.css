@@ -1015,29 +1015,87 @@ textarea:focus {
 
 /* Appointment Tabs */
 .appt-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
   border-bottom: 1px solid var(--background-neutral-strong);
 }
 
 .appt-tabs .nav-link {
-  color: var(--text-light);
+  display: inline-block;
+  color: var(--dark-gray);
   font-weight: 600;
   border: none;
   border-bottom: 2px solid transparent;
   padding: 0.5rem 0;
-  margin-right: 2rem;
-  background: none;
+  text-decoration: none;
 }
 
 .appt-tabs .nav-link:hover {
-  color: var(--text-dark);
-  border: none;
-  border-bottom: 2px solid transparent;
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
 }
 
-.appt-tabs .nav-link.active {
+.appt-tabs .nav-link:focus-visible,
+.customer-stat-card:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 3px;
+}
+
+.appointment-list-section {
+  scroll-margin-top: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.appointment-list-heading {
+  margin-bottom: 1rem;
   color: var(--text-dark);
-  border: none;
-  border-bottom: 2px solid var(--text-dark);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.appointment-list-heading span {
+  color: var(--dark-gray);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.appointment-demo-note {
+  margin-bottom: 1rem;
+  color: var(--dark-gray);
+  font-size: 0.9rem;
+}
+
+#your-providers {
+  scroll-margin-top: 1.5rem;
+}
+
+.customer-stat-card {
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.customer-stat-card:hover {
+  color: inherit;
+  transform: translateY(-3px);
+  box-shadow: var(--box-shadow-lg);
+}
+
+.customer-stat-card .stat-card-title {
+  color: var(--dark-gray);
+}
+
+.customer-stat-link-label {
+  margin-top: 0.75rem;
+  color: #51463f;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.customer-stat-card:hover .customer-stat-link-label {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 /*provider-dashboard*/

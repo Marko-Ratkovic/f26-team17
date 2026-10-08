@@ -66,7 +66,7 @@
 }
 
 .signup-policy summary:focus-visible {
-    outline: 3px solid rgba(129, 119, 115, 0.35);
+    outline: 3px solid #675a54;
     outline-offset: 2px;
     border-radius: var(--border-radius);
 }

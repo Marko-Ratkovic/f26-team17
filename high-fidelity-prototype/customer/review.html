@@ -44,7 +44,7 @@
         <section class="section ">
             <div class="container">
                 <div class="review-header">
-                    <div class="review-title">Appointment Review</div>
+                    <h1 class="review-title">Appointment Review</h1>
                     <div class="review-subtitle">View and edit your review for this appointment</div>
                 </div>
             </div>
@@ -62,7 +62,8 @@
                             Reviews for completed appointments publish when submitted. You can update your review later.
                             Keep feedback relevant and respectful; reports are reviewed individually.
                         </div>
-                        <form id="reviewForm">
+                        <p class="profile-prototype-note" role="note">Static preview: review changes are not saved or submitted until the backend is connected.</p>
+                        <form id="reviewForm" method="post">
                             <div class="form-group">
                                 <label for="rating">Rating (1-5 stars)</label>
                                 <input type="number" id="rating" min="1" max="5" step="1" placeholder="Enter your rating, e.g., 5" required>
@@ -71,7 +72,7 @@
                                 <label for="review">Your Review</label>
                                 <textarea id="review" maxlength="1000" placeholder="Share your experience..." required></textarea>
                             </div>
-                            <button type="button" onclick="updateReview()" class="btn settings-btn settings-btn-sm">Update Review</button>
+                            <button type="submit" class="btn settings-btn settings-btn-sm" disabled>Update review (backend not connected)</button>
                         </form>
                         <div class="card card-body mt-4">
                             <div class="d-flex justify-content-between align-items-start gap-3">
@@ -80,7 +81,7 @@
                                     <p class="mb-1">Thank you for your feedback. I am glad you enjoyed your appointment!</p>
                                     <small class="text-muted">Brian Davis · 1 day ago</small>
                                 </div>
-                                <button type="button" class="btn btn-outline-secondary btn-sm text-nowrap">
+                                <button type="button" class="btn btn-outline-secondary btn-sm text-nowrap" disabled>
                                     Report response
                                 </button>
                             </div>
@@ -92,19 +93,10 @@
 
          <!-- Footer -->
          <footer>
-            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.</p>
+            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p>
         </footer>
     </div>
 
-    <script>
-        function updateReview() {
-            alert("Your review has been updated successfully!");
-            window.location.href = "my-appointments.html"; // Redirect to My Appointments page
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-    </script>
 </body>
 
 </html>

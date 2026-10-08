@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlowUp Admin - Reply Report Details</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-page">
+<div class="admin-shell">
+  <nav class="admin-nav">
+    <div class="navbar">
+      <a href="../index.html" class="navbar-brand"><img src="../images/logo.png" alt="GlowUp logo" class="admin-logo"></a>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+        <li class="nav-item"><a href="users.html" class="nav-link">User Access</a></li>
+        <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+        <li class="nav-item"><a href="reviews.html" class="nav-link active" aria-current="page">Reviews</a></li>
+        <li class="nav-item"><a href="analytics.html" class="nav-link">Usage Stats</a></li>
+        <li class="nav-item"><a href="../index.html" class="nav-link admin-logout">Log out</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="admin-header">
+    <div>
+      <div class="admin-subtitle">Reported provider reply · Oct 7, 2026</div>
+      <h1 class="admin-title">Report #R-1221</h1>
+      <p class="admin-content-meta">Status: <span class="badge flagged">Reported</span></p>
+    </div>
+    <div class="admin-actions"><a href="reviews.html" class="admin-btn-secondary">Back to reports</a></div>
+  </header>
+
+  <p class="admin-demo-note">Prototype preview: fictional sample report. Review the specific content and policy reason; protect personal information and retain the decision reason.</p>
+
+  <div class="admin-detail-grid">
+    <section class="admin-panel">
+      <div class="panel-header"><h2 class="panel-title">Reported reply</h2></div>
+      <div class="admin-detail-card">
+        <p class="mb-2"><strong>Laura Gomez</strong> · Provider reply to Review #1248</p>
+        <blockquote class="mb-2">“Please call me at [private phone number] so we can discuss.”</blockquote>
+        <p class="admin-content-meta mb-0">Reply to Priya S. · posted Oct 7, 2026</p>
+      </div>
+      <dl class="admin-detail-list mt-3">
+        <dt>Reported by</dt><dd>Priya S. · Customer</dd>
+        <dt>Report reason</dt><dd>Personal information</dd>
+        <dt>Submitted</dt><dd>Oct 7, 2026 at 2:14 PM</dd>
+      </dl>
+    </section>
+    <section class="admin-panel">
+      <div class="panel-header"><h2 class="panel-title">Related review</h2></div>
+      <div class="admin-detail-card">
+        <p class="mb-2"><strong>Review #1248 · 5/5 stars</strong></p>
+        <blockquote class="mb-2">“The weather was perfect for our beach trip.”</blockquote>
+        <p class="admin-content-meta mb-0">Reported separately for off-topic content · see <a href="report-detail.html">Report #R-1248</a></p>
+      </div>
+      <p class="admin-guidance mt-3 mb-0">A provider reply should address the review professionally and must not expose private contact details.</p>
+    </section>
+  </div>
+
+  <section class="admin-panel">
+    <div class="panel-header"><h2 class="panel-title">Context and decision</h2></div>
+    <form>
+      <div class="admin-field">
+        <label for="reply-outcome">Outcome</label>
+        <select id="reply-outcome"><option>Hide reply — personal information</option><option>Keep visible — no policy violation</option></select>
+      </div>
+      <div class="admin-field mt-3">
+        <label for="reply-reason">Decision reason</label>
+        <textarea id="reply-reason" rows="4" placeholder="Record the policy-based decision reason" required></textarea>
+      </div>
+      <button type="button" class="admin-btn mt-3">Save decision (demo)</button>
+    </form>
+  </section>
+
+  <section class="admin-panel">
+    <div class="panel-header"><h2 class="panel-title">Report history</h2></div>
+    <ul class="admin-timeline">
+      <li><strong>Report submitted by customer</strong> <span class="admin-muted">· Oct 7, 2026 at 2:14 PM</span></li>
+      <li><strong>Reply remains visible while awaiting review</strong> <span class="admin-muted">· Oct 7, 2026</span></li>
+      <li><strong>Provider reply posted</strong> <span class="admin-muted">· Oct 7, 2026</span></li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>

@@ -28,13 +28,15 @@
 **Scope (this semester).**
 - User profiles (customers and providers)
 - Search and browse providers by service menu.
-- Booking service session
+- Appointment requests and provider confirmation
 - Basic system tracking
 - Reviews and ratings
 
 **Out of scope (deferred).**
-- Automated Financial Policies
+- Payment processing, provider payouts, refunds, and other automated financial policies
 - Complex rescheduling & Negotiations
+
+Booking requests do not collect or authorize payment in this project. A customer selects an available slot and submits a request; the provider confirms or declines it. Only a confirmed appointment is treated as a scheduled booking. Any future payment integration requires a separately defined payment, cancellation, refund, and payout policy.
 
 > This document is **requirements‑level** and solution‑neutral; design decisions (UI layouts, API endpoints, schemas) are documented separately.
 ---
@@ -84,14 +86,25 @@
     Then  I should see a list of providers who specialize in that service
   ```
 
-- **US‑3 — Book an appointment**  
-  _Story:_ As a customer, I want to book an appointment for a chosen service and time slot so that I can pay online and track it in my booking history.  
+- **US‑3 — Request an appointment**
+  _Story:_ As a customer, I want to request an available time for an approved service so that the provider can confirm the appointment and I can track its status in my booking history.
   _Acceptance:_
   ```gherkin
-  Scenario: Booking an appointment
-    Given I am viewing a provider's available time slots
-    When  I select a time slot for a service and confirm payment
-    Then  the appointment should be confirmed and added to my booking history 
+  Scenario: Request an appointment
+    Given I am viewing an approved service and a provider's available time slots
+    When I select a slot and submit an appointment request
+    Then the request is recorded with Requested status and appears in my appointment history
+    And the provider can confirm or decline the request
+    And no payment is collected or authorized as part of this project
+  ```
+
+  ```gherkin
+  Scenario: View the provider's booking decision
+    Given I have submitted an appointment request
+    When the provider confirms or declines it
+    Then the appointment status and decision timestamp are recorded
+    And I can see the updated status in my booking history
+    And only a confirmed appointment is treated as scheduled
   ```
 
 - **US‑4 — Write a review after a service**  
@@ -245,10 +258,11 @@ the platform secure and enforce policies.\
 - Show providers their current review status and any reason or requested changes. Keep the decision and reason in the moderation history.
 
 **Provider appointment and availability policy**
-- Booking requests, confirmed appointments, completed appointments, and cancellations are distinct states; preserve transitions and timestamps in history rather than deleting records.
+- A customer request begins in `REQUESTED`; the provider may confirm or decline it. Confirmed appointments, completed appointments, and cancellations are distinct states. Preserve transitions and timestamps in history rather than deleting records.
 - Confirming a request must reserve the selected slot atomically. Notifications report committed state changes and must not be sent as if a failed transition succeeded.
 - Weekly availability governs new requests. Editing a schedule does not automatically move or cancel existing confirmed bookings.
 - Providers may access customer contact details and safety notes only through appointments assigned to them and only for the appointment status authorized by the service policy. Enforce this in the backend, not through UI visibility.
+- Payment authorization, collection, provider payouts, refunds, and payment-related cancellation rules are out of scope; do not imply that a request or confirmation charges a customer.
 - The prototype's October 2026 appointment examples are fictional and are not a live schedule, payment record, or provider commitment.
 
 **US-11 — Moderate reported reviews and replies** \
@@ -310,7 +324,7 @@ so that I can manage and monitor platform growth.\
 - **Performance:** 95% of service search and provider listing responses should be returned in less than 2 seconds under typical load.
 - **Availability/Reliability:** The system should be available 99.5% of the time, with planned maintenance windows communicated in advance.
 - **Security/Privacy:** The system must implement secure authentication and authorization mechanisms. All sensitive data should be encrypted in transit and at rest.
-- **Usability:** New customers should be able to complete registration and book their first appointment within 5 minutes without external assistance.
+- **Usability:** New customers should be able to complete registration and submit their first appointment request within 5 minutes without external assistance.
 ---
 
 ## 4. Assumptions, Constraints, and Policies
@@ -321,7 +335,7 @@ so that I can manage and monitor platform growth.\
 
 ## 5. Milestones (course‑aligned)
 - **M1 Requirements** — this file + stories opened as issues.
-- **M2 High‑fidelity prototype** — core customer/provider flows fully interactive.
+- **M2 High‑fidelity prototype** — static visual previews of core customer/provider flows; interactive and persisted behavior is implemented only when supported by the backend increment.
 - **M3 Design** — architecture, schema, API outline.
 - **M4 Backend API** — key endpoints + tests.
 - **M5 Increment** — ≥2 use cases end‑to‑end.

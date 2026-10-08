@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GlowUp Admin - Review Moderation</title>
+  <title>GlowUp Admin - Reported Content</title>
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="admin.css" />
 </head>
@@ -27,60 +27,84 @@
 
   <header class="admin-header">
     <div>
-      <div class="admin-subtitle">Admin controls</div>
-      <h1 class="admin-title">Moderate reviews</h1>
+      <div class="admin-subtitle">Community standards</div>
+      <h1 class="admin-title">Review reported content</h1>
     </div>
     <div class="admin-actions">
-      <button type="button" class="admin-btn-secondary">Filter flagged</button>
-      <button type="button" class="admin-btn">+ Review queue</button>
+      <button type="button" class="admin-btn-secondary">All reports</button>
+      <button type="button" class="admin-btn">Reported reviews &amp; replies</button>
     </div>
   </header>
 
   <section class="admin-panel">
     <div class="panel-header">
-      <h2 class="panel-title">Review moderation queue</h2>
+      <h2 class="panel-title">Reported reviews and provider replies</h2>
+      <span class="badge pending">2 need review</span>
     </div>
+    <p class="admin-guidance">
+      Reviews publish after completed appointments. Review the report reason and the full context;
+      respectful criticism or a low rating alone is not a reason to remove content.
+    </p>
     <div class="table-wrap">
       <table class="admin-table">
         <thead>
         <tr>
-          <th>Review</th>
-          <th>Author</th>
-          <th>Provider</th>
+          <th>Reported content</th>
+          <th>Type</th>
+          <th>Reported by</th>
+          <th>Report reason</th>
           <th>Status</th>
           <th>Action</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-          <td>Review #1248</td>
-          <td>Priya S.</td>
-          <td>Laura Gomez</td>
-          <td><span class="badge flagged">Flagged</span></td>
+          <td>
+            <strong>Review #1248</strong>
+            <div class="admin-content-preview">"The weather was perfect for our beach trip."</div>
+            <div class="admin-content-meta">Priya S. · for Laura Gomez</div>
+          </td>
+          <td>Customer review</td>
+          <td>Provider</td>
+          <td>Off-topic content</td>
+          <td><span class="badge flagged">Reported</span></td>
           <td>
             <div class="action-group">
-              <button type="button" class="admin-btn-secondary">Approve</button>
-              <button type="button" class="admin-btn-danger">Remove</button>
+              <button type="button" class="admin-btn-secondary">Keep visible</button>
+              <button type="button" class="admin-btn-danger">Hide</button>
             </div>
           </td>
         </tr>
         <tr>
-          <td>Review #1187</td>
-          <td>Maria K.</td>
-          <td>Emma Torres</td>
-          <td><span class="badge pending">Pending</span></td>
-          <td><button type="button" class="admin-btn-secondary">Investigate</button></td>
-        </tr>
-        <tr>
-          <td>Review #1104</td>
-          <td>Sam N.</td>
-          <td>Rachel Smith</td>
-          <td><span class="badge approved">Accepted</span></td>
-          <td><button type="button" class="admin-btn-secondary">Details</button></td>
+          <td>
+            <strong>Reply #221</strong>
+            <div class="admin-content-preview">"Please contact me at [personal contact information] to discuss."</div>
+            <div class="admin-content-meta">Laura Gomez · in response to Review #1248</div>
+          </td>
+          <td>Provider reply</td>
+          <td>Customer</td>
+          <td>Personal information</td>
+          <td><span class="badge flagged">Reported</span></td>
+          <td>
+            <div class="action-group">
+              <button type="button" class="admin-btn-secondary">Keep visible</button>
+              <button type="button" class="admin-btn-danger">Hide</button>
+            </div>
+          </td>
         </tr>
         </tbody>
       </table>
     </div>
+  </section>
+
+  <section class="admin-panel">
+    <div class="panel-header">
+      <h2 class="panel-title">Moderation approach</h2>
+    </div>
+    <p class="admin-guidance">
+      Reports are reviewed individually. If content stays visible, the report is closed with a reason.
+      If content is hidden, retain the moderation decision and reason in the audit history.
+    </p>
   </section>
 </div>
 </body>

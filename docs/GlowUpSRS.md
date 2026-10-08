@@ -16,6 +16,7 @@
 - **System Admin:** The platform user responsible for overseeing GlowUp's daily operation.
 - **Customer profile:**  Contains personal details, contact info, booking history, and service/style preferences.
 - **Provider profile:**  Contains personal details, contact info, service offerings, and professional certifications/licenses.
+- **Name:** A user's first and last name; middle name is optional.
 - **Services:** The specific nail, hair, or beauty service. 
 - **Session:** A scheduled appointment between a customer and a provider for service.
 
@@ -47,9 +48,10 @@
   ```gherkin
   Scenario: Register with valid credentials
     Given I am not registered
-    When  I provide valid registration details
+    When  I provide my first and last name, valid credentials, and optionally a middle name
     Then  I should be successfully registered and logged in
     And I can view and modify my profile
+    And my middle name may be left blank
   ```
 
 - **US‑2 — Browse providers via a service menu**  

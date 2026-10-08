@@ -44,3 +44,5 @@ GlowUp is a software that connects customers who needs theirs hairs, nails or ma
 ## Admin Prototype Notes
 
 The admin pages include sample-data previews of search, status filters, sorting, pagination, bulk-action toolbars, charts, and dedicated user, service, and report detail views. These controls are visual placeholders in the static prototype; future backend work should implement server-side filtering and pagination, persist admin decisions with reasons, and expose only the personal data needed for each admin task. The charts and metrics are fictional and are not connected to a charting service or live data.
+
+The customer dashboard also uses fixed sample data. Its summary cards link to the related provider or appointment section, and appointment-history navigation uses regular in-page links so it works without JavaScript. Counts and appointment dates will need to come from the backend when that is implemented.

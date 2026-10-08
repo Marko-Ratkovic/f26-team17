@@ -58,17 +58,33 @@
                         <h2 class="profile-card-title">Your Review for Haircut with Brian Davis</h2>
                     </div>
                     <div class="card-content">
+                        <div class="alert alert-info" role="note">
+                            Reviews for completed appointments publish when submitted. You can update your review later.
+                            Keep feedback relevant and respectful; reports are reviewed individually.
+                        </div>
                         <form id="reviewForm">
                             <div class="form-group">
                                 <label for="rating">Rating (1-5 stars)</label>
-                                <input type="number" id="rating" min="1" max="5" placeholder="Enter your rating, e.g, 4.7" required>
+                                <input type="number" id="rating" min="1" max="5" step="1" placeholder="Enter your rating, e.g., 5" required>
                             </div>
                             <div class="form-group">
                                 <label for="review">Your Review</label>
-                                <textarea id="review" placeholder="Share your experience..." required></textarea>
+                                <textarea id="review" maxlength="1000" placeholder="Share your experience..." required></textarea>
                             </div>
                             <button type="button" onclick="updateReview()" class="btn settings-btn settings-btn-sm">Update Review</button>
                         </form>
+                        <div class="card card-body mt-4">
+                            <div class="d-flex justify-content-between align-items-start gap-3">
+                                <div>
+                                    <h3 class="h6 mb-2">Provider response</h3>
+                                    <p class="mb-1">Thank you for your feedback. I am glad you enjoyed your appointment!</p>
+                                    <small class="text-muted">Brian Davis · 1 day ago</small>
+                                </div>
+                                <button type="button" class="btn btn-outline-secondary btn-sm text-nowrap">
+                                    Report response
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

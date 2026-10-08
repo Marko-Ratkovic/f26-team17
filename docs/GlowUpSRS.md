@@ -78,10 +78,12 @@
   _Story:_ As a customer, I want to write a review after my appointment so that other customers can make informed decisions about the provider.
   _Acceptance:_
   ```gherkin
-  Scenario: Write a review after a appointment
+  Scenario: Publish a review for a completed appointment
     Given I have completed a service appointment with a provider
-    When  I submit a review for that appointment
-    Then  the review should be saved and visible to other customers and the provider  
+    And I have not already reviewed that appointment
+    When I submit a rating and review for the appointment
+    Then the review should be published and visible to other customers and the provider
+    And I should be able to report a review or provider reply that violates the community guidelines
   ```
 
 ### 2.2 Provider Stories
@@ -126,10 +128,11 @@
   *Acceptance:*
 
   ```gherkin
-  Scenario: <Response to reviews>
-    Given <I am logged in as a provider>
-    When  <I receive a review for one of my sessions>
-    Then  <I should be able to submit a response to the review>
+  Scenario: Respond to a review
+    Given I am logged in as the provider for a completed appointment
+    When I submit a response to the customer's review
+    Then the response should be visible with the review
+    And users should be able to report the response if it violates the community guidelines
   ```
 
 ### 2.3 SysAdmin Stories
@@ -158,17 +161,26 @@ the platform secure and enforce policies.\
   When <I flag a provider's service listing as fraudulent>
   Then <the service should be immediately removed from the public search menu>
   ```
-**US-11 — Moderate reviews** \
-*Story:* As a SysAdmin, I want to moderate customer and provider reviews, so that 
-I can ensure validity and remove spam\
+**US-11 — Moderate reported reviews and replies** \
+*Story:* As a SysAdmin, I want to review reports about customer reviews and provider replies, so that I can address policy violations without delaying ordinary feedback.\
 *Acceptance:*
 
  ```gherkin
-  Scenario: <Delete a spam review>
-  Given <I am logged in as a SysAdmin>
-  When <I determine a posted review is spam or invalid>
-  Then <the review should be permanently deleted from the platform>
+  Scenario: Resolve a report about public review content
+  Given I am logged in as a SysAdmin
+  And a user has reported a customer review or provider reply
+  When I review the content and the report reason
+  Then I can keep compliant content visible or hide content that violates the guidelines
+  And the moderation decision and reason are recorded
    ```
+
+**Review and reply policy**
+- Reviews are available only for completed appointments, with at most one customer review per appointment.
+- Submitted reviews are published immediately; routine pre-approval is not required.
+- Customers and providers may report reviews or provider replies that violate the community guidelines.
+- Reportable violations include harassment, threats, hate or explicit content, personal information, spam, and unrelated content.
+- Low ratings, respectful criticism, or disagreement alone are not grounds for removal.
+- Moderators review the reported content and reason, then keep it visible or hide it. Moderation decisions include a reason and are retained in the audit history; content is not silently or permanently deleted as the default workflow.
 **US-12 — View usage statistics** \
 *Story:* As a SysAdmin, I want to view sale volume, bookings, and activities,
 so that I can manage and monitor platform growth.\

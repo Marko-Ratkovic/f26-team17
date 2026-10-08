@@ -55,11 +55,19 @@
                         <form class="provider-form">
                             <div class="mb-3">
                                 <label for="firstName" class="form-label fw-bold">First Name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="Michelle">
+                                <input type="text" class="form-control" id="firstName" name="firstName"
+                                    placeholder="Michelle" autocomplete="given-name" required>
                             </div>
                             <div class="mb-3">
-                                <label for="lasttName" class="form-label fw-bold">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Thompson">
+                                <label for="middleName" class="form-label fw-bold">Middle Name <span class="optional-label">(optional)</span></label>
+                                <input type="text" class="form-control" id="middleName" name="middleName"
+                                    placeholder="Marie" autocomplete="additional-name">
+                                <small class="form-text text-muted">Leave blank if you do not have or use a middle name.</small>
+                            </div>
+                            <div class="mb-3">
+                                <label for="lastName" class="form-label fw-bold">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName"
+                                    placeholder="Thompson" autocomplete="family-name" required>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label fw-bold">Email</label>

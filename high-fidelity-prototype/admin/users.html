@@ -31,66 +31,127 @@
       <h1 class="admin-title">Manage user access</h1>
     </div>
     <div class="admin-actions">
-      <button type="button" class="admin-btn-secondary">Export account list</button>
-      <button type="button" class="admin-btn">+ Add admin note</button>
+      <button type="button" class="admin-btn">Add admin note</button>
     </div>
   </header>
 
   <section class="admin-panel">
     <div class="panel-header">
-      <h2 class="panel-title">Account approvals</h2>
+      <h2 class="panel-title">User accounts &amp; provider verification</h2>
+    </div>
+    <p class="admin-demo-note">Prototype preview: sample data only. Search, filters, bulk actions, sorting, and pagination are visual placeholders and will connect to the backend later.</p>
+    <form class="admin-toolbar" role="search">
+      <div class="admin-field">
+        <label for="user-search">Search accounts</label>
+        <input id="user-search" type="search" placeholder="Name or email">
+      </div>
+      <div class="admin-field">
+        <label for="user-status">Status</label>
+        <select id="user-status">
+          <option>All statuses</option>
+          <option>Active</option>
+          <option>Suspended</option>
+          <option>Verification pending</option>
+        </select>
+      </div>
+      <div class="admin-field">
+        <label for="user-sort">Sort by</label>
+        <select id="user-sort">
+          <option>Newest first</option>
+          <option>Name A-Z</option>
+          <option>Name Z-A</option>
+          <option>Last activity</option>
+        </select>
+      </div>
+      <button type="button" class="admin-btn-secondary">Apply</button>
+    </form>
+    <div class="admin-bulkbar">
+      <label><input type="checkbox" aria-label="Select all users on this page"> Select page</label>
+      <div class="admin-bulk-actions">
+        <button type="button" class="admin-btn-secondary">Bulk suspend</button>
+        <button type="button" class="admin-btn-secondary">Bulk export</button>
+      </div>
     </div>
     <div class="table-wrap">
       <table class="admin-table">
         <thead>
         <tr>
-          <th>Name</th>
-          <th>Role</th>
-          <th>Status</th>
-          <th>Last activity</th>
-          <th>Action</th>
+          <th scope="col"><span class="visually-hidden">Select</span></th>
+          <th scope="col">Name</th>
+          <th scope="col">Role</th>
+          <th scope="col">Account / verification status</th>
+          <th scope="col">Last activity</th>
+          <th scope="col">Joined</th>
+          <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-          <td>Jordan Lee</td>
-          <td>Customer</td>
-          <td><span class="badge pending">Pending</span></td>
-          <td>Today</td>
+          <td><input type="checkbox" aria-label="Select Jordan Lee"></td>
+          <td>Jordan Lee<div class="admin-content-meta">jordan.lee@example.com</div></td>
+          <td>Provider</td>
+          <td><span class="badge pending">Verification pending</span></td>
+          <td>Today, 10:12 AM</td>
+          <td>Oct 6, 2026</td>
           <td>
             <div class="action-group">
-              <button type="button" class="admin-btn-secondary">Approve</button>
-              <button type="button" class="admin-btn-danger">Reject</button>
+              <span class="admin-muted">Provider verification</span>
             </div>
           </td>
         </tr>
         <tr>
-          <td>Emma Torres</td>
+          <td><input type="checkbox" aria-label="Select Emma Torres"></td>
+          <td><a href="user-detail.html"><strong>Emma Torres</strong></a><div class="admin-content-meta">emma.torres@example.com</div></td>
           <td>Provider</td>
           <td><span class="badge approved">Active</span></td>
-          <td>2h ago</td>
+          <td>Oct 8, 2026</td>
+          <td>Sep 2, 2026</td>
           <td>
             <div class="action-group">
-              <button type="button" class="admin-btn-secondary">View</button>
-              <button type="button" class="admin-btn-danger">Flag</button>
+              <a href="user-detail.html" class="admin-btn-secondary">Details</a>
             </div>
           </td>
         </tr>
         <tr>
-          <td>Michael Hart</td>
+          <td><input type="checkbox" aria-label="Select Michael Hart"></td>
+          <td>Michael Hart<div class="admin-content-meta">michael.hart@example.com</div></td>
           <td>Customer</td>
           <td><span class="badge flagged">Suspended</span></td>
-          <td>1 week ago</td>
+          <td>Sep 30, 2026</td>
+          <td>Aug 18, 2026</td>
           <td>
             <div class="action-group">
-              <button type="button" class="admin-btn-secondary">Review</button>
-              <button type="button" class="admin-btn">Reinstate</button>
+              <span class="admin-muted">Suspended</span>
             </div>
           </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" aria-label="Select Priya Shah"></td>
+          <td>Priya Shah<div class="admin-content-meta">priya.shah@example.com</div></td>
+          <td>Customer</td>
+          <td><span class="badge approved">Active</span></td>
+          <td>Oct 7, 2026</td>
+          <td>Jul 12, 2026</td>
+          <td><span class="admin-muted">Active</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" aria-label="Select Laura Gomez"></td>
+          <td>Laura Gomez<div class="admin-content-meta">laura.gomez@example.com</div></td>
+          <td>Provider</td>
+          <td><span class="badge approved">Active</span></td>
+          <td>Oct 8, 2026</td>
+          <td>Jun 22, 2026</td>
+          <td><span class="admin-muted">Active</span></td>
         </tr>
         </tbody>
       </table>
     </div>
+    <nav class="admin-pagination" aria-label="User list pages">
+      <span>Showing 1–5 of 128 sample users</span>
+      <div class="admin-page-links">
+        <span aria-disabled="true">Previous</span><span aria-current="page">1</span><a href="?page=2">2</a><a href="?page=3">3</a><a href="?page=2">Next</a>
+      </div>
+    </nav>
   </section>
 </div>
 </body>

@@ -40,3 +40,7 @@ GlowUp is a software that connects customers who needs theirs hairs, nails or ma
        provider replies, keep compliant content visible, hide policy-violating
        content, and record moderation decisions.
     4. **View usage statistics** - Monitor bookings, sales volume, provider activity, and overall platform usage trends while tracking admin actions and audit records for reporting and accountability.
+
+## Admin Prototype Notes
+
+The admin pages include sample-data previews of search, status filters, sorting, pagination, bulk-action toolbars, charts, and dedicated user, service, and report detail views. These controls are visual placeholders in the static prototype; future backend work should implement server-side filtering and pagination, persist admin decisions with reasons, and expose only the personal data needed for each admin task. The charts and metrics are fictional and are not connected to a charting service or live data.

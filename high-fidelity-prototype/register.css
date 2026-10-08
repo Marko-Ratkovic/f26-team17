@@ -15,16 +15,87 @@
 }
 
 .register-checkbox {
-    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    margin: 1rem 0 1.5rem;
+    padding: 1rem;
+    border: 1px solid #d8cbc2;
+    border-radius: var(--border-radius);
+    background: #fffaf7;
 }
 
 .register-checkbox input {
+    flex: 0 0 auto;
+    width: 1rem;
+    height: 1rem;
+    margin-top: 0.2rem;
     accent-color: var(--primary-color);
 }
 
 .register-checkbox label {
-    display: inline;
-    margin-left: 0.4rem;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.register-checkbox a,
+.signup-policy a {
+    color: var(--primary-color);
+    font-weight: 650;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.signup-policy {
+    margin-top: 1.75rem;
+    border: 1px solid #d8cbc2;
+    border-radius: var(--border-radius);
+    background: #f7f1ec;
+}
+
+.signup-policy summary {
+    padding: 0.9rem 1rem;
+    color: var(--text-dark);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.signup-policy summary::marker {
+    color: var(--primary-color);
+}
+
+.signup-policy summary:focus-visible {
+    outline: 3px solid rgba(129, 119, 115, 0.35);
+    outline-offset: 2px;
+    border-radius: var(--border-radius);
+}
+
+.signup-policy-content {
+    padding: 0 1rem 1rem;
+    color: var(--dark-gray);
+    font-size: 0.88rem;
+    line-height: 1.55;
+}
+
+.signup-policy-content p {
+    margin-bottom: 0.65rem;
+}
+
+.signup-policy-content ul {
+    margin: 0 0 0.75rem;
+    padding-left: 1.25rem;
+}
+
+.signup-policy-content li + li {
+    margin-top: 0.3rem;
+}
+
+.signup-policy-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0;
 }
 
 .register-button {

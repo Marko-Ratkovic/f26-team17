@@ -263,7 +263,7 @@ the platform secure and enforce policies.\
 - Weekly availability governs new requests. Editing a schedule does not automatically move or cancel existing confirmed bookings.
 - Providers may access customer contact details and safety notes only through appointments assigned to them and only for the appointment status authorized by the service policy. Enforce this in the backend, not through UI visibility.
 - Payment authorization, collection, provider payouts, refunds, and payment-related cancellation rules are out of scope; do not imply that a request or confirmation charges a customer.
-- The prototype's October 2026 appointment examples are fictional and are not a live schedule, payment record, or provider commitment.
+- The prototype's October 2026 appointment examples are fictional and are not a live schedule or provider commitment.
 
 **US-11 — Moderate reported reviews and replies** \
 *Story:* As a SysAdmin, I want to review reports about customer reviews and provider replies, so that I can address policy violations without delaying ordinary feedback.\
@@ -286,15 +286,16 @@ the platform secure and enforce policies.\
 - Low ratings, respectful criticism, or disagreement alone are not grounds for removal.
 - Moderators review the reported content and reason, then keep it visible or hide it. Moderation decisions include a reason and are retained in the audit history; content is not silently or permanently deleted as the default workflow.
 **US-12 — View usage statistics** \
-*Story:* As a SysAdmin, I want to view sale volume, bookings, and activities,
-so that I can manage and monitor platform growth.\
+*Story:* As a SysAdmin, I want to view appointment activity, user growth, provider activity, and service-review volume
+so that I can manage and monitor platform operations.\
 *Acceptance:*
 
 ```gherkin
-  Scenario: <View platform analytics>
-  Given <I am logged in as a SysAdmin>
-  When <I navigate to the admin dashboard>
-  Then <I should see accurate metrics for sales volume, active bookings, and user activity>
+  Scenario: View operational platform metrics
+  Given I am logged in as a SysAdmin
+  When I select a reporting period
+  Then I can view appointment activity, user growth, provider activity, and service-review volume for that period
+  And the metrics do not report sales, revenue, payouts, or other financial activity
    ```
 
 ### 2.4 Customer privacy and account settings

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password &amp; Sign-in Security - GlowUp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="sticky-top" aria-label="Customer navigation">
+            <div class="navbar">
+                <a href="../index.html" class="navbar-brand mb-2"><img src="../images/logo.png" alt="GlowUp home" class="img-fluid logo" style="width: 150px; height: 50px;"></a>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link under-scored">Dashboard</a></li>
+                    <li class="nav-item"><a href="browse-services.html" class="nav-link under-scored">Browse Services &amp; Providers</a></li>
+                    <li class="nav-item"><a href="my-appointments.html" class="nav-link under-scored">My Appointments</a></li>
+                    <li class="nav-item"><a href="profile.html" class="nav-link fw-bold">My Profile</a></li>
+                    <li class="nav-item"><a href="../index.html" class="nav-link fw-bold">Log out</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+            <section class="section">
+                <div class="container">
+                    <div class="edit-info-header">
+                        <h1 class="edit-info-title">Password &amp; sign-in security</h1>
+                        <p class="edit-info-subtitle">Change the password used to sign in to GlowUp.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="container" style="max-width: 600px;">
+                    <div class="card profile-card">
+                        <div class="profile-card-header"><h2 class="profile-card-title">Change password</h2></div>
+                        <div class="card-content">
+                            <p class="profile-prototype-note" role="note">Prototype preview: this form is not connected to authentication and does not change your password.</p>
+                            <p class="profile-privacy-callout">A real password change should verify your current password, validate the new password on the server, and store only a secure password hash. GlowUp should never display or email your existing password.</p>
+                            <form method="post">
+                                <div class="form-group">
+                                    <label for="currentPassword">Current password</label>
+                                    <input type="password" id="currentPassword" name="currentPassword" autocomplete="current-password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPassword">New password</label>
+                                    <input type="password" id="newPassword" name="newPassword" autocomplete="new-password" minlength="8" required>
+                                    <small class="form-help">Use at least 8 characters, consistent with account registration. A backend should also block common or compromised passwords.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm new password</label>
+                                    <input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password" minlength="8" required>
+                                </div>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button type="submit" class="btn settings-btn settings-btn-sm" disabled>Update password (backend not connected)</button>
+                                    <a href="profile.html" class="btn btn-appt-secondary">Cancel</a>
+                                </div>
+                            </form>
+                            <p class="profile-helper mt-3 mb-0">Forgot your password? Use the password-reset link on the sign-in page.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer><p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p></footer>
+    </div>
+</body>
+
+</html>

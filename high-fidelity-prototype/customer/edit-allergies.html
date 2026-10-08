@@ -4,84 +4,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Allergies and Sensitivities - Glow Up</title>
+    <title>Beauty &amp; Safety Notes - GlowUp</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
     <link rel="stylesheet" href="../styles.css">
 </head>
 
 <body>
     <div class="container">
-        <!-- Navigation -->
-        <nav class="sticky-top">
+        <nav class="sticky-top" aria-label="Customer navigation">
             <div class="navbar">
-                <a href="../index.html" class="navbar-brand mb-2">
-                    <img src="../images/logo.png" alt="" class="img-fluid logo" style="width: 150px; height: 50px;">
-                </a>
+                <a href="../index.html" class="navbar-brand mb-2"><img src="../images/logo.png" alt="GlowUp home" class="img-fluid logo" style="width: 150px; height: 50px;"></a>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="browse-services.html" class="nav-link under-scored">Browse Services & Providers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="my-appointments.html" class="nav-link under-scored">My Appointments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="profile.html" aria-current="page" class="nav-link fw-bold" style="border-bottom: 1px solid;">My Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../index.html" class="nav-link fw-bold">Log out</a>
-                    </li>
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link under-scored">Dashboard</a></li>
+                    <li class="nav-item"><a href="browse-services.html" class="nav-link under-scored">Browse Services &amp; Providers</a></li>
+                    <li class="nav-item"><a href="my-appointments.html" class="nav-link under-scored">My Appointments</a></li>
+                    <li class="nav-item"><a href="profile.html" class="nav-link fw-bold">My Profile</a></li>
+                    <li class="nav-item"><a href="../index.html" class="nav-link fw-bold">Log out</a></li>
                 </ul>
             </div>
         </nav>
 
-        <!-- Edit Allergies and Sensitivities header -->
-        <section class="section ">
-            <div class="container">
-                <div class="edit-info-header">
-                    <div class="edit-info-title">Edit Allergies and Sensitivities</div>
-                    <div class="edit-info-subtitle">Update your allergy and sensitivity information below</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Edit Allergies and Sensitivities Form -->
-        <section class="section">
-            <div class="container" style="max-width: 600px;">
-                <div class="card profile-card">
-                    <div class="profile-card-header">
-                        <h2 class="profile-card-title">Edit Allergies and Sensitivities</h2>
-                    </div>
-                    <div class="card-content">
-                        <form id="editAllergiesForm">
-                            <div class="form-group">
-                                <label for="allergies">Allergies</label>
-                                <input type="text" id="allergies" placeholder="e.g., PPD, Acrylic/gel" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="sensitivities">Sensitivities</label>
-                                <input type="text" id="sensitivities" placeholder="e.g., Sensitive skin, Thin/weak nails" required>
-                            </div>
-                            <button type="button" onclick="window.location.href='profile.html'" class="btn settings-btn settings-btn-sm">Save Changes</button>
-                        </form>
+        <main>
+            <section class="section">
+                <div class="container">
+                    <div class="edit-info-header">
+                        <h1 class="edit-info-title">Beauty &amp; safety notes</h1>
+                        <p class="edit-info-subtitle">Record relevant allergies or sensitivities for your appointments.</p>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer>
-            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.</p>
-        </footer>
+            </section>
+            <section class="section">
+                <div class="container" style="max-width: 700px;">
+                    <div class="card profile-card">
+                        <div class="profile-card-header"><h2 class="profile-card-title">Private appointment information</h2></div>
+                        <div class="card-content">
+                            <p class="profile-privacy-callout"><strong>Who can see this?</strong> These notes are not shown on your public profile. The intended backend rule is to share them with the provider only for a confirmed appointment. This prototype does not enforce access controls.</p>
+                            <p class="profile-prototype-note" role="note">Prototype preview: changes are not saved. Choose the status that best describes your information; details are used only when you select “I have notes to share.”</p>
+                            <form method="post">
+                                <fieldset class="form-group">
+                                    <legend class="profile-field-legend">Allergy information</legend>
+                                    <label class="profile-choice"><input type="radio" name="allergyStatus" value="known" checked> I have allergies to share</label>
+                                    <label class="profile-choice"><input type="radio" name="allergyStatus" value="none"> No known allergies</label>
+                                    <label class="profile-choice"><input type="radio" name="allergyStatus" value="not-provided"> I prefer not to provide this information</label>
+                                    <label for="allergies">Allergy details <span class="optional-label">(optional)</span></label>
+                                    <textarea id="allergies" name="allergies" rows="3" maxlength="1000">PPD; acrylic/gel</textarea>
+                                </fieldset>
+                                <div class="form-group">
+                                    <label for="sensitivities">Sensitivities or service-related notes <span class="optional-label">(optional)</span></label>
+                                    <textarea id="sensitivities" name="sensitivities" rows="3" maxlength="1000">Sensitive skin; thin/weak nails</textarea>
+                                    <small class="form-help">Share only information relevant to a beauty service. GlowUp is not a medical service; contact a qualified health professional about medical concerns.</small>
+                                </div>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button type="submit" class="btn settings-btn settings-btn-sm" disabled>Save notes (backend not connected)</button>
+                                    <a href="profile.html" class="btn btn-appt-secondary">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer><p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p></footer>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-    </script>
 </body>
 
 </html>

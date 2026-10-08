@@ -232,6 +232,205 @@ nav{
   font-size: 0.85rem;
 }
 
+.profile-page-content {
+  max-width: 860px;
+}
+
+.profile-eyebrow {
+  margin-bottom: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.my-profile-header {
+  background-color: #716661;
+}
+
+.profile-page-content .profile-card {
+  scroll-margin-top: 1.5rem;
+}
+
+.profile-prototype-note,
+.profile-privacy-callout {
+  padding: 0.9rem 1rem;
+  border-left: 4px solid var(--primary-color);
+  border-radius: 0 8px 8px 0;
+  background: #f6eee8;
+  color: #453d38;
+  line-height: 1.55;
+}
+
+.profile-privacy-callout {
+  border-left-color: #806547;
+}
+
+.profile-data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem 1.5rem;
+  margin: 0 0 1.25rem;
+}
+
+.profile-data-grid > div {
+  min-width: 0;
+}
+
+.profile-data-grid dt {
+  margin-bottom: 0.2rem;
+  color: var(--dark-gray);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.profile-data-grid dd {
+  margin: 0;
+  color: var(--text-dark);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.profile-helper {
+  color: var(--dark-gray);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.profile-privacy-callout:last-child,
+.profile-prototype-note:last-child {
+  margin-bottom: 0;
+}
+
+.profile-provider-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #d8d1cd;
+}
+
+.profile-provider-row:first-of-type {
+  padding-top: 0;
+}
+
+.profile-provider-row:last-of-type {
+  margin-bottom: 1rem;
+  border-bottom: 0;
+}
+
+.profile-provider-row h3 {
+  margin-bottom: 0.25rem;
+  color: var(--text-dark);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.profile-provider-row p {
+  margin: 0;
+  color: var(--dark-gray);
+}
+
+.profile-status {
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  background: #eee7e3;
+  color: #51463f;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.profile-settings-links {
+  display: grid;
+}
+
+.profile-settings-links a {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid #d8d1cd;
+  color: #51463f;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.profile-settings-links a:first-child {
+  padding-top: 0;
+}
+
+.profile-settings-links a:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.profile-settings-links a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.profile-field-legend {
+  margin-bottom: 0.75rem;
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.profile-choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-dark);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.profile-choice input {
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.2rem;
+  accent-color: var(--primary-color);
+}
+
+.profile-time-range {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.account-request-option {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px solid #d8d1cd;
+  border-radius: 10px;
+  background-color: #fffaf7;
+}
+
+.account-request-option h3 {
+  margin-bottom: 0.4rem;
+  color: var(--text-dark);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.account-request-option p {
+  margin-bottom: 0;
+  color: var(--dark-gray);
+  line-height: 1.55;
+}
+
+.account-request-confirm {
+  padding: 0.75rem;
+  border: 1px solid #d8d1cd;
+  border-radius: 8px;
+}
+
+.profile-card button:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
 /* Login */
 .login-page {
   min-height: calc(100vh - 150px);
@@ -596,6 +795,10 @@ nav{
 }
 
 @media (max-width: 700px) {
+  .profile-data-grid {
+    grid-template-columns: 1fr;
+  }
+
   .login-card {
     grid-template-columns: 1fr;
   }
@@ -765,6 +968,7 @@ input[type="password"],
 input[type="date"],
 input[type="number"],
 input[type="tel"],
+input[type="time"],
 select,
 textarea {
   width: 100%;

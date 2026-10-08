@@ -43,7 +43,7 @@
 
 ### 2.1 Customer Stories
 - **US‑1 — Create/modify customer profile**  
-  _Story:_ As a customer, I want to create and modify a personal profile with contact info and beauty and grooming preferences so that the providers can understand my preferences.  
+  _Story:_ As a customer, I want to manage my contact information, private safety notes, and booking preferences so that I can control what I share and make discovery more relevant.
   _Acceptance:_
   ```gherkin
   Scenario: Register with valid credentials
@@ -52,6 +52,26 @@
     Then  I should be successfully registered and logged in
     And I can view and modify my profile
     And my middle name may be left blank
+    And my phone number may be left blank
+    And changing my email requires verifying the new address before it replaces the current one
+  ```
+
+  ```gherkin
+  Scenario: Protect customer beauty and safety notes
+    Given I am a customer managing optional allergy or sensitivity notes
+    When I save or view those notes
+    Then the notes must not appear on my public profile or ordinary provider search results
+    And a provider may access them only in the context of my confirmed appointment
+    And I can distinguish no known allergies from information not provided
+  ```
+
+  ```gherkin
+  Scenario: Manage booking and notification preferences
+    Given I am logged in as a customer
+    When I update preferred service categories, days, or time ranges
+    Then my preferences may guide discovery but must not limit access to services
+    And I can manage booking notifications separately from those preferences
+    And text notifications are available only after my phone number is verified
   ```
 
 - **US‑2 — Browse providers via a service menu**  
@@ -224,6 +244,28 @@ so that I can manage and monitor platform growth.\
   When <I navigate to the admin dashboard>
   Then <I should see accurate metrics for sales volume, active bookings, and user activity>
    ```
+
+### 2.4 Customer privacy and account settings
+
+- **US-13 — Manage sign-in security**
+  _Story:_ As a customer, I want to change my password without exposing it so that I can protect my account.
+  - Require the current password for an authenticated password change and validate the new password on the server.
+  - Store only a password hash; never return or email an existing password.
+  - Use a separate password-reset flow when the customer cannot sign in.
+
+- **US-14 — Request account deactivation or deletion**
+  _Story:_ As a customer, I want to pause or close my account with a clear explanation of the effect on my appointments and retained records.
+  - Re-authenticate and confirm a deactivation or deletion request; track its status and processing outcome.
+  - Explain the effect on confirmed appointments before processing the request.
+  - Do not silently or immediately delete booking, review, report, or moderation history. Define retention periods and remove or de-identify personal details when retention is no longer required.
+  - Keep account-request status and administrative decisions auditable without retaining unnecessary sensitive information.
+
+**Customer profile privacy rules**
+- Store allergy and sensitivity notes as optional, private customer data; do not expose them through public profile or provider-search responses.
+- Permit a provider to view safety notes only through a confirmed appointment associated with that provider. Enforce this on the server for each request; hiding a UI element is not authorization.
+- Represent allergy status explicitly (known notes, no known allergies, or not provided) so blank data is not interpreted as “no allergies.”
+- Separate saved-provider relationships from the providers and counts derived from appointment history.
+- Keep notification channel choices separate from booking preferences. Do not allow disabling essential security messages; require a verified phone number for SMS.
 
 ---
 ## 3. Non‑Functional Requirements (make them measurable)

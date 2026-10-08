@@ -82,6 +82,7 @@
                         <h4 class=" p-4 fw-bold mb-0">Contact Information</h4>
                     </div>
                     <div class="card-body mt-3 px-5 py-3">
+                        <p class="alert alert-info">In the live app, show customer contact details only in an appointment context and only when needed to fulfill that booking. Do not expose them in public profiles or provider search.</p>
                         <div class="mb-3">
                             <p class="text-secondary small mb-2">Email</p>
                             <p class="fw-bold">alice@example.com</p>
@@ -94,13 +95,16 @@
                 </div>
 
 
-                <!--Allergies and Sensitivities-->
+                <!--Appointment-specific safety notes-->
                 <div class="card rounded-4 overflow-hidden mb-4">
                     <div class="card-header d-flex justify-content-between">
-                        <h4 class=" p-4 fw-bold mb-0">Allergies and Sensitivities</h4>
+                        <h4 class=" p-4 fw-bold mb-0">Appointment-specific safety notes</h4>
                     </div>
                     <div class="card-body mt-3 px-5 py-3">
+                        <p class="alert alert-info">Private information: in the live app, show these notes only in the context of this customer’s confirmed appointment. Do not include them on public profiles or general customer lists. Backend access checks are required; this static preview does not enforce them.</p>
                         <div class="mb-3">
+                            <p class="text-secondary small mb-2">Allergy status</p>
+                            <p class="fw-bold">Known allergies listed</p>
                             <p class="text-secondary small mb-2">Allergies</p>
                             <p class="fw-bold">PPD, Acrylic/gel</p>
                         </div>
@@ -122,11 +126,7 @@
                             <p class="text-secondary small mb-2">Preferred Appointment Time(s)</p>
                             <p class="fw-bold">Weekdays, 11 AM - 7 PM</p>
                         </div>
-                        <div>
-                            <p class="text-secondary small mb-2">Sensitivities</p>
-                            <p class="fw-bold">Sensitive skin, Thin/weak nails</p>
-                        </div>
-                        
+                        <p class="text-secondary small mb-0">Booking preferences are for customer convenience and should not be treated as medical or safety instructions.</p>
                     </div>
                 </div>
 

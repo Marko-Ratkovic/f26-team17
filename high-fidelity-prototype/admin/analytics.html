@@ -32,7 +32,7 @@
       <h1 class="admin-title">Usage statistics</h1>
     </div>
     <div class="admin-actions">
-      <button type="button" class="admin-btn-secondary">Download report</button>
+      <button type="button" class="admin-btn-secondary" disabled>Download report (backend not connected)</button>
     </div>
   </header>
 
@@ -52,31 +52,31 @@
     </div>
     <div class="admin-field">
       <label for="analytics-end">To</label>
-      <input id="analytics-end" type="date" value="2026-10-08">
+      <input id="analytics-end" type="date" value="2026-09-30">
     </div>
-    <button type="button" class="admin-btn-secondary">Apply dates</button>
+    <button type="button" class="admin-btn-secondary" disabled>Apply dates (preview only)</button>
   </form>
 
   <div class="admin-grid">
     <div class="admin-card">
-      <div class="stat-label">Bookings</div>
-      <div class="stat-value">426</div>
-      <div class="stat-trend">+12.4% vs last month</div>
+      <div class="stat-label">Completed appointments · Apr–Sep</div>
+      <div class="stat-value">1,483</div>
+      <div class="stat-trend">Fictional six-month total</div>
     </div>
     <div class="admin-card">
-      <div class="stat-label">New customers</div>
-      <div class="stat-value">58</div>
-      <div class="stat-trend">+14 this month</div>
+      <div class="stat-label">New users · Apr–Sep</div>
+      <div class="stat-value">270</div>
+      <div class="stat-trend">Fictional six-month total</div>
     </div>
     <div class="admin-card">
-      <div class="stat-label">Active providers</div>
+      <div class="stat-label">Active providers · Sep 30</div>
       <div class="stat-value">94</div>
-      <div class="stat-trend">+5 new</div>
+      <div class="stat-trend">Fictional period-end count</div>
     </div>
     <div class="admin-card">
-      <div class="stat-label">Gross service value</div>
-      <div class="stat-value">$18.4k</div>
-      <div class="stat-trend">Sample booking value</div>
+      <div class="stat-label">Service listings submitted · Apr–Sep</div>
+      <div class="stat-value">195</div>
+      <div class="stat-trend">Fictional six-month total</div>
     </div>
   </div>
 
@@ -106,24 +106,24 @@
 
   <div class="admin-detail-grid">
     <section class="admin-panel">
-      <div class="panel-header"><h2 class="panel-title">Revenue trend</h2></div>
-      <svg class="admin-chart" viewBox="0 0 600 260" role="img" aria-labelledby="revenue-chart-title revenue-chart-desc">
-        <title id="revenue-chart-title">Sample monthly gross service value</title>
-        <desc id="revenue-chart-desc">Sample monthly value trends upward from 9 thousand dollars in April to 18.4 thousand dollars in September.</desc>
+      <div class="panel-header"><h2 class="panel-title">Service listing submissions</h2></div>
+      <svg class="admin-chart" viewBox="0 0 600 260" role="img" aria-labelledby="listing-chart-title listing-chart-desc">
+        <title id="listing-chart-title">Sample service listing submissions from April to September 2026</title>
+        <desc id="listing-chart-desc">Monthly sample submissions increase from 22 in April to 43 in September, totaling 195 listings over six months.</desc>
         <line class="chart-gridline" x1="58" y1="35" x2="570" y2="35"></line><line class="chart-gridline" x1="58" y1="85" x2="570" y2="85"></line>
         <line class="chart-gridline" x1="58" y1="135" x2="570" y2="135"></line><line class="chart-gridline" x1="58" y1="185" x2="570" y2="185"></line>
-        <text x="5" y="39">$20k</text><text x="5" y="89">$15k</text><text x="5" y="139">$10k</text><text x="12" y="189">$5k</text>
-        <path class="chart-area" d="M70 145 L165 132 L260 113 L355 98 L450 71 L545 51 L545 185 L70 185 Z"></path>
-        <path class="chart-series" d="M70 145 L165 132 L260 113 L355 98 L450 71 L545 51"></path>
+        <text x="20" y="39">50</text><text x="20" y="89">40</text><text x="20" y="139">30</text><text x="20" y="189">20</text>
+        <path class="chart-area" d="M70 175 L165 160 L260 130 L355 115 L450 85 L545 70 L545 185 L70 185 Z"></path>
+        <path class="chart-series" d="M70 175 L165 160 L260 130 L355 115 L450 85 L545 70"></path>
         <text x="53" y="215">Apr</text><text x="148" y="215">May</text><text x="243" y="215">Jun</text><text x="338" y="215">Jul</text><text x="433" y="215">Aug</text><text x="528" y="215">Sep</text>
       </svg>
-      <div class="chart-legend"><span>Gross service value</span></div>
+      <div class="chart-legend"><span>Submitted service listings</span><span>April: 22 · September: 43</span></div>
     </section>
     <section class="admin-panel">
       <div class="panel-header"><h2 class="panel-title">User growth</h2></div>
       <svg class="admin-chart" viewBox="0 0 600 260" role="img" aria-labelledby="growth-chart-title growth-chart-desc">
         <title id="growth-chart-title">Sample new user registrations per month</title>
-        <desc id="growth-chart-desc">Sample monthly registrations rise from 24 in April to 58 in September.</desc>
+        <desc id="growth-chart-desc">Sample monthly registrations rise from 31 in April to 58 in September, totaling 270 users over six months.</desc>
         <line class="chart-gridline" x1="58" y1="35" x2="570" y2="35"></line><line class="chart-gridline" x1="58" y1="85" x2="570" y2="85"></line>
         <line class="chart-gridline" x1="58" y1="135" x2="570" y2="135"></line><line class="chart-gridline" x1="58" y1="185" x2="570" y2="185"></line>
         <text x="20" y="39">70</text><text x="20" y="89">55</text><text x="20" y="139">40</text><text x="20" y="189">25</text>
@@ -139,35 +139,35 @@
     <div class="panel-header">
       <h2 class="panel-title">Sample platform metrics</h2>
     </div>
-    <p class="admin-guidance">Monthly figures provide the numeric equivalent of the trend previews above. Gross service value is sample booking value, not provider payout or platform revenue.</p>
+    <p class="admin-guidance">Monthly figures provide the numeric equivalent of the trend previews above. All figures are fictional and describe appointment, account, and service-review activity only.</p>
     <div class="table-wrap">
       <table class="admin-table">
         <thead>
         <tr>
           <th scope="col">Month</th>
           <th scope="col">Completed bookings</th>
-          <th scope="col">Gross service value</th>
           <th scope="col">New users</th>
+          <th scope="col">Service listings submitted</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-          <td>April 2026</td><td>180</td><td>$9,000</td><td>31</td>
+          <td>April 2026</td><td>180</td><td>31</td><td>22</td>
         </tr>
         <tr>
-          <td>May 2026</td><td>206</td><td>$10,300</td><td>36</td>
+          <td>May 2026</td><td>206</td><td>36</td><td>25</td>
         </tr>
         <tr>
-          <td>June 2026</td><td>235</td><td>$12,200</td><td>42</td>
+          <td>June 2026</td><td>235</td><td>42</td><td>31</td>
         </tr>
         <tr>
-          <td>July 2026</td><td>255</td><td>$13,700</td><td>47</td>
+          <td>July 2026</td><td>255</td><td>47</td><td>34</td>
         </tr>
         <tr>
-          <td>August 2026</td><td>295</td><td>$16,400</td><td>56</td>
+          <td>August 2026</td><td>295</td><td>56</td><td>40</td>
         </tr>
         <tr>
-          <td>September 2026</td><td>312</td><td>$18,400</td><td>58</td>
+          <td>September 2026</td><td>312</td><td>58</td><td>43</td>
         </tr>
         </tbody>
       </table>

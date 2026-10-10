@@ -21,9 +21,9 @@ GlowUp is a software that connects customers who needs theirs hairs, nails or ma
     2. **View available services** - Browse nail technicians, barbers, and makeup
        artists by service menu, portfolio, price, and available time
        slots; filter by service type and location.
-    3. **Subscribe to available services** - Book an appointment for a
-       chosen service and time slot, pay online, and view booking
-       history and receipts.
+    3. **Request an appointment** - Choose an approved service and available
+       time slot, submit a booking request for provider confirmation, and view
+       appointment history. Payment processing is out of scope for this project.
     4. **Write reviews for completed appointments** - Submit one review per
        completed appointment; reviews publish immediately, and users can report
        reviews or provider replies that violate community guidelines.
@@ -39,8 +39,14 @@ GlowUp is a software that connects customers who needs theirs hairs, nails or ma
     3. **Moderate reported content** - Review reports on customer reviews and
        provider replies, keep compliant content visible, hide policy-violating
        content, and record moderation decisions.
-    4. **View usage statistics** - Monitor bookings, sales volume, provider activity, and overall platform usage trends while tracking admin actions and audit records for reporting and accountability.
+    4. **View usage statistics** - Monitor appointment activity, provider activity, service-review volume, and user growth while tracking admin actions and audit records for reporting and accountability.
 
 ## Admin Prototype Notes
 
-The admin pages include sample-data previews of search, status filters, sorting, pagination, bulk-action toolbars, charts, and dedicated user, service, and report detail views. These controls are visual placeholders in the static prototype; future backend work should implement server-side filtering and pagination, persist admin decisions with reasons, and expose only the personal data needed for each admin task. The charts and metrics are fictional and are not connected to a charting service or live data.
+The admin pages include sample-data previews of search, status filters, sorting, pagination, bulk-action toolbars, charts, and dedicated user, service, and report detail views. Usage statistics cover appointment activity, user growth, provider activity, and service-review volume only. The admin prototype has no financial analytics. These controls are visual placeholders in the static prototype; future backend work should implement server-side filtering and pagination, persist admin decisions with reasons, and expose only the personal data needed for each admin task. The charts and metrics are fictional and are not connected to live data.
+
+The customer dashboard also uses fixed sample data. Its summary cards link to the related provider or appointment section, and appointment-history navigation uses regular in-page links so it works without JavaScript. Booking requests and review edits do not display simulated success: submission controls remain disabled until the backend exists. Counts and appointment dates will need to come from the backend when that is implemented.
+
+Customer profile, safety-note, preference, security, notification, and account-request screens are also static previews. Save/request controls are disabled until a backend exists. Safety notes are intended to be private and visible to a provider only from that customer's confirmed appointment; the prototype does not enforce authorization. See `docs/CustomerProfileDesign.md` for the proposed data ownership, Spring Boot boundary, access rules, and account-retention considerations.
+
+Provider registration, public-profile editing, service review, weekly availability, appointment history, security, and notification screens are static previews with fictional October 2026 data. These screens are illustrative views, not a single synchronized sample database; repeated-looking names or listings across screens are not guaranteed to represent the same record unless explicitly linked. Backend-only actions are disabled. Service edits are modeled as pending revisions while the last approved listing remains visible; requested changes and new listings remain hidden until approved. Customers request available appointment slots, providers confirm or decline requests, and payment processing is out of scope. Appointment transitions must be authorized and recorded by the backend, and schedule edits must not silently cancel confirmed bookings. Customer contact and private safety details belong only in an authorized appointment context. See `docs/ProviderWorkflowDesign.md` for the proposed Spring Boot domain boundaries, state transitions, and access rules.

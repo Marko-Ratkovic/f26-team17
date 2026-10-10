@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Appointments - GlowUp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="sticky-top" aria-label="Provider navigation">
+            <div class="navbar">
+                <a href="../index.html" class="navbar-brand mb-2"><img src="../images/logo.png" alt="GlowUp home" class="img-fluid logo" style="width: 150px; height: 50px;"></a>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link under-scored">Dashboard</a></li>
+                    <li class="nav-item"><a href="manage-services.html" class="nav-link under-scored">My Services</a></li>
+                    <li class="nav-item"><a href="appointments.html" aria-current="page" class="nav-link fw-bold">My Appointments</a></li>
+                    <li class="nav-item"><a href="profile.html" class="nav-link under-scored">Profile</a></li>
+                    <li class="nav-item"><a href="../index.html" class="nav-link fw-bold">Log out</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+            <section class="section">
+                <div class="container">
+                    <div class="my-appointments-header">
+                        <h1 class="my-appointments-title">My Appointments</h1>
+                        <p class="my-appointments-subtitle">Review requests, upcoming bookings, and appointment history.</p>
+                    </div>
+                    <p class="provider-prototype-note" role="note">Prototype preview: appointments are sample data. Confirm, decline, reschedule, cancel, and customer-contact actions require the backend.</p>
+                </div>
+            </section>
+            <section class="section">
+                <div class="container">
+                    <nav class="appt-tabs provider-appointment-nav" aria-label="Jump to appointment status">
+                        <a href="#requests">Requests <span>(1)</span></a>
+                        <a href="#confirmed">Upcoming <span>(3)</span></a>
+                        <a href="#completed">Completed <span>(3)</span></a>
+                        <a href="#cancelled">Cancelled <span>(1)</span></a>
+                    </nav>
+
+                    <section class="appointment-list-section" id="requests" aria-labelledby="requests-heading">
+                        <h2 class="appointment-list-heading" id="requests-heading">Booking requests <span>(1)</span></h2>
+                        <p class="profile-helper">A request is not a confirmed booking. Confirming it should reserve the slot atomically and notify the customer; declining should require a reason.</p>
+                        <div class="table-responsive provider-table-wrap">
+                            <table class="table table-hover align-middle provider-appointment-table">
+                                <caption class="visually-hidden">Pending provider appointment requests</caption>
+                                <thead><tr><th scope="col">Customer</th><th scope="col">Service</th><th scope="col">Requested time</th><th scope="col">Duration</th><th scope="col">Price</th><th scope="col">Status</th><th scope="col">Actions</th></tr></thead>
+                                <tbody><tr>
+                                    <th scope="row">Alice Hayes</th><td>Pedicure &amp; manicure</td><td>Saturday, Oct 10, 2026 · 10:00 AM</td><td>90 min</td><td>$100</td><td><span class="provider-listing-status is-pending">Pending</span></td>
+                                    <td><button class="btn btn-sm btn-success" type="button" disabled>Confirm (backend)</button> <button class="btn btn-sm btn-outline-danger" type="button" disabled>Decline (backend)</button></td>
+                                </tr></tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section class="appointment-list-section" id="confirmed" aria-labelledby="confirmed-heading">
+                        <h2 class="appointment-list-heading" id="confirmed-heading">Upcoming confirmed appointments <span>(3)</span></h2>
+                        <div class="table-responsive provider-table-wrap">
+                            <table class="table table-hover align-middle provider-appointment-table">
+                                <caption class="visually-hidden">Confirmed upcoming provider appointments</caption>
+                                <thead><tr><th scope="col">Customer</th><th scope="col">Service</th><th scope="col">Date &amp; time</th><th scope="col">Duration</th><th scope="col">Price</th><th scope="col">Status</th><th scope="col">Customer details</th></tr></thead>
+                                <tbody>
+                                    <tr><th scope="row"><a href="customer-info.html#confirmed-booking">Laura Johnson</a></th><td>Full set acrylic nails</td><td>Friday, Oct 9, 2026 · 9:00 AM</td><td>30 min</td><td>$75</td><td><span class="provider-listing-status is-approved">Confirmed</span></td><td><a href="customer-info.html#confirmed-booking">Appointment details</a></td></tr>
+                                    <tr><th scope="row">Karen Smith</th><td>Pedicure &amp; manicure</td><td>Saturday, Oct 10, 2026 · 12:00 PM</td><td>90 min</td><td>$100</td><td><span class="provider-listing-status is-approved">Confirmed</span></td><td>Available in booking context</td></tr>
+                                    <tr><th scope="row">Christina Raul</th><td>Nail design</td><td>Monday, Oct 12, 2026 · 10:00 AM</td><td>60 min</td><td>$50</td><td><span class="provider-listing-status is-approved">Confirmed</span></td><td>Available in booking context</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="profile-helper">Only access customer contact or private safety notes through that customer's confirmed appointment. Do not copy sensitive notes into general appointment lists.</p>
+                    </section>
+
+                    <section class="appointment-list-section" id="completed" aria-labelledby="completed-heading">
+                        <h2 class="appointment-list-heading" id="completed-heading">Completed appointments <span>(3)</span></h2>
+                        <div class="table-responsive provider-table-wrap">
+                            <table class="table table-hover align-middle provider-appointment-table">
+                                <caption class="visually-hidden">Completed provider appointments this month</caption>
+                                <thead><tr><th scope="col">Customer</th><th scope="col">Service</th><th scope="col">Date</th><th scope="col">Duration</th><th scope="col">Price</th><th scope="col">Status</th></tr></thead>
+                                <tbody>
+                                    <tr><th scope="row">Alison Beth</th><td>Pedicure</td><td>Thursday, Oct 1, 2026</td><td>30 min</td><td>$45</td><td><span class="provider-listing-status is-approved">Completed</span></td></tr>
+                                    <tr><th scope="row">Kristin R.</th><td>Acrylic nail set</td><td>Saturday, Oct 3, 2026</td><td>60 min</td><td>$65</td><td><span class="provider-listing-status is-approved">Completed</span></td></tr>
+                                    <tr><th scope="row">Bill T.</th><td>Nail design</td><td>Monday, Oct 5, 2026</td><td>45 min</td><td>$50</td><td><span class="provider-listing-status is-approved">Completed</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section class="appointment-list-section" id="cancelled" aria-labelledby="cancelled-heading">
+                        <h2 class="appointment-list-heading" id="cancelled-heading">Cancelled appointments <span>(1)</span></h2>
+                        <div class="table-responsive provider-table-wrap">
+                            <table class="table table-hover align-middle provider-appointment-table">
+                                <caption class="visually-hidden">Cancelled provider appointments this month</caption>
+                                <thead><tr><th scope="col">Customer</th><th scope="col">Service</th><th scope="col">Original time</th><th scope="col">Cancelled by</th><th scope="col">Status</th></tr></thead>
+                                <tbody><tr><th scope="row">Erica Nyguen</th><td>Manicure</td><td>Sunday, Oct 4, 2026 · 1:00 PM</td><td>Customer</td><td><span class="provider-listing-status is-rejected">Cancelled</span></td></tr></tbody>
+                            </table>
+                        </div>
+                        <p class="profile-helper">Keep cancelled records for the booking history; do not delete them as a substitute for changing status.</p>
+                    </section>
+                </div>
+            </section>
+        </main>
+        <footer><p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p></footer>
+    </div>
+</body>
+
+</html>

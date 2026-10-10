@@ -4,254 +4,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glow Up</title>
+    <title>Manage Provider Services - GlowUp</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
 </head>
 
 <body>
     <div class="container">
-        <!-- Navigation -->
-        <nav class="sticky-top">
+        <nav class="sticky-top" aria-label="Provider navigation">
             <div class="navbar">
-                <a href="../index.html" class="navbar-brand mb-2">
-                    <img src="../images/logo.png" alt="" class="img-fluid logo" style="width: 150px; height: 50px;">
-                </a>
+                <a href="../index.html" class="navbar-brand mb-2"><img src="../images/logo.png" alt="GlowUp home" class="img-fluid logo" style="width: 150px; height: 50px;"></a>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" aria-current="page" class="nav-link fw-bold" style="border-bottom: 1px solid;">My
-                            Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="appoinment.html" class="nav-link under-scored">My Appointments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="profile.html" class="nav-link under-scored">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../index.html" class="nav-link fw-bold">Log out</a>
-                    </li>
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link under-scored">Dashboard</a></li>
+                    <li class="nav-item"><a href="manage-services.html" aria-current="page" class="nav-link fw-bold">My Services</a></li>
+                    <li class="nav-item"><a href="appointments.html" class="nav-link under-scored">My Appointments</a></li>
+                    <li class="nav-item"><a href="profile.html" class="nav-link under-scored">Profile</a></li>
+                    <li class="nav-item"><a href="../index.html" class="nav-link fw-bold">Log out</a></li>
                 </ul>
             </div>
         </nav>
 
-
-        <!--Services-->
-        <section class="section ">
-            <div class="container">
-                <div class="manage-services-header mt-3 py-2 mb-5">
-                    <div>
-                        <h2 class="dashboard-title fw-bold mb-0 align-content-center">Manage Services</h2>
-                        <div class="text-muted">Track listing status and manage your service details.</div>
+        <main>
+            <section class="section">
+                <div class="container">
+                    <div class="provider-content-heading provider-services-heading">
+                        <div><h1>Manage services</h1><p>Review listing status and keep published details accurate.</p></div>
+                        <a href="new-service.html" class="btn btn-appt-primary">Add a service</a>
                     </div>
-                    <a href="new-service.html">
-                        <button class="badge rounded-pill">+ New service</button>
-                    </a>
-                </div>
-                <div class="alert mb-4 fst-italic" role="note" style="background-color: rgb(236, 216, 192);">
-                    * New service listings are reviewed before customers can see or book them. If changes are requested,
-                    update the listing and submit it again.
-                </div>
-
-                <div class="service-grid">
-                    <div class="row g-3">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card h-100 p-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="fw-bold p-1 mb-0">Pedicure</h4>
-                                    <span class="badge bg-success-subtle text-success-emphasis fs-6">Approved</span>
+                    <p class="provider-prototype-note" role="note">Prototype preview: listings and actions are sample data. Add, edit, archive, and resubmission actions need the backend.</p>
+                    <div class="profile-privacy-callout"><strong>Review rule:</strong> New listings and edited listing versions stay hidden until approved. A prior approved version is not silently changed by an unreviewed edit.</div>
+                    <div class="row g-3 provider-service-grid">
+                        <div class="col-lg-6">
+                            <article class="card provider-service-card h-100">
+                                <img src="../images/pedicure.jpg" class="provider-service-image" alt="Pedicure service example">
+                                <div class="card-body">
+                                    <div class="provider-service-title"><div><h2>Pedicure</h2><span class="provider-listing-status is-approved">Approved · visible</span></div><p>$45</p></div>
+                                    <p>Foot spa treatment with nail care, lotion, hot towel, and polish.</p>
+                                    <dl class="provider-service-meta"><div><dt>Category</dt><dd>Nail Care</dd></div><div><dt>Duration</dt><dd>30 minutes</dd></div><div><dt>Availability</dt><dd>Provider schedule</dd></div></dl>
+                                    <div class="d-flex flex-wrap gap-2"><a href="edit-service.html" class="btn btn-appt-secondary">Edit listing</a><button class="btn btn-outline-danger" type="button" disabled>Archive (backend)</button></div>
+                                    <p class="profile-helper mt-3 mb-0">Editing submits a revised version for review. The current approved version remains visible until the replacement is approved.</p>
                                 </div>
-                                <div class="card-body d-flex flex-column">
-                                    <img src="../images/pedicure.jpg"
-                                        class="img-fluid rounded mb-3 w-100 object-fit-cover" alt="...">
-                                    <p class="text-muted mb-3">Foot spa treatment with nail care include lotion, hot towel, and polish.</p>
-                                    <div class="mt-auto">
-                                        <p class="text-secondary fw-semibold mb-2">Category:
-                                            <span class="fw-bold">Nail care</span>
-                                        </p>
-                                        <p class="text-secondary fw-semibold mb-2">Availability:
-                                            <span class="fw-bold">Mon - Sat (9:30 AM - 6:30 PM)</span>
-                                        </p>
-                                        <p class="text-secondary fw-semibold mb-2">Duraion: 
-                                            <span class="fw-bold">30 mins</span>
-                                        </p>
-                                        <p class="text-secondary fw-semibold mb-2">Price: 
-                                            <span class="fw-bold">$45</span>
-                                        </p>
-                                        <div class="d-flex flex-row flex-nowrap align-items-center gap-2 justify-content-end">
-                                            <a href="edit-service.html">
-                                                <button
-                                                class="btn btn-dark rounded-circle p-2 d-inline-flex align-items-center justify-content-center"
-                                                style="width: 42px; height: 42px;">
-                                                <i class="bi bi-pencil"></i>
-                                                </button>
-                                            </a>
-                                            <button
-                                                class="btn btn-danger rounded-circle p-2 d-inline-flex align-items-center justify-content-center"
-                                                style="width: 42px; height: 42px;">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </article>
                         </div>
-
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card h-100 p-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="fw-bold p-1 mb-0">Acrylic nail</h4>
-                                    <span class="badge bg-success-subtle text-success-emphasis fs-6">Approved</span>
+                        <div class="col-lg-6">
+                            <article class="card provider-service-card h-100">
+                                <img src="../images/acrylic.jpg" class="provider-service-image" alt="Acrylic nail service example">
+                                <div class="card-body">
+                                    <div class="provider-service-title"><div><h2>Acrylic nail set</h2><span class="provider-listing-status is-approved">Approved · visible</span></div><p>$65</p></div>
+                                    <p>Custom-sculpted acrylic nails in the customer’s preferred length and shape.</p>
+                                    <dl class="provider-service-meta"><div><dt>Category</dt><dd>Nail Care</dd></div><div><dt>Duration</dt><dd>60 minutes</dd></div><div><dt>Availability</dt><dd>Provider schedule</dd></div></dl>
+                                    <div class="d-flex flex-wrap gap-2"><a href="edit-service.html" class="btn btn-appt-secondary">Edit listing</a><button class="btn btn-outline-danger" type="button" disabled>Archive (backend)</button></div>
                                 </div>
-                                <div class="card-body d-flex flex-column">
-                                    <img src="../images/acrylic.jpg"
-                                        class="img-fluid rounded mb-3 w-100 object-fit-cover" alt="...">
-                                    <p class="text-muted mb-3">Custom-sculpted acrylics crafted for durable, everyday elegance in your favorite length and shape.</p>
-                                    <div class="mt-auto">
-                                        <p class="text-secondary fw-semibold mb-2">Category:
-                                            <span class="fw-bold">Nail care</span>
-                                        </p>
-                                        <p class="text-secondary fw-semibold mb-2">Availability:
-                                            <span class="fw-bold">Mon - Sat (9:30 AM - 6:30 PM)</span>
-                                            
-                                        </p>
-                                        <p class="text-secondary fw-semibold mb-2">Duraion: 
-                                            <span class="fw-bold">60 mins</span>
-                                        </p>
-                                        <p class="text-secondary fw-semibold mb-2">Price: 
-                                            <span class="fw-bold">$65</span>
-                                        </p>
-                                        <div class="d-flex flex-row flex-nowrap align-items-center gap-2 justify-content-end">
-                                            <a href="edit-service.html">
-                                                <button
-                                                class="btn btn-dark rounded-circle p-2 d-inline-flex align-items-center justify-content-center"
-                                                style="width: 42px; height: 42px;">
-                                                <i class="bi bi-pencil"></i>
-                                                </button>
-                                            </a>
-                                            <button
-                                                class="btn btn-danger rounded-circle p-2 d-inline-flex align-items-center justify-content-center"
-                                                style="width: 42px; height: 42px;">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </article>
                         </div>
-
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card h-100 p-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="fw-bold p-1 mb-0">Signature Nail Art</h4>
-                                    <span class="badge bg-warning-subtle text-warning-emphasis fs-6">Pending review</span>
+                        <div class="col-lg-6">
+                            <article class="card provider-service-card h-100">
+                                <img src="../images/design.jpg" class="provider-service-image" alt="Signature nail art service example">
+                                <div class="card-body">
+                                    <div class="provider-service-title"><div><h2>Signature Nail Art</h2><span class="provider-listing-status is-pending">Pending review · hidden</span></div><p>$20</p></div>
+                                    <p>Custom nail art designs with a choice of colors and finish.</p>
+                                    <dl class="provider-service-meta"><div><dt>Category</dt><dd>Nail Care</dd></div><div><dt>Duration</dt><dd>15 minutes</dd></div><div><dt>Submitted</dt><dd>Oct 7, 2026</dd></div></dl>
+                                    <button class="btn btn-outline-secondary" type="button" disabled>Awaiting admin review</button>
                                 </div>
-                                <div class="card-body d-flex flex-column">
-                                    <img src="../images/design.jpg"
-                                        class="img-fluid rounded mb-3 w-100 object-fit-cover" alt="...">
-                                    <p class="text-muted mb-3">Custom nail art designs with a choice of colors and finish.</p>
-                                    <div class="mt-auto">
-                                        <p class="text-secondary fw-semibold mb-2">Category:
-                                            <span class="fw-bold">Nail care</span>
-                                        </p>
-                                        <p class="text-secondary fw-semibold mb-2">Availability:
-                                            <span class="fw-bold">Mon - Sat (9:30 AM - 6:30 PM)</span>
-                                        </p>
-                                        <p class="text-secondary fw-semibold mb-2">Duraion: 
-                                            <span class="fw-bold">15 mins</span>
-                                        </p>
-                                        <p class="text-secondary fw-semibold mb-2">Price: 
-                                            <span class="fw-bold">$20</span>
-                                        </p>
-                                        <div class="d-flex flex-row flex-nowrap align-items-center gap-2 justify-content-end">
-                                            <a href="edit-service.html">
-                                                <button
-                                                class="btn btn-dark rounded-circle p-2 d-inline-flex align-items-center justify-content-center"
-                                                style="width: 42px; height: 42px;">
-                                                <i class="bi bi-pencil"></i>
-                                                </button>
-                                            </a>
-                                            <button
-                                                class="btn btn-danger rounded-circle p-2 d-inline-flex align-items-center justify-content-center"
-                                                style="width: 42px; height: 42px;">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </article>
                         </div>
-
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card h-100 p-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="fw-bold p-1 mb-0">Eyebrow waxing</h4>
-                                    <span class="badge bg-warning-subtle text-warning-emphasis fs-6">Changes requested</span>
+                        <div class="col-lg-6">
+                            <article class="card provider-service-card h-100">
+                                <img src="../images/waxing.jpg" class="provider-service-image" alt="Eyebrow waxing service example">
+                                <div class="card-body">
+                                    <div class="provider-service-title"><div><h2>Eyebrow Waxing</h2><span class="provider-listing-status is-pending">Changes requested · hidden</span></div><p>$15</p></div>
+                                    <p>Eyebrow shaping and waxing using professional wax and soothing post-wax lotion.</p>
+                                    <div class="provider-review-reason"><strong>Admin feedback</strong><p>Please clarify which products are included in this service before it can be approved.</p></div>
+                                    <dl class="provider-service-meta"><div><dt>Category</dt><dd>Brows &amp; Lashes</dd></div><div><dt>Duration</dt><dd>10 minutes</dd></div></dl>
+                                    <a href="revise-service.html" class="btn btn-appt-primary">Revise and resubmit</a>
                                 </div>
-                                <div class="card-body d-flex flex-column">
-                                    <div class="alert alert-warning py-2 small">
-                                        Please clarify what products are included in this service before it can be approved.
-                                    </div>
-                                    <img src="../images/waxing.jpg"
-                                        class="img-fluid rounded mb-3 w-100 object-fit-cover" alt="...">
-                                    <p class="text-muted mb-3">Expert shaping and clean hair removal for crisp, naturally defined arches.</p>
-                                    <div class="mt-auto">
-                                        <p class="text-secondary fw-semibold mb-2">Category:
-                                            <span class="fw-bold">Brows & Lashes</span>
-                                        </p>
-                                        <p class="text-secondary fw-semibold mb-2">Availability:
-                                            <span class="fw-bold">Mon - Sat (9:30 AM - 6:30 PM)</span>
-                                        </p>
-                                        <p class="text-secondary fw-semibold mb-2">Duraion: 
-                                            <span class="fw-bold">10 mins</span>
-                                        </p>
-                                        <p class="text-secondary fw-semibold mb-2">Price: 
-                                            <span class="fw-bold">$15</span>
-                                        </p>
-                                        <div class="d-flex flex-row flex-nowrap align-items-center gap-2 justify-content-end">
-                                            <a href="edit-service.html">
-                                                <button
-                                                class="btn btn-dark rounded-circle p-2 d-inline-flex align-items-center justify-content-center"
-                                                style="width: 42px; height: 42px;">
-                                                <i class="bi bi-pencil"></i>
-                                                </button>
-                                            </a>
-                                            <button
-                                                class="btn btn-danger rounded-circle p-2 d-inline-flex align-items-center justify-content-center"
-                                                style="width: 42px; height: 42px;">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </article>
                         </div>
                     </div>
                 </div>
-
-
-            </div>
-        </section>
-
-
-
-
-        <!--Footer-->
-        <footer>
-            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.
-            </p>
-        </footer>
+            </section>
+        </main>
+        <footer><p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p></footer>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-        </script>
 </body>
 
 </html>

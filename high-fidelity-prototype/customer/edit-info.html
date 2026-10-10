@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Info - Glow Up</title>
+    <title>Edit Contact Information - GlowUp</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
@@ -30,7 +30,7 @@
                         <a href="my-appointments.html" class="nav-link under-scored">My Appointments</a>
                     </li>
                     <li class="nav-item">
-                        <a href="profile.html" aria-current="page" class="nav-link fw-bold" style="border-bottom: 1px solid;">My Profile</a>
+                        <a href="profile.html" class="nav-link fw-bold">My Profile</a>
                     </li>
                     <li class="nav-item">
                         <a href="../index.html" class="nav-link fw-bold">Log out</a>
@@ -39,65 +39,68 @@
             </div>
         </nav>
 
-        <!-- Edit Personal Information header -->
-        <section class="section ">
+        <main>
+        <section class="section">
             <div class="container">
                 <div class="edit-info-header">
-                    <div class="edit-info-title">Edit Personal Information</div>
-                    <div class="edit-info-subtitle">Update your personal details below</div>
+                    <h1 class="edit-info-title">Edit contact information</h1>
+                    <p class="edit-info-subtitle">Update the name and contact details on your account.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Edit Personal Information Form -->
         <section class="section">
             <div class="container" style="max-width: 600px;">
                 <div class="card profile-card">
                     <div class="profile-card-header">
-                        <h2 class="profile-card-title">Edit Personal Information</h2>
+                        <h2 class="profile-card-title">Personal information</h2>
                     </div>
                     <div class="card-content">
-                        <form id="editPersonalInfoForm">
+                        <p class="profile-prototype-note" role="note">Prototype preview: updates are not saved. A future account service should verify email changes before replacing the current address.</p>
+                        <form id="editPersonalInfoForm" method="post">
                             <div class="form-group">
-                                <label for="firstName">First Name</label>
-                                <input type="text" id="firstName" name="firstName" placeholder="Linda"
+                                <label for="firstName">First name</label>
+                                <input type="text" id="firstName" name="firstName" value="Linda"
                                     autocomplete="given-name" required>
                             </div>
                             <div class="form-group">
-                                <label for="middleName">Middle Name <span class="optional-label">(optional)</span></label>
-                                <input type="text" id="middleName" name="middleName" placeholder="Marie"
+                                <label for="middleName">Middle name <span class="optional-label">(optional)</span></label>
+                                <input type="text" id="middleName" name="middleName" value=""
                                     autocomplete="additional-name">
                                 <small class="form-help">Leave blank if you do not have or use a middle name.</small>
                             </div>
                             <div class="form-group">
-                                <label for="lastName">Last Name</label>
-                                <input type="text" id="lastName" name="lastName" placeholder="Johnson"
+                                <label for="lastName">Last name</label>
+                                <input type="text" id="lastName" name="lastName" value="Johnson"
                                     autocomplete="family-name" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" placeholder="linda@example.com" required>
+                                <label for="email">Email address</label>
+                                <input type="email" id="email" name="email" value="linda@example.com" autocomplete="email" required>
+                                <small class="form-help">A verification link should be sent to a new email address. Your current address remains active until verified.</small>
                             </div>
                             <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="tel" id="phone" placeholder="+1 (336) 456-7890" required>
+                                <label for="phone">Phone number <span class="optional-label">(optional)</span></label>
+                                <input type="tel" id="phone" name="phone" value="+1 (336) 456-7890" autocomplete="tel">
+                                <small class="form-help">Phone verification is required before enabling text reminders.</small>
                             </div>
-                            <button type="button" onclick="window.location.href='profile.html'" class="btn settings-btn settings-btn-sm">Save Changes</button>
+                            <div class="d-flex flex-wrap gap-2">
+                                <button type="submit" class="btn settings-btn settings-btn-sm" disabled>Save changes (backend not connected)</button>
+                                <a href="profile.html" class="btn btn-appt-secondary">Cancel</a>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </section>
+        </main>
 
         <!-- Footer -->
         <footer>
-            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.</p>
+            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p>
         </footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-    </script>
 </body>
 
 </html>

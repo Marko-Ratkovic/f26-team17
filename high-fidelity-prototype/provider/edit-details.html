@@ -4,105 +4,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glow Up</title>
+    <title>Edit Provider Details - GlowUp</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
     <link rel="stylesheet" href="../styles.css">
 </head>
 
 <body>
     <div class="container">
-        <!-- Navigation -->
-        <nav class="sticky-top">
+        <nav class="sticky-top" aria-label="Provider navigation">
             <div class="navbar">
-                <a href="../index.html" class="navbar-brand mb-2">
-                    <img src="../images/logo.png" alt="" class="img-fluid logo" style="width: 150px; height: 50px;">
-                </a>
+                <a href="../index.html" class="navbar-brand mb-2"><img src="../images/logo.png" alt="GlowUp home" class="img-fluid logo" style="width: 150px; height: 50px;"></a>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="manage-services.html" class="nav-link under-scored">My Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="appoinment.html" class="nav-link under-scored">My Appointments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="profile.html" aria-current="page" class="nav-link fw-bold"
-                            style="border-bottom: 1px solid;">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../index.html" class="nav-link fw-bold">Log out</a>
-                    </li>
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link under-scored">Dashboard</a></li>
+                    <li class="nav-item"><a href="manage-services.html" class="nav-link under-scored">My Services</a></li>
+                    <li class="nav-item"><a href="appointments.html" class="nav-link under-scored">My Appointments</a></li>
+                    <li class="nav-item"><a href="profile.html" aria-current="page" class="nav-link fw-bold">Profile</a></li>
+                    <li class="nav-item"><a href="../index.html" class="nav-link fw-bold">Log out</a></li>
                 </ul>
             </div>
         </nav>
 
-        <!--Header-->
-        <section class="section" style="background-color: #d6c5b6;">
-            <div class="container p-4">
-                <h1 style="font-size: 2rem; font-weight: 700;">Edit Personal Information</h1>
-                <p class="text-muted">Update your personal details below</p>
-            </div>
-        </section>
-
-        <section class="section">
-            <div class="container" style="max-width: 700px;">
-                <div class="card rounded-4">
-                    <div class="card-content">
-                        <form class="provider-form">
-                            <div class="mb-3">
-                                <label for="firstName" class="form-label fw-bold">First Name</label>
-                                <input type="text" class="form-control" id="firstName" name="firstName"
-                                    placeholder="Michelle" autocomplete="given-name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="middleName" class="form-label fw-bold">Middle Name <span class="optional-label">(optional)</span></label>
-                                <input type="text" class="form-control" id="middleName" name="middleName"
-                                    placeholder="Marie" autocomplete="additional-name">
-                                <small class="form-text text-muted">Leave blank if you do not have or use a middle name.</small>
-                            </div>
-                            <div class="mb-3">
-                                <label for="lastName" class="form-label fw-bold">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" name="lastName"
-                                    placeholder="Thompson" autocomplete="family-name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label fw-bold">Email</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="michelle@example.com">
-                            </div>
-                            <div class="mb-3">
-                                <label for="phoneNumb" class="form-label fw-bold">Phone</label>
-                                <input type="tel" class="form-control" id="phoneNumb" placeholder="+1 (336) 123-4567">
-                            </div>
-                            <div class="d-flex justify-content-end align-items-center gap-2 mt-4">
-                                <button type="submit" class="btn btn-dark">Save changes</button>
-                                <a href="profile.html">
-                                    <button type="button" class="btn btn-outline-secondary">Cancel</button>
-                                </a>
-                            </div>
-                        </form>
+        <main>
+            <section class="section"><div class="container"><div class="edit-info-header">
+                <h1 class="edit-info-title">Edit provider details</h1>
+                <p class="edit-info-subtitle">Manage account contact details and the information customers see.</p>
+            </div></div></section>
+            <section class="section">
+                <div class="container" style="max-width: 760px;">
+                    <div class="card profile-card">
+                        <div class="profile-card-header"><h2 class="profile-card-title">Provider information</h2></div>
+                        <div class="card-content">
+                            <p class="profile-prototype-note" role="note">Prototype preview: details are sample data and are not saved. Email changes require verification; public credentials must be accurate and are not verified by this form.</p>
+                            <form method="post">
+                                <fieldset class="provider-form-section">
+                                    <legend>Account contact (private)</legend>
+                                    <div class="form-group"><label for="firstName">First name</label><input id="firstName" name="firstName" value="Michelle" autocomplete="given-name" required></div>
+                                    <div class="form-group"><label for="middleName">Middle name <span class="optional-label">(optional)</span></label><input id="middleName" name="middleName" value="" autocomplete="additional-name"></div>
+                                    <div class="form-group"><label for="lastName">Last name</label><input id="lastName" name="lastName" value="Thompson" autocomplete="family-name" required></div>
+                                    <div class="form-group"><label for="email">Email address</label><input id="email" name="email" type="email" value="michelle@example.com" autocomplete="email" required><small class="form-help">A new address should not replace this one until it is verified.</small></div>
+                                    <div class="form-group"><label for="phone">Phone number <span class="optional-label">(optional)</span></label><input id="phone" name="phone" type="tel" value="+1 (336) 123-4567" autocomplete="tel"><small class="form-help">Only share contact details with customers when needed for an associated booking.</small></div>
+                                </fieldset>
+                                <fieldset class="provider-form-section">
+                                    <legend>Public professional profile</legend>
+                                    <div class="form-group"><label for="displayName">Business or display name</label><input id="displayName" name="displayName" value="Michelle Thompson" maxlength="100" required></div>
+                                    <div class="form-group"><label for="specialty">Specialty</label><input id="specialty" name="specialty" value="Nail technician" maxlength="100" required></div>
+                                    <div class="form-group"><label for="experience">Years of experience</label><input id="experience" name="experienceYears" type="number" value="3" min="0" max="70" required></div>
+                                    <div class="form-group"><label for="bio">Professional bio</label><textarea id="bio" name="bio" rows="4" maxlength="1000" required>I create custom nail art and offer manicures and pedicures with a focus on clear service details and a welcoming client experience.</textarea></div>
+                                    <div class="form-group"><label for="serviceArea">Public service area</label><input id="serviceArea" name="serviceArea" value="Greensboro, NC" maxlength="120" required><small class="form-help">Use a city or service area. Do not put a private home address here.</small></div>
+                                    <div class="form-group"><label for="credentials">Credentials or qualifications <span class="optional-label">(optional)</span></label><textarea id="credentials" name="credentials" rows="3" maxlength="1000" placeholder="List current, accurate credentials and issuing organization."></textarea><small class="form-help">Do not claim GlowUp verification unless the credential has been verified and the status is shown.</small></div>
+                                </fieldset>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button type="submit" class="btn settings-btn settings-btn-sm" disabled>Save details (backend not connected)</button>
+                                    <a href="profile.html" class="btn btn-appt-secondary">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-
-
-
-        <!--Footer-->
-        <footer>
-            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.
-            </p>
-        </footer>
+            </section>
+        </main>
+        <footer><p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p></footer>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-        </script>
 </body>
 
 </html>

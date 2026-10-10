@@ -44,32 +44,35 @@
         <section class="section ">
             <div class="container">
                 <div class="customer-dashboard-header">
-                    <div class="customer-dashboard-title">Welcome Back, Linda!</div>
+                    <h1 class="customer-dashboard-title">Welcome Back, Linda!</h1>
                     <div class="customer-dashboard-subtitle">Track your upcoming appointments</div>
                 </div>
 
                 <!-- Stats Cards -->
                 <div class="dashboard-grid">
                     <div class="row g-3">
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card h-100 p-3 stat-card">
-                                <div class="stat-card-title mb-4">Active Providers</div>
+                        <div class="col-lg-4 col-md-6">
+                            <a href="profile.html#your-providers" class="card h-100 p-3 stat-card customer-stat-card">
+                                <div class="stat-card-title mb-4">Providers You’ve Booked</div>
                                 <div class="fs-1 mt-auto stat-card-content fw-bold">4</div>
-                            </div>
+                                <span class="customer-stat-link-label">View provider history <span aria-hidden="true">→</span></span>
+                            </a>
                         </div>
 
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card h-100 p-3 stat-card">
+                        <div class="col-lg-4 col-md-6">
+                            <a href="my-appointments.html#completed" class="card h-100 p-3 stat-card customer-stat-card">
                                 <div class="stat-card-title mb-4">Appointments Completed</div>
                                 <div class="fs-1 mt-auto stat-card-content fw-bold">2</div>
-                            </div>
+                                <span class="customer-stat-link-label">View completed appointments <span aria-hidden="true">→</span></span>
+                            </a>
                         </div>
 
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card h-100 p-3 stat-card">
+                        <div class="col-lg-4 col-md-6">
+                            <a href="my-appointments.html#upcoming" class="card h-100 p-3 stat-card customer-stat-card">
                                 <div class="stat-card-title mb-4">Upcoming Appointments</div>
                                 <div class="fs-1 mt-auto stat-card-content fw-bold">3</div>
-                            </div>
+                                <span class="customer-stat-link-label">View upcoming appointments <span aria-hidden="true">→</span></span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -78,8 +81,12 @@
 
         <!-- Upcoming appointments -->
         <section class="section">
-            <div class="d-flex justify-content-between align-items-center mt-3 py-2 mb-3">
-                <h2 class="fw-bold mb-0">Upcoming Appointments</h2>
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-3 py-2 mb-3">
+                <div>
+                    <h2 class="fw-bold mb-1">Upcoming Appointments</h2>
+                    <p class="text-muted mb-0">Your next three scheduled visits.</p>
+                </div>
+                <a href="my-appointments.html#upcoming" class="btn btn-appt-secondary">View all appointments</a>
             </div>
 
             <!-- Appointment Cards -->
@@ -89,7 +96,7 @@
 
                 <div class="row g-2 mt-3">
                     <div class="col-md-6">
-                        <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Friday, Sep 28 • 6:00 PM</span></div>
+                        <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Friday, Oct 9 • 6:00 PM</span></div>
                         <div class="mt-2"><span class="fw-bold">Location:</span> <span class="text-muted">Downtown Salon</span></div>
                     </div>
                     <div class="col-md-6">
@@ -98,10 +105,6 @@
                     </div>
                 </div>
 
-                <div class="d-flex gap-2 mt-4">
-                    <button type="button" class="btn btn-appt-secondary" onclick="alert('Rescheduled')">Reschedule</button>
-                    <button type="button" class="btn btn-appt-cancel" onclick="alert('Appointment canceled')">Cancel</button>
-                </div>
             </div>
 
             <div class="customer-appt-item">
@@ -110,7 +113,7 @@
 
                 <div class="row g-2 mt-3">
                     <div class="col-md-6">
-                        <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Wednesday, Sep 30 • 2:00 PM</span></div>
+                        <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Wednesday, Oct 14 • 2:00 PM</span></div>
                         <div class="mt-2"><span class="fw-bold">Location:</span> <span class="text-muted">Nail Studio</span></div>
                     </div>
                     <div class="col-md-6">
@@ -119,10 +122,6 @@
                     </div>
                 </div>
 
-                <div class="d-flex gap-2 mt-4">
-                    <button type="button" class="btn btn-appt-secondary" onclick="alert('Rescheduled')">Reschedule</button>
-                    <button type="button" class="btn btn-appt-cancel" onclick="alert('Appointment canceled')">Cancel</button>
-                </div>
             </div>
 
             <div class="customer-appt-item">
@@ -131,7 +130,7 @@
 
                 <div class="row g-2 mt-3">
                     <div class="col-md-6">
-                        <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Friday, Oct 9 • 11:00 AM</span></div>
+                        <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Friday, Oct 16 • 11:00 AM</span></div>
                         <div class="mt-2"><span class="fw-bold">Location:</span> <span class="text-muted">The Beauty Bar</span></div>
                     </div>
                     <div class="col-md-6">
@@ -140,10 +139,6 @@
                     </div>
                 </div>
 
-                <div class="d-flex gap-2 mt-4">
-                    <button type="button" class="btn btn-appt-secondary" onclick="alert('Rescheduled')">Reschedule</button>
-                    <button type="button" class="btn btn-appt-cancel" onclick="alert('Appointment canceled')">Cancel</button>
-                </div>
             </div>
         </section>
 
@@ -170,7 +165,7 @@
 
         <!-- Footer -->
         <footer>
-            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.</p>
+            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p>
         </footer>
     </div>
 

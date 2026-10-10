@@ -4,180 +4,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile - Glow Up</title>
+    <title>My Profile - GlowUp</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
     <link rel="stylesheet" href="../styles.css">
 </head>
 
 <body>
     <div class="container">
-        <!-- Navigation -->
-        <nav class="sticky-top">
+        <nav class="sticky-top" aria-label="Customer navigation">
             <div class="navbar">
                 <a href="../index.html" class="navbar-brand mb-2">
-                    <img src="../images/logo.png" alt="" class="img-fluid logo" style="width: 150px; height: 50px;">
+                    <img src="../images/logo.png" alt="GlowUp home" class="img-fluid logo" style="width: 150px; height: 50px;">
                 </a>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="browse-services.html" class="nav-link under-scored">Browse Services & Providers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="my-appointments.html" class="nav-link under-scored">My Appointments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="profile.html" aria-current="page" class="nav-link fw-bold" style="border-bottom: 1px solid;">My Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../index.html" class="nav-link fw-bold">Log out</a>
-                    </li>
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link under-scored">Dashboard</a></li>
+                    <li class="nav-item"><a href="browse-services.html" class="nav-link under-scored">Browse Services &amp; Providers</a></li>
+                    <li class="nav-item"><a href="my-appointments.html" class="nav-link under-scored">My Appointments</a></li>
+                    <li class="nav-item"><a href="profile.html" aria-current="page" class="nav-link fw-bold">My Profile</a></li>
+                    <li class="nav-item"><a href="../index.html" class="nav-link fw-bold">Log out</a></li>
                 </ul>
             </div>
         </nav>
 
-        <!-- My Profile header -->
-        <section class="section ">
-            <div class="container">
-                <div class="my-profile-header">
-                    <div class="my-profile-title">My Profile</div>
-                    <div class="my-profile-subtitle">View and update your account information</div>
+        <main>
+            <section class="section">
+                <div class="container">
+                    <div class="my-profile-header">
+                        <p class="profile-eyebrow">CUSTOMER ACCOUNT</p>
+                        <h1 class="my-profile-title">My Profile</h1>
+                        <p class="my-profile-subtitle">Manage your contact information, booking preferences, and account access.</p>
+                    </div>
+                    <p class="profile-prototype-note" role="note">
+                        Prototype preview: profile details and settings below are sample data. Updates and requests are not saved or submitted.
+                    </p>
                 </div>
-            </div>
-        </section>
-        
-        <!-- Profile Content -->
-        <section class="section">
-            <div class="container" style="max-width: 800px;">
+            </section>
 
-                <!-- Personal Information Card -->
-                <div class="card profile-card">
-                    <div class="profile-card-header">
-                        <h2 class="profile-card-title">Personal Information</h2>
-                    </div>
-                    <div class="card-content">
-                        <div class="grid grid-2">
-                            <div>
-                                <p class="profile-field-label">First Name</p>
-                                <p class="profile-field-value">Linda</p>
-                            </div>
-                            <div>
-                                <p class="profile-field-label">Middle Name</p>
-                                <p class="profile-field-value">Not provided</p>
-                            </div>
-                            <div>
-                                <p class="profile-field-label">Last Name</p>
-                                <p class="profile-field-value">Johnson</p>
-                            </div>
-                            <div>
-                                <p class="profile-field-label">Email</p>
-                                <p class="profile-field-value">linda@example.com</p>
-                            </div>
-                            <div>
-                                <p class="profile-field-label">Phone</p>
-                                <p class="profile-field-value">+1 (336) 456-7890</p>
-                            </div>
+            <section class="section">
+                <div class="container profile-page-content">
+                    <section class="card profile-card" aria-labelledby="personal-heading">
+                        <div class="profile-card-header"><h2 class="profile-card-title" id="personal-heading">Personal information</h2></div>
+                        <div class="card-content">
+                            <dl class="profile-data-grid">
+                                <div><dt>First name</dt><dd>Linda</dd></div>
+                                <div><dt>Middle name</dt><dd>Not provided</dd></div>
+                                <div><dt>Last name</dt><dd>Johnson</dd></div>
+                                <div><dt>Email address</dt><dd>linda@example.com</dd></div>
+                                <div><dt>Phone number</dt><dd>+1 (336) 456-7890</dd></div>
+                            </dl>
+                            <p class="profile-helper">Email changes require confirmation at the new address. Phone number is optional.</p>
+                            <a class="btn profile-edit-btn" href="edit-info.html">Edit contact information</a>
                         </div>
-                        <button class="btn profile-edit-btn" onclick="window.location.href='edit-info.html'">Edit Personal Info</button>
-                    </div>
-                </div>
+                    </section>
 
-                <!-- Allergies and Sensitivities Card -->
-                <div class="card profile-card">
-                    <div class="profile-card-header">
-                        <h2 class="profile-card-title">Allergies and Sensitivities</h2>
-                    </div>
-                    <div class="card-content">
-                        <div class="grid grid-2">
-                            <div>
-                                <p class="profile-field-label">Allergies</p>
-                                <p class="profile-field-value">PPD, Acrylic/gel</p>
-                            </div>
-                            <div>
-                                <p class="profile-field-label">Sensitivities</p>
-                                <p class="profile-field-value">Sensitive skin, Thin/weak nails</p>
-                            </div>
+                    <section class="card profile-card" aria-labelledby="safety-heading">
+                        <div class="profile-card-header"><h2 class="profile-card-title" id="safety-heading">Beauty &amp; safety notes</h2></div>
+                        <div class="card-content">
+                            <p class="profile-privacy-callout"><strong>Private information.</strong> These notes are not part of your public profile. In the live app, they are intended to be available to your provider only for a confirmed appointment; this prototype does not enforce access controls.</p>
+                            <dl class="profile-data-grid">
+                                <div><dt>Allergy status</dt><dd>Known allergies listed</dd></div>
+                                <div><dt>Allergies</dt><dd>PPD; acrylic/gel</dd></div>
+                                <div><dt>Sensitivities</dt><dd>Sensitive skin; thin/weak nails</dd></div>
+                            </dl>
+                            <a class="btn profile-edit-btn" href="edit-allergies.html">Update beauty &amp; safety notes</a>
                         </div>
-                        <button class="btn profile-edit-btn" onclick="window.location.href='edit-allergies.html'">Edit Allergies and Sensitivities</button>
-                    </div>
-                </div>
+                    </section>
 
-                <!-- Preferences Card -->
-                <div class="card profile-card">
-                    <div class="profile-card-header">
-                        <h2 class="profile-card-title">Preferences</h2>
-                    </div>
-                    <div class="card-content">
-                        <div class="grid grid-2">
-                            <div>
-                                <p class="profile-field-label">Preferred Service(s)</p>
-                                <p class="profile-field-value">Haircuts, Nail Care</p>
-                            </div>
-                            <div>
-                                <p class="profile-field-label">Preferred Provider(s)</p>
-                                <p class="profile-field-value">Brian Davis</p>
-                            </div>
-                            <div>
-                                <p class="profile-field-label">Preferred Appointment Time(s)</p>
-                                <p class="profile-field-value">Weekdays, 11 AM - 7 PM</p>
-                            </div>
-                            <div>
-                                <p class="profile-field-label">Communication Preference(s)</p>
-                                <p class="profile-field-value">Email & Text Reminders</p>
-                            </div>
+                    <section class="card profile-card" aria-labelledby="preferences-heading">
+                        <div class="profile-card-header"><h2 class="profile-card-title" id="preferences-heading">Booking preferences</h2></div>
+                        <div class="card-content">
+                            <dl class="profile-data-grid">
+                                <div><dt>Preferred services</dt><dd>Hair Styling; Nail Care</dd></div>
+                                <div><dt>Preferred days</dt><dd>Weekdays</dd></div>
+                                <div><dt>Preferred time</dt><dd>11:00 AM–7:00 PM</dd></div>
+                            </dl>
+                            <a class="btn profile-edit-btn" href="edit-preferences.html">Edit booking preferences</a>
+                            <a class="btn profile-edit-btn" href="notifications.html">Notification settings</a>
                         </div>
-                        <button class="btn profile-edit-btn" onclick="window.location.href='edit-preferences.html'">Edit Preferences</button>
-                    </div>
-                </div>
+                    </section>
 
-                <!-- Active Providers Card -->
-                <div class="card profile-card">
-                    <div class="profile-card-header">
-                        <h2 class="profile-card-title">Your Providers</h2>
-                    </div>
-                    <div class="card-content">
-                        <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--medium-gray);">
-                            <p style="font-weight: 600; margin-bottom: 0.25rem;">Brian Davis - Haircuts</p>
-                            <p class="text-muted" style="font-size: 0.9rem;">3 sessions completed • Rating: 5/5</p>
+                    <section class="card profile-card" id="saved-providers" aria-labelledby="saved-providers-heading">
+                        <div class="profile-card-header"><h2 class="profile-card-title" id="saved-providers-heading">Saved providers</h2></div>
+                        <div class="card-content">
+                            <p class="profile-helper">Providers you choose to save for easier discovery later. Saving a provider does not create a booking.</p>
+                            <div class="profile-provider-row">
+                                <div><h3>Brian Davis</h3><p>Hair Styling</p></div>
+                                <span class="profile-status">Saved</span>
+                            </div>
+                            <a class="btn profile-edit-btn" href="browse-services.html">Browse providers</a>
                         </div>
-                        <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--medium-gray);">
-                            <p style="font-weight: 600; margin-bottom: 0.25rem;">Laura Johnson - Nail Painting</p>
-                            <p class="text-muted" style="font-size: 0.9rem;">5 sessions completed • Rating: 5/5</p>
-                        </div>
-                        <div>
-                        <p style="font-weight: 600; margin-bottom: 0.25rem;">Sarah Williams - Makeup Application</p>
-                        <p class="text-muted" style="font-size: 0.9rem;">2 sessions completed • Rating: 5/5</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Account Settings Card -->
-                <div class="card profile-card">
-                    <div class="profile-card-header">
-                        <h2 class="profile-card-title">Account Settings</h2>
-                    </div>
-                    <div class="card-content">
-                        <button class="btn settings-btn" onclick="alert('Change password clicked')">Change Password</button>
-                        <button class="btn settings-btn" onclick="alert('Notification settings clicked')">Notification Settings</button>
-                        <button class="btn settings-btn" onclick="alert('Privacy settings clicked')">Privacy Settings</button>
-                        <button class="btn settings-btn settings-btn-danger" onclick="alert('Delete account - account will be deleted')">Delete Account</button>
-                    </div>
-                </div>
-            </div>
-        </section>
+                    </section>
 
-        <!-- Footer -->
-        <footer>
-            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.</p>
-        </footer>
+                    <section class="card profile-card" id="your-providers" aria-labelledby="booked-providers-heading">
+                        <div class="profile-card-header"><h2 class="profile-card-title" id="booked-providers-heading">Providers you’ve booked</h2></div>
+                        <div class="card-content">
+                            <p class="profile-helper">Based on your appointment history; this count is derived from bookings.</p>
+                            <p class="profile-helper">Four unique providers appear in your appointment history; the status breakdown below matches the sample appointment list.</p>
+                            <div class="profile-provider-row">
+                                <div><h3>Brian Davis</h3><p>Hair Styling · 1 upcoming, 1 completed, 1 cancelled</p></div>
+                            </div>
+                            <div class="profile-provider-row">
+                                <div><h3>Laura Johnson</h3><p>Nail Care · 1 upcoming appointment</p></div>
+                            </div>
+                            <div class="profile-provider-row">
+                                <div><h3>Sarah Williams</h3><p>Makeup Artistry · 1 upcoming appointment</p></div>
+                            </div>
+                            <div class="profile-provider-row">
+                                <div><h3>Erica Nyguen</h3><p>Tanning · 1 completed appointment</p></div>
+                            </div>
+                            <a class="btn profile-edit-btn" href="my-appointments.html">View appointment history</a>
+                        </div>
+                    </section>
+
+                    <section class="card profile-card" aria-labelledby="account-heading">
+                        <div class="profile-card-header"><h2 class="profile-card-title" id="account-heading">Account &amp; privacy</h2></div>
+                        <div class="card-content profile-settings-links">
+                            <a href="security.html">Password &amp; sign-in security <span aria-hidden="true">→</span></a>
+                            <a href="notifications.html">Notification preferences <span aria-hidden="true">→</span></a>
+                            <a href="account-requests.html">Privacy, deactivation, and deletion requests <span aria-hidden="true">→</span></a>
+                            <a href="../policies/privacy.html">Read the privacy policy <span aria-hidden="true">→</span></a>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </main>
+
+        <footer><p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p></footer>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-    </script>
 </body>
 
 </html>

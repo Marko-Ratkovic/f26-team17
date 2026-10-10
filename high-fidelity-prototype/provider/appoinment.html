@@ -9,6 +9,15 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
     <link rel="stylesheet" href="../styles.css">
+    <style>
+        tbody.tab-pane {
+            display: none;
+        }
+
+        tbody.tab-pane.active {
+            display: table-row-group;
+        }
+    </style>
 </head>
 
 <body>
@@ -60,27 +69,27 @@
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="all-tab" data-bs-toggle="tab"
-                                    data-bs-target="#all-tab-pane" type="button" role="tab"
-                                    aria-controls="all-tab-pane" aria-selected="true">All</button>
+                                    data-bs-target="#all-tab-pane" type="button" role="tab" aria-controls="all-tab-pane"
+                                    aria-selected="true">All (3)</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="confirmed-tab" data-bs-toggle="tab"
                                     data-bs-target="#confirmed-tab-pane" type="button" role="tab"
-                                    aria-controls="confirmed-tab-pane" aria-selected="false">Confirmed</button>
+                                    aria-controls="confirmed-tab-pane" aria-selected="false">Confirmed (1)</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pending-tab" data-bs-toggle="tab"
                                     data-bs-target="#pending-tab-pane" type="button" role="tab"
-                                    aria-controls="pending-tab-pane" aria-selected="false">Pending</button>
+                                    aria-controls="pending-tab-pane" aria-selected="false">Pending (1)</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="cancelled-tab" data-bs-toggle="tab"
                                     data-bs-target="#cancelled-tab-pane" type="button" role="tab"
-                                    aria-controls="cancelled-tab-pane" aria-selected="false">Cancelled</button>
+                                    aria-controls="cancelled-tab-pane" aria-selected="false">Cancelled (1)</button>
                             </li>
                         </ul>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <table class="table table-striped table-borderless table-hover">
                             <thead>
                                 <tr class="text-center">
@@ -95,7 +104,10 @@
 
                                 </tr>
                             </thead>
-                            <tbody class="text-center">
+
+                            <!-- All appointments tab pane -->
+                            <tbody class="text-center tab-pane active" id="all-tab-pane" role="tabpanel"
+                                aria-labelledby="all-tab">
                                 <tr>
                                     <th>Alice</th>
                                     <td>Hayes</td>
@@ -103,9 +115,11 @@
                                     <td>Oct 1 2026 at 10:00 AM</td>
                                     <td>Pedicure, Manicure</td>
                                     <td></td>
-                                    <td>Pending</td>
+                                    <td><span
+                                            class="badge bg-warning-subtle text-warning-emphasis fs-6 rounded-4">Pending</span>
+                                    </td>
                                     <td>
-                                        <div class="appt-list-btn d-flex gap-3 justify-content-center">
+                                        <div class="appt-list-btn d-flex gap-2 justify-content-center">
                                             <button type="button" class="btn btn-success">Confirm</button>
                                             <button type="button" class="btn btn-danger">Reject</button>
                                             <a href="customer-info.html">
@@ -114,16 +128,18 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr >
+                                <tr>
                                     <th>Alice</th>
                                     <td>Hayes</td>
                                     <td>+1 (336) 123-6789</td>
                                     <td>Oct 1 2026 at 10:00 AM</td>
                                     <td>Nail design</td>
                                     <td></td>
-                                    <td>Confirmed</td>
+                                    <td><span
+                                            class="badge bg-success-subtle text-success-emphasis fs-6 rounded-4">Confirmed</span>
+                                    </td>
                                     <td>
-                                        <div class="appt-list-btn d-flex gap-3 justify-content-center">
+                                        <div class="appt-list-btn d-flex gap-2 justify-content-center">
                                             <button type="button" class="btn btn-warning">Reschedule</button>
                                             <button type="button" class="btn btn-danger">Cancel</button>
                                             <a href="customer-info.html">
@@ -139,9 +155,9 @@
                                     <td>Oct 1 2026 at 10:00 AM</td>
                                     <td>Pedicure</td>
                                     <td></td>
-                                    <td>Cancelled</td>
+                                    <td><span class="badge bg-danger-subtle text-danger-emphasis fs-6 rounded-4">Cancelled</span></td>
                                     <td>
-                                        <div class="appt-list-btn d-flex gap-3 justify-content-center">
+                                        <div class="appt-list-btn d-flex gap-2 justify-content-center">
                                             <button type="button" class="btn btn-warning">Reschedule</button>
                                             <button type="button" class="btn btn-danger">Delete</button>
                                             <a href="customer-info.html">
@@ -151,25 +167,99 @@
                                     </td>
                                 </tr>
                             </tbody>
-                            <tbody>
-                                
+
+                            <!-- Confirmed appointment tab pane -->
+                            <tbody class="tab-pane" id="confirmed-tab-pane" role="tabpanel"
+                                aria-labelledby="confirmed-tab">
+                                <tr>
+                                    <th>Alice</th>
+                                    <td>Hayes</td>
+                                    <td>+1 (336) 123-6789</td>
+                                    <td>Oct 1 2026 at 10:00 AM</td>
+                                    <td>Nail design</td>
+                                    <td></td>
+                                    <td><span
+                                            class="badge bg-success-subtle text-success-emphasis fs-6 rounded-4">Confirmed</span>
+                                    </td>
+                                    <td>
+                                        <div class="appt-list-btn d-flex gap-2 justify-content-center">
+                                            <button type="button" class="btn btn-warning">Reschedule</button>
+                                            <button type="button" class="btn btn-danger">Cancel</button>
+                                            <a href="customer-info.html">
+                                                <button type="button" class="btn btn-outline-dark">View profile</button>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
+
+                            <!-- Pending appointment tab pane -->
+                            <tbody class="tab-pane" id="pending-tab-pane" role="tabpanel" aria-labelledby="pending-tab">
+                                <tr>
+                                    <th>Alice</th>
+                                    <td>Hayes</td>
+                                    <td>+1 (336) 123-6789</td>
+                                    <td>Oct 1 2026 at 10:00 AM</td>
+                                    <td>Pedicure, Manicure</td>
+                                    <td></td>
+                                    <td><span
+                                            class="badge bg-warning-subtle text-warning-emphasis fs-6 rounded-4">Pending</span>
+                                    </td>
+                                    <td>
+                                        <div class="appt-list-btn d-flex gap-2 justify-content-center">
+                                            <button type="button" class="btn btn-success">Confirm</button>
+                                            <button type="button" class="btn btn-danger">Reject</button>
+                                            <a href="customer-info.html">
+                                                <button type="button" class="btn btn-outline-dark">View profile</button>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                            <!-- Cancelled appointment tab pane -->
+                            <tbody class="tab-pane" id="cancelled-tab-pane" role="tabpanel" aria-labelledby="cancelled-tab">
+                                <tr>
+                                    <th>Alice</th>
+                                    <td>Hayes</td>
+                                    <td>+1 (336) 123-6789</td>
+                                    <td>Oct 1 2026 at 10:00 AM</td>
+                                    <td>Pedicure</td>
+                                    <td></td>
+                                    <td><span class="badge bg-danger-subtle text-danger-emphasis fs-6 rounded-4">Cancelled</span></td>
+                                    <td>
+                                        <div class="appt-list-btn d-flex gap-2 justify-content-center">
+                                            <button type="button" class="btn btn-warning">Reschedule</button>
+                                            <button type="button" class="btn btn-danger">Delete</button>
+                                            <a href="customer-info.html">
+                                                <button type="button" class="btn btn-outline-dark">View profile</button>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+
                         </table>
                     </div>
 
 
+
+                    </table>
                 </div>
+
+
             </div>
+    </div>
 
-        </section>
+    </section>
 
 
 
-        <!--Footer-->
-        <footer>
-            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.
-            </p>
-        </footer>
+    <!--Footer-->
+    <footer>
+        <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customer with certified beauty professionals.
+        </p>
+    </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

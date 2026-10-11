@@ -32,7 +32,7 @@ package "provider" {
     .. fields ..
     - userId: Long  {PK, FK → user_account.id}
     - user: UserAccount  {@OneToOne @MapsId}
-    - businessName: String  {VARCHAR(100), not null}
+    - publicName: String  {VARCHAR(100), not null}
     - biography: String [0..1]  {VARCHAR(2000)}
     - yearsExperience: Integer [0..1]  {0..80}
     - profileImagePath: String [0..1]  {VARCHAR(255)}
@@ -42,7 +42,7 @@ package "provider" {
     - availability: List<WeeklyAvailability>  {@OneToMany, cascade ALL, orphanRemoval}
     .. constructors ..
     # ProviderProfile()  // required by JPA
-    + ProviderProfile(user: UserAccount, businessName: String, address: Address)
+    + ProviderProfile(user: UserAccount, publicName: String, address: Address)
     .. getters ..
     + getUserId(): Long
     + getUser(): UserAccount
@@ -55,7 +55,7 @@ package "provider" {
     + getPortfolioItems(): List<PortfolioItem>  // unmodifiable
     + getAvailability(): List<WeeklyAvailability>  // unmodifiable
     .. behaviour: profile ..
-    + updatePublicProfile(businessName: String, biography: String, yearsExperience: Integer): void
+    + updatePublicProfile(publicName: String, biography: String, yearsExperience: Integer): void
     + changeAddress(address: Address): void
     + changeProfileImage(path: String): void
     .. behaviour: credentials ..
@@ -203,7 +203,7 @@ ProviderCredential --> CredentialStatus
 
 note right of ProviderProfile
   <b>Constructor</b>: user.role must be PROVIDER;
-  businessName 1–100 chars; address required.
+  publicName 1–100 chars; address required.
   Account starts PENDING_APPROVAL (set on UserAccount).
 
   <b>Privacy</b>: search and public profile show

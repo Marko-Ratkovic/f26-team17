@@ -90,7 +90,7 @@ package "customer  (Marko)" {
 package "provider  (Hana)" {
   class ProviderProfile <<entity>> {
     userId: Long {PK, FK}
-    businessName: String
+    publicName: String
     biography: String [0..1]
     yearsExperience: Integer [0..1]
     profileImagePath: String [0..1]

@@ -250,7 +250,7 @@ UserAccount "1" -- "0..*" VerificationToken
 UserAccount "1" -- "0..*" AccountRequest : requester
 AccountRequest "0..*" --> "0..1" UserAccount : processedBy (admin)
 
-CustomerProfile "1" -- "0..1" CustomerSafetyNotes
+CustomerProfile "1" -- "1" CustomerSafetyNotes
 CustomerProfile "1" -- "0..*" PreferredTimeRange
 CustomerProfile "0..*" -- "0..*" ServiceCategory : preferred categories\n(join table)
 

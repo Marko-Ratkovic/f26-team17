@@ -1,0 +1,472 @@
+@startuml GlowUpBackendUML
+title GlowUp backend domain model\nEach class is a JPA entity / table. Association lines are foreign keys. No payment entities.
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam packageStyle rectangle
+skinparam nodesep 45
+skinparam ranksep 60
+skinparam class {
+  BackgroundColor #FBF8F5
+  BorderColor #675A54
+  ArrowColor #675A54
+}
+skinparam package {
+  BackgroundColor #F4EEE9
+  BorderColor #A99A91
+}
+skinparam note {
+  BackgroundColor #FFF6E5
+  BorderColor #A87937
+}
+hide empty methods
+
+' ======================= account =======================
+package "account  (shared)" {
+  class UserAccount <<entity>> {
+    id: Long {PK}
+    email: String {unique}
+    passwordHash: String
+    role: Role
+    status: AccountStatus
+    emailVerifiedAt: Instant [0..1]
+    phone: String [0..1]
+    bookingEmailsEnabled: boolean = true
+    createdAt: Instant
+    updatedAt: Instant
+    version: Long
+    --
+    verifyEmail()
+    approve(admin: UserAccount)
+    suspend(admin: UserAccount, reason: String)
+    reinstate(admin: UserAccount)
+  }
+
+  class VerificationToken <<entity>> {
+    id: Long {PK}
+    purpose: TokenPurpose
+    tokenHash: String {unique}
+    pendingEmail: String [0..1]
+    expiresAt: Instant
+    consumedAt: Instant [0..1]
+    createdAt: Instant
+  }
+
+  class AccountRequest <<entity>> {
+    id: Long {PK}
+    type: AccountRequestType
+    status: AccountRequestStatus
+    submittedAt: Instant
+    processedAt: Instant [0..1]
+    outcomeNote: String [0..1]
+  }
+}
+
+' ======================= customer =======================
+package "customer  (Marko)" {
+  class CustomerProfile <<entity>> {
+    userId: Long {PK, FK}
+    firstName: String
+    middleName: String [0..1]
+    lastName: String
+  }
+
+  class CustomerSafetyNotes <<entity, sensitive>> {
+    customerId: Long {PK, FK}
+    allergyStatus: AllergyStatus
+    allergyDetails: Text [0..1]
+    sensitivities: Text [0..1]
+    updatedAt: Instant
+  }
+
+  class PreferredTimeRange <<entity>> {
+    id: Long {PK}
+    dayOfWeek: DayOfWeek
+    startTime: LocalTime
+    endTime: LocalTime
+  }
+}
+
+' ======================= provider =======================
+package "provider  (Hana)" {
+  class ProviderProfile <<entity>> {
+    userId: Long {PK, FK}
+    publicName: String
+    biography: Text [0..1]
+    city: String
+    region: String
+    profileImagePath: String [0..1]
+    timeZoneId: String = "America/New_York"
+  }
+
+  class ProviderCredential <<entity>> {
+    id: Long {PK}
+    claim: String
+    issuer: String [0..1]
+    status: CredentialStatus
+    submittedAt: Instant
+    reviewedAt: Instant [0..1]
+    decisionReason: String [0..1]
+  }
+
+  class PortfolioItem <<entity>> {
+    id: Long {PK}
+    title: String
+    description: Text [0..1]
+    imagePath: String
+    displayOrder: int
+    published: boolean
+    createdAt: Instant
+  }
+
+  class WeeklyAvailability <<entity>> {
+    id: Long {PK}
+    dayOfWeek: DayOfWeek
+    startTime: LocalTime
+    endTime: LocalTime
+  }
+}
+
+' ======================= catalog =======================
+package "catalog  (Hana + Alisena)" {
+  class ServiceCategory <<entity>> {
+    id: Long {PK}
+    name: String {unique}
+    active: boolean
+  }
+
+  class ServiceListing <<entity>> {
+    id: Long {PK}
+    status: ListingStatus
+    createdAt: Instant
+    updatedAt: Instant
+    version: Long
+  }
+
+  class ServiceListingVersion <<entity, immutable once submitted>> {
+    id: Long {PK}
+    revision: int
+    name: String
+    description: Text
+    imagePath: String [0..1]
+    durationMinutes: int
+    price: BigDecimal(10,2)
+    status: VersionStatus
+    submittedAt: Instant
+    decidedAt: Instant [0..1]
+    decisionReason: String [0..1]
+    --
+    approve(admin: UserAccount)
+    requestChanges(admin: UserAccount, reason: String)
+    reject(admin: UserAccount, reason: String)
+  }
+}
+
+' ======================= booking =======================
+package "booking  (Marko + Hana)" {
+  class Appointment <<entity>> {
+    id: Long {PK}
+    startsAt: Instant
+    endsAt: Instant
+    status: AppointmentStatus
+    requestedAt: Instant
+    version: Long
+    --
+    confirm(provider: UserAccount)
+    decline(provider: UserAccount, reason: String)
+    cancel(by: UserAccount, reason: String)
+    complete()
+  }
+
+  class AppointmentStatusHistory <<entity, append-only>> {
+    id: Long {PK}
+    fromStatus: AppointmentStatus [0..1]
+    toStatus: AppointmentStatus
+    reason: String [0..1]
+    changedAt: Instant
+  }
+}
+
+' ======================= feedback / moderation =======================
+package "feedback + moderation  (Marko, Hana, Alisena)" {
+  class Review <<entity>> {
+    id: Long {PK}
+    rating: int {1..5}
+    body: Text
+    visibility: Visibility
+    createdAt: Instant
+    updatedAt: Instant
+  }
+
+  class ProviderReply <<entity>> {
+    id: Long {PK}
+    body: Text
+    visibility: Visibility
+    createdAt: Instant
+    updatedAt: Instant
+  }
+
+  class ContentReport <<entity>> {
+    id: Long {PK}
+    reason: ReportReason
+    details: Text [0..1]
+    status: ReportStatus
+    outcome: ModerationOutcome [0..1]
+    resolutionNote: String [0..1]
+    submittedAt: Instant
+    resolvedAt: Instant [0..1]
+    --
+    resolve(admin: UserAccount, outcome: ModerationOutcome, note: String)
+  }
+}
+
+' ======================= admin + notification =======================
+package "admin  (Alisena)" {
+  class AdminAuditEvent <<entity, append-only>> {
+    id: Long {PK}
+    action: AdminAction
+    targetType: AuditTargetType
+    targetId: Long
+    reason: String [0..1]
+    occurredAt: Instant
+  }
+}
+
+package "notification  (shared)" {
+  class Notification <<entity>> {
+    id: Long {PK}
+    event: NotificationEvent
+    message: String
+    link: String [0..1]
+    createdAt: Instant
+    readAt: Instant [0..1]
+    emailedAt: Instant [0..1]
+  }
+}
+
+' ======================= associations =======================
+UserAccount "1" -- "0..1" CustomerProfile : role = CUSTOMER
+UserAccount "1" -- "0..1" ProviderProfile : role = PROVIDER
+UserAccount "1" -- "0..*" VerificationToken
+UserAccount "1" -- "0..*" AccountRequest : requester
+AccountRequest "0..*" --> "0..1" UserAccount : processedBy (admin)
+
+CustomerProfile "1" -- "0..1" CustomerSafetyNotes
+CustomerProfile "1" -- "0..*" PreferredTimeRange
+CustomerProfile "0..*" -- "0..*" ServiceCategory : preferred categories\n(join table)
+
+ProviderProfile "1" -- "0..*" ProviderCredential
+ProviderCredential "0..*" --> "0..1" UserAccount : reviewedBy (admin)
+ProviderProfile "1" -- "0..*" PortfolioItem
+ProviderProfile "1" -- "0..*" WeeklyAvailability
+ProviderProfile "1" -- "0..*" ServiceListing
+
+ServiceListing "1" -- "1..*" ServiceListingVersion : revisions
+ServiceListing "1" --> "0..1" ServiceListingVersion : currentApproved
+ServiceListingVersion "0..*" --> "1" ServiceCategory
+ServiceListingVersion "0..*" --> "0..1" UserAccount : decidedBy (admin)
+
+CustomerProfile "1" -- "0..*" Appointment : customer
+ProviderProfile "1" -- "0..*" Appointment : provider
+ServiceListingVersion "1" -- "0..*" Appointment : booked version
+Appointment "1" -- "1..*" AppointmentStatusHistory
+AppointmentStatusHistory "0..*" --> "0..1" UserAccount : actor
+
+Appointment "1" -- "0..1" Review
+Review "1" -- "0..1" ProviderReply
+UserAccount "1" -- "0..*" ContentReport : reporter
+Review "0..1" -- "0..*" ContentReport : target
+ProviderReply "0..1" -- "0..*" ContentReport : target
+ContentReport "0..*" --> "0..1" UserAccount : resolvedBy (admin)
+
+AdminAuditEvent "0..*" --> "1" UserAccount : admin
+Notification "0..*" --> "1" UserAccount : recipient
+
+' ======================= rules =======================
+note right of UserAccount
+  <b>Login and access</b>
+  • Login blocked until emailVerifiedAt is set (Spring Security isEnabled()).
+  • Customer: ACTIVE after verification.
+  • Provider: PENDING_APPROVAL after verification. Can log in and edit
+    profile + availability; cannot submit listings or receive bookings
+    until an admin approves (status → ACTIVE).
+  • SUSPENDED / DEACTIVATED: login refused.
+  • Seeded admin accounts are pre-verified.
+  • bookingEmailsEnabled turns off booking emails only;
+    account emails (verify, reset) are always sent.
+end note
+
+note bottom of VerificationToken
+  Only the hash is stored. Single-use (consumedAt).
+  EMAIL_VERIFICATION expires in 24 h, PASSWORD_RESET in 30 min.
+  Issuing a new token voids unused ones of the same purpose.
+  pendingEmail: an email change applies only after the link
+  sent to the new address is opened.
+end note
+
+note bottom of CustomerSafetyNotes
+  KNOWN requires allergyDetails; other statuses clear it.
+  Readable only by the customer, or by the provider of that
+  customer's CONFIRMED appointment. Never logged or audited in full.
+end note
+
+note right of ServiceListingVersion
+  Each submission or resubmission creates a new version row;
+  a submitted version is never edited or deleted.
+  At most one PENDING version per listing.
+  Customers see a listing only if: listing ACTIVE, has a
+  currentApproved version, and provider account ACTIVE.
+end note
+
+note right of Appointment
+  • Request: slot inside the provider's WeeklyAvailability; booked
+    version must be the listing's currentApproved.
+  • endsAt = startsAt + version.durationMinutes.
+  • Confirm: lock provider row (SELECT … FOR UPDATE), reject if any
+    CONFIRMED appointment overlaps [startsAt, endsAt).
+  • Every status change appends a history row (actor + reason).
+    Decline requires a reason; "cancelled by" = actor of that row.
+  • Name/price/duration come from the immutable booked version.
+  • Notifications are created after commit: in-app always,
+    email if the recipient has bookingEmailsEnabled.
+end note
+
+note bottom of ContentReport
+  CHECK: exactly one of review / reply is set.
+  Review allowed only for a COMPLETED appointment, by its customer;
+  reply only by that appointment's provider.
+  One OPEN report per reporter + target.
+  Hiding content sets visibility = HIDDEN and resolves every OPEN
+  report on that target in one transaction; each also writes an
+  AdminAuditEvent.
+end note
+
+note bottom of AdminAuditEvent
+  Written for every admin decision. targetType + targetId is a
+  polymorphic reference (no single FK possible).
+  US-12 usage statistics are aggregate queries, not stored tables.
+end note
+
+' ======================= enums =======================
+package "enums" {
+  enum Role {
+    CUSTOMER
+    PROVIDER
+    ADMIN
+  }
+  enum AccountStatus {
+    PENDING_APPROVAL
+    ACTIVE
+    SUSPENDED
+    DEACTIVATED
+    CLOSED
+  }
+  enum TokenPurpose {
+    EMAIL_VERIFICATION
+    PASSWORD_RESET
+  }
+  enum AccountRequestType {
+    DEACTIVATION
+    DELETION
+  }
+  enum AccountRequestStatus {
+    SUBMITTED
+    COMPLETED
+    REJECTED
+    WITHDRAWN
+  }
+  enum AllergyStatus {
+    KNOWN
+    NO_KNOWN
+    NOT_PROVIDED
+  }
+  enum CredentialStatus {
+    UNVERIFIED
+    PENDING
+    VERIFIED
+    REJECTED
+  }
+  enum ListingStatus {
+    ACTIVE
+    ARCHIVED
+  }
+  enum VersionStatus {
+    PENDING
+    CHANGES_REQUESTED
+    APPROVED
+    REJECTED
+  }
+  enum AppointmentStatus {
+    REQUESTED
+    CONFIRMED
+    DECLINED
+    CANCELLED
+    COMPLETED
+  }
+  enum Visibility {
+    VISIBLE
+    HIDDEN
+  }
+  enum ReportReason {
+    HARASSMENT
+    THREATS
+    HATE_OR_EXPLICIT
+    PERSONAL_INFORMATION
+    SPAM
+    OFF_TOPIC
+    OTHER
+  }
+  enum ReportStatus {
+    OPEN
+    RESOLVED
+  }
+  enum ModerationOutcome {
+    KEEP_VISIBLE
+    HIDE_CONTENT
+  }
+  enum AdminAction {
+    ACCOUNT_APPROVED
+    ACCOUNT_SUSPENDED
+    ACCOUNT_REINSTATED
+    CREDENTIAL_REVIEWED
+    LISTING_APPROVED
+    LISTING_CHANGES_REQUESTED
+    LISTING_REJECTED
+    REPORT_RESOLVED
+    ACCOUNT_REQUEST_PROCESSED
+  }
+  enum AuditTargetType {
+    USER_ACCOUNT
+    PROVIDER_CREDENTIAL
+    LISTING_VERSION
+    CONTENT_REPORT
+    ACCOUNT_REQUEST
+  }
+  enum NotificationEvent {
+    APPOINTMENT_REQUESTED
+    APPOINTMENT_CONFIRMED
+    APPOINTMENT_DECLINED
+    APPOINTMENT_CANCELLED
+    REVIEW_REPLY
+    LISTING_DECISION
+    ACCOUNT_STATUS
+  }
+}
+
+' stack enums into columns
+Role -[hidden]down- AccountStatus
+AccountStatus -[hidden]down- TokenPurpose
+TokenPurpose -[hidden]down- AccountRequestType
+AccountRequestType -[hidden]down- AccountRequestStatus
+AllergyStatus -[hidden]down- CredentialStatus
+CredentialStatus -[hidden]down- ListingStatus
+ListingStatus -[hidden]down- VersionStatus
+VersionStatus -[hidden]down- AppointmentStatus
+Visibility -[hidden]down- ReportReason
+ReportReason -[hidden]down- ReportStatus
+ReportStatus -[hidden]down- ModerationOutcome
+AdminAction -[hidden]down- AuditTargetType
+AuditTargetType -[hidden]down- NotificationEvent
+
+@enduml

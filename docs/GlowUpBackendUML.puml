@@ -67,9 +67,7 @@ package "account  (shared)" {
 package "customer  (Marko)" {
   class CustomerProfile <<entity>> {
     userId: Long {PK, FK}
-    firstName: String
-    middleName: String [0..1]
-    lastName: String
+    fullName: String
   }
 
   class CustomerSafetyNotes <<entity, sensitive>> {

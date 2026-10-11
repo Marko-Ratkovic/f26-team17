@@ -16,7 +16,7 @@
 - **System Admin:** The platform user responsible for overseeing GlowUp's daily operation.
 - **Customer profile:**  Contains personal details, contact info, booking history, and service/style preferences.
 - **Provider profile:**  Contains personal details, contact info, service offerings, and professional certifications/licenses.
-- **Name:** A user's first and last name; middle name is optional.
+- **Name:** A user's full name, entered as a single field.
 - **Services:** The specific nail, hair, or beauty service. 
 - **Session:** A scheduled appointment between a customer and a provider for service.
 
@@ -53,11 +53,10 @@ Recommended MVP cancellation, provider-verification, and availability defaults a
   ```gherkin
   Scenario: Register with valid credentials
     Given I am not registered
-    When  I provide my first and last name, valid credentials, and optionally a middle name
+    When  I provide my full name and valid credentials
     Then  my account is created and a single-use verification link is emailed to me
     And I cannot log in until I open the link to verify my email address
     And after verifying, I can log in and view and modify my profile
-    And my middle name may be left blank
     And my phone number may be left blank
     And changing my email requires verifying the new address before it replaces the current one
   ```

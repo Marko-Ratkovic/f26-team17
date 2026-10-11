@@ -90,12 +90,11 @@ package "customer  (Marko)" {
 package "provider  (Hana)" {
   class ProviderProfile <<entity>> {
     userId: Long {PK, FK}
-    publicName: String
-    biography: Text [0..1]
-    city: String
-    region: String
+    businessName: String
+    biography: String [0..1]
+    yearsExperience: Integer [0..1]
     profileImagePath: String [0..1]
-    timeZoneId: String = "America/New_York"
+    address: Address  // embedded: street, city, state, zipCode
   }
 
   class ProviderCredential <<entity>> {
@@ -114,7 +113,6 @@ package "provider  (Hana)" {
     description: Text [0..1]
     imagePath: String
     displayOrder: int
-    published: boolean
     createdAt: Instant
   }
 
@@ -380,7 +378,6 @@ package "enums" {
     NOT_PROVIDED
   }
   enum CredentialStatus {
-    UNVERIFIED
     PENDING
     VERIFIED
     REJECTED

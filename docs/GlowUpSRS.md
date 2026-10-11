@@ -15,21 +15,18 @@
 - **Provider:** Nail technicians, barbers, makeup artists.
 - **System Admin:** The platform user responsible for overseeing GlowUp's daily operation.
 - **Customer profile:**  Contains personal details, contact info, booking history, and service/style preferences.
-- **Provider profile:**  Contains personal details, contact info, service offerings, and professional certifications/licenses.
-- **Name:** A user's full name, entered as a single field.
-- **Services:** The specific nail, hair, or beauty service. 
-- **Session:** A scheduled appointment between a customer and a provider for service.
+- **Provider profile:**  Contains personal details, contact info, and service offerings.
+
 
 **Primary Users / Roles.**
 - **Customer** — Find professional provider and book appointment.
 - **Provider** — Attract clients and manage services.
-- **SysAdmin (optional)** —  Maintain platform quality and security..
+- **SysAdmin** —  Maintain platform quality and security.
 
-**Scope (this semester).**
+**Scope**
 - User profiles (customers and providers)
 - Search and browse providers by service menu.
 - Appointment requests and provider confirmation
-- Basic system tracking
 - Reviews and ratings
 
 **Out of scope (deferred).**
@@ -38,10 +35,6 @@
 - Complex rescheduling and negotiation workflows
 
 Booking requests do not collect or authorize payment in this project. A customer selects an available slot and submits a request; the provider confirms or declines it. Only a confirmed appointment is treated as a scheduled booking. Any future payment integration requires a separately defined payment, cancellation, refund, and payout policy.
-
-Recommended MVP cancellation, provider-verification, and availability defaults are documented in `ProviderWorkflowDesign.md`. Treat them as proposals requiring team approval before backend implementation, not as finalized customer-facing policy.
-
-> This document is **requirements‑level** and solution‑neutral; design decisions (UI layouts, API endpoints, schemas) are documented separately.
 ---
 
 ## 2. Functional Requirements (User Stories)
@@ -273,7 +266,6 @@ the platform secure and enforce policies.\
 **Service listing review policy**
 - Every new service listing is reviewed before it appears in customer search or can be booked.
 - Admins check service name, category, description, image, duration, price, and compliance with GlowUp's terms and safety expectations.
-- Approve compliant listings, request specific changes for fixable issues, and reject listings offering prohibited services.
 - A requested-change listing remains hidden until the provider resubmits it and it is approved.
 - Editing an already approved listing creates a pending revision; the currently approved version remains visible and unchanged until the revision is approved.
 - Show providers their current review status and any reason or requested changes. Keep the decision and reason in the moderation history.
@@ -284,7 +276,6 @@ the platform secure and enforce policies.\
 - Weekly availability governs new requests. Editing a schedule does not automatically move or cancel existing confirmed bookings.
 - Providers may access customer contact details and safety notes only through appointments assigned to them and only for the appointment status authorized by the service policy. Enforce this in the backend, not through UI visibility.
 - Payment authorization, collection, provider payouts, refunds, and payment-related cancellation rules are out of scope; do not imply that a request or confirmation charges a customer.
-- The prototype's October 2026 appointment examples are fictional and are not a live schedule or provider commitment.
 
 **US-11 — Moderate reported reviews and replies** \
 *Story:* As a SysAdmin, I want to review reports about customer reviews and provider replies, so that I can address policy violations without delaying ordinary feedback.\
@@ -301,11 +292,12 @@ the platform secure and enforce policies.\
 
 **Review and reply policy**
 - Reviews are available only for completed appointments, with at most one customer review per appointment.
-- Submitted reviews are published immediately; routine pre-approval is not required.
+- Submitted reviews are published immediately.
 - Customers and providers may report reviews or provider replies that violate the community guidelines.
 - Reportable violations include harassment, threats, hate or explicit content, personal information, spam, and unrelated content.
-- Low ratings, respectful criticism, or disagreement alone are not grounds for removal.
 - Moderators review the reported content and reason, then keep it visible or hide it. Moderation decisions include a reason and are retained in the audit history; content is not silently or permanently deleted as the default workflow.
+
+
 **US-12 — View usage statistics** \
 *Story:* As a SysAdmin, I want to view appointment activity, user growth, provider activity, and service-review volume
 so that I can manage and monitor platform operations.\
@@ -342,31 +334,3 @@ so that I can manage and monitor platform operations.\
 - Keep notification channel choices separate from booking preferences. Do not allow disabling essential account emails (verification, password reset, security). Booking emails may be turned off. SMS is out of scope.
 
 ---
-## 3. Non‑Functional Requirements (make them measurable)
-- **Performance:** 95% of service search and provider listing responses should be returned in less than 2 seconds under typical load.
-- **Availability/Reliability:** The system should be available 99.5% of the time, with planned maintenance windows communicated in advance.
-- **Security/Privacy:** The system must implement secure authentication and authorization mechanisms. All sensitive data should be encrypted in transit and at rest.
-- **Usability:** New customers should be able to complete registration and submit their first appointment request within 5 minutes without external assistance.
-- **Accessibility:** Meet WCAG 2.2 AA for implemented interfaces, including at least 4.5:1 contrast for normal text, keyboard-operable controls with visible focus, semantic page headings, and reflow at narrow viewport widths.
----
-
-## 4. Assumptions, Constraints, and Policies
-- Modern browsers (latest Chrome/Firefox/Edge/Safari) and stable connectivity.
-- Course timeline and campus infrastructure constraints apply.
-- Before launch, the team must approve record-class retention periods, an account-request completion target, provider-verification criteria by service/jurisdiction, and the proposed appointment cancellation and time-zone rules in the design documents.
-
----
-
-## 5. Milestones (course‑aligned)
-- **M1 Requirements** — this file + stories opened as issues.
-- **M2 High‑fidelity prototype** — static visual previews of core customer/provider flows; interactive and persisted behavior is implemented only when supported by the backend increment.
-- **M3 Design** — architecture, schema, API outline.
-- **M4 Backend API** — key endpoints + tests.
-- **M5 Increment** — ≥2 use cases end‑to‑end.
-- **M6 Final** — complete system & documentation.
-
----
-## 6. Change Management
-
-- Stories are living artifacts; changes are tracked via repository issues and linked pull requests.
-- Major changes should update this SRS

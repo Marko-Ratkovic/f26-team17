@@ -135,7 +135,6 @@ Recommended MVP cancellation, provider-verification, and availability defaults a
     When I submit valid account and professional profile information
     Then my private account details are stored separately from public profile fields
     And only approved public profile information is discoverable by customers
-    And any provider verification state is clearly shown to the provider
   ```
 
   ```gherkin
@@ -150,10 +149,10 @@ Recommended MVP cancellation, provider-verification, and availability defaults a
   ```gherkin
   Scenario: Update public provider profile
     Given I am authenticated as a provider
-    When I update my professional biography, service area, or credentials
+    When I update my professional biography, address, or certifications
     Then the server validates and saves the update
     And private contact details are not added to public search results
-    And credential claims are not presented as verified unless they have been checked
+    And certifications are shown as self-reported, not verified by GlowUp
   ```
 
 - **US-6 — Define services and pricing** \

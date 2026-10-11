@@ -93,28 +93,12 @@ package "provider  (Hana)" {
     publicName: String
     biography: String [0..1]
     yearsExperience: Integer [0..1]
+    certifications: String [0..1]  // self-reported
     profileImagePath: String [0..1]
     address: Address  // embedded: street, city, state, zipCode
   }
 
-  class ProviderCredential <<entity>> {
-    id: Long {PK}
-    claim: String
-    issuer: String [0..1]
-    status: CredentialStatus
-    submittedAt: Instant
-    reviewedAt: Instant [0..1]
-    decisionReason: String [0..1]
-  }
 
-  class PortfolioItem <<entity>> {
-    id: Long {PK}
-    title: String
-    description: Text [0..1]
-    imagePath: String
-    displayOrder: int
-    createdAt: Instant
-  }
 
   class WeeklyAvailability <<entity>> {
     id: Long {PK}
@@ -252,9 +236,6 @@ CustomerProfile "1" -- "1" CustomerSafetyNotes
 CustomerProfile "1" -- "0..*" PreferredTimeRange
 CustomerProfile "0..*" -- "0..*" ServiceCategory : preferred categories\n(join table)
 
-ProviderProfile "1" -- "0..*" ProviderCredential
-ProviderCredential "0..*" --> "0..1" UserAccount : reviewedBy (admin)
-ProviderProfile "1" -- "0..*" PortfolioItem
 ProviderProfile "1" -- "0..*" WeeklyAvailability
 ProviderProfile "1" -- "0..*" ServiceListing
 
@@ -377,11 +358,6 @@ package "enums" {
     NO_KNOWN
     NOT_PROVIDED
   }
-  enum CredentialStatus {
-    PENDING
-    VERIFIED
-    REJECTED
-  }
   enum ListingStatus {
     ACTIVE
     ARCHIVED
@@ -424,7 +400,6 @@ package "enums" {
     ACCOUNT_APPROVED
     ACCOUNT_SUSPENDED
     ACCOUNT_REINSTATED
-    CREDENTIAL_REVIEWED
     LISTING_APPROVED
     LISTING_CHANGES_REQUESTED
     LISTING_REJECTED
@@ -433,7 +408,6 @@ package "enums" {
   }
   enum AuditTargetType {
     USER_ACCOUNT
-    PROVIDER_CREDENTIAL
     LISTING_VERSION
     CONTENT_REPORT
     ACCOUNT_REQUEST
@@ -454,8 +428,7 @@ Role -[hidden]down- AccountStatus
 AccountStatus -[hidden]down- TokenPurpose
 TokenPurpose -[hidden]down- AccountRequestType
 AccountRequestType -[hidden]down- AccountRequestStatus
-AllergyStatus -[hidden]down- CredentialStatus
-CredentialStatus -[hidden]down- ListingStatus
+AllergyStatus -[hidden]down- ListingStatus
 ListingStatus -[hidden]down- VersionStatus
 VersionStatus -[hidden]down- AppointmentStatus
 Visibility -[hidden]down- ReportReason

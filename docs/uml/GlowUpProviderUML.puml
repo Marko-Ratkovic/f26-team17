@@ -1,11 +1,10 @@
 @startuml GlowUpProviderUML
-title GlowUp — provider package (detailed class diagram)\n- private   # protected   ~ package-private   + public
-
+title GlowUp — provider package (fields)
 skinparam classAttributeIconSize 0
 skinparam shadowing false
 skinparam defaultFontName Arial
 skinparam nodesep 60
-skinparam ranksep 80
+skinparam ranksep 70
 skinparam class {
   BackgroundColor #FBF8F5
   BorderColor #675A54
@@ -15,226 +14,46 @@ skinparam note {
   BackgroundColor #FFF6E5
   BorderColor #A87937
 }
+hide empty methods
 
-package "account (detailed later)" {
-  class UserAccount <<entity>> {
-    - id: Long
-    - email: String
-    - phone: String [0..1]
-    - status: AccountStatus
-    ...
-  }
+class UserAccount <<account>> {
+  - id: Long
+  - email: String
+  - phone: String [0..1]
+  ...
 }
 
-package "provider" {
-
-  class ProviderProfile <<entity>> <<table: provider_profile>> {
-    .. fields ..
-    - userId: Long  {PK, FK → user_account.id}
-    - user: UserAccount  {@OneToOne @MapsId}
-    - publicName: String  {VARCHAR(100), not null}
-    - biography: String [0..1]  {VARCHAR(2000)}
-    - yearsExperience: Integer [0..1]  {0..80}
-    - profileImagePath: String [0..1]  {VARCHAR(255)}
-    - address: Address  {@Embedded, not null}
-    - credentials: List<ProviderCredential>  {@OneToMany, cascade ALL, orphanRemoval}
-    - portfolioItems: List<PortfolioItem>  {@OneToMany, cascade ALL, orphanRemoval, @OrderBy displayOrder}
-    - availability: List<WeeklyAvailability>  {@OneToMany, cascade ALL, orphanRemoval}
-    .. constructors ..
-    # ProviderProfile()  // required by JPA
-    + ProviderProfile(user: UserAccount, publicName: String, address: Address)
-    .. getters ..
-    + getUserId(): Long
-    + getUser(): UserAccount
-    + getBusinessName(): String
-    + getBiography(): String
-    + getYearsExperience(): Integer
-    + getProfileImagePath(): String
-    + getAddress(): Address
-    + getCredentials(): List<ProviderCredential>  // unmodifiable
-    + getPortfolioItems(): List<PortfolioItem>  // unmodifiable
-    + getAvailability(): List<WeeklyAvailability>  // unmodifiable
-    .. behaviour: profile ..
-    + updatePublicProfile(publicName: String, biography: String, yearsExperience: Integer): void
-    + changeAddress(address: Address): void
-    + changeProfileImage(path: String): void
-    .. behaviour: credentials ..
-    + addCredential(claim: String, issuer: String): ProviderCredential
-    + removeCredential(credentialId: Long): void
-    .. behaviour: portfolio ..
-    + addPortfolioItem(title: String, description: String, imagePath: String): PortfolioItem
-    + removePortfolioItem(itemId: Long): void
-    + reorderPortfolio(itemIdsInOrder: List<Long>): void
-    .. behaviour: availability ..
-    + addAvailability(day: DayOfWeek, start: LocalTime, end: LocalTime): WeeklyAvailability
-    + removeAvailability(availabilityId: Long): void
-    + isAvailable(day: DayOfWeek, start: LocalTime, end: LocalTime): boolean
-    .. Object ..
-    + equals(o: Object): boolean
-    + hashCode(): int
-    + toString(): String
-  }
-
-  class Address <<embeddable, value object>> {
-    .. fields (columns inside provider_profile) ..
-    - street: String  {VARCHAR(200), not null}
-    - city: String  {VARCHAR(80), not null, indexed}
-    - state: String  {CHAR(2), not null, e.g. "NC"}
-    - zipCode: String  {VARCHAR(10), not null, 12345 or 12345-6789}
-    .. constructors ..
-    # Address()  // required by JPA
-    + Address(street: String, city: String, state: String, zipCode: String)
-    .. getters (immutable: no setters) ..
-    + getStreet(): String
-    + getCity(): String
-    + getState(): String
-    + getZipCode(): String
-    .. behaviour ..
-    + cityAndState(): String  // "Greensboro, NC" (public)
-    + formatted(): String  // full address
-    .. Object ..
-    + equals(o: Object): boolean  // by value
-    + hashCode(): int
-    + toString(): String
-  }
-
-  class ProviderCredential <<entity>> <<table: provider_credential>> {
-    .. fields ..
-    - id: Long  {PK, IDENTITY}
-    - provider: ProviderProfile  {@ManyToOne, FK provider_id, not null}
-    - claim: String  {VARCHAR(150), not null}
-    - issuer: String [0..1]  {VARCHAR(150)}
-    - status: CredentialStatus  {VARCHAR(20), not null}
-    - submittedAt: Instant  {not null}
-    - reviewedBy: UserAccount [0..1]  {@ManyToOne, FK reviewed_by}
-    - reviewedAt: Instant [0..1]
-    - decisionReason: String [0..1]  {VARCHAR(500)}
-    .. constructors ..
-    # ProviderCredential()  // required by JPA
-    ~ ProviderCredential(provider: ProviderProfile, claim: String, issuer: String)
-    .. getters ..
-    + getId(): Long
-    + getProvider(): ProviderProfile
-    + getClaim(): String
-    + getIssuer(): String
-    + getStatus(): CredentialStatus
-    + getSubmittedAt(): Instant
-    + getReviewedBy(): UserAccount
-    + getReviewedAt(): Instant
-    + getDecisionReason(): String
-    .. behaviour ..
-    + verify(admin: UserAccount): void
-    + reject(admin: UserAccount, reason: String): void
-    + isVerified(): boolean
-    .. Object ..
-    + equals(o: Object): boolean
-    + hashCode(): int
-    + toString(): String
-  }
-
-  class PortfolioItem <<entity>> <<table: portfolio_item>> {
-    .. fields ..
-    - id: Long  {PK, IDENTITY}
-    - provider: ProviderProfile  {@ManyToOne, FK provider_id, not null}
-    - title: String  {VARCHAR(100), not null}
-    - description: String [0..1]  {VARCHAR(500)}
-    - imagePath: String  {VARCHAR(255), not null}
-    - displayOrder: int  {not null}
-    - createdAt: Instant  {not null}
-    .. constructors ..
-    # PortfolioItem()  // required by JPA
-    ~ PortfolioItem(provider: ProviderProfile, title: String, description: String, imagePath: String, displayOrder: int)
-    .. getters ..
-    + getId(): Long
-    + getProvider(): ProviderProfile
-    + getTitle(): String
-    + getDescription(): String
-    + getImagePath(): String
-    + getDisplayOrder(): int
-    + getCreatedAt(): Instant
-    .. behaviour ..
-    + updateDetails(title: String, description: String): void
-    ~ moveTo(displayOrder: int): void  // used by reorderPortfolio
-    .. Object ..
-    + equals(o: Object): boolean
-    + hashCode(): int
-    + toString(): String
-  }
-
-  class WeeklyAvailability <<entity>> <<table: weekly_availability>> {
-    .. fields ..
-    - id: Long  {PK, IDENTITY}
-    - provider: ProviderProfile  {@ManyToOne, FK provider_id, not null}
-    - dayOfWeek: DayOfWeek  {VARCHAR(9), not null}
-    - startTime: LocalTime  {TIME, not null}
-    - endTime: LocalTime  {TIME, not null}
-    .. constructors ..
-    # WeeklyAvailability()  // required by JPA
-    ~ WeeklyAvailability(provider: ProviderProfile, day: DayOfWeek, start: LocalTime, end: LocalTime)
-    .. getters (no setters: remove and re-add) ..
-    + getId(): Long
-    + getProvider(): ProviderProfile
-    + getDayOfWeek(): DayOfWeek
-    + getStartTime(): LocalTime
-    + getEndTime(): LocalTime
-    .. behaviour ..
-    + overlaps(other: WeeklyAvailability): boolean
-    + covers(day: DayOfWeek, start: LocalTime, end: LocalTime): boolean
-    .. Object ..
-    + equals(o: Object): boolean
-    + hashCode(): int
-    + toString(): String
-  }
-
-  enum CredentialStatus {
-    PENDING
-    VERIFIED
-    REJECTED
-  }
+class ProviderProfile {
+  - userId: Long  {PK = UserAccount.id}
+  - publicName: String
+  - biography: String [0..1]
+  - yearsExperience: Integer [0..1]
+  - certifications: String [0..1]
+  - profileImagePath: String [0..1]
+  - address: Address
 }
 
-UserAccount "1" -- "0..1" ProviderProfile : role = PROVIDER
-ProviderProfile *-- "1" Address : embedded
-ProviderProfile "1" *-- "0..*" ProviderCredential
-ProviderProfile "1" *-- "0..*" PortfolioItem
-ProviderProfile "1" *-- "0..*" WeeklyAvailability
-ProviderCredential "0..*" --> "0..1" UserAccount : reviewedBy (admin)
-ProviderCredential --> CredentialStatus
+class Address <<embedded>> {
+  - street: String
+  - city: String
+  - state: String
+  - zipCode: String
+}
 
-note right of ProviderProfile
-  <b>Constructor</b>: user.role must be PROVIDER;
-  publicName 1–100 chars; address required.
-  Account starts PENDING_APPROVAL (set on UserAccount).
+class WeeklyAvailability {
+  - id: Long
+  - dayOfWeek: DayOfWeek
+  - startTime: LocalTime
+  - endTime: LocalTime
+}
 
-  <b>Privacy</b>: search and public profile show
-  address.cityAndState() only. The full street address
-  is shown to a customer once their appointment is
-  CONFIRMED. Phone and email live on UserAccount
-  and are never in search results.
+UserAccount "1" -- "0..1" ProviderProfile
+ProviderProfile *-- "1" Address : stored as columns\nin provider_profile
+ProviderProfile "1" -- "0..*" WeeklyAvailability : business hours
 
-  addAvailability: start < end, no overlap on same day.
-  Changing availability never cancels confirmed bookings.
-  isAvailable: true if any range covers [start, end).
-  Service listings link to the provider from the catalog
-  side (ServiceListing.provider); no list kept here.
+note bottom of ProviderProfile
+  certifications: free text, shown as "self-reported".
+  Search shows city + state only; full street address
+  is shown after an appointment is CONFIRMED.
 end note
-
-note bottom of ProviderCredential
-  New claims start PENDING and are shown to customers
-  as "not verified" until an admin calls verify().
-  verify/reject: only from PENDING; records admin,
-  time and reason; also writes an AdminAuditEvent.
-end note
-
-note bottom of PortfolioItem
-  Image paths are server-generated (never a
-  user-supplied path). Unique (provider_id, display_order).
-end note
-
-note bottom of WeeklyAvailability
-  CHECK start_time < end_time.
-  Times are NC local time (app-wide zone
-  America/New_York in application.properties).
-end note
-
 @enduml

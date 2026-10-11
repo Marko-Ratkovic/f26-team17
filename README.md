@@ -19,7 +19,7 @@ GlowUp is a software that connects customers who needs theirs hairs, nails or ma
        profile with contact info and beauty/grooming preferences
        (preferred services, stylist, notes like allergies).
     2. **View available services** - Browse nail technicians, barbers, and makeup
-       artists by service menu, portfolio, price, and available time
+       artists by service menu, price, and available time
        slots; filter by service type and location.
     3. **Request an appointment** - Choose an approved service and available
        time slot, submit a booking request for provider confirmation, and view

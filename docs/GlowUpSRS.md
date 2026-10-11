@@ -34,6 +34,7 @@
 
 **Out of scope (deferred).**
 - Payment processing, provider payouts, refunds, and other automated financial policies
+- SMS/text-message notifications and phone-number verification
 - Complex rescheduling and negotiation workflows
 
 Booking requests do not collect or authorize payment in this project. A customer selects an available slot and submits a request; the provider confirms or declines it. Only a confirmed appointment is treated as a scheduled booking. Any future payment integration requires a separately defined payment, cancellation, refund, and payout policy.
@@ -53,8 +54,9 @@ Recommended MVP cancellation, provider-verification, and availability defaults a
   Scenario: Register with valid credentials
     Given I am not registered
     When  I provide my first and last name, valid credentials, and optionally a middle name
-    Then  I should be successfully registered and logged in
-    And I can view and modify my profile
+    Then  my account is created and a single-use verification link is emailed to me
+    And I cannot log in until I open the link to verify my email address
+    And after verifying, I can log in and view and modify my profile
     And my middle name may be left blank
     And my phone number may be left blank
     And changing my email requires verifying the new address before it replaces the current one
@@ -75,7 +77,8 @@ Recommended MVP cancellation, provider-verification, and availability defaults a
     When I update preferred service categories, days, or time ranges
     Then my preferences may guide discovery but must not limit access to services
     And I can manage booking notifications separately from those preferences
-    And text notifications are available only after my phone number is verified
+    And booking notifications are shown in the app and emailed to my verified address
+    And I can turn off booking emails, but not essential account emails such as verification and password reset
   ```
 
 - **US‑2 — Browse providers via a service menu**  
@@ -137,6 +140,15 @@ Recommended MVP cancellation, provider-verification, and availability defaults a
   ```
 
   ```gherkin
+  Scenario: Use the platform while awaiting account approval
+    Given I registered as a provider and verified my email address
+    And a SysAdmin has not yet approved my account
+    When I log in
+    Then I can complete my profile and weekly availability
+    But I cannot submit listings for review or receive booking requests until my account is approved
+  ```
+
+  ```gherkin
   Scenario: Update public provider profile
     Given I am authenticated as a provider
     When I update my professional biography, service area, or credentials
@@ -184,7 +196,7 @@ Recommended MVP cancellation, provider-verification, and availability defaults a
     When I confirm or decline the request
     Then the appointment transitions to Confirmed or Declined with an audit timestamp
     And confirming reserves the slot atomically so it cannot be double-booked
-    And the customer receives a notification reflecting the outcome
+    And the customer receives an in-app and email notification reflecting the outcome
   ```
 
   ```gherkin
@@ -221,6 +233,15 @@ the platform secure and enforce policies.\
   Given <I am logged in as a SysAdmin>
   When <I suspend a provider or customer account for a policy violation>
   Then <the user should immediately lose access to the platform>
+  ```
+
+  ```gherkin
+ Scenario: Approve a pending provider account
+  Given I am logged in as a SysAdmin
+  And a provider has verified their email and is awaiting approval
+  When I approve the account
+  Then the provider can submit listings for review and receive booking requests
+  And the decision is recorded in the admin audit log
   ```
 
 **US-10 — Moderate services** \
@@ -306,7 +327,7 @@ so that I can manage and monitor platform operations.\
   _Story:_ As a customer, I want to change my password without exposing it so that I can protect my account.
   - Require the current password for an authenticated password change and validate the new password on the server.
   - Store only a password hash; never return or email an existing password.
-  - Use a separate password-reset flow when the customer cannot sign in.
+  - Use a separate password-reset flow when the customer cannot sign in: email a single-use link that expires after 30 minutes, store only a hash of the reset token, and show the same response whether or not the email belongs to an account.
 
 - **US-14 — Request account deactivation or deletion**
   _Story:_ As a customer, I want to pause or close my account with a clear explanation of the effect on my appointments and retained records.
@@ -320,7 +341,7 @@ so that I can manage and monitor platform operations.\
 - Permit a provider to view safety notes only through a confirmed appointment associated with that provider. Enforce this on the server for each request; hiding a UI element is not authorization.
 - Represent allergy status explicitly (known notes, no known allergies, or not provided) so blank data is not interpreted as “no allergies.”
 - Separate saved-provider relationships from the providers and counts derived from appointment history.
-- Keep notification channel choices separate from booking preferences. Do not allow disabling essential security messages; require a verified phone number for SMS.
+- Keep notification channel choices separate from booking preferences. Do not allow disabling essential account emails (verification, password reset, security). Booking emails may be turned off. SMS is out of scope.
 
 ---
 ## 3. Non‑Functional Requirements (make them measurable)

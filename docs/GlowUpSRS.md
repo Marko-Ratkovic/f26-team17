@@ -62,6 +62,12 @@
     Then I see only approved services from approved providers that match every filter
     And I can sort by top rated, most reviewed, or newest
     And ratings count only visible reviews
+
+  Scenario: Read a provider's reviews
+    When I open a provider's reviews
+    Then I see the average rating, review count, and number of reviews for each star rating
+    And I can filter by star rating and sort by newest, highest, or lowest rating
+    And hidden reviews are not shown
   ```
 
 - **US‑3 — Request and reschedule appointments**  

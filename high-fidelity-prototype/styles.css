@@ -2198,3 +2198,88 @@ footer{
     margin-top: 4rem;
     font-weight: bold;
 }
+/* Provider reviews page (customer/provider-reviews.html) */
+.review-summary-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  background: var(--background-neutral-medium);
+  box-shadow: var(--box-shadow);
+}
+
+.review-summary-score {
+  display: flex;
+  flex-direction: column;
+  min-width: 110px;
+  color: var(--text-light);
+}
+
+.review-summary-score strong {
+  color: var(--text-dark);
+  font-size: 2.75rem;
+  line-height: 1;
+}
+
+.review-breakdown {
+  flex: 1;
+  min-width: 220px;
+  margin: 0;
+}
+
+.review-breakdown-row {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.review-breakdown-row dt {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.review-breakdown-row dd {
+  display: grid;
+  grid-template-columns: 1fr 2rem;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  color: var(--text-light);
+}
+
+.review-bar {
+  display: block;
+  height: 0.6rem;
+  border-radius: 999px;
+  background: var(--background-neutral-strong);
+  overflow: hidden;
+}
+
+.review-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--primary-color);
+}
+
+.review-pagination-nav {
+  background: none;
+}
+
+.review-pagination {
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.review-pagination .page-link {
+  color: var(--primary-color);
+}
+
+.review-pagination .page-item.active .page-link {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}

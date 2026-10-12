@@ -45,7 +45,7 @@
             <div class="container">
                 <div class="book-appointment-header">
                     <h1 class="book-appointment-title">Request an Appointment with Brian Davis</h1>
-                    <div class="book-appointment-subtitle">Pick a day and time block, then choose a start time from Brian's availability</div>
+                    <div class="book-appointment-subtitle">Pick a day and time block, choose a start time, and read reviews from Brian's past customers</div>
                 </div>
                 <p class="profile-prototype-note" role="note">Static preview: selecting a time does not submit a request. Appointment requests and provider confirmation will be available when the backend is connected.</p>
             </div>
@@ -186,6 +186,44 @@
                 <div class="d-flex gap-2 mt-4">
                     <button type="button" class="btn btn-appt-primary" disabled>Request appointment</button>
                 </div>
+            </div>
+        </section>
+
+        <!-- Provider reviews -->
+        <section class="section" id="reviews">
+            <div class="container">
+                <h2 class="fw-bold mb-1">Reviews for Brian Davis</h2>
+                <p class="profile-helper">4.9 / 5 from 40 reviews · Showing the 3 newest.</p>
+
+                <article class="provider-review-card">
+                    <div class="provider-review-heading"><div><h3>Linda J.</h3><p>Haircut · 5/5 stars · Completed appointment</p></div><time datetime="2026-09-17">Sep 17, 2026</time></div>
+                    <blockquote>“Great service! Brian really listened to what I wanted and gave me the perfect cut.”</blockquote>
+                    <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review</button>
+                    <div class="provider-published-reply">
+                        <strong>Reply from Brian</strong>
+                        <p>Thank you for your feedback. I am glad you enjoyed your appointment!</p>
+                        <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report reply</button>
+                    </div>
+                </article>
+
+                <article class="provider-review-card">
+                    <div class="provider-review-heading"><div><h3>Marcus T.</h3><p>Hair Coloring · 5/5 stars · Completed appointment</p></div><time datetime="2026-09-10">Sep 10, 2026</time></div>
+                    <blockquote>“The color came out exactly like the photo I showed him. Will book again.”</blockquote>
+                    <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review</button>
+                </article>
+
+                <article class="provider-review-card">
+                    <div class="provider-review-heading"><div><h3>Aisha R.</h3><p>Haircut · 4/5 stars · Completed appointment</p></div><time datetime="2026-09-02">Sep 2, 2026</time></div>
+                    <blockquote>“Good cut, but I waited about ten minutes past my appointment time.”</blockquote>
+                    <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review</button>
+                    <div class="provider-published-reply">
+                        <strong>Reply from Brian</strong>
+                        <p>Thanks for the honest feedback. I have adjusted my schedule so evening appointments start on time.</p>
+                        <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report reply</button>
+                    </div>
+                </article>
+
+                <a href="provider-reviews.html" class="btn btn-appt-secondary mt-2">See all 40 reviews &rarr;</a>
             </div>
         </section>
 

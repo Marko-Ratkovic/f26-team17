@@ -30,54 +30,223 @@
                 <div class="container">
                     <div class="my-appointments-header">
                         <h1 class="my-appointments-title">My Reviews</h1>
-                        <p class="my-appointments-subtitle">4.8 / 5 average from 10 visible reviews. Hidden reviews do not count toward your rating.</p>
+                        <p class="my-appointments-subtitle">Read what customers say about your services and reply to new reviews.</p>
                     </div>
-                    <p class="provider-prototype-note" role="note">Prototype preview: reviews are sample data.</p>
+                    <p class="provider-prototype-note" role="note">Prototype preview: reviews are sample data. Filters, sorting, and pages do not change the list.</p>
                 </div>
             </section>
 
+            <!-- Rating summary -->
             <section class="section">
                 <div class="container">
+                    <div class="review-summary-card">
+                        <div class="review-summary-score">
+                            <strong>4.8</strong>
+                            <span>out of 5</span>
+                            <span>10 reviews</span>
+                        </div>
+                        <dl class="review-breakdown" aria-label="Reviews by star rating">
+                            <div class="review-breakdown-row"><dt>5 stars</dt><dd><span class="review-bar"><span style="width: 80%;"></span></span><span>8</span></dd></div>
+                            <div class="review-breakdown-row"><dt>4 stars</dt><dd><span class="review-bar"><span style="width: 20%;"></span></span><span>2</span></dd></div>
+                            <div class="review-breakdown-row"><dt>3 stars</dt><dd><span class="review-bar"><span style="width: 0%;"></span></span><span>0</span></dd></div>
+                            <div class="review-breakdown-row"><dt>2 stars</dt><dd><span class="review-bar"><span style="width: 0%;"></span></span><span>0</span></dd></div>
+                            <div class="review-breakdown-row"><dt>1 star</dt><dd><span class="review-bar"><span style="width: 0%;"></span></span><span>0</span></dd></div>
+                        </dl>
+                    </div>
+                    <p class="profile-helper mt-2">Hidden reviews are not shown to customers and do not count toward your rating. You can report a review that breaks the community guidelines.</p>
+                </div>
+            </section>
+
+            <!-- Filter and sort -->
+            <section class="section">
+                <div class="container">
+                    <div class="filter-card">
+                        <h3 class="filter-title">Filter reviews</h3>
+                        <form method="get" class="grid grid-4">
+                            <div>
+                                <label for="stars-filter">Rating</label>
+                                <select id="stars-filter" name="stars">
+                                    <option value="">All ratings</option>
+                                    <option value="5">5 stars</option>
+                                    <option value="4">4 stars</option>
+                                    <option value="3">3 stars</option>
+                                    <option value="2">2 stars</option>
+                                    <option value="1">1 star</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="reply-filter">Reply status</label>
+                                <select id="reply-filter" name="replyStatus">
+                                    <option value="">All reviews</option>
+                                    <option value="NEEDS_REPLY">Needs reply (3)</option>
+                                    <option value="REPLIED">Replied</option>
+                                    <option value="REPLY_HIDDEN">Reply hidden</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="review-sort">Sort by</label>
+                                <select id="review-sort" name="sort">
+                                    <option value="NEWEST">Newest</option>
+                                    <option value="HIGHEST">Highest rated</option>
+                                    <option value="LOWEST">Lowest rated</option>
+                                </select>
+                            </div>
+                            <div class="filter-btn-wrap">
+                                <button type="submit" class="btn filter-apply-btn" disabled>Apply</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Review list -->
+            <section class="section">
+                <div class="container">
+                    <p class="profile-helper mb-3">Showing 1–5 of 10 reviews · Newest first</p>
+
                     <article class="provider-review-card">
-                        <div class="provider-review-heading"><div><h3>Alison Beth</h3><p>Pedicure · 4/5 stars · Completed appointment</p></div><time datetime="2026-10-02">Oct 2, 2026</time></div>
-                        <blockquote>“Great service! Clean and friendly. I had a relaxing visit.”</blockquote>
-                        <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review</button>
-                        <details class="provider-reply-details">
-                            <summary>Reply to this review</summary>
-                            <form method="post">
-                                <label for="reply-alison">Your public reply</label>
-                                <textarea id="reply-alison" name="reply" rows="3" maxlength="1000" required placeholder="Write a respectful reply about the service."></textarea>
-                                <p class="profile-helper">You can reply once and cannot edit it later. Do not include private customer details.</p>
-                                <button type="submit" class="btn btn-appt-primary" disabled>Submit reply</button>
-                            </form>
-                        </details>
-                    </article>
-                    <article class="provider-review-card">
-                        <div class="provider-review-heading"><div><h3>Bill T.</h3><p>Nail design · 5/5 stars · Completed appointment</p></div><time datetime="2026-10-06">Oct 6, 2026</time></div>
+                        <div class="provider-review-heading"><div><h3>Bill T.</h3><p>Nail design · 5/5 stars · Completed appointment</p></div><div class="review-heading-side"><span class="provider-listing-status is-pending">Needs reply</span><time datetime="2026-10-06">Oct 6, 2026</time></div></div>
                         <blockquote>“It was an awesome experience. Michelle was kind and made sure I was comfortable.”</blockquote>
-                        <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review</button>
+                        <details class="report-details">
+                            <summary>Report review</summary>
+                            <form method="post">
+                                <label for="report-mine-bill-t-review-reason">Why are you reporting this review?</label>
+                                <select id="report-mine-bill-t-review-reason" name="reason" required>
+                                    <option value="" selected disabled>Choose a reason</option>
+                                    <option value="HARASSMENT">Harassment</option>
+                                    <option value="THREATS">Threats</option>
+                                    <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                    <option value="PERSONAL_INFORMATION">Personal information</option>
+                                    <option value="SPAM">Spam</option>
+                                    <option value="OFF_TOPIC">Off-topic content</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                                <label for="report-mine-bill-t-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                                <textarea id="report-mine-bill-t-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                                <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                                <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                            </form>
+                        </details>
+                    <details class="provider-reply-details">
+                        <summary>Reply to this review</summary>
+                        <form method="post">
+                            <label for="reply-bill">Your public reply</label>
+                            <textarea id="reply-bill" name="reply" rows="3" maxlength="1000" required placeholder="Write a respectful reply about the service."></textarea>
+                            <p class="profile-helper">Replies are public. You can reply once and cannot edit it later. Do not include private customer details.</p>
+                            <button type="submit" class="btn btn-appt-primary" disabled>Submit reply</button>
+                        </form>
+                    </details>
+                    </article>
+
+                    <article class="provider-review-card">
+                        <div class="provider-review-heading"><div><h3>Kristin R.</h3><p>Acrylic nail set · 5/5 stars · Completed appointment</p></div><div class="review-heading-side"><span class="provider-listing-status is-approved">Replied</span><time datetime="2026-10-04">Oct 4, 2026</time></div></div>
+                        <blockquote>“Very patient, attentive, and kind. I was happy with the result.”</blockquote>
+                        <details class="report-details">
+                            <summary>Report review</summary>
+                            <form method="post">
+                                <label for="report-mine-kristin-r-review-reason">Why are you reporting this review?</label>
+                                <select id="report-mine-kristin-r-review-reason" name="reason" required>
+                                    <option value="" selected disabled>Choose a reason</option>
+                                    <option value="HARASSMENT">Harassment</option>
+                                    <option value="THREATS">Threats</option>
+                                    <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                    <option value="PERSONAL_INFORMATION">Personal information</option>
+                                    <option value="SPAM">Spam</option>
+                                    <option value="OFF_TOPIC">Off-topic content</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                                <label for="report-mine-kristin-r-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                                <textarea id="report-mine-kristin-r-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                                <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                                <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                            </form>
+                        </details>
+                        <div class="provider-published-reply"><strong>Your reply</strong> <span class="review-reply-date">· Oct 5, 2026</span><p>Thank you for choosing my service. I’m glad you enjoyed your visit.</p></div>
+                    </article>
+
+                    <article class="provider-review-card">
+                        <div class="provider-review-heading"><div><h3>Alison B.</h3><p>Pedicure · 4/5 stars · Completed appointment</p></div><div class="review-heading-side"><span class="provider-listing-status is-pending">Needs reply</span><time datetime="2026-10-02">Oct 2, 2026</time></div></div>
+                        <blockquote>“Great service! Clean and friendly. I had a relaxing visit.”</blockquote>
+                        <details class="report-details">
+                            <summary>Report review</summary>
+                            <form method="post">
+                                <label for="report-mine-alison-b-review-reason">Why are you reporting this review?</label>
+                                <select id="report-mine-alison-b-review-reason" name="reason" required>
+                                    <option value="" selected disabled>Choose a reason</option>
+                                    <option value="HARASSMENT">Harassment</option>
+                                    <option value="THREATS">Threats</option>
+                                    <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                    <option value="PERSONAL_INFORMATION">Personal information</option>
+                                    <option value="SPAM">Spam</option>
+                                    <option value="OFF_TOPIC">Off-topic content</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                                <label for="report-mine-alison-b-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                                <textarea id="report-mine-alison-b-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                                <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                                <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                            </form>
+                        </details>
+                    <details class="provider-reply-details">
+                        <summary>Reply to this review</summary>
+                        <form method="post">
+                            <label for="reply-alison">Your public reply</label>
+                            <textarea id="reply-alison" name="reply" rows="3" maxlength="1000" required placeholder="Write a respectful reply about the service."></textarea>
+                            <p class="profile-helper">Replies are public. You can reply once and cannot edit it later. Do not include private customer details.</p>
+                            <button type="submit" class="btn btn-appt-primary" disabled>Submit reply</button>
+                        </form>
+                    </details>
+                    </article>
+
+                    <article class="provider-review-card">
+                        <div class="provider-review-heading"><div><h3>Jamie L.</h3><p>Gel manicure · 5/5 stars · Completed appointment</p></div><div class="review-heading-side"><span class="provider-listing-status is-pending">Needs reply</span><time datetime="2026-09-30">Sep 30, 2026</time></div></div>
+                        <blockquote>“Nails were fine. Follow my page @jamie.nail.deals for 20% off your next set!”</blockquote>
+                        <p class="report-filed"><strong>You reported this review</strong> · Spam · Oct 1, 2026. It stays visible and counts toward your rating until an admin decides. You will get an email with the decision.</p>
                         <details class="provider-reply-details">
                             <summary>Reply to this review</summary>
                             <form method="post">
-                                <label for="reply-bill">Your public reply</label>
-                                <textarea id="reply-bill" name="reply" rows="3" maxlength="1000" required placeholder="Write a respectful reply about the service."></textarea>
-                                <p class="profile-helper">You can reply once and cannot edit it later. Do not include private customer details.</p>
+                                <label for="reply-jamie">Your public reply</label>
+                                <textarea id="reply-jamie" name="reply" rows="3" maxlength="1000" required placeholder="Write a respectful reply about the service."></textarea>
+                                <p class="profile-helper">Replies are public. You can reply once and cannot edit it later. Do not include private customer details.</p>
                                 <button type="submit" class="btn btn-appt-primary" disabled>Submit reply</button>
                             </form>
                         </details>
                     </article>
+
                     <article class="provider-review-card">
-                        <div class="provider-review-heading"><div><h3>Kristin R.</h3><p>Acrylic nail set · 5/5 stars · Completed appointment</p></div><time datetime="2026-10-04">Oct 4, 2026</time></div>
-                        <blockquote>“Very patient, attentive, and kind. I was happy with the result.”</blockquote>
-                        <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review</button>
-                        <div class="provider-published-reply"><strong>Your published reply</strong><p>Thank you for choosing my service. I’m glad you enjoyed your visit.</p></div>
-                    </article>
-                    <article class="provider-review-card">
-                        <div class="provider-review-heading"><div><h3>Dana K.</h3><p>Manicure · 3/5 stars · Completed appointment</p></div><time datetime="2026-09-28">Sep 28, 2026</time></div>
+                        <div class="provider-review-heading"><div><h3>Dana K.</h3><p>Manicure · 4/5 stars · Completed appointment</p></div><div class="review-heading-side"><span class="provider-listing-status is-rejected">Reply hidden</span><time datetime="2026-09-28">Sep 28, 2026</time></div></div>
                         <blockquote>“Nice result, but the appointment started 15 minutes late.”</blockquote>
-                        <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review</button>
-                        <p class="profile-privacy-callout mb-0"><strong>Your reply was hidden by a moderator</strong> (personal information). You cannot reply to this review again.</p>
+                        <details class="report-details">
+                            <summary>Report review</summary>
+                            <form method="post">
+                                <label for="report-mine-dana-k-review-reason">Why are you reporting this review?</label>
+                                <select id="report-mine-dana-k-review-reason" name="reason" required>
+                                    <option value="" selected disabled>Choose a reason</option>
+                                    <option value="HARASSMENT">Harassment</option>
+                                    <option value="THREATS">Threats</option>
+                                    <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                    <option value="PERSONAL_INFORMATION">Personal information</option>
+                                    <option value="SPAM">Spam</option>
+                                    <option value="OFF_TOPIC">Off-topic content</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                                <label for="report-mine-dana-k-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                                <textarea id="report-mine-dana-k-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                                <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                                <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                            </form>
+                        </details>
+                        <div class="provider-review-reason"><strong>Your reply was hidden by a moderator</strong><p>Reason: personal information. Customers no longer see it, and you cannot reply to this review again.</p></div>
                     </article>
+
+                    <nav class="review-pagination-nav" aria-label="Review pages">
+                        <ul class="pagination review-pagination">
+                            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                            <li class="page-item disabled"><span class="page-link">2</span></li>
+                            <li class="page-item disabled"><span class="page-link">Next</span></li>
+                        </ul>
+                    </nav>
                 </div>
             </section>
         </main>

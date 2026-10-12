@@ -115,47 +115,180 @@
                 <p class="profile-helper mb-3">Showing 1–5 of 40 reviews · Newest first</p>
 
                 <article class="provider-review-card">
-                    <div class="provider-review-heading"><div><h3>Linda J.</h3><p>Haircut · 5/5 stars · Completed appointment</p></div><time datetime="2026-09-17">Sep 17, 2026</time></div>
+                    <div class="provider-review-heading"><div><h3>Linda J. <span class="review-own-tag">Your review</span></h3><p>Haircut · 5/5 stars · Completed appointment</p></div><time datetime="2026-09-17">Sep 17, 2026</time></div>
                     <blockquote>“Great service! Brian really listened to what I wanted and gave me the perfect cut.”</blockquote>
-                    <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review</button>
+                    <a href="review.html" class="btn btn-sm btn-outline-secondary review-own-link">View your review</a>
                     <div class="provider-published-reply">
                         <strong>Reply from Brian</strong>
                         <p>Thank you for your feedback. I am glad you enjoyed your appointment!</p>
-                        <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report reply</button>
+                        <details class="report-details">
+                            <summary>Report reply</summary>
+                            <form method="post">
+                                <label for="report-all-linda-j-reply-reason">Why are you reporting this reply?</label>
+                                <select id="report-all-linda-j-reply-reason" name="reason" required>
+                                    <option value="" selected disabled>Choose a reason</option>
+                                    <option value="HARASSMENT">Harassment</option>
+                                    <option value="THREATS">Threats</option>
+                                    <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                    <option value="PERSONAL_INFORMATION">Personal information</option>
+                                    <option value="SPAM">Spam</option>
+                                    <option value="OFF_TOPIC">Off-topic content</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                                <label for="report-all-linda-j-reply-details">Details <span class="report-optional">(required for Other)</span></label>
+                                <textarea id="report-all-linda-j-reply-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                                <p class="report-note">Low ratings and honest criticism are not violations. The reply stays visible while an admin checks it, and the author is not told who reported it.</p>
+                                <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                            </form>
+                        </details>
                     </div>
                 </article>
 
                 <article class="provider-review-card">
                     <div class="provider-review-heading"><div><h3>Marcus T.</h3><p>Hair Coloring · 5/5 stars · Completed appointment</p></div><time datetime="2026-09-10">Sep 10, 2026</time></div>
                     <blockquote>“The color came out exactly like the photo I showed him. Will book again.”</blockquote>
-                    <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review</button>
+                    <details class="report-details">
+                        <summary>Report review</summary>
+                        <form method="post">
+                            <label for="report-all-marcus-t-review-reason">Why are you reporting this review?</label>
+                            <select id="report-all-marcus-t-review-reason" name="reason" required>
+                                <option value="" selected disabled>Choose a reason</option>
+                                <option value="HARASSMENT">Harassment</option>
+                                <option value="THREATS">Threats</option>
+                                <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                <option value="PERSONAL_INFORMATION">Personal information</option>
+                                <option value="SPAM">Spam</option>
+                                <option value="OFF_TOPIC">Off-topic content</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                            <label for="report-all-marcus-t-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                            <textarea id="report-all-marcus-t-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                            <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                            <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                        </form>
+                    </details>
                 </article>
 
                 <article class="provider-review-card">
                     <div class="provider-review-heading"><div><h3>Aisha R.</h3><p>Haircut · 4/5 stars · Completed appointment</p></div><time datetime="2026-09-02">Sep 2, 2026</time></div>
                     <blockquote>“Good cut, but I waited about ten minutes past my appointment time.”</blockquote>
-                    <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review</button>
+                    <details class="report-details">
+                        <summary>Report review</summary>
+                        <form method="post">
+                            <label for="report-all-aisha-r-review-reason">Why are you reporting this review?</label>
+                            <select id="report-all-aisha-r-review-reason" name="reason" required>
+                                <option value="" selected disabled>Choose a reason</option>
+                                <option value="HARASSMENT">Harassment</option>
+                                <option value="THREATS">Threats</option>
+                                <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                <option value="PERSONAL_INFORMATION">Personal information</option>
+                                <option value="SPAM">Spam</option>
+                                <option value="OFF_TOPIC">Off-topic content</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                            <label for="report-all-aisha-r-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                            <textarea id="report-all-aisha-r-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                            <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                            <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                        </form>
+                    </details>
                     <div class="provider-published-reply">
                         <strong>Reply from Brian</strong>
                         <p>Thanks for the honest feedback. I have adjusted my schedule so evening appointments start on time.</p>
-                        <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report reply</button>
+                        <details class="report-details">
+                            <summary>Report reply</summary>
+                            <form method="post">
+                                <label for="report-all-aisha-r-reply-reason">Why are you reporting this reply?</label>
+                                <select id="report-all-aisha-r-reply-reason" name="reason" required>
+                                    <option value="" selected disabled>Choose a reason</option>
+                                    <option value="HARASSMENT">Harassment</option>
+                                    <option value="THREATS">Threats</option>
+                                    <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                    <option value="PERSONAL_INFORMATION">Personal information</option>
+                                    <option value="SPAM">Spam</option>
+                                    <option value="OFF_TOPIC">Off-topic content</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                                <label for="report-all-aisha-r-reply-details">Details <span class="report-optional">(required for Other)</span></label>
+                                <textarea id="report-all-aisha-r-reply-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                                <p class="report-note">Low ratings and honest criticism are not violations. The reply stays visible while an admin checks it, and the author is not told who reported it.</p>
+                                <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                            </form>
+                        </details>
                     </div>
                 </article>
 
                 <article class="provider-review-card">
                     <div class="provider-review-heading"><div><h3>Jordan P.</h3><p>Haircut · 5/5 stars · Completed appointment · Edited</p></div><time datetime="2026-08-28">Aug 28, 2026</time></div>
                     <blockquote>“Quick, clean fade and fair timing. Booking an evening slot was easy.”</blockquote>
-                    <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review</button>
+                    <details class="report-details">
+                        <summary>Report review</summary>
+                        <form method="post">
+                            <label for="report-all-jordan-p-review-reason">Why are you reporting this review?</label>
+                            <select id="report-all-jordan-p-review-reason" name="reason" required>
+                                <option value="" selected disabled>Choose a reason</option>
+                                <option value="HARASSMENT">Harassment</option>
+                                <option value="THREATS">Threats</option>
+                                <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                <option value="PERSONAL_INFORMATION">Personal information</option>
+                                <option value="SPAM">Spam</option>
+                                <option value="OFF_TOPIC">Off-topic content</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                            <label for="report-all-jordan-p-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                            <textarea id="report-all-jordan-p-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                            <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                            <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                        </form>
+                    </details>
                 </article>
 
                 <article class="provider-review-card">
                     <div class="provider-review-heading"><div><h3>Deleted user</h3><p>Hair Coloring · 5/5 stars · Completed appointment</p></div><time datetime="2026-08-21">Aug 21, 2026</time></div>
                     <blockquote>“Loved the highlights. Brian explained the aftercare clearly.”</blockquote>
-                    <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review</button>
+                    <details class="report-details">
+                        <summary>Report review</summary>
+                        <form method="post">
+                            <label for="report-all-deleted-user-review-reason">Why are you reporting this review?</label>
+                            <select id="report-all-deleted-user-review-reason" name="reason" required>
+                                <option value="" selected disabled>Choose a reason</option>
+                                <option value="HARASSMENT">Harassment</option>
+                                <option value="THREATS">Threats</option>
+                                <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                <option value="PERSONAL_INFORMATION">Personal information</option>
+                                <option value="SPAM">Spam</option>
+                                <option value="OFF_TOPIC">Off-topic content</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                            <label for="report-all-deleted-user-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                            <textarea id="report-all-deleted-user-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                            <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                            <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                        </form>
+                    </details>
                     <div class="provider-published-reply">
                         <strong>Reply from Brian</strong>
                         <p>Thank you! Enjoy the new color.</p>
-                        <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report reply</button>
+                        <details class="report-details">
+                            <summary>Report reply</summary>
+                            <form method="post">
+                                <label for="report-all-deleted-user-reply-reason">Why are you reporting this reply?</label>
+                                <select id="report-all-deleted-user-reply-reason" name="reason" required>
+                                    <option value="" selected disabled>Choose a reason</option>
+                                    <option value="HARASSMENT">Harassment</option>
+                                    <option value="THREATS">Threats</option>
+                                    <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                    <option value="PERSONAL_INFORMATION">Personal information</option>
+                                    <option value="SPAM">Spam</option>
+                                    <option value="OFF_TOPIC">Off-topic content</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                                <label for="report-all-deleted-user-reply-details">Details <span class="report-optional">(required for Other)</span></label>
+                                <textarea id="report-all-deleted-user-reply-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                                <p class="report-note">Low ratings and honest criticism are not violations. The reply stays visible while an admin checks it, and the author is not told who reported it.</p>
+                                <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                            </form>
+                        </details>
                     </div>
                 </article>
 

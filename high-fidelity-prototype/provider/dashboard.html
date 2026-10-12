@@ -80,30 +80,69 @@
 
             <section class="section" id="recent-reviews">
                 <div class="container">
-                    <div class="provider-content-heading"><div><h2>Reviews needing a reply</h2><p>You can reply once to each review. Replies cannot be edited after posting.</p></div><a href="reviews.html" class="btn btn-light">View all reviews</a></div>
-                    <article class="provider-review-card">
-                        <div class="provider-review-heading"><div><h3>Alison Beth</h3><p>Pedicure · 4/5 stars · Completed appointment</p></div><time datetime="2026-10-02">Oct 2, 2026</time></div>
-                        <blockquote>“Great service! Clean and friendly. I had a relaxing visit.”</blockquote>
-                        <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report for policy review</button>
-                        <details class="provider-reply-details">
-                            <summary>Reply to this review</summary>
-                            <form method="post">
-                                <label for="reply-alison">Your public reply</label>
-                                <textarea id="reply-alison" name="reply" rows="3" maxlength="1000" required placeholder="Write a respectful reply about the service."></textarea>
-                                <p class="profile-helper">Replies are public and may be reported. Do not include private customer details.</p>
-                                <button type="submit" class="btn btn-appt-primary" disabled>Submit reply</button>
-                            </form>
-                        </details>
-                    </article>
+                    <div class="provider-content-heading"><div><h2>Reviews needing a reply</h2><p>You can reply once to each review. Replies cannot be edited after posting.</p></div><a href="reviews.html" class="btn btn-appt-secondary">View all reviews</a></div>
                     <article class="provider-review-card">
                         <div class="provider-review-heading"><div><h3>Bill T.</h3><p>Nail design · 5/5 stars · Completed appointment</p></div><time datetime="2026-10-06">Oct 6, 2026</time></div>
                         <blockquote>“It was an awesome experience. Michelle was kind and made sure I was comfortable.”</blockquote>
+                        <details class="report-details">
+                            <summary>Report review</summary>
+                            <form method="post">
+                                <label for="report-dash-bill-t-review-reason">Why are you reporting this review?</label>
+                                <select id="report-dash-bill-t-review-reason" name="reason" required>
+                                    <option value="" selected disabled>Choose a reason</option>
+                                    <option value="HARASSMENT">Harassment</option>
+                                    <option value="THREATS">Threats</option>
+                                    <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                    <option value="PERSONAL_INFORMATION">Personal information</option>
+                                    <option value="SPAM">Spam</option>
+                                    <option value="OFF_TOPIC">Off-topic content</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                                <label for="report-dash-bill-t-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                                <textarea id="report-dash-bill-t-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                                <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                                <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                            </form>
+                        </details>
                         <details class="provider-reply-details">
                             <summary>Reply to this review</summary>
                             <form method="post">
                                 <label for="reply-bill">Your public reply</label>
                                 <textarea id="reply-bill" name="reply" rows="3" maxlength="1000" required placeholder="Write a respectful reply about the service."></textarea>
-                                <p class="profile-helper">Replies are public and may be reported. Do not include private customer details.</p>
+                                <p class="profile-helper">Replies are public. You can reply once and cannot edit it later. Do not include private customer details.</p>
+                                <button type="submit" class="btn btn-appt-primary" disabled>Submit reply</button>
+                            </form>
+                        </details>
+                    </article>
+                    <article class="provider-review-card">
+                        <div class="provider-review-heading"><div><h3>Alison B.</h3><p>Pedicure · 4/5 stars · Completed appointment</p></div><time datetime="2026-10-02">Oct 2, 2026</time></div>
+                        <blockquote>“Great service! Clean and friendly. I had a relaxing visit.”</blockquote>
+                        <details class="report-details">
+                            <summary>Report review</summary>
+                            <form method="post">
+                                <label for="report-dash-alison-b-review-reason">Why are you reporting this review?</label>
+                                <select id="report-dash-alison-b-review-reason" name="reason" required>
+                                    <option value="" selected disabled>Choose a reason</option>
+                                    <option value="HARASSMENT">Harassment</option>
+                                    <option value="THREATS">Threats</option>
+                                    <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                    <option value="PERSONAL_INFORMATION">Personal information</option>
+                                    <option value="SPAM">Spam</option>
+                                    <option value="OFF_TOPIC">Off-topic content</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                                <label for="report-dash-alison-b-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                                <textarea id="report-dash-alison-b-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                                <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                                <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                            </form>
+                        </details>
+                        <details class="provider-reply-details">
+                            <summary>Reply to this review</summary>
+                            <form method="post">
+                                <label for="reply-alison">Your public reply</label>
+                                <textarea id="reply-alison" name="reply" rows="3" maxlength="1000" required placeholder="Write a respectful reply about the service."></textarea>
+                                <p class="profile-helper">Replies are public. You can reply once and cannot edit it later. Do not include private customer details.</p>
                                 <button type="submit" class="btn btn-appt-primary" disabled>Submit reply</button>
                             </form>
                         </details>

@@ -160,6 +160,10 @@
     Then the reply appears under the review and the customer is emailed
     And I can reply only once and cannot edit the reply
     And if an admin hides my reply, I cannot reply to that review again
+
+  Scenario: Report a review
+    When I report a review of my service with a reason
+    Then an admin is notified and the review stays visible until decided
   ```
 
 ### 2.3 SysAdmin

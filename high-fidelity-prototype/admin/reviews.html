@@ -44,7 +44,7 @@
       Reviews publish after completed appointments. Review the report reason and the full context;
       respectful criticism or a low rating alone is not a reason to remove content.
     </p>
-    <p class="admin-demo-note">Prototype preview: sample data only. Search, filters, bulk export, sorting, and pagination are visual placeholders; moderation decisions remain individual so each report can be reviewed in context.</p>
+    <p class="admin-demo-note">Prototype preview: sample data only.</p>
     <form class="admin-toolbar" role="search">
       <div class="admin-field">
         <label for="report-search">Search reports</label>
@@ -67,28 +67,12 @@
           <option>Replies</option>
         </select>
       </div>
-      <div class="admin-field">
-        <label for="report-sort">Sort by</label>
-        <select id="report-sort">
-          <option>Newest report</option>
-          <option>Oldest report</option>
-          <option>Content type</option>
-          <option>Report reason</option>
-        </select>
-      </div>
-      <button type="button" class="admin-btn-secondary" disabled>Apply filters (preview only)</button>
+      <button type="button" class="admin-btn-secondary" disabled>Apply filters</button>
     </form>
-    <div class="admin-bulkbar">
-      <label><input type="checkbox" aria-label="Select all reports on this page"> Select page</label>
-      <div class="admin-bulk-actions">
-        <button type="button" class="admin-btn-secondary" disabled>Bulk export (backend not connected)</button>
-      </div>
-    </div>
     <div class="table-wrap">
       <table class="admin-table">
         <thead>
         <tr>
-          <th scope="col"><span class="visually-hidden">Select</span></th>
           <th scope="col">Reported content</th>
           <th scope="col">Type</th>
           <th scope="col">Reported by</th>
@@ -100,7 +84,6 @@
         </thead>
         <tbody>
         <tr>
-          <td><input type="checkbox" aria-label="Select report for Review 1248"></td>
           <td>
             <a href="report-detail.html#review"><strong>Review #1248</strong></a>
             <div class="admin-content-preview">"The weather was perfect for our beach trip."</div>
@@ -118,7 +101,6 @@
           </td>
         </tr>
         <tr>
-          <td><input type="checkbox" aria-label="Select report for Reply 221"></td>
           <td>
             <a href="report-detail.html#reply"><strong>Reply #221</strong></a>
             <div class="admin-content-preview">"Please call me at [private phone number] so we can discuss."</div>
@@ -136,7 +118,6 @@
           </td>
         </tr>
         <tr>
-          <td><input type="checkbox" aria-label="Select report for Review 1176"></td>
           <td><strong>Review #1176</strong><div class="admin-content-preview">"I had to wait 20 minutes past my appointment time."</div><div class="admin-content-meta">Sam N. · for Rachel Smith</div></td>
           <td>Customer review</td>
           <td>Provider</td>

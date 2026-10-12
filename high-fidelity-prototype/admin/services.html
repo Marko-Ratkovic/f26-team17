@@ -45,7 +45,7 @@
       and category are accurate and comply with the GlowUp terms. Return fixable issues with clear guidance;
       reject listings that offer prohibited services.
     </p>
-    <p class="admin-demo-note">Prototype preview: sample data only. Search, filters, bulk actions, sorting, and pagination are visual placeholders and will connect to the backend later.</p>
+    <p class="admin-demo-note">Prototype preview: sample data only.</p>
     <form class="admin-toolbar" role="search">
       <div class="admin-field">
         <label for="service-search">Search listings</label>
@@ -61,30 +61,12 @@
           <option>Rejected</option>
         </select>
       </div>
-      <div class="admin-field">
-        <label for="service-sort">Sort by</label>
-        <select id="service-sort">
-          <option>Newest submitted</option>
-          <option>Service A-Z</option>
-          <option>Provider A-Z</option>
-          <option>Oldest submitted</option>
-        </select>
-      </div>
-      <button type="button" class="admin-btn-secondary" disabled>Apply filters (preview only)</button>
+      <button type="button" class="admin-btn-secondary" disabled>Apply filters</button>
     </form>
-    <div class="admin-bulkbar">
-      <label><input type="checkbox" aria-label="Select all services on this page"> Select page</label>
-      <div class="admin-bulk-actions">
-        <button type="button" class="admin-btn-secondary" disabled>Bulk export (backend not connected)</button>
-        <button type="button" class="admin-btn-secondary" disabled>Bulk approve · future</button>
-        <button type="button" class="admin-btn-secondary" disabled>Bulk reject · future</button>
-      </div>
-    </div>
     <div class="table-wrap">
       <table class="admin-table">
         <thead>
         <tr>
-          <th scope="col"><span class="visually-hidden">Select</span></th>
           <th scope="col">Listing</th>
           <th scope="col">Provider</th>
           <th scope="col">Status</th>
@@ -95,9 +77,6 @@
         </thead>
         <tbody>
         <tr>
-          <td>
-            <input type="checkbox" aria-label="Select Signature Nail Art">
-          </td>
           <td>
             <a href="service-detail.html"><strong>Signature Nail Art</strong></a>
             <div class="admin-content-meta">Nail Care · $35 · 45 min</div>
@@ -114,9 +93,6 @@
         </tr>
         <tr>
           <td>
-            <input type="checkbox" aria-label="Select Eyebrow Waxing">
-          </td>
-          <td>
             <strong>Eyebrow Waxing</strong>
             <div class="admin-content-meta">Brows &amp; Lashes · $15 · 10 min</div>
           </td>
@@ -128,9 +104,6 @@
         </tr>
         <tr>
           <td>
-            <input type="checkbox" aria-label="Select Bridal Makeup Package">
-          </td>
-          <td>
             <strong>Bridal Makeup Package</strong>
             <div class="admin-content-meta">Makeup Artistry · $120 · 90 min</div>
           </td>
@@ -141,7 +114,6 @@
           <td><span class="admin-muted">Visible to customers</span></td>
         </tr>
         <tr>
-          <td><input type="checkbox" aria-label="Select Classic Pedicure"></td>
           <td><strong>Classic Pedicure</strong><div class="admin-content-meta">Nail Care · $45 · 30 min</div></td>
           <td>Laura Gomez</td>
           <td><span class="badge approved">Approved</span></td>

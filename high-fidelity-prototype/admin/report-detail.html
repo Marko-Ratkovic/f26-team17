@@ -25,51 +25,73 @@
 
   <header class="admin-header">
     <div>
-      <div class="admin-subtitle">Reported review · Oct 8, 2026</div>
-      <h1 class="admin-title">Report #R-1248</h1>
-      <p class="admin-content-meta">Status: <span class="badge flagged">Reported</span></p>
+      <div class="admin-subtitle">Reported content · Laura Gomez · Nail Care appointment</div>
+      <h1 class="admin-title">Review #1248 and reply #221</h1>
+      <p class="admin-content-meta">2 open reports</p>
     </div>
     <div class="admin-actions"><a href="reviews.html" class="admin-btn-secondary">Back to reports</a></div>
   </header>
 
-  <p class="admin-demo-note">Prototype preview: fictional sample report. Review context and policy before deciding; disagreement or a low rating alone is not grounds to hide a review.</p>
+  <p class="admin-demo-note">Prototype preview: fictional sample reports. A low rating or respectful criticism alone is not a reason to hide a review.</p>
 
   <div class="admin-detail-grid">
-    <section class="admin-panel">
-      <div class="panel-header"><h2 class="panel-title">Reported content</h2></div>
+    <section class="admin-panel" id="review">
+      <div class="panel-header"><h2 class="panel-title">Customer review</h2><span class="badge flagged">Open · 1 report</span></div>
       <div class="admin-detail-card">
-        <p class="mb-2"><strong>Priya S.</strong> · Customer review · 5/5 stars</p>
-        <blockquote class="mb-2">“The weather was perfect for our beach trip.”</blockquote>
-        <p class="admin-content-meta mb-0">For Laura Gomez · Nail Care appointment · Completed Oct 6, 2026</p>
+        <p class="mb-2"><strong>Priya S.</strong> · 5/5 stars · Completed Oct 6, 2026</p>
+        <blockquote class="mb-0">“The weather was perfect for our beach trip.”</blockquote>
       </div>
       <dl class="admin-detail-list mt-3">
         <dt>Reported by</dt><dd>Laura Gomez · Provider</dd>
-        <dt>Report reason</dt><dd>Off-topic content</dd>
+        <dt>Reason</dt><dd>Off-topic content</dd>
         <dt>Submitted</dt><dd>Oct 8, 2026 at 8:52 AM</dd>
       </dl>
-    </section>
-    <section class="admin-panel">
-      <div class="panel-header"><h2 class="panel-title">Context and decision</h2></div>
-      <p class="admin-guidance">A low rating and relevant service criticism are generally allowed. Assess whether the content itself violates the community guidelines.</p>
-      <form>
+      <form class="mt-3">
         <div class="admin-field">
-          <label for="report-outcome">Outcome</label>
-          <select id="report-outcome"><option>Keep visible — no policy violation</option><option>Hide — policy violation</option></select>
+          <label for="review-outcome">Decision for this review</label>
+          <select id="review-outcome"><option>Keep visible — no policy violation</option><option>Hide — policy violation</option></select>
         </div>
         <div class="admin-field mt-3">
-          <label for="moderation-reason">Decision reason</label>
-          <textarea id="moderation-reason" rows="4" placeholder="Record the policy-based decision reason" required></textarea>
+          <label for="review-reason">Decision reason</label>
+          <textarea id="review-reason" rows="3" placeholder="Record the policy-based reason" required></textarea>
         </div>
-        <button type="button" class="admin-btn mt-3" disabled>Save decision (backend not connected)</button>
+        <p class="admin-content-meta mt-2">Hiding the review removes it from public pages and from the provider’s rating. The author is emailed the reason.</p>
+        <button type="button" class="admin-btn mt-2" disabled>Save decision (backend not connected)</button>
+      </form>
+    </section>
+    <section class="admin-panel" id="reply">
+      <div class="panel-header"><h2 class="panel-title">Provider reply</h2><span class="badge flagged">Open · 1 report</span></div>
+      <div class="admin-detail-card">
+        <p class="mb-2"><strong>Laura Gomez</strong> · posted Oct 7, 2026</p>
+        <blockquote class="mb-0">“Please call me at [private phone number] so we can discuss.”</blockquote>
+      </div>
+      <dl class="admin-detail-list mt-3">
+        <dt>Reported by</dt><dd>Priya S. · Customer</dd>
+        <dt>Reason</dt><dd>Personal information</dd>
+        <dt>Submitted</dt><dd>Oct 7, 2026 at 2:14 PM</dd>
+      </dl>
+      <form class="mt-3">
+        <div class="admin-field">
+          <label for="reply-outcome">Decision for this reply</label>
+          <select id="reply-outcome"><option>Keep visible — no policy violation</option><option>Hide — policy violation</option></select>
+        </div>
+        <div class="admin-field mt-3">
+          <label for="reply-reason">Decision reason</label>
+          <textarea id="reply-reason" rows="3" placeholder="Record the policy-based reason" required></textarea>
+        </div>
+        <p class="admin-content-meta mt-2">Hiding the reply keeps the review visible. The provider cannot reply to this review again.</p>
+        <button type="button" class="admin-btn mt-2" disabled>Save decision (backend not connected)</button>
       </form>
     </section>
   </div>
 
   <section class="admin-panel">
-    <div class="panel-header"><h2 class="panel-title">Report history</h2></div>
+    <div class="panel-header"><h2 class="panel-title">How decisions work</h2></div>
+    <p class="admin-guidance">One decision per review or reply resolves every open report on it. Hidden content can be restored from this page if it was hidden by mistake; every decision and restore is recorded in the admin audit log.</p>
     <ul class="admin-timeline">
-      <li><strong>Report submitted by provider</strong> <span class="admin-muted">· Oct 8, 2026 at 8:52 AM</span></li>
-      <li><strong>Review remains visible while awaiting review</strong> <span class="admin-muted">· Oct 8, 2026</span></li>
+      <li><strong>Review reported by provider</strong> <span class="admin-muted">· Oct 8, 2026 at 8:52 AM</span></li>
+      <li><strong>Reply reported by customer</strong> <span class="admin-muted">· Oct 7, 2026 at 2:14 PM</span></li>
+      <li><strong>Content stays visible until a decision is made</strong> <span class="admin-muted">· Oct 7, 2026</span></li>
       <li><strong>Appointment completed</strong> <span class="admin-muted">· Oct 6, 2026</span></li>
     </ul>
   </section>

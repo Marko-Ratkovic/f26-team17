@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Reviews - GlowUp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="sticky-top" aria-label="Provider navigation">
+            <div class="navbar">
+                <a href="../index.html" class="navbar-brand mb-2"><img src="../images/logo.png" alt="GlowUp home" class="img-fluid logo" style="width: 150px; height: 50px;"></a>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link under-scored">Dashboard</a></li>
+                    <li class="nav-item"><a href="manage-services.html" class="nav-link under-scored">My Services</a></li>
+                    <li class="nav-item"><a href="appointments.html" class="nav-link under-scored">My Appointments</a></li>
+                    <li class="nav-item"><a href="profile.html" class="nav-link under-scored">Profile</a></li>
+                    <li class="nav-item"><a href="../index.html" class="nav-link fw-bold">Log out</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+            <section class="section">
+                <div class="container">
+                    <div class="my-appointments-header">
+                        <h1 class="my-appointments-title">My Reviews</h1>
+                        <p class="my-appointments-subtitle">4.8 / 5 average from 10 visible reviews. Hidden reviews do not count toward your rating.</p>
+                    </div>
+                    <p class="provider-prototype-note" role="note">Prototype preview: reviews are sample data.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="container">
+                    <article class="provider-review-card">
+                        <div class="provider-review-heading"><div><h3>Alison Beth</h3><p>Pedicure · 4/5 stars · Completed appointment</p></div><time datetime="2026-10-02">Oct 2, 2026</time></div>
+                        <blockquote>“Great service! Clean and friendly. I had a relaxing visit.”</blockquote>
+                        <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review (backend not connected)</button>
+                        <details class="provider-reply-details">
+                            <summary>Reply to this review</summary>
+                            <form method="post">
+                                <label for="reply-alison">Your public reply</label>
+                                <textarea id="reply-alison" name="reply" rows="3" maxlength="1000" required placeholder="Write a respectful reply about the service."></textarea>
+                                <p class="profile-helper">You can reply once and cannot edit it later. Do not include private customer details.</p>
+                                <button type="submit" class="btn btn-appt-primary" disabled>Submit reply (backend not connected)</button>
+                            </form>
+                        </details>
+                    </article>
+                    <article class="provider-review-card">
+                        <div class="provider-review-heading"><div><h3>Bill T.</h3><p>Nail design · 5/5 stars · Completed appointment</p></div><time datetime="2026-10-06">Oct 6, 2026</time></div>
+                        <blockquote>“It was an awesome experience. Michelle was kind and made sure I was comfortable.”</blockquote>
+                        <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review (backend not connected)</button>
+                        <details class="provider-reply-details">
+                            <summary>Reply to this review</summary>
+                            <form method="post">
+                                <label for="reply-bill">Your public reply</label>
+                                <textarea id="reply-bill" name="reply" rows="3" maxlength="1000" required placeholder="Write a respectful reply about the service."></textarea>
+                                <p class="profile-helper">You can reply once and cannot edit it later. Do not include private customer details.</p>
+                                <button type="submit" class="btn btn-appt-primary" disabled>Submit reply (backend not connected)</button>
+                            </form>
+                        </details>
+                    </article>
+                    <article class="provider-review-card">
+                        <div class="provider-review-heading"><div><h3>Kristin R.</h3><p>Acrylic nail set · 5/5 stars · Completed appointment</p></div><time datetime="2026-10-04">Oct 4, 2026</time></div>
+                        <blockquote>“Very patient, attentive, and kind. I was happy with the result.”</blockquote>
+                        <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review (backend not connected)</button>
+                        <div class="provider-published-reply"><strong>Your published reply</strong><p>Thank you for choosing my service. I’m glad you enjoyed your visit.</p></div>
+                    </article>
+                    <article class="provider-review-card">
+                        <div class="provider-review-heading"><div><h3>Dana K.</h3><p>Manicure · 3/5 stars · Completed appointment</p></div><time datetime="2026-09-28">Sep 28, 2026</time></div>
+                        <blockquote>“Nice result, but the appointment started 15 minutes late.”</blockquote>
+                        <button class="btn btn-sm btn-outline-secondary" type="button" disabled>Report review (backend not connected)</button>
+                        <p class="profile-privacy-callout mb-0"><strong>Your reply was hidden by a moderator</strong> (personal information). You cannot reply to this review again.</p>
+                    </article>
+                </div>
+            </section>
+        </main>
+        <footer><p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p></footer>
+    </div>
+</body>
+
+</html>

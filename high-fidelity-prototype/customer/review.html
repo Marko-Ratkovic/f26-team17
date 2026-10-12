@@ -45,7 +45,7 @@
             <div class="container">
                 <div class="review-header">
                     <h1 class="review-title">Appointment Review</h1>
-                    <div class="review-subtitle">View and edit your review for this appointment</div>
+                    <div class="review-subtitle">Write, view, or edit your review for this appointment</div>
                 </div>
             </div>
         </section>
@@ -59,30 +59,31 @@
                     </div>
                     <div class="card-content">
                         <div class="alert alert-info" role="note">
-                            Reviews for completed appointments publish when submitted. You can update your review later.
-                            Keep feedback relevant and respectful; reports are reviewed individually.
+                            Reviews publish right away. You can write a review within 30 days of a completed appointment
+                            and edit it until the provider replies. Keep feedback relevant and respectful.
                         </div>
                         <p class="profile-prototype-note" role="note">Static preview: review changes are not saved or submitted until the backend is connected.</p>
+                        <p class="profile-privacy-callout"><strong>Locked:</strong> Brian has replied, so this review can no longer be edited.</p>
                         <form id="reviewForm" method="post">
                             <div class="form-group">
                                 <label for="rating">Rating (1-5 stars)</label>
-                                <input type="number" id="rating" min="1" max="5" step="1" placeholder="Enter your rating, e.g., 5" required>
+                                <input type="number" id="rating" name="rating" min="1" max="5" step="1" value="5" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="review">Your Review</label>
-                                <textarea id="review" maxlength="1000" placeholder="Share your experience..." required></textarea>
+                                <textarea id="review" name="comment" maxlength="1000" disabled>Great service! Brian really listened to what I wanted and gave me the perfect cut.</textarea>
                             </div>
-                            <button type="submit" class="btn settings-btn settings-btn-sm" disabled>Update review (backend not connected)</button>
+                            <button type="submit" class="btn settings-btn settings-btn-sm" disabled>Update review (locked after reply)</button>
                         </form>
                         <div class="card card-body mt-4">
                             <div class="d-flex justify-content-between align-items-start gap-3">
                                 <div>
-                                    <h3 class="h6 mb-2">Provider response</h3>
+                                    <h3 class="h6 mb-2">Provider reply</h3>
                                     <p class="mb-1">Thank you for your feedback. I am glad you enjoyed your appointment!</p>
                                     <small class="text-muted">Brian Davis · 1 day ago</small>
                                 </div>
                                 <button type="button" class="btn btn-outline-secondary btn-sm text-nowrap" disabled>
-                                    Report response
+                                    Report reply
                                 </button>
                             </div>
                         </div>

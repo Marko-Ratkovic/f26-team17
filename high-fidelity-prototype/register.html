@@ -93,21 +93,9 @@
 
                         <div id="customer-fields" class="signup-role-fields">
                             <div class="form-group">
-                                <label for="customer-phone">Phone number <span class="optional-label"></span></label>
+                                <label for="customer-phone">Phone number <span class="optional-label">(optional)</span></label>
                                 <input type="tel" id="customer-phone" name="customer-phone"
                                     placeholder="(555) 555-5555" autocomplete="tel">
-                            </div>
-                            <div class="form-group">
-                                <label for="service-interest">What service are you interested in?</label>
-                                <select id="service-interest" name="service-interest">
-                                    <option value="">Select a service</option>
-                                    <option>Hair Styling</option>
-                                    <option>Nail Care</option>
-                                    <option>Makeup Artistry</option>
-                                    <option>Skincare</option>
-                                    <option>Brows &amp; Lashes</option>
-                                    <option>Hair Removal &amp; Body Grooming</option>
-                                </select>
                             </div>
                         </div>
 
@@ -118,21 +106,9 @@
                             </div>
                             <div class="signup-form-grid">
                                 <div class="form-group">
-                                    <label for="business-name">Business or professional name</label>
+                                    <label for="business-name">Public name</label>
                                     <input type="text" id="business-name" name="business-name"
-                                        placeholder="Your business name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="provider-service">Primary service</label>
-                                    <select id="provider-service" name="provider-service">
-                                        <option value="">Select a service</option>
-                                        <option>Hair Styling</option>
-                                        <option>Nail Care</option>
-                                        <option>Makeup Artistry</option>
-                                        <option>Skincare</option>
-                                        <option>Brows &amp; Lashes</option>
-                                        <option>Hair Removal &amp; Body Grooming</option>
-                                    </select>
+                                        placeholder="Name customers will see">
                                 </div>
                                 <div class="form-group">
                                     <label for="provider-experience">Years of experience</label>
@@ -140,17 +116,28 @@
                                         placeholder="e.g. 5" min="0" max="70">
                                 </div>
                                 <div class="form-group">
-                                    <label for="provider-phone">Business phone</label>
+                                    <label for="provider-phone">Phone</label>
                                     <input type="tel" id="provider-phone" name="provider-phone"
                                         placeholder="(555) 555-5555" autocomplete="tel">
                                 </div>
                                 <div class="form-group">
-                                    <label for="provider-location">Service location</label>
-                                    <input type="text" id="provider-location" name="provider-location"
-                                        placeholder="City or salon name">
+                                    <label for="provider-street">Street address</label>
+                                    <input type="text" id="provider-street" name="provider-street" placeholder="123 Elm St, Suite 4" autocomplete="street-address">
                                 </div>
                                 <div class="form-group">
-                                    <label for="certification">Certification or license</label>
+                                    <label for="provider-city">City</label>
+                                    <input type="text" id="provider-city" name="provider-city" placeholder="Greensboro" autocomplete="address-level2">
+                                </div>
+                                <div class="form-group">
+                                    <label for="provider-state">State</label>
+                                    <input type="text" id="provider-state" name="provider-state" placeholder="NC" maxlength="2" autocomplete="address-level1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="provider-zip">ZIP code</label>
+                                    <input type="text" id="provider-zip" name="provider-zip" placeholder="27401" inputmode="numeric" autocomplete="postal-code">
+                                </div>
+                                <div class="form-group">
+                                    <label for="certification">Certifications (optional)</label>
                                     <input type="text" id="certification" name="certification"
                                         placeholder="e.g. State cosmetology license">
                                 </div>
@@ -165,7 +152,7 @@
 
                             <div class="signup-section-heading availability-heading">
                                 <h3>Set your availability</h3>
-                                <p>Let customers know when you usually accept appointments. You can update this later.</p>
+                                <p>Pick your usual days and time blocks. You can fine-tune each day later on your Availability page.</p>
                             </div>
                             <div class="availability-panel">
                                 <div class="availability-group">

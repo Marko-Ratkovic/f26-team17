@@ -45,7 +45,7 @@
             <div class="container">
                 <div class="book-appointment-header">
                     <h1 class="book-appointment-title">Request an Appointment with Brian Davis</h1>
-                    <div class="book-appointment-subtitle">Select a time and date slot from Brian's availability that works for you</div>
+                    <div class="book-appointment-subtitle">Pick a day and time block, then choose a start time from Brian's availability</div>
                 </div>
                 <p class="profile-prototype-note" role="note">Static preview: selecting a time does not submit a request. Appointment requests and provider confirmation will be available when the backend is connected.</p>
             </div>
@@ -56,6 +56,32 @@
             <div class="mb-3">
                 <a href="browse-services.html" class="btn btn-appt-secondary">&larr; Back to Browse Services & Providers</a>
             </div>
+
+            <!-- Choose date and time block -->
+            <div class="filter-card">
+                <h3 class="filter-title">Choose a day and time</h3>
+                <p class="profile-helper">Brian is available <strong>Mon–Fri · Evening (5–9 PM)</strong>. Blocks he is not available in cannot be selected.</p>
+                <form method="get" class="grid grid-4">
+                    <div>
+                        <label for="booking-date">Date</label>
+                        <input type="date" id="booking-date" name="date" value="2026-10-16">
+                    </div>
+                    <div>
+                        <label for="booking-block">Time of day</label>
+                        <select id="booking-block" name="timeBlock">
+                            <option value="MORNING" disabled>Morning (9 AM–12 PM) · not available</option>
+                            <option value="AFTERNOON" disabled>Afternoon (12–5 PM) · not available</option>
+                            <option value="EVENING" selected>Evening (5–9 PM)</option>
+                        </select>
+                    </div>
+                    <div class="filter-btn-wrap">
+                        <button type="submit" class="btn filter-apply-btn" disabled>Show times (backend not connected)</button>
+                    </div>
+                </form>
+            </div>
+
+            <h2 class="h5 fw-bold mb-3">Next available start times · Evening (5–9 PM)</h2>
+            <p class="profile-helper">Each time fits the full service inside Brian's available block and does not overlap a confirmed booking.</p>
             
             <!-- Appointment Listing 1 -->
             <div class="customer-appt-item">

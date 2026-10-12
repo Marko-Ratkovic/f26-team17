@@ -28,7 +28,7 @@
         <main>
             <section class="section"><div class="container"><div class="edit-info-header">
                 <h1 class="edit-info-title">Manage availability</h1>
-                <p class="edit-info-subtitle">Set the weekly hours when customers may request an appointment.</p>
+                <p class="edit-info-subtitle">Choose the time blocks when customers may request an appointment.</p>
             </div></div></section>
             <section class="section">
                 <div class="container">
@@ -39,20 +39,53 @@
                             <form method="post">
                                 <div class="table-responsive">
                                     <table class="table provider-schedule-table">
-                                        <caption class="visually-hidden">Provider weekly opening hours</caption>
-                                        <thead><tr><th scope="col">Day</th><th scope="col">Available</th><th scope="col">Opens</th><th scope="col">Closes</th></tr></thead>
+                                        <caption class="visually-hidden">Weekly availability by time block</caption>
+                                        <thead><tr>
+                                            <th scope="col">Day</th>
+                                            <th scope="col">Morning<br><small>9 AM–12 PM</small></th>
+                                            <th scope="col">Afternoon<br><small>12–5 PM</small></th>
+                                            <th scope="col">Evening<br><small>5–9 PM</small></th>
+                                        </tr></thead>
                                         <tbody>
-                                            <tr><th scope="row">Monday</th><td><input class="form-check-input" type="checkbox" id="monday-open" name="mondayOpen" checked><label class="visually-hidden" for="monday-open">Available Monday</label></td><td><label class="visually-hidden" for="monday-start">Monday opening time</label><input type="time" id="monday-start" name="mondayStart" value="09:30"></td><td><label class="visually-hidden" for="monday-end">Monday closing time</label><input type="time" id="monday-end" name="mondayEnd" value="18:30"></td></tr>
-                                            <tr><th scope="row">Tuesday</th><td><input class="form-check-input" type="checkbox" id="tuesday-open" name="tuesdayOpen" checked><label class="visually-hidden" for="tuesday-open">Available Tuesday</label></td><td><label class="visually-hidden" for="tuesday-start">Tuesday opening time</label><input type="time" id="tuesday-start" name="tuesdayStart" value="09:30"></td><td><label class="visually-hidden" for="tuesday-end">Tuesday closing time</label><input type="time" id="tuesday-end" name="tuesdayEnd" value="18:30"></td></tr>
-                                            <tr><th scope="row">Wednesday</th><td><input class="form-check-input" type="checkbox" id="wednesday-open" name="wednesdayOpen" checked><label class="visually-hidden" for="wednesday-open">Available Wednesday</label></td><td><label class="visually-hidden" for="wednesday-start">Wednesday opening time</label><input type="time" id="wednesday-start" name="wednesdayStart" value="09:30"></td><td><label class="visually-hidden" for="wednesday-end">Wednesday closing time</label><input type="time" id="wednesday-end" name="wednesdayEnd" value="18:30"></td></tr>
-                                            <tr><th scope="row">Thursday</th><td><input class="form-check-input" type="checkbox" id="thursday-open" name="thursdayOpen" checked><label class="visually-hidden" for="thursday-open">Available Thursday</label></td><td><label class="visually-hidden" for="thursday-start">Thursday opening time</label><input type="time" id="thursday-start" name="thursdayStart" value="09:30"></td><td><label class="visually-hidden" for="thursday-end">Thursday closing time</label><input type="time" id="thursday-end" name="thursdayEnd" value="18:30"></td></tr>
-                                            <tr><th scope="row">Friday</th><td><input class="form-check-input" type="checkbox" id="friday-open" name="fridayOpen" checked><label class="visually-hidden" for="friday-open">Available Friday</label></td><td><label class="visually-hidden" for="friday-start">Friday opening time</label><input type="time" id="friday-start" name="fridayStart" value="09:30"></td><td><label class="visually-hidden" for="friday-end">Friday closing time</label><input type="time" id="friday-end" name="fridayEnd" value="18:30"></td></tr>
-                                            <tr><th scope="row">Saturday</th><td><input class="form-check-input" type="checkbox" id="saturday-open" name="saturdayOpen" checked><label class="visually-hidden" for="saturday-open">Available Saturday</label></td><td><label class="visually-hidden" for="saturday-start">Saturday opening time</label><input type="time" id="saturday-start" name="saturdayStart" value="09:30"></td><td><label class="visually-hidden" for="saturday-end">Saturday closing time</label><input type="time" id="saturday-end" name="saturdayEnd" value="18:30"></td></tr>
-                                            <tr><th scope="row">Sunday</th><td><input class="form-check-input" type="checkbox" id="sunday-open" name="sundayOpen"><label class="visually-hidden" for="sunday-open">Available Sunday</label></td><td><label class="visually-hidden" for="sunday-start">Sunday opening time</label><input type="time" id="sunday-start" name="sundayStart" disabled></td><td><label class="visually-hidden" for="sunday-end">Sunday closing time</label><input type="time" id="sunday-end" name="sundayEnd" disabled></td></tr>
+                                        <tr><th scope="row">Monday</th>
+                                            <td><input class="form-check-input" type="checkbox" id="monday-morning" name="availability" value="MONDAY_MORNING" checked><label class="visually-hidden" for="monday-morning">Monday morning</label></td>
+                                            <td><input class="form-check-input" type="checkbox" id="monday-afternoon" name="availability" value="MONDAY_AFTERNOON" checked><label class="visually-hidden" for="monday-afternoon">Monday afternoon</label></td>
+                                            <td><input class="form-check-input" type="checkbox" id="monday-evening" name="availability" value="MONDAY_EVENING"><label class="visually-hidden" for="monday-evening">Monday evening</label></td>
+                                        </tr>
+                                        <tr><th scope="row">Tuesday</th>
+                                            <td><input class="form-check-input" type="checkbox" id="tuesday-morning" name="availability" value="TUESDAY_MORNING" checked><label class="visually-hidden" for="tuesday-morning">Tuesday morning</label></td>
+                                            <td><input class="form-check-input" type="checkbox" id="tuesday-afternoon" name="availability" value="TUESDAY_AFTERNOON" checked><label class="visually-hidden" for="tuesday-afternoon">Tuesday afternoon</label></td>
+                                            <td><input class="form-check-input" type="checkbox" id="tuesday-evening" name="availability" value="TUESDAY_EVENING"><label class="visually-hidden" for="tuesday-evening">Tuesday evening</label></td>
+                                        </tr>
+                                        <tr><th scope="row">Wednesday</th>
+                                            <td><input class="form-check-input" type="checkbox" id="wednesday-morning" name="availability" value="WEDNESDAY_MORNING" checked><label class="visually-hidden" for="wednesday-morning">Wednesday morning</label></td>
+                                            <td><input class="form-check-input" type="checkbox" id="wednesday-afternoon" name="availability" value="WEDNESDAY_AFTERNOON" checked><label class="visually-hidden" for="wednesday-afternoon">Wednesday afternoon</label></td>
+                                            <td><input class="form-check-input" type="checkbox" id="wednesday-evening" name="availability" value="WEDNESDAY_EVENING"><label class="visually-hidden" for="wednesday-evening">Wednesday evening</label></td>
+                                        </tr>
+                                        <tr><th scope="row">Thursday</th>
+                                            <td><input class="form-check-input" type="checkbox" id="thursday-morning" name="availability" value="THURSDAY_MORNING" checked><label class="visually-hidden" for="thursday-morning">Thursday morning</label></td>
+                                            <td><input class="form-check-input" type="checkbox" id="thursday-afternoon" name="availability" value="THURSDAY_AFTERNOON" checked><label class="visually-hidden" for="thursday-afternoon">Thursday afternoon</label></td>
+                                            <td><input class="form-check-input" type="checkbox" id="thursday-evening" name="availability" value="THURSDAY_EVENING"><label class="visually-hidden" for="thursday-evening">Thursday evening</label></td>
+                                        </tr>
+                                        <tr><th scope="row">Friday</th>
+                                            <td><input class="form-check-input" type="checkbox" id="friday-morning" name="availability" value="FRIDAY_MORNING" checked><label class="visually-hidden" for="friday-morning">Friday morning</label></td>
+                                            <td><input class="form-check-input" type="checkbox" id="friday-afternoon" name="availability" value="FRIDAY_AFTERNOON" checked><label class="visually-hidden" for="friday-afternoon">Friday afternoon</label></td>
+                                            <td><input class="form-check-input" type="checkbox" id="friday-evening" name="availability" value="FRIDAY_EVENING"><label class="visually-hidden" for="friday-evening">Friday evening</label></td>
+                                        </tr>
+                                        <tr><th scope="row">Saturday</th>
+                                            <td><input class="form-check-input" type="checkbox" id="saturday-morning" name="availability" value="SATURDAY_MORNING" checked><label class="visually-hidden" for="saturday-morning">Saturday morning</label></td>
+                                            <td><input class="form-check-input" type="checkbox" id="saturday-afternoon" name="availability" value="SATURDAY_AFTERNOON" checked><label class="visually-hidden" for="saturday-afternoon">Saturday afternoon</label></td>
+                                            <td><input class="form-check-input" type="checkbox" id="saturday-evening" name="availability" value="SATURDAY_EVENING"><label class="visually-hidden" for="saturday-evening">Saturday evening</label></td>
+                                        </tr>
+                                        <tr><th scope="row">Sunday</th>
+                                            <td><input class="form-check-input" type="checkbox" id="sunday-morning" name="availability" value="SUNDAY_MORNING"><label class="visually-hidden" for="sunday-morning">Sunday morning</label></td>
+                                            <td><input class="form-check-input" type="checkbox" id="sunday-afternoon" name="availability" value="SUNDAY_AFTERNOON"><label class="visually-hidden" for="sunday-afternoon">Sunday afternoon</label></td>
+                                            <td><input class="form-check-input" type="checkbox" id="sunday-evening" name="availability" value="SUNDAY_EVENING"><label class="visually-hidden" for="sunday-evening">Sunday evening</label></td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <p class="profile-helper">The live backend should reject closing times that are not after opening times, prevent overlapping availability ranges, and preserve existing bookings when hours change.</p>
+                                <p class="profile-helper">Customers can only request times inside the blocks you check. Changing your availability never cancels confirmed appointments.</p>
                                 <div class="d-flex flex-wrap gap-2">
                                     <button type="submit" class="btn settings-btn settings-btn-sm" disabled>Save schedule (backend not connected)</button>
                                     <a href="profile.html#provider-availability" class="btn btn-appt-secondary">Cancel</a>

@@ -62,7 +62,7 @@
 
                 <section class="appointment-list-section" id="upcoming" aria-labelledby="upcoming-heading">
                     <h2 class="appointment-list-heading" id="upcoming-heading">Upcoming appointments <span>(3)</span></h2>
-                    <p class="appointment-demo-note">These are sample appointments. Rescheduling and cancellation are not interactive in this demo.</p>
+                    <p class="appointment-demo-note">To reschedule, pick a new time; your original appointment stays confirmed until the provider accepts.</p>
 
                         <!-- Upcoming Appointment Cards -->
                         <div class="customer-appt-item">
@@ -81,6 +81,10 @@
                                 </div>
                             </div>
 
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <a href="book-appointment.html" class="btn btn-appt-secondary">Reschedule</a>
+                                <button type="button" class="btn btn-outline-danger" disabled>Cancel appointment (backend not connected)</button>
+                            </div>
                         </div>
 
                         
@@ -100,6 +104,10 @@
                                 </div>
                             </div>
 
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <a href="book-appointment.html" class="btn btn-appt-secondary">Reschedule</a>
+                                <button type="button" class="btn btn-outline-danger" disabled>Cancel appointment (backend not connected)</button>
+                            </div>
                         </div>
 
                         <div class="customer-appt-item">
@@ -118,6 +126,11 @@
                                 </div>
                             </div>
 
+                            <p class="profile-privacy-callout mt-3 mb-0"><strong>Reschedule requested:</strong> Monday, Oct 19 • 11:00 AM. Waiting for Sarah to respond. Your original time stays confirmed until she accepts.</p>
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <button type="button" class="btn btn-appt-secondary" disabled>Withdraw request (backend not connected)</button>
+                                <button type="button" class="btn btn-outline-danger" disabled>Cancel appointment (backend not connected)</button>
+                            </div>
                         </div>
                 </section>
 

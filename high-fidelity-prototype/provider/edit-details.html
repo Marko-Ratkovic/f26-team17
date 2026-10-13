@@ -35,7 +35,7 @@
                     <div class="card profile-card">
                         <div class="profile-card-header"><h2 class="profile-card-title">Provider information</h2></div>
                         <div class="card-content">
-                            <p class="profile-prototype-note" role="note">Prototype preview: details are sample data and are not saved. Email changes require verification; public credentials must be accurate and are not verified by this form.</p>
+                            <p class="profile-prototype-note" role="note">Prototype preview: details are sample data and are not saved. Email changes require verification; certifications are shown as self-reported.</p>
                             <form method="post">
                                 <fieldset class="provider-form-section">
                                     <legend>Account contact (private)</legend>
@@ -50,10 +50,10 @@
                                     <div class="form-group"><label for="experience">Years of experience</label><input id="experience" name="experienceYears" type="number" value="3" min="0" max="70" required></div>
                                     <div class="form-group"><label for="bio">Professional bio</label><textarea id="bio" name="bio" rows="4" maxlength="1000" required>I create custom nail art and offer manicures and pedicures with a focus on clear service details and a welcoming client experience.</textarea></div>
                                     <div class="form-group"><label for="serviceArea">Public service area</label><input id="serviceArea" name="serviceArea" value="Greensboro, NC" maxlength="120" required><small class="form-help">Use a city or service area. Do not put a private home address here.</small></div>
-                                    <div class="form-group"><label for="credentials">Credentials or qualifications <span class="optional-label">(optional)</span></label><textarea id="credentials" name="credentials" rows="3" maxlength="1000" placeholder="List current, accurate credentials and issuing organization."></textarea><small class="form-help">Do not claim GlowUp verification unless the credential has been verified and the status is shown.</small></div>
+                                    <div class="form-group"><label for="credentials">Certifications <span class="optional-label">(optional)</span></label><textarea id="credentials" name="credentials" rows="3" maxlength="1000" placeholder="e.g. Licensed cosmetologist, NC Board"></textarea><small class="form-help">Shown on your profile as self-reported.</small></div>
                                 </fieldset>
                                 <div class="d-flex flex-wrap gap-2">
-                                    <button type="submit" class="btn settings-btn settings-btn-sm" disabled>Save details (backend not connected)</button>
+                                    <button type="submit" class="btn settings-btn settings-btn-sm" disabled>Save details</button>
                                     <a href="profile.html" class="btn btn-appt-secondary">Cancel</a>
                                 </div>
                             </form>

@@ -45,7 +45,7 @@
             <div class="container">
                 <div class="book-appointment-header">
                     <h1 class="book-appointment-title">Request an Appointment with Brian Davis</h1>
-                    <div class="book-appointment-subtitle">Select a time and date slot from Brian's availability that works for you</div>
+                    <div class="book-appointment-subtitle">Pick a day and time block, choose a start time, and read reviews from Brian's past customers</div>
                 </div>
                 <p class="profile-prototype-note" role="note">Static preview: selecting a time does not submit a request. Appointment requests and provider confirmation will be available when the backend is connected.</p>
             </div>
@@ -56,6 +56,32 @@
             <div class="mb-3">
                 <a href="browse-services.html" class="btn btn-appt-secondary">&larr; Back to Browse Services & Providers</a>
             </div>
+
+            <!-- Choose date and time block -->
+            <div class="filter-card">
+                <h3 class="filter-title">Choose a day and time</h3>
+                <p class="profile-helper">Brian is available <strong>Mon–Fri · Evening (5–9 PM)</strong>. Blocks he is not available in cannot be selected.</p>
+                <form method="get" class="grid grid-4">
+                    <div>
+                        <label for="booking-date">Date</label>
+                        <input type="date" id="booking-date" name="date" value="2026-10-16">
+                    </div>
+                    <div>
+                        <label for="booking-block">Time of day</label>
+                        <select id="booking-block" name="timeBlock">
+                            <option value="MORNING" disabled>Morning (9 AM–12 PM) · not available</option>
+                            <option value="AFTERNOON" disabled>Afternoon (12–5 PM) · not available</option>
+                            <option value="EVENING" selected>Evening (5–9 PM)</option>
+                        </select>
+                    </div>
+                    <div class="filter-btn-wrap">
+                        <button type="submit" class="btn filter-apply-btn" disabled>Show times</button>
+                    </div>
+                </form>
+            </div>
+
+            <h2 class="h5 fw-bold mb-3">Next available start times · Evening (5–9 PM)</h2>
+            <p class="profile-helper">Each time fits the full service inside Brian's available block and does not overlap a confirmed booking.</p>
             
             <!-- Appointment Listing 1 -->
             <div class="customer-appt-item">
@@ -74,7 +100,7 @@
                 </div>
                 
                 <div class="d-flex gap-2 mt-4">
-                    <button type="button" class="btn btn-appt-primary" disabled>Request appointment (backend not connected)</button>
+                    <button type="button" class="btn btn-appt-primary" disabled>Request appointment</button>
                 </div>
             </div>
 
@@ -95,7 +121,7 @@
                 </div>
                 
                 <div class="d-flex gap-2 mt-4">
-                    <button type="button" class="btn btn-appt-primary" disabled>Request appointment (backend not connected)</button>
+                    <button type="button" class="btn btn-appt-primary" disabled>Request appointment</button>
                 </div>
             </div>
 
@@ -116,7 +142,7 @@
                 </div>
                 
                 <div class="d-flex gap-2 mt-4">
-                    <button type="button" class="btn btn-appt-primary" disabled>Request appointment (backend not connected)</button>
+                    <button type="button" class="btn btn-appt-primary" disabled>Request appointment</button>
                 </div>
             </div>
             
@@ -137,7 +163,7 @@
                 </div>
                 
                 <div class="d-flex gap-2 mt-4">
-                    <button type="button" class="btn btn-appt-primary" disabled>Request appointment (backend not connected)</button>
+                    <button type="button" class="btn btn-appt-primary" disabled>Request appointment</button>
                 </div>
             </div>
 
@@ -158,9 +184,124 @@
                 </div>
                 
                 <div class="d-flex gap-2 mt-4">
-                    <button type="button" class="btn btn-appt-primary" disabled>Request appointment (backend not connected)</button>
+                    <button type="button" class="btn btn-appt-primary" disabled>Request appointment</button>
                 </div>
             </div>
+        </section>
+
+        <!-- Provider reviews -->
+        <section class="section" id="reviews">
+            <div class="provider-content-heading">
+                <div>
+                    <h2>Reviews for Brian Davis</h2>
+                    <p class="review-inline-score"><strong>★ 4.9</strong> · 40 reviews · Showing the 3 newest</p>
+                </div>
+                <a href="provider-reviews.html" class="btn btn-appt-secondary">See all 40 reviews &rarr;</a>
+            </div>
+
+            <article class="provider-review-card">
+                <div class="provider-review-heading"><div><h3>Linda J. <span class="review-own-tag">Your review</span></h3><p>Haircut · 5/5 stars · Completed appointment</p></div><time datetime="2026-09-17">Sep 17, 2026</time></div>
+                <blockquote>“Great service! Brian really listened to what I wanted and gave me the perfect cut.”</blockquote>
+                <a href="review.html" class="btn btn-sm btn-outline-secondary review-own-link">View your review</a>
+                <div class="provider-published-reply">
+                    <strong>Reply from Brian</strong>
+                    <p>Thank you for your feedback. I am glad you enjoyed your appointment!</p>
+                    <details class="report-details">
+                        <summary>Report reply</summary>
+                        <form method="post">
+                            <label for="report-book-linda-j-reply-reason">Why are you reporting this reply?</label>
+                            <select id="report-book-linda-j-reply-reason" name="reason" required>
+                                <option value="" selected disabled>Choose a reason</option>
+                                <option value="HARASSMENT">Harassment</option>
+                                <option value="THREATS">Threats</option>
+                                <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                <option value="PERSONAL_INFORMATION">Personal information</option>
+                                <option value="SPAM">Spam</option>
+                                <option value="OFF_TOPIC">Off-topic content</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                            <label for="report-book-linda-j-reply-details">Details <span class="report-optional">(required for Other)</span></label>
+                            <textarea id="report-book-linda-j-reply-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                            <p class="report-note">Low ratings and honest criticism are not violations. The reply stays visible while an admin checks it, and the author is not told who reported it.</p>
+                            <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                        </form>
+                    </details>
+                </div>
+            </article>
+
+            <article class="provider-review-card">
+                <div class="provider-review-heading"><div><h3>Marcus T.</h3><p>Hair Coloring · 5/5 stars · Completed appointment</p></div><time datetime="2026-09-10">Sep 10, 2026</time></div>
+                <blockquote>“The color came out exactly like the photo I showed him. Will book again.”</blockquote>
+                <details class="report-details">
+                    <summary>Report review</summary>
+                    <form method="post">
+                        <label for="report-book-marcus-t-review-reason">Why are you reporting this review?</label>
+                        <select id="report-book-marcus-t-review-reason" name="reason" required>
+                            <option value="" selected disabled>Choose a reason</option>
+                            <option value="HARASSMENT">Harassment</option>
+                            <option value="THREATS">Threats</option>
+                            <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                            <option value="PERSONAL_INFORMATION">Personal information</option>
+                            <option value="SPAM">Spam</option>
+                            <option value="OFF_TOPIC">Off-topic content</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                        <label for="report-book-marcus-t-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                        <textarea id="report-book-marcus-t-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                        <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                        <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                    </form>
+                </details>
+            </article>
+
+            <article class="provider-review-card">
+                <div class="provider-review-heading"><div><h3>Aisha R.</h3><p>Haircut · 4/5 stars · Completed appointment</p></div><time datetime="2026-09-02">Sep 2, 2026</time></div>
+                <blockquote>“Good cut, but I waited about ten minutes past my appointment time.”</blockquote>
+                <details class="report-details">
+                    <summary>Report review</summary>
+                    <form method="post">
+                        <label for="report-book-aisha-r-review-reason">Why are you reporting this review?</label>
+                        <select id="report-book-aisha-r-review-reason" name="reason" required>
+                            <option value="" selected disabled>Choose a reason</option>
+                            <option value="HARASSMENT">Harassment</option>
+                            <option value="THREATS">Threats</option>
+                            <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                            <option value="PERSONAL_INFORMATION">Personal information</option>
+                            <option value="SPAM">Spam</option>
+                            <option value="OFF_TOPIC">Off-topic content</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                        <label for="report-book-aisha-r-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                        <textarea id="report-book-aisha-r-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                        <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                        <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                    </form>
+                </details>
+                <div class="provider-published-reply">
+                    <strong>Reply from Brian</strong>
+                    <p>Thanks for the honest feedback. I have adjusted my schedule so evening appointments start on time.</p>
+                    <details class="report-details">
+                        <summary>Report reply</summary>
+                        <form method="post">
+                            <label for="report-book-aisha-r-reply-reason">Why are you reporting this reply?</label>
+                            <select id="report-book-aisha-r-reply-reason" name="reason" required>
+                                <option value="" selected disabled>Choose a reason</option>
+                                <option value="HARASSMENT">Harassment</option>
+                                <option value="THREATS">Threats</option>
+                                <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                <option value="PERSONAL_INFORMATION">Personal information</option>
+                                <option value="SPAM">Spam</option>
+                                <option value="OFF_TOPIC">Off-topic content</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                            <label for="report-book-aisha-r-reply-details">Details <span class="report-optional">(required for Other)</span></label>
+                            <textarea id="report-book-aisha-r-reply-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                            <p class="report-note">Low ratings and honest criticism are not violations. The reply stays visible while an admin checks it, and the author is not told who reported it.</p>
+                            <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                        </form>
+                    </details>
+                </div>
+            </article>
         </section>
 
         <!-- Footer -->

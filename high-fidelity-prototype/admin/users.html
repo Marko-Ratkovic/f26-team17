@@ -30,16 +30,13 @@
       <div class="admin-subtitle">Admin controls</div>
       <h1 class="admin-title">Manage user access</h1>
     </div>
-    <div class="admin-actions">
-      <button type="button" class="admin-btn" disabled>Add admin note (backend not connected)</button>
-    </div>
   </header>
 
   <section class="admin-panel">
     <div class="panel-header">
-      <h2 class="panel-title">User accounts &amp; provider verification</h2>
+      <h2 class="panel-title">User accounts</h2>
     </div>
-    <p class="admin-demo-note">Prototype preview: sample data only. Search, filters, bulk actions, sorting, and pagination are visual placeholders and will connect to the backend later.</p>
+    <p class="admin-demo-note">Prototype preview: sample data only.</p>
     <form class="admin-toolbar" role="search">
       <div class="admin-field">
         <label for="user-search">Search accounts</label>
@@ -51,60 +48,40 @@
           <option>All statuses</option>
           <option>Active</option>
           <option>Suspended</option>
-          <option>Verification pending</option>
+          <option>Pending approval</option>
+          <option>Deactivated (closing within 14 days)</option>
+          <option>Anonymized</option>
         </select>
       </div>
-      <div class="admin-field">
-        <label for="user-sort">Sort by</label>
-        <select id="user-sort">
-          <option>Newest first</option>
-          <option>Name A-Z</option>
-          <option>Name Z-A</option>
-          <option>Last activity</option>
-        </select>
-      </div>
-      <button type="button" class="admin-btn-secondary" disabled>Apply filters (preview only)</button>
+      <button type="button" class="admin-btn-secondary" disabled>Apply filters</button>
     </form>
-    <div class="admin-bulkbar">
-      <label><input type="checkbox" aria-label="Select all users on this page"> Select page</label>
-      <div class="admin-bulk-actions">
-        <button type="button" class="admin-btn-secondary" disabled>Bulk suspend (backend not connected)</button>
-        <button type="button" class="admin-btn-secondary" disabled>Bulk export (backend not connected)</button>
-      </div>
-    </div>
     <div class="table-wrap">
       <table class="admin-table">
         <thead>
         <tr>
-          <th scope="col"><span class="visually-hidden">Select</span></th>
           <th scope="col">Name</th>
           <th scope="col">Role</th>
-          <th scope="col">Account / verification status</th>
-          <th scope="col">Last activity</th>
+          <th scope="col">Account status</th>
           <th scope="col">Joined</th>
           <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-          <td><input type="checkbox" aria-label="Select Jordan Lee"></td>
           <td>Jordan Lee<div class="admin-content-meta">jordan.lee@example.com</div></td>
           <td>Provider</td>
-          <td><span class="badge pending">Verification pending</span></td>
-          <td>Today, 10:12 AM</td>
+          <td><span class="badge pending">Pending approval</span></td>
           <td>Oct 6, 2026</td>
           <td>
             <div class="action-group">
-              <span class="admin-muted">Provider verification</span>
+              <span class="admin-muted">Review approval</span>
             </div>
           </td>
         </tr>
         <tr>
-          <td><input type="checkbox" aria-label="Select Emma Torres"></td>
           <td><a href="user-detail.html"><strong>Emma Torres</strong></a><div class="admin-content-meta">emma.torres@example.com</div></td>
           <td>Provider</td>
           <td><span class="badge approved">Active</span></td>
-          <td>Oct 8, 2026</td>
           <td>Sep 2, 2026</td>
           <td>
             <div class="action-group">
@@ -113,11 +90,9 @@
           </td>
         </tr>
         <tr>
-          <td><input type="checkbox" aria-label="Select Michael Hart"></td>
           <td>Michael Hart<div class="admin-content-meta">michael.hart@example.com</div></td>
           <td>Customer</td>
           <td><span class="badge flagged">Suspended</span></td>
-          <td>Sep 30, 2026</td>
           <td>Aug 18, 2026</td>
           <td>
             <div class="action-group">
@@ -126,20 +101,16 @@
           </td>
         </tr>
         <tr>
-          <td><input type="checkbox" aria-label="Select Priya Shah"></td>
           <td>Priya Shah<div class="admin-content-meta">priya.shah@example.com</div></td>
           <td>Customer</td>
           <td><span class="badge approved">Active</span></td>
-          <td>Oct 7, 2026</td>
           <td>Jul 12, 2026</td>
           <td><span class="admin-muted">Active</span></td>
         </tr>
         <tr>
-          <td><input type="checkbox" aria-label="Select Laura Gomez"></td>
           <td>Laura Gomez<div class="admin-content-meta">laura.gomez@example.com</div></td>
           <td>Provider</td>
           <td><span class="badge approved">Active</span></td>
-          <td>Oct 8, 2026</td>
           <td>Jun 22, 2026</td>
           <td><span class="admin-muted">Active</span></td>
         </tr>

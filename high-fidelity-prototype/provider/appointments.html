@@ -38,22 +38,26 @@
             <section class="section">
                 <div class="container">
                     <nav class="appt-tabs provider-appointment-nav" aria-label="Jump to appointment status">
-                        <a href="#requests">Requests <span>(1)</span></a>
+                        <a href="#requests">Requests <span>(2)</span></a>
                         <a href="#confirmed">Upcoming <span>(3)</span></a>
                         <a href="#completed">Completed <span>(3)</span></a>
                         <a href="#cancelled">Cancelled <span>(1)</span></a>
                     </nav>
 
                     <section class="appointment-list-section" id="requests" aria-labelledby="requests-heading">
-                        <h2 class="appointment-list-heading" id="requests-heading">Booking requests <span>(1)</span></h2>
-                        <p class="profile-helper">A request is not a confirmed booking. Confirming it should reserve the slot atomically and notify the customer; declining should require a reason.</p>
+                        <h2 class="appointment-list-heading" id="requests-heading">Booking requests <span>(2)</span></h2>
+                        <p class="profile-helper">A request is not a confirmed booking. Confirming reserves the time and emails the customer; declining requires a reason. For a reschedule, the original appointment stays confirmed unless you accept the new time.</p>
                         <div class="table-responsive provider-table-wrap">
                             <table class="table table-hover align-middle provider-appointment-table">
                                 <caption class="visually-hidden">Pending provider appointment requests</caption>
                                 <thead><tr><th scope="col">Customer</th><th scope="col">Service</th><th scope="col">Requested time</th><th scope="col">Duration</th><th scope="col">Price</th><th scope="col">Status</th><th scope="col">Actions</th></tr></thead>
                                 <tbody><tr>
                                     <th scope="row">Alice Hayes</th><td>Pedicure &amp; manicure</td><td>Saturday, Oct 10, 2026 · 10:00 AM</td><td>90 min</td><td>$100</td><td><span class="provider-listing-status is-pending">Pending</span></td>
-                                    <td><button class="btn btn-sm btn-success" type="button" disabled>Confirm (backend)</button> <button class="btn btn-sm btn-outline-danger" type="button" disabled>Decline (backend)</button></td>
+                                    <td><button class="btn btn-sm btn-success" type="button" disabled>Confirm</button> <button class="btn btn-sm btn-outline-danger" type="button" disabled>Decline</button></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Karen Smith</th><td>Pedicure &amp; manicure</td><td>Monday, Oct 12, 2026 · 2:00 PM<br><small>Reschedule of Saturday, Oct 10 · 12:00 PM</small></td><td>90 min</td><td>$100</td><td><span class="provider-listing-status is-pending">Reschedule requested</span></td>
+                                    <td><button class="btn btn-sm btn-success" type="button" disabled>Accept new time</button> <button class="btn btn-sm btn-outline-danger" type="button" disabled>Decline</button></td>
                                 </tr></tbody>
                             </table>
                         </div>
@@ -96,7 +100,7 @@
                             <table class="table table-hover align-middle provider-appointment-table">
                                 <caption class="visually-hidden">Cancelled provider appointments this month</caption>
                                 <thead><tr><th scope="col">Customer</th><th scope="col">Service</th><th scope="col">Original time</th><th scope="col">Cancelled by</th><th scope="col">Status</th></tr></thead>
-                                <tbody><tr><th scope="row">Erica Nyguen</th><td>Manicure</td><td>Sunday, Oct 4, 2026 · 1:00 PM</td><td>Customer</td><td><span class="provider-listing-status is-rejected">Cancelled</span></td></tr></tbody>
+                                <tbody><tr><th scope="row">Erica Nyguen</th><td>Manicure</td><td>Saturday, Oct 3, 2026 · 1:00 PM</td><td>Customer</td><td><span class="provider-listing-status is-rejected">Cancelled</span></td></tr></tbody>
                             </table>
                         </div>
                         <p class="profile-helper">Keep cancelled records for the booking history; do not delete them as a substitute for changing status.</p>

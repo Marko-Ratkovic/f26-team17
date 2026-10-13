@@ -62,7 +62,7 @@
 
                 <section class="appointment-list-section" id="upcoming" aria-labelledby="upcoming-heading">
                     <h2 class="appointment-list-heading" id="upcoming-heading">Upcoming appointments <span>(3)</span></h2>
-                    <p class="appointment-demo-note">These are sample appointments. Rescheduling and cancellation are not interactive in this demo.</p>
+                    <p class="appointment-demo-note">To reschedule, pick a new time; your original appointment stays confirmed until the provider accepts.</p>
 
                         <!-- Upcoming Appointment Cards -->
                         <div class="customer-appt-item">
@@ -81,6 +81,10 @@
                                 </div>
                             </div>
 
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <a href="book-appointment.html" class="btn btn-appt-secondary">Reschedule</a>
+                                <button type="button" class="btn btn-outline-danger" disabled>Cancel appointment</button>
+                            </div>
                         </div>
 
                         
@@ -100,6 +104,10 @@
                                 </div>
                             </div>
 
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <a href="book-appointment.html" class="btn btn-appt-secondary">Reschedule</a>
+                                <button type="button" class="btn btn-outline-danger" disabled>Cancel appointment</button>
+                            </div>
                         </div>
 
                         <div class="customer-appt-item">
@@ -118,6 +126,11 @@
                                 </div>
                             </div>
 
+                            <p class="profile-privacy-callout mt-3 mb-0"><strong>Reschedule requested:</strong> Monday, Oct 19 • 11:00 AM. Waiting for Sarah to respond. Your original time stays confirmed until she accepts.</p>
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <button type="button" class="btn btn-appt-secondary" disabled>Withdraw request</button>
+                                <button type="button" class="btn btn-outline-danger" disabled>Cancel appointment</button>
+                            </div>
                         </div>
                 </section>
 
@@ -144,31 +157,28 @@
                             </div>
 
                             <div class="d-flex gap-2 mt-4">
-                                <a href="review.html" class="btn btn-appt-primary">View/Edit Review</a>
+                                <a href="review.html" class="btn btn-appt-primary">View review</a>
                                 <a href="book-appointment.html" class="btn btn-appt-secondary">Book Again</a>
                             </div>
                         </div>
 
                         <div class="customer-appt-item">
                             <!-- Appointment Card 2 -->
-                            <h3 class="customer-appt-title">Tanning with Erica Nyguen</h3>
+                            <h3 class="customer-appt-title">Waxing with Erica Nyguen</h3>
                             <span class="customer-appt-status-badge customer-appt-status-completed">Completed</span>
 
                             <div class="row g-2 mt-3">
                                 <div class="col-md-6">
                                     <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Tuesday, Sep 15 • 12:00 PM</span></div>
-                                    <div class="mt-2"><span class="fw-bold">Your Rating:</span> <span class="text-muted">5/5 stars</span></div>
+                                    <div class="mt-2"><span class="fw-bold">Your Review:</span> <span class="text-muted">Not reviewed yet · You can review until Oct 15</span></div>
                                 </div>
                                 <div class="col-md-6">
                                     <div><span class="fw-bold">Duration:</span> <span class="text-muted">15 minutes</span></div>
-                                    <div class="mt-2"><span class="fw-bold">Your Review:</span> <span class="text-accent">Great service! Erica made sure the bed was set up 
-                                        perfectly and gave me great tips on timing.</span>
-                                    </div>
                                 </div>
                             </div>
 
                             <div class="d-flex gap-2 mt-4">
-                                <a href="review.html" class="btn btn-appt-primary">View/Edit Review</a>
+                                <a href="write-review.html" class="btn btn-appt-primary">Write a review</a>
                                 <a href="book-appointment.html" class="btn btn-appt-secondary">Book Again</a>
                             </div>
                         </div>
@@ -186,7 +196,6 @@
                             <div class="row g-2 mt-3">
                                 <div class="col-md-6">
                                     <div><span class="fw-bold">Original Date:</span> <span class="text-muted">Monday, Sep 14 • 6:00 PM</span></div>
-                                    <div class="mt-2"><span class="fw-bold">Refund Status:</span> <span class="text-muted">Refunded</span></div>
                                 </div>
                                 <div class="col-md-6">
                                     <div><span class="fw-bold">Canceled By:</span> <span class="text-muted">Customer</span></div>

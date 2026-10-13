@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews for Brian Davis - Glow Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="sticky-top">
+            <div class="navbar">
+                <a href="../index.html" class="navbar-brand mb-2">
+                    <img src="../images/logo.png" alt="GlowUp home" class="img-fluid logo" style="width: 150px; height: 50px;">
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="browse-services.html" aria-current="page" class="nav-link fw-bold"
+                            style="border-bottom: 1px solid;">Browse Services & Providers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="my-appointments.html" class="nav-link under-scored">My Appointments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.html" class="nav-link under-scored">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link fw-bold">Log out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Reviews Header -->
+        <section class="section">
+            <div class="container">
+                <div class="book-appointment-header">
+                    <h1 class="book-appointment-title">Reviews for Brian Davis</h1>
+                    <div class="book-appointment-subtitle">Hair Styling · Greensboro, NC</div>
+                </div>
+                <p class="profile-prototype-note" role="note">Static preview: filters, sorting, and pages do not change the sample reviews. Reviews will load from the backend when it is connected.</p>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="browse-services.html" class="btn btn-appt-secondary">&larr; Back to Browse Services & Providers</a>
+                    <a href="book-appointment.html" class="btn btn-appt-primary">Book Appointment</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rating summary -->
+        <section class="section">
+            <div class="container">
+                <div class="review-summary-card">
+                    <div class="review-summary-score">
+                        <strong>4.9</strong>
+                        <span>out of 5</span>
+                        <span>40 reviews</span>
+                    </div>
+                    <dl class="review-breakdown" aria-label="Reviews by star rating">
+                        <div class="review-breakdown-row"><dt>5 stars</dt><dd><span class="review-bar"><span style="width: 90%;"></span></span><span>36</span></dd></div>
+                        <div class="review-breakdown-row"><dt>4 stars</dt><dd><span class="review-bar"><span style="width: 10%;"></span></span><span>4</span></dd></div>
+                        <div class="review-breakdown-row"><dt>3 stars</dt><dd><span class="review-bar"><span style="width: 0%;"></span></span><span>0</span></dd></div>
+                        <div class="review-breakdown-row"><dt>2 stars</dt><dd><span class="review-bar"><span style="width: 0%;"></span></span><span>0</span></dd></div>
+                        <div class="review-breakdown-row"><dt>1 star</dt><dd><span class="review-bar"><span style="width: 0%;"></span></span><span>0</span></dd></div>
+                    </dl>
+                </div>
+                <p class="profile-helper mt-2">Only reviews from completed appointments are shown. Hidden reviews are not shown and do not count toward the rating.</p>
+            </div>
+        </section>
+
+        <!-- Filter and sort -->
+        <section class="section">
+            <div class="container">
+                <div class="filter-card">
+                    <h3 class="filter-title">Filter reviews</h3>
+                    <form method="get" class="grid grid-4">
+                        <div>
+                            <label for="stars-filter">Rating</label>
+                            <select id="stars-filter" name="stars">
+                                <option value="">All ratings</option>
+                                <option value="5">5 stars</option>
+                                <option value="4">4 stars</option>
+                                <option value="3">3 stars</option>
+                                <option value="2">2 stars</option>
+                                <option value="1">1 star</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="review-sort">Sort by</label>
+                            <select id="review-sort" name="sort">
+                                <option value="NEWEST">Newest</option>
+                                <option value="HIGHEST">Highest rated</option>
+                                <option value="LOWEST">Lowest rated</option>
+                            </select>
+                        </div>
+                        <div class="filter-btn-wrap">
+                            <button type="submit" class="btn filter-apply-btn" disabled>Apply</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Review list -->
+        <section class="section">
+            <div class="container">
+                <p class="profile-helper mb-3">Showing 1–5 of 40 reviews · Newest first</p>
+
+                <article class="provider-review-card">
+                    <div class="provider-review-heading"><div><h3>Linda J. <span class="review-own-tag">Your review</span></h3><p>Haircut · 5/5 stars · Completed appointment</p></div><time datetime="2026-09-17">Sep 17, 2026</time></div>
+                    <blockquote>“Great service! Brian really listened to what I wanted and gave me the perfect cut.”</blockquote>
+                    <a href="review.html" class="btn btn-sm btn-outline-secondary review-own-link">View your review</a>
+                    <div class="provider-published-reply">
+                        <strong>Reply from Brian</strong>
+                        <p>Thank you for your feedback. I am glad you enjoyed your appointment!</p>
+                        <details class="report-details">
+                            <summary>Report reply</summary>
+                            <form method="post">
+                                <label for="report-all-linda-j-reply-reason">Why are you reporting this reply?</label>
+                                <select id="report-all-linda-j-reply-reason" name="reason" required>
+                                    <option value="" selected disabled>Choose a reason</option>
+                                    <option value="HARASSMENT">Harassment</option>
+                                    <option value="THREATS">Threats</option>
+                                    <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                    <option value="PERSONAL_INFORMATION">Personal information</option>
+                                    <option value="SPAM">Spam</option>
+                                    <option value="OFF_TOPIC">Off-topic content</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                                <label for="report-all-linda-j-reply-details">Details <span class="report-optional">(required for Other)</span></label>
+                                <textarea id="report-all-linda-j-reply-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                                <p class="report-note">Low ratings and honest criticism are not violations. The reply stays visible while an admin checks it, and the author is not told who reported it.</p>
+                                <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                            </form>
+                        </details>
+                    </div>
+                </article>
+
+                <article class="provider-review-card">
+                    <div class="provider-review-heading"><div><h3>Marcus T.</h3><p>Hair Coloring · 5/5 stars · Completed appointment</p></div><time datetime="2026-09-10">Sep 10, 2026</time></div>
+                    <blockquote>“The color came out exactly like the photo I showed him. Will book again.”</blockquote>
+                    <details class="report-details">
+                        <summary>Report review</summary>
+                        <form method="post">
+                            <label for="report-all-marcus-t-review-reason">Why are you reporting this review?</label>
+                            <select id="report-all-marcus-t-review-reason" name="reason" required>
+                                <option value="" selected disabled>Choose a reason</option>
+                                <option value="HARASSMENT">Harassment</option>
+                                <option value="THREATS">Threats</option>
+                                <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                <option value="PERSONAL_INFORMATION">Personal information</option>
+                                <option value="SPAM">Spam</option>
+                                <option value="OFF_TOPIC">Off-topic content</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                            <label for="report-all-marcus-t-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                            <textarea id="report-all-marcus-t-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                            <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                            <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                        </form>
+                    </details>
+                </article>
+
+                <article class="provider-review-card">
+                    <div class="provider-review-heading"><div><h3>Aisha R.</h3><p>Haircut · 4/5 stars · Completed appointment</p></div><time datetime="2026-09-02">Sep 2, 2026</time></div>
+                    <blockquote>“Good cut, but I waited about ten minutes past my appointment time.”</blockquote>
+                    <details class="report-details">
+                        <summary>Report review</summary>
+                        <form method="post">
+                            <label for="report-all-aisha-r-review-reason">Why are you reporting this review?</label>
+                            <select id="report-all-aisha-r-review-reason" name="reason" required>
+                                <option value="" selected disabled>Choose a reason</option>
+                                <option value="HARASSMENT">Harassment</option>
+                                <option value="THREATS">Threats</option>
+                                <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                <option value="PERSONAL_INFORMATION">Personal information</option>
+                                <option value="SPAM">Spam</option>
+                                <option value="OFF_TOPIC">Off-topic content</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                            <label for="report-all-aisha-r-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                            <textarea id="report-all-aisha-r-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                            <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                            <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                        </form>
+                    </details>
+                    <div class="provider-published-reply">
+                        <strong>Reply from Brian</strong>
+                        <p>Thanks for the honest feedback. I have adjusted my schedule so evening appointments start on time.</p>
+                        <details class="report-details">
+                            <summary>Report reply</summary>
+                            <form method="post">
+                                <label for="report-all-aisha-r-reply-reason">Why are you reporting this reply?</label>
+                                <select id="report-all-aisha-r-reply-reason" name="reason" required>
+                                    <option value="" selected disabled>Choose a reason</option>
+                                    <option value="HARASSMENT">Harassment</option>
+                                    <option value="THREATS">Threats</option>
+                                    <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                    <option value="PERSONAL_INFORMATION">Personal information</option>
+                                    <option value="SPAM">Spam</option>
+                                    <option value="OFF_TOPIC">Off-topic content</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                                <label for="report-all-aisha-r-reply-details">Details <span class="report-optional">(required for Other)</span></label>
+                                <textarea id="report-all-aisha-r-reply-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                                <p class="report-note">Low ratings and honest criticism are not violations. The reply stays visible while an admin checks it, and the author is not told who reported it.</p>
+                                <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                            </form>
+                        </details>
+                    </div>
+                </article>
+
+                <article class="provider-review-card">
+                    <div class="provider-review-heading"><div><h3>Jordan P.</h3><p>Haircut · 5/5 stars · Completed appointment · Edited</p></div><time datetime="2026-08-28">Aug 28, 2026</time></div>
+                    <blockquote>“Quick, clean fade and fair timing. Booking an evening slot was easy.”</blockquote>
+                    <details class="report-details">
+                        <summary>Report review</summary>
+                        <form method="post">
+                            <label for="report-all-jordan-p-review-reason">Why are you reporting this review?</label>
+                            <select id="report-all-jordan-p-review-reason" name="reason" required>
+                                <option value="" selected disabled>Choose a reason</option>
+                                <option value="HARASSMENT">Harassment</option>
+                                <option value="THREATS">Threats</option>
+                                <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                <option value="PERSONAL_INFORMATION">Personal information</option>
+                                <option value="SPAM">Spam</option>
+                                <option value="OFF_TOPIC">Off-topic content</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                            <label for="report-all-jordan-p-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                            <textarea id="report-all-jordan-p-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                            <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                            <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                        </form>
+                    </details>
+                </article>
+
+                <article class="provider-review-card">
+                    <div class="provider-review-heading"><div><h3>Deleted user</h3><p>Hair Coloring · 5/5 stars · Completed appointment</p></div><time datetime="2026-08-21">Aug 21, 2026</time></div>
+                    <blockquote>“Loved the highlights. Brian explained the aftercare clearly.”</blockquote>
+                    <details class="report-details">
+                        <summary>Report review</summary>
+                        <form method="post">
+                            <label for="report-all-deleted-user-review-reason">Why are you reporting this review?</label>
+                            <select id="report-all-deleted-user-review-reason" name="reason" required>
+                                <option value="" selected disabled>Choose a reason</option>
+                                <option value="HARASSMENT">Harassment</option>
+                                <option value="THREATS">Threats</option>
+                                <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                <option value="PERSONAL_INFORMATION">Personal information</option>
+                                <option value="SPAM">Spam</option>
+                                <option value="OFF_TOPIC">Off-topic content</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                            <label for="report-all-deleted-user-review-details">Details <span class="report-optional">(required for Other)</span></label>
+                            <textarea id="report-all-deleted-user-review-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                            <p class="report-note">Low ratings and honest criticism are not violations. The review stays visible while an admin checks it, and the author is not told who reported it.</p>
+                            <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                        </form>
+                    </details>
+                    <div class="provider-published-reply">
+                        <strong>Reply from Brian</strong>
+                        <p>Thank you! Enjoy the new color.</p>
+                        <details class="report-details">
+                            <summary>Report reply</summary>
+                            <form method="post">
+                                <label for="report-all-deleted-user-reply-reason">Why are you reporting this reply?</label>
+                                <select id="report-all-deleted-user-reply-reason" name="reason" required>
+                                    <option value="" selected disabled>Choose a reason</option>
+                                    <option value="HARASSMENT">Harassment</option>
+                                    <option value="THREATS">Threats</option>
+                                    <option value="HATE_OR_EXPLICIT">Hate or explicit content</option>
+                                    <option value="PERSONAL_INFORMATION">Personal information</option>
+                                    <option value="SPAM">Spam</option>
+                                    <option value="OFF_TOPIC">Off-topic content</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                                <label for="report-all-deleted-user-reply-details">Details <span class="report-optional">(required for Other)</span></label>
+                                <textarea id="report-all-deleted-user-reply-details" name="details" rows="2" maxlength="500" placeholder="What breaks the community guidelines?"></textarea>
+                                <p class="report-note">Low ratings and honest criticism are not violations. The reply stays visible while an admin checks it, and the author is not told who reported it.</p>
+                                <button type="submit" class="btn btn-appt-primary btn-sm" disabled>Submit report</button>
+                            </form>
+                        </details>
+                    </div>
+                </article>
+
+                <nav class="review-pagination-nav" aria-label="Review pages">
+                    <ul class="pagination review-pagination">
+                        <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                        <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                        <li class="page-item disabled"><span class="page-link">2</span></li>
+                        <li class="page-item disabled"><span class="page-link">3</span></li>
+                        <li class="page-item disabled"><span class="page-link">…</span></li>
+                        <li class="page-item disabled"><span class="page-link">8</span></li>
+                        <li class="page-item disabled"><span class="page-link">Next</span></li>
+                    </ul>
+                </nav>
+
+                <p class="small text-muted mt-3 mb-0">Low ratings and respectful criticism are not violations on their own. Reports are reviewed against our community guidelines.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+         <footer>
+            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

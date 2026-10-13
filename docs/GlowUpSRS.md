@@ -3,334 +3,227 @@
 **Project Name:** GlowUp \
 **Team:** Marko Ratkovic - Customer, Hana Lenh - Provider, Alisena Nasirali - SysAdmin \
 **Course:** CSC 340\
-**Version:** 1.0\
-**Date:** 2026-09-18
+**Version:** 1.1\
+**Date:** 2026-10-11
 
 ---
 ## 1. Overview
-**Vision.** GlowUp is a platform that pairs customers who needs hair, nail, or makeup services with professional nail technicians, barbers, and makeup artists.
+**Vision.** GlowUp connects customers who need hair, nail, or makeup services with professional nail technicians, barbers, and makeup artists. Customers request a time, providers confirm or decline, and customers pay the provider in person.
 
-**Glossary** Terms used in the project
-- **Customer:** A person seeking professional nail technicians, barbers, or makeup artists.
-- **Provider:** Nail technicians, barbers, makeup artists.
-- **System Admin:** The platform user responsible for overseeing GlowUp's daily operation.
-- **Customer profile:**  Contains personal details, contact info, booking history, and service/style preferences.
-- **Provider profile:**  Contains personal details, contact info, and service offerings.
-
-
-**Primary Users / Roles.**
-- **Customer** — Find professional provider and book appointment.
-- **Provider** — Attract clients and manage services.
-- **SysAdmin** —  Maintain platform quality and security.
+**Glossary**
+- **Customer:** A person booking beauty or grooming services.
+- **Provider:** A nail technician, barber, or makeup artist offering services.
+- **SysAdmin:** The user who approves providers and moderates services and reviews.
+- **Time block:** Morning (9 AM–12 PM), Afternoon (12–5 PM), or Evening (5–9 PM).
 
 **Scope**
-- User profiles (customers and providers)
-- Search and browse providers by service menu.
-- Appointment requests and provider confirmation
-- Reviews and ratings
+- Customer and provider profiles
+- Browse, filter, and sort services
+- Appointment requests, confirmation, and simple rescheduling
+- Reviews, provider replies, and reporting
+- Email notifications
 
-**Out of scope (deferred).**
-- Payment processing, provider payouts, refunds, and other automated financial policies
-- SMS/text-message notifications and phone-number verification
-- Complex rescheduling and negotiation workflows
+**Out of scope**
+- Payments, refunds, payouts, and price filtering or sorting
+- SMS, phone verification, and in-app notifications
+- Rescheduling beyond one request for a new time
 
-Booking requests do not collect or authorize payment in this project. A customer selects an available slot and submits a request; the provider confirms or declines it. Only a confirmed appointment is treated as a scheduled booking. Any future payment integration requires a separately defined payment, cancellation, refund, and payout policy.
 ---
+## 2. User Stories
 
-## 2. Functional Requirements (User Stories)
+### 2.1 Customer
 
-### 2.1 Customer Stories
-- **US‑1 — Create/modify customer profile**  
-  _Story:_ As a customer, I want to manage my contact information, private safety notes, and booking preferences so that I can control what I share and make discovery more relevant.
-  _Acceptance:_
+- **US‑1 — Manage customer profile**  
+  _Story:_ As a customer, I want to manage my contact info, private safety notes, and saved providers.
   ```gherkin
-  Scenario: Register with valid credentials
+  Scenario: Register and verify email
     Given I am not registered
-    When  I provide my full name and valid credentials
-    Then  my account is created and a single-use verification link is emailed to me
-    And I cannot log in until I open the link to verify my email address
-    And after verifying, I can log in and view and modify my profile
-    And my phone number may be left blank
-    And changing my email requires verifying the new address before it replaces the current one
+    When I sign up with my full name, email, and password
+    Then a single-use verification link is emailed to me
+    And I cannot log in until I verify my email
+    And changing my email later requires verifying the new address
+
+  Scenario: Keep safety notes private
+    When I save allergy or sensitivity notes
+    Then they never appear on public pages or in search results
+    And only the provider of my confirmed appointment can see them
+    And "no known allergies" is stored differently from "not provided"
+
+  Scenario: Save providers
+    When I save or unsave a provider
+    Then my saved list updates, separate from providers I have booked
   ```
 
+- **US‑2 — Browse and filter services**  
+  _Story:_ As a customer, I want to filter and sort services so I can find a provider who fits my needs and schedule.
   ```gherkin
-  Scenario: Protect customer beauty and safety notes
-    Given I am a customer managing optional allergy or sensitivity notes
-    When I save or view those notes
-    Then the notes must not appear on my public profile or ordinary provider search results
-    And a provider may access them only in the context of my confirmed appointment
-    And I can distinguish no known allergies from information not provided
+  Scenario: Browse services
+    When I filter by category, keyword, city, day and time block, minimum rating, or saved providers
+    Then I see only approved services from approved providers that match every filter
+    And I can sort by top rated, most reviewed, or newest
+    And ratings count only visible reviews
+
+  Scenario: Read a provider's reviews
+    When I open a provider's reviews
+    Then I see the average rating, review count, and number of reviews for each star rating
+    And I can filter by star rating and sort by newest, highest, or lowest rating
+    And hidden reviews are not shown
   ```
 
-  ```gherkin
-  Scenario: Manage booking and notification preferences
-    Given I am logged in as a customer
-    When I update preferred service categories, days, or time ranges
-    Then my preferences may guide discovery but must not limit access to services
-    And I can manage booking notifications separately from those preferences
-    And booking notifications are shown in the app and emailed to my verified address
-    And I can turn off booking emails, but not essential account emails such as verification and password reset
-  ```
-
-- **US‑2 — Browse providers via a service menu**  
-  _Story:_ As a customer, I want to browse stylists, barbers, and make up artists by service menu so that I can find a relevant matches.  
-  _Acceptance:_
-  ```gherkin
-  Scenario: Browse providers by service menu
-    Given I am logged in as a customer
-    When  I select a service via the service menu
-    Then  I should see a list of providers who specialize in that service
-  ```
-
-- **US‑3 — Request an appointment**
-  _Story:_ As a customer, I want to request an available time for an approved service so that the provider can confirm the appointment and I can track its status in my booking history.
-  _Acceptance:_
+- **US‑3 — Request and reschedule appointments**  
+  _Story:_ As a customer, I want to request a time for a service and track or change my booking.
   ```gherkin
   Scenario: Request an appointment
-    Given I am viewing an approved service and a provider's available time slots
-    When I select a slot and submit an appointment request
-    Then the request is recorded with Requested status and appears in my appointment history
-    And the provider can confirm or decline the request
-    And no payment is collected or authorized as part of this project
+    When I choose a date and a time inside one of the provider's available time blocks
+    Then the request is saved as Requested and appears in my history
+    And I receive an email when the provider confirms or declines it
+
+  Scenario: Reschedule a confirmed appointment
+    When I request a new available time
+    Then my original appointment stays confirmed until the provider responds
+    And if accepted, the original becomes Rescheduled and the new one Confirmed
+    And if declined, the original is unchanged
   ```
 
+- **US‑4 — Review and report**  
+  _Story:_ As a customer, I want to review my appointments and report inappropriate content.
   ```gherkin
-  Scenario: View the provider's booking decision
-    Given I have submitted an appointment request
-    When the provider confirms or declines it
-    Then the appointment status and decision timestamp are recorded
-    And I can see the updated status in my booking history
-    And only a confirmed appointment is treated as scheduled
+  Scenario: Write a review
+    Given my appointment was completed within the last 30 days
+    And I have not reviewed it yet
+    When I submit a 1–5 rating and a comment
+    Then the review is published immediately
+    And I can edit it until the provider replies
+
+  Scenario: Report a review or reply
+    When I report someone else's review or reply with a reason
+    Then an admin is notified and the content stays visible until decided
+    And I cannot report my own content or the same item twice while my report is open
   ```
 
-- **US‑4 — Write a review after a service**  
-  _Story:_ As a customer, I want to write a review after my appointment so that other customers can make informed decisions about the provider.
-  _Acceptance:_
+### 2.2 Provider
+
+- **US-5 — Manage provider profile** \
+  *Story:* As a provider, I want a public professional profile so customers can find and evaluate me.
   ```gherkin
-  Scenario: Publish a review for a completed appointment
-    Given I have completed a service appointment with a provider
-    And I have not already reviewed that appointment
-    When I submit a rating and review for the appointment
-    Then the review should be published and visible to other customers and the provider
-    And I should be able to report a review or provider reply that violates the community guidelines
+  Scenario: Register as a provider
+    When I sign up with my account details, professional details, and available days and time blocks
+    Then my account is Pending approval after I verify my email
+    And I can edit my profile and availability, but cannot submit services or receive bookings until approved
+
+  Scenario: Update my profile
+    When I update my bio, address, or certifications
+    Then the changes are saved and shown publicly
+    And certifications are labeled self-reported
+    And my email and phone never appear on public pages
   ```
 
-### 2.2 Provider Stories
-
-- **US-5 — Create and update provider profile** \
-  *Story:* As a provider, I want to manage private account details separately from my public professional profile so customers can evaluate and contact me appropriately.
-  *Acceptance:*
-
+- **US-6 — Manage services** \
+  *Story:* As a provider, I want to submit services for admin review so they can be published.
   ```gherkin
-  Scenario: Create a provider profile
-    Given I choose the Provider role during registration
-    When I submit valid account and professional profile information
-    Then my private account details are stored separately from public profile fields
-    And only approved public profile information is discoverable by customers
-  ```
+  Scenario: Submit or revise a service
+    When I submit a name, category, description, image, duration, and price
+    Then the service is Pending review and hidden from customers
+    And if an admin requests changes, I can edit and resubmit it
 
-  ```gherkin
-  Scenario: Use the platform while awaiting account approval
-    Given I registered as a provider and verified my email address
-    And a SysAdmin has not yet approved my account
-    When I log in
-    Then I can complete my profile and weekly availability
-    But I cannot submit listings for review or receive booking requests until my account is approved
-  ```
-
-  ```gherkin
-  Scenario: Update public provider profile
-    Given I am authenticated as a provider
-    When I update my professional biography, address, or certifications
-    Then the server validates and saves the update
-    And private contact details are not added to public search results
-    And certifications are shown as self-reported, not verified by GlowUp
-  ```
-
-- **US-6 — Define services and pricing** \
-  *Story:* As a provider, I want to submit accurate service details for review so that compliant services can be published for customers.
-  *Acceptance:*
-
-  ```gherkin
-  Scenario: Submit a new service for approval
-    Given I am logged in as a provider
-    When I submit a service name, category, description, image, duration, and price
-    Then the listing should have Pending review status
-    And customers should not see or book the listing before approval
-  ```
-
-  ```gherkin
-  Scenario: Revise a service listing after review
-    Given an admin requested changes to my listing with an explanation
-    When I update the listing and submit it again
-    Then the listing should return to Pending review
-    And it should remain unavailable to customers until approved
+  Scenario: Edit an approved service
+    When I change an approved service
+    Then the changes go to Pending review
+    And customers keep seeing the approved version until the changes are approved
   ```
 
 - **US-7 — Manage availability and appointments** \
-  *Story:* As a provider, I want to define weekly availability and manage booking requests so that customers can request realistic appointment times.
-  *Acceptance:*
-
+  *Story:* As a provider, I want to set my availability and handle booking requests.
   ```gherkin
-  Scenario: Publish weekly availability
-    Given I am authenticated as a provider
-    When I set available time ranges for each day
-    Then the server validates the ranges and prevents overlapping availability
-    And new booking requests can use only available slots for approved services
-    And changing availability does not silently cancel existing confirmed appointments
+  Scenario: Set availability
+    When I choose my available time blocks for each day
+    Then customers can only request times inside those blocks
+    And changing availability never cancels confirmed appointments
+
+  Scenario: Respond to a request or reschedule
+    When I confirm, decline, or accept a new time for a request
+    Then the change is saved with a timestamp and the customer is emailed
+    And confirming prevents double-booking that time
+    And declining requires a reason
+
+  Scenario: View appointment details
+    Given I am the provider of a confirmed appointment
+    Then I can see that customer's contact info and safety notes
+    And no other provider can see them
   ```
 
+- **US-8 — Reply to reviews** \
+  *Story:* As a provider, I want to reply to reviews of my services.
   ```gherkin
-  Scenario: Confirm or decline a booking request
-    Given a customer has requested an available slot for an approved service
-    When I confirm or decline the request
-    Then the appointment transitions to Confirmed or Declined with an audit timestamp
-    And confirming reserves the slot atomically so it cannot be double-booked
-    And the customer receives an in-app and email notification reflecting the outcome
+  Scenario: Reply to a review
+    When I reply to a review of my appointment
+    Then the reply appears under the review and the customer is emailed
+    And I can reply only once and cannot edit the reply
+    And if an admin hides my reply, I cannot reply to that review again
+
+  Scenario: Report a review
+    When I report a review of my service with a reason
+    Then an admin is notified and the review stays visible until decided
   ```
 
-  ```gherkin
-  Scenario: View customer appointment details
-    Given I am the provider assigned to a confirmed appointment
-    When I open its appointment details
-    Then I can see only the contact and private safety information needed for that appointment
-    And the server denies access to providers who are not assigned to the appointment
-    And the appointment remains in booking history when later cancelled or completed
-  ```
-
-- **US-8 — Respond to reviews** \
-  *Story:* As a provider, I want to respond to reviews, so that I can engage with customer.
-  *Acceptance:*
-
-  ```gherkin
-  Scenario: Respond to a review
-    Given I am logged in as the provider for a completed appointment
-    When I submit a response to the customer's review
-    Then the response should be visible with the review
-    And users should be able to report the response if it violates the community guidelines
-  ```
-
-### 2.3 SysAdmin Stories
+### 2.3 SysAdmin
 
 **US-9 — Manage user access** \
-*Story:* As a SysAdmin, I want to approve, suspend, or 
-reinstate customer and provider accounts, so that I can keep
-the platform secure and enforce policies.\
-*Acceptance:*
-
+*Story:* As a SysAdmin, I want to approve, suspend, and reinstate accounts to keep the platform safe.
   ```gherkin
- Scenario: <Suspend a policy-violating account>
-  Given <I am logged in as a SysAdmin>
-  When <I suspend a provider or customer account for a policy violation>
-  Then <the user should immediately lose access to the platform>
-  ```
-
-  ```gherkin
- Scenario: Approve a pending provider account
-  Given I am logged in as a SysAdmin
-  And a provider has verified their email and is awaiting approval
-  When I approve the account
-  Then the provider can submit listings for review and receive booking requests
-  And the decision is recorded in the admin audit log
+  Scenario: Change an account's access
+    When I approve a pending provider, or suspend or reinstate any account, with a reason
+    Then the change takes effect immediately
+    And the decision is recorded in the admin audit log
   ```
 
 **US-10 — Moderate services** \
-*Story:* As a SysAdmin, I want to review new service listings before publication, so that customers can discover accurate and policy-compliant services.\
-*Acceptance:*
-
+*Story:* As a SysAdmin, I want to review new and edited services before customers see them.
   ```gherkin
-  Scenario: Approve a compliant new service
-  Given I am logged in as a SysAdmin
-  And a provider has submitted a new service listing
-  When I verify the service details comply with GlowUp's terms
-  Then I can approve the listing and make it visible to customers
+  Scenario: Review a service
+    When I check the name, category, description, image, and compliance with GlowUp's terms
+    Then I approve it, request changes, or reject it
+    And changes-requested and rejected decisions require a reason shown to the provider
+    And the decision is recorded in the admin audit log
   ```
 
+**US-11 — Moderate reported content** \
+*Story:* As a SysAdmin, I want to handle reports on reviews and replies.
   ```gherkin
-  Scenario: Request changes to a service listing
-  Given I am reviewing a new service listing with a fixable issue
-  When I return it to the provider with a specific explanation
-  Then the listing should have Changes requested status
-  And it should remain hidden until the provider resubmits and the listing is approved
+  Scenario: Resolve a report
+    When I keep the reported content visible or hide it, with a reason
+    Then every open report on that review or reply is resolved
+    And hidden reviews stop counting toward the provider's rating
+    And the author is emailed if their content is hidden
+
+  Scenario: Restore hidden content
+    When I restore content that was hidden by mistake
+    Then it becomes visible again and the restore is logged
   ```
-
-  ```gherkin
-  Scenario: Reject a prohibited service
-  Given I am reviewing a new service listing that offers a prohibited service
-  When I reject the listing and record the reason
-  Then the listing should remain unavailable to customers
-  And the provider should be shown the decision and reason
-  ```
-
-**Service listing review policy**
-- Every new service listing is reviewed before it appears in customer search or can be booked.
-- Admins check service name, category, description, image, duration, price, and compliance with GlowUp's terms and safety expectations.
-- A requested-change listing remains hidden until the provider resubmits it and it is approved.
-- Editing an already approved listing creates a pending revision; the currently approved version remains visible and unchanged until the revision is approved.
-- Show providers their current review status and any reason or requested changes. Keep the decision and reason in the moderation history.
-
-**Provider appointment and availability policy**
-- A customer request begins in `REQUESTED`; the provider may confirm or decline it. Confirmed appointments, completed appointments, and cancellations are distinct states. Preserve transitions and timestamps in history rather than deleting records.
-- Confirming a request must reserve the selected slot atomically. Notifications report committed state changes and must not be sent as if a failed transition succeeded.
-- Weekly availability governs new requests. Editing a schedule does not automatically move or cancel existing confirmed bookings.
-- Providers may access customer contact details and safety notes only through appointments assigned to them and only for the appointment status authorized by the service policy. Enforce this in the backend, not through UI visibility.
-- Payment authorization, collection, provider payouts, refunds, and payment-related cancellation rules are out of scope; do not imply that a request or confirmation charges a customer.
-
-**US-11 — Moderate reported reviews and replies** \
-*Story:* As a SysAdmin, I want to review reports about customer reviews and provider replies, so that I can address policy violations without delaying ordinary feedback.\
-*Acceptance:*
-
- ```gherkin
-  Scenario: Resolve a report about public review content
-  Given I am logged in as a SysAdmin
-  And a user has reported a customer review or provider reply
-  When I review the content and the report reason
-  Then I can keep compliant content visible or hide content that violates the guidelines
-  And the moderation decision and reason are recorded
-   ```
-
-**Review and reply policy**
-- Reviews are available only for completed appointments, with at most one customer review per appointment.
-- Submitted reviews are published immediately.
-- Customers and providers may report reviews or provider replies that violate the community guidelines.
-- Reportable violations include harassment, threats, hate or explicit content, personal information, spam, and unrelated content.
-- Moderators review the reported content and reason, then keep it visible or hide it. Moderation decisions include a reason and are retained in the audit history; content is not silently or permanently deleted as the default workflow.
-
+A low rating or respectful criticism is not a reason to hide a review. Reportable reasons: harassment, threats, hate or explicit content, personal information, spam, off-topic.
 
 **US-12 — View usage statistics** \
-*Story:* As a SysAdmin, I want to view appointment activity, user growth, provider activity, and service-review volume
-so that I can manage and monitor platform operations.\
-*Acceptance:*
+*Story:* As a SysAdmin, I want platform activity numbers for a chosen period.
+  ```gherkin
+  Scenario: View statistics
+    When I select a reporting period
+    Then I see completed appointments, new users, active providers, and services submitted
+    And no financial figures are shown
+  ```
 
-```gherkin
-  Scenario: View operational platform metrics
-  Given I am logged in as a SysAdmin
-  When I select a reporting period
-  Then I can view appointment activity, user growth, provider activity, and service-review volume for that period
-  And the metrics do not report sales, revenue, payouts, or other financial activity
-   ```
+### 2.4 Account settings (customers and providers)
 
-### 2.4 Customer privacy and account settings
+- **US-13 — Password security**
+  - Changing a password requires the current password.
+  - Only a password hash is stored; passwords are never shown or emailed.
+  - Forgot password: email a single-use reset link that expires in 30 minutes, and show the same message whether or not the email exists.
 
-- **US-13 — Manage sign-in security**
-  _Story:_ As a customer, I want to change my password without exposing it so that I can protect my account.
-  - Require the current password for an authenticated password change and validate the new password on the server.
-  - Store only a password hash; never return or email an existing password.
-  - Use a separate password-reset flow when the customer cannot sign in: email a single-use link that expires after 30 minutes, store only a hash of the reset token, and show the same response whether or not the email belongs to an account.
+- **US-14 — Close an account**
+  - Requires re-entering the password and confirming.
+  - The account is deactivated immediately; upcoming appointments are cancelled and the other party is emailed.
+  - Logging in within 14 days reactivates it.
+  - After 14 days, personal details are removed and the name shows as "Deleted user"; appointment and review history is kept.
 
-- **US-14 — Request account deactivation or deletion**
-  _Story:_ As a customer, I want to pause or close my account with a clear explanation of the effect on my appointments and retained records.
-  - Re-authenticate and confirm a deactivation or deletion request; track its status and processing outcome.
-  - Explain the effect on confirmed appointments before processing the request.
-  - Do not silently or immediately delete booking, review, report, or moderation history. Define retention periods and remove or de-identify personal details when retention is no longer required.
-  - Keep account-request status and administrative decisions auditable without retaining unnecessary sensitive information.
-
-**Customer profile privacy rules**
-- Store allergy and sensitivity notes as optional, private customer data; do not expose them through public profile or provider-search responses.
-- Permit a provider to view safety notes only through a confirmed appointment associated with that provider. Enforce this on the server for each request; hiding a UI element is not authorization.
-- Represent allergy status explicitly (known notes, no known allergies, or not provided) so blank data is not interpreted as “no allergies.”
-- Separate saved-provider relationships from the providers and counts derived from appointment history.
-- Keep notification channel choices separate from booking preferences. Do not allow disabling essential account emails (verification, password reset, security). Booking emails may be turned off. SMS is out of scope.
+**Notifications:** All notifications are email. Verification and password-reset emails are always sent.
 
 ---

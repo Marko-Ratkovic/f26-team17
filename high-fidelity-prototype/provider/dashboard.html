@@ -29,7 +29,11 @@
             <section class="section">
                 <div class="container">
                     <div class="provider-dashboard-hero">
-                        <div><p class="provider-eyebrow">PROVIDER WORKSPACE</p><h1>Welcome back, Michelle</h1><p>Here are your booking requests, upcoming appointments, and service review status.</p></div>
+                        <div>
+                            <p class="provider-eyebrow">PROVIDER WORKSPACE</p>
+                            <h1>Welcome back, Michelle!</h1>
+                            <p>Here are your booking requests, upcoming appointments, and service review status.</p>
+                        </div>
                         <a href="new-service.html" class="btn btn-light fw-bold">Add a service</a>
                     </div>
                     <p class="provider-prototype-note" role="note">Static prototype: all figures and bookings are sample data. Actions and metrics are not connected to a backend.</p>
@@ -44,20 +48,52 @@
 
             <section class="section">
                 <div class="container">
-                    <div class="provider-content-heading"><div><h2>Next appointments</h2><p>Confirmed bookings only. Pending requests are listed separately.</p></div><a href="appointments.html#confirmed" class="btn btn-appt-secondary">View all appointments</a></div>
+                    <div class="provider-content-heading"><div><h2>Upcomming appointments</h2><p>Confirmed bookings only. Pending requests are listed separately.</p></div><a href="appointments.html#confirmed" class="btn btn-appt-secondary align-self-center">View all appointments</a></div>
                     <div class="provider-dashboard-list">
                         <article class="provider-dashboard-booking">
-                            <div><span class="provider-listing-status is-approved">Confirmed</span><h3>Full set acrylic nails</h3><p>Laura Johnson · Friday, Oct 9, 2026 · 9:00 AM</p></div>
-                            <div class="provider-booking-price">$75 <small>· 30 min</small></div>
-                            <a href="customer-info.html#confirmed-booking" class="btn btn-appt-secondary">Appointment details</a>
+                            <div class="d-flex justify-content-between">
+                                <div class="fw-bold align-content-center"><h3>Friday, Oct 9, 2026 · 9:00 AM</h3></div>
+                                <span class="provider-listing-status is-approved">Confirmed</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-content-center mt-2">
+                                <div class="mt-1 mb-2">
+                                    <div class="fs-5">Full set acrylic nails - <span class="provider-booking-price">$100 <small>· 90 min</small></span></div>
+                                    <p>Christina Raul</p>
+                                </div>
+                                <div class="align-self-center">
+                                    <a href="customer-info.html" class="btn btn-appt-secondary">View details</a>
+                                </div>
+                            </div>
                         </article>
                         <article class="provider-dashboard-booking">
-                            <div><span class="provider-listing-status is-approved">Confirmed</span><h3>Pedicure &amp; manicure</h3><p>Karen Smith · Saturday, Oct 10, 2026 · 12:00 PM</p></div>
-                            <div class="provider-booking-price">$100 <small>· 90 min</small></div>
+                            <div class="d-flex justify-content-between">
+                                <div class="fw-bold align-content-center"><h3>Saturday, Oct 10, 2026 · 12:00 PM</h3></div>
+                                <span class="provider-listing-status is-approved">Confirmed</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-content-center mt-2">
+                                <div class="mt-1 mb-2">
+                                    <div class="fs-5">Pedicure &amp; manicure - <span class="provider-booking-price">$100 <small>· 90 min</small></span></div>
+                                    <p>Karen Smith</p>
+                                </div>
+                                <div class="align-self-center">
+                                    <a href="customer-info.html" class="btn btn-appt-secondary">View details</a>
+                                </div>
+                            </div>
                         </article>
                         <article class="provider-dashboard-booking">
-                            <div><span class="provider-listing-status is-approved">Confirmed</span><h3>Nail design</h3><p>Christina Raul · Monday, Oct 12, 2026 · 10:00 AM</p></div>
-                            <div class="provider-booking-price">$50 <small>· 60 min</small></div>
+                            <div class="d-flex justify-content-between">
+                                <div class="fw-bold align-content-center"><h3>Monday, Oct 12, 2026 · 10:00 AM</h3></div>
+                                <span class="provider-listing-status is-approved">Confirmed</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-content-center mt-2">
+                                <div class="mt-1 mb-2">
+                                    <div class="fs-5">Nail design - <span class="provider-booking-price">$50 <small>· 60 min</small></span></div>
+                                    <p>Christina Raul </p>
+                                </div>
+                                <div class="align-self-center">
+                                    <a href="customer-info.html" class="btn btn-appt-secondary">View details</a>
+                                </div>
+                            </div>
                         </article>
                     </div>
                     <aside class="provider-request-callout">
@@ -69,7 +105,12 @@
 
             <section class="section">
                 <div class="container">
-                    <div class="provider-content-heading"><div><h2>Service listing status</h2><p>Only approved listings are visible and bookable.</p></div><a href="manage-services.html" class="btn btn-appt-secondary">Manage services</a></div>
+                    <div class="provider-content-heading">
+                        <div>
+                            <h2>Service listing status</h2>
+                            <p>Only approved listings are visible and bookable.</p>
+                        </div>
+                        <a href="manage-services.html" class="btn btn-appt-secondary align-self-center">Manage services</a></div>
                     <div class="provider-status-summary">
                         <div><span class="provider-listing-status is-approved">Approved</span><strong>2</strong><p>Visible to customers</p></div>
                         <div><span class="provider-listing-status is-pending">Pending review</span><strong>1</strong><p>Hidden while awaiting review</p></div>
@@ -80,9 +121,9 @@
 
             <section class="section" id="recent-reviews">
                 <div class="container">
-                    <div class="provider-content-heading"><div><h2>Reviews needing a reply</h2><p>You can reply once to each review. Replies cannot be edited after posting.</p></div><a href="reviews.html" class="btn btn-appt-secondary">View all reviews</a></div>
+                    <div class="provider-content-heading"><div><h2>Reviews needing a reply</h2><p>You can reply once to each review. Replies cannot be edited after posting.</p></div><a href="reviews.html" class="btn btn-appt-secondary align-self-center">View all reviews</a></div>
                     <article class="provider-review-card">
-                        <div class="provider-review-heading"><div><h3>Bill T.</h3><p>Nail design · 5/5 stars · Completed appointment</p></div><time datetime="2026-10-06">Oct 6, 2026</time></div>
+                        <div class="provider-review-heading"><div><h3>Bill T.</h3><p>Nail design · 5/5 ⭐ · Completed appointment</p></div><time datetime="2026-10-06">Oct 6, 2026</time></div>
                         <blockquote>“It was an awesome experience. Michelle was kind and made sure I was comfortable.”</blockquote>
                         <details class="report-details">
                             <summary>Report review</summary>
@@ -115,7 +156,7 @@
                         </details>
                     </article>
                     <article class="provider-review-card">
-                        <div class="provider-review-heading"><div><h3>Alison B.</h3><p>Pedicure · 4/5 stars · Completed appointment</p></div><time datetime="2026-10-02">Oct 2, 2026</time></div>
+                        <div class="provider-review-heading"><div><h3>Alison B.</h3><p>Pedicure · 4/5 ⭐ · Completed appointment</p></div><time datetime="2026-10-02">Oct 2, 2026</time></div>
                         <blockquote>“Great service! Clean and friendly. I had a relaxing visit.”</blockquote>
                         <details class="report-details">
                             <summary>Report review</summary>

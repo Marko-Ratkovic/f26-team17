@@ -904,6 +904,8 @@ nav{
   color: white;
   padding: 1.25rem 1.5rem;
   border-bottom: 1px solid var(--background-neutral-strong);
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
 }
 
 .profile-card-title {
@@ -1193,7 +1195,7 @@ nav{
   border-color: #655750;
   color: #211d1b;
   box-shadow: var(--box-shadow-lg);
-  text-decoration: underline;
+  transform: scale(1.05);
 }
 
 .provider-summary-card > span {
@@ -1246,7 +1248,6 @@ nav{
 }
 
 .provider-dashboard-booking {
-  display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
   gap: 1rem;
@@ -1257,7 +1258,7 @@ nav{
 }
 
 .provider-dashboard-booking h3 {
-  margin: 0.45rem 0 0.2rem;
+  margin-bottom: 0;
   color: #292421;
   font-size: 1.05rem;
   font-weight: 700;
@@ -1331,7 +1332,6 @@ nav{
   align-items: center;
   width: fit-content;
   padding: 0.25rem 0.6rem;
-  border: 1px solid currentColor;
   border-radius: 999px;
   font-size: 0.78rem;
   font-weight: 700;
@@ -1894,7 +1894,7 @@ textarea:focus {
   border: 1px solid var(--text-dark);
   font-weight: 600;
   border-radius: var(--border-radius);
-  padding: 0.5rem 1.25rem;
+  padding: 0.5rem 1rem;
 }
 
 .btn-appt-secondary:hover {

@@ -61,8 +61,8 @@ public class Provider {
     @Column(nullable = false)
     private Integer yearsOfExperience;
 
-    @Size(max = 2000)
-    @Column(length = 2000)
+    @Size(max = 100)
+    @Column(length = 100)
     private String specialties;
 
     @Column(length = 512)

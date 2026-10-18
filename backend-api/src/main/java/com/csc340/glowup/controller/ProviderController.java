@@ -1,7 +1,11 @@
 package com.csc340.glowup.controller;
 
 import com.csc340.glowup.dto.ProviderResponse;
+import com.csc340.glowup.dto.ProviderServiceRequest;
+import com.csc340.glowup.dto.ProviderServiceResponse;
 import com.csc340.glowup.service.ProviderProfileService;
+import com.csc340.glowup.service.ServiceCatalogService;
+import com.csc340.glowup.dto.ProviderUpdateRequest;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +28,13 @@ import java.util.List;
 public class ProviderController {
     
     private final ProviderProfileService providerService;
+    private final ServiceCatalogService catalogService;
 
-    public ProviderController(ProviderProfileService providerService){
+    public ProviderController(
+        ProviderProfileService providerService,
+        ServiceCatalogService catalogService){
         this.providerService = providerService;
+        this.catalogService = catalogService;
     }
 
     @GetMapping("/{providerId}")
@@ -34,4 +42,24 @@ public class ProviderController {
         return providerService.getProfile(providerId);
     }
 
+    @PutMapping("/{providerId}")
+    public ProviderResponse updateProfile(
+        @PathVariable Long providerId,
+        @Valid @RequestBody ProviderUpdateRequest request) {
+            return providerService.updateProfile(providerId,request);
+        }
+
+    @GetMapping("/{providerId}/services")
+    public List<ProviderServiceResponse> services(@PathVariable Long providerId){
+        return catalogService.listApprovedForProvider(providerId);
+    }
+
+    @PostMapping("/{providerId}/services")
+    public ResponseEntity<ProviderServiceResponse> createService(
+            @PathVariable  Long providerId,
+            @Valid @RequestBody ProviderServiceRequest request){
+        ProviderServiceResponse providerService = catalogService.create(providerId,request);
+        return ResponseEntity.created(URI.create("api/providers/"+providerId
+                + "/services/" + providerService.id())).body(providerService);
+    }
 }

@@ -15,8 +15,8 @@ public record ProviderServiceRequest(
     @NotBlank @Size(max = 150) String name,
     @Size(max = 2000) String description,
     @NotNull @DecimalMin("0.0") BigDecimal price,
-    @NotBlank @Size(max = 100) ServiceCategory category,
+    @NotNull ServiceCategory category,
     @NotNull @Min(0) Integer durationMin,
-    String imagePath,
+    @Size(max = 255) String imagePath,
     @Size(max = 30) String status) {
 }

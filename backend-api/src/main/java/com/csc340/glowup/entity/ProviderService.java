@@ -1,9 +1,12 @@
 package com.csc340.glowup.entity;
 
+import com.csc340.glowup.enums.ServiceCategory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,16 +16,25 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "provider_services")
+@Getter
+@Setter
 public class ProviderService {
 
     @Id
@@ -43,14 +55,32 @@ public class ProviderService {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
-    @NotBlank
-    @Size(max = 100)
-    @Column(nullable = false, length = 100)
-    private String category;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ServiceCategory category;
+
+    @NotNull
+    @Min(0)
+    @Column(nullable = false)
+    private Integer durationMin;
+
+    @Column(length = 512)
+    private String imagePath;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
+    @Column(nullable = false)
+    private String status;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "trainer_id", nullable = false)
+    @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
 
 }

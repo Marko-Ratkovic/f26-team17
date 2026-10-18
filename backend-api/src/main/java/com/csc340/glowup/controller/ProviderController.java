@@ -1,5 +1,8 @@
 package com.csc340.glowup.controller;
 
+import com.csc340.glowup.dto.ProviderResponse;
+import com.csc340.glowup.service.ProviderProfileService;
+
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,4 +23,15 @@ import java.util.List;
 @RequestMapping("/api/providers")
 public class ProviderController {
     
+    private final ProviderProfileService providerService;
+
+    public ProviderController(ProviderProfileService providerService){
+        this.providerService = providerService;
+    }
+
+    @GetMapping("/{providerId}")
+    public ProviderResponse getProfile(@PathVariable Long providerId){
+        return providerService.getProfile(providerId);
+    }
+
 }

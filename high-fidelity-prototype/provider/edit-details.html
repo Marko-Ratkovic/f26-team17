@@ -14,46 +14,114 @@
     <div class="container">
         <nav class="sticky-top" aria-label="Provider navigation">
             <div class="navbar">
-                <a href="../index.html" class="navbar-brand mb-2"><img src="../images/logo.png" alt="GlowUp home" class="img-fluid logo" style="width: 150px; height: 50px;"></a>
+                <a href="../index.html" class="navbar-brand mb-2"><img src="../images/logo.png" alt="GlowUp home"
+                        class="img-fluid logo" style="width: 150px; height: 50px;"></a>
                 <ul class="navbar-nav">
                     <li class="nav-item"><a href="dashboard.html" class="nav-link under-scored">Dashboard</a></li>
-                    <li class="nav-item"><a href="manage-services.html" class="nav-link under-scored">My Services</a></li>
-                    <li class="nav-item"><a href="appointments.html" class="nav-link under-scored">My Appointments</a></li>
-                    <li class="nav-item"><a href="profile.html" aria-current="page" class="nav-link fw-bold">Profile</a></li>
+                    <li class="nav-item"><a href="manage-services.html" class="nav-link under-scored">My Services</a>
+                    </li>
+                    <li class="nav-item"><a href="appointments.html" class="nav-link under-scored">My Appointments</a>
+                    </li>
+                    <li class="nav-item"><a href="profile.html" aria-current="page" class="nav-link fw-bold">Profile</a>
+                    </li>
                     <li class="nav-item"><a href="../index.html" class="nav-link fw-bold">Log out</a></li>
                 </ul>
             </div>
         </nav>
 
         <main>
-            <section class="section"><div class="container"><div class="edit-info-header">
-                <h1 class="edit-info-title">Edit provider details</h1>
-                <p class="edit-info-subtitle">Manage account contact details and the information customers see.</p>
-            </div></div></section>
+            <section class="section">
+                <div class="container">
+                    <div class="edit-info-header">
+                        <h1 class="edit-info-title">Edit provider details</h1>
+                        <p class="edit-info-subtitle">Manage account contact details and the information customers see.
+                        </p>
+                    </div>
+                </div>
+            </section>
             <section class="section">
                 <div class="container" style="max-width: 760px;">
                     <div class="card profile-card">
-                        <div class="profile-card-header"><h2 class="profile-card-title">Provider information</h2></div>
+                        <div class="profile-card-header">
+                            <h2 class="profile-card-title">Provider information</h2>
+                        </div>
                         <div class="card-content">
-                            <p class="profile-prototype-note" role="note">Prototype preview: details are sample data and are not saved. Email changes require verification; certifications are shown as self-reported.</p>
+                            <p class="profile-prototype-note" role="note">Prototype preview: details are sample data and
+                                are not saved. Email changes require verification; certifications are shown as
+                                self-reported.</p>
                             <form method="post">
                                 <fieldset class="provider-form-section">
                                     <legend>Account contact (private)</legend>
-                                    <div class="form-group"><label for="fullName">Full name</label><input id="fullName" name="fullName" value="Michelle Thompson" autocomplete="name" required></div>
-                                    <div class="form-group"><label for="email">Email address</label><input id="email" name="email" type="email" value="michelle@example.com" autocomplete="email" required><small class="form-help">A new address should not replace this one until it is verified.</small></div>
-                                    <div class="form-group"><label for="phone">Phone number <span class="optional-label">(optional)</span></label><input id="phone" name="phone" type="tel" value="+1 (336) 123-4567" autocomplete="tel"><small class="form-help">Only share contact details with customers when needed for an associated booking.</small></div>
+                                    <div class="form-group"><label for="fullName">Full name</label><input id="fullName"
+                                            name="fullName" value="Michelle Thompson" autocomplete="name" required>
+                                    </div>
+                                    <div class="form-group"><label for="email">Email address</label><input id="email"
+                                            name="email" type="email" value="michelle@example.com" autocomplete="email"
+                                            required><small class="form-help">A new address should not replace this one
+                                            until it is verified.</small></div>
+                                    <div class="form-group"><label for="phone">Phone number <span
+                                                class="optional-label">(optional)</span></label><input id="phone"
+                                            name="phone" type="tel" value="+1 (336) 123-4567" autocomplete="tel"><small
+                                            class="form-help">Only share contact details with customers when needed for
+                                            an associated booking.</small></div>
                                 </fieldset>
                                 <fieldset class="provider-form-section">
                                     <legend>Public professional profile</legend>
-                                    <div class="form-group"><label for="displayName">Business or display name</label><input id="displayName" name="displayName" value="Michelle Thompson" maxlength="100" required></div>
-                                    <div class="form-group"><label for="specialty">Specialty</label><input id="specialty" name="specialty" value="Nail technician" maxlength="100" required></div>
-                                    <div class="form-group"><label for="experience">Years of experience</label><input id="experience" name="experienceYears" type="number" value="3" min="0" max="70" required></div>
-                                    <div class="form-group"><label for="bio">Professional bio</label><textarea id="bio" name="bio" rows="4" maxlength="1000" required>I create custom nail art and offer manicures and pedicures with a focus on clear service details and a welcoming client experience.</textarea></div>
-                                    <div class="form-group"><label for="serviceArea">Public service area</label><input id="serviceArea" name="serviceArea" value="Greensboro, NC" maxlength="120" required><small class="form-help">Use a city or service area. Do not put a private home address here.</small></div>
-                                    <div class="form-group"><label for="credentials">Certifications <span class="optional-label">(optional)</span></label><textarea id="credentials" name="credentials" rows="3" maxlength="1000" placeholder="e.g. Licensed cosmetologist, NC Board"></textarea><small class="form-help">Shown on your profile as self-reported.</small></div>
+                                    <div class="form-group"><label for="displayName">Business or display
+                                            name</label><input id="displayName" name="displayName"
+                                            value="Michelle Thompson" maxlength="100" required></div>
+                                    <div class="form-group"><label for="specialty">Specialty</label><input
+                                            id="specialty" name="specialty" value="Nail technician" maxlength="100"
+                                            required></div>
+                                    <div class="form-group"><label for="experience">Years of experience</label><input
+                                            id="experience" name="experienceYears" type="number" value="3" min="0"
+                                            max="70" required></div>
+                                    <div class="form-group"><label for="bio">Professional bio</label><textarea id="bio"
+                                            name="bio" rows="4" maxlength="1000"
+                                            required>I create custom nail art and offer manicures and pedicures with a focus on clear service details and a welcoming client experience.</textarea>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="provider-street">Street address</label>
+                                                <input type="text" id="provider-street" name="provider-street"
+                                                    placeholder="123 Elm St, Suite 4" autocomplete="street-address">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="provider-city">City</label>
+                                                <input type="text" id="provider-city" name="provider-city"
+                                                    placeholder="Greensboro" autocomplete="address-level2">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="provider-state">State</label>
+                                                <input type="text" id="provider-state" name="provider-state"
+                                                    placeholder="NC" maxlength="2" autocomplete="address-level1">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="provider-zip">ZIP code</label>
+                                                <input type="text" id="provider-zip" name="provider-zip"
+                                                    placeholder="27401" inputmode="numeric" autocomplete="postal-code">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group"><label for="credentials">Certifications <span
+                                                class="optional-label">(optional)</span></label><textarea
+                                            id="credentials" name="credentials" rows="3" maxlength="1000"
+                                            placeholder="e.g. Licensed cosmetologist, NC Board"></textarea><small
+                                            class="form-help">Shown on your profile as self-reported.</small></div>
                                 </fieldset>
                                 <div class="d-flex flex-wrap gap-2">
-                                    <button type="submit" class="btn settings-btn settings-btn-sm" disabled>Save details</button>
+                                    <button type="submit" class="btn settings-btn settings-btn-sm" disabled>Save
+                                        details</button>
                                     <a href="profile.html" class="btn btn-appt-secondary">Cancel</a>
                                 </div>
                             </form>
@@ -62,7 +130,9 @@
                 </div>
             </section>
         </main>
-        <footer><p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p></footer>
+        <footer>
+            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p>
+        </footer>
     </div>
 </body>
 

@@ -1,9 +1,11 @@
 package com.csc340.glowup.repository;
 
-import com.csc340.glowup.entity.UserAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
-    
-    boolean existsByEmail(String email);
+import com.csc340.glowup.entity.UserAccount;
+
+@Repository 
+public interface UserAccountRepository extends JpaRepository<UserAccount, Long>{
+    boolean existsByEmailIgnoreCase(String email);
 }

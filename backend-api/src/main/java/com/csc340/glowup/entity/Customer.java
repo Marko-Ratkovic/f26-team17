@@ -26,9 +26,9 @@ public class Customer {
     @JoinColumn(name = "user_account_id", nullable = false, unique = true)
     private UserAccount userAccount;
 
-    //@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private CustomerSafetyNotes safetyNotes;
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private CustomerSafetyNotes safetyNotes;
 
-    //@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private List<PreferredTimeRange> preferredTimeRanges = new ArrayList<>();
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PreferredTimeRange> preferredTimeRanges = new ArrayList<>();
 }

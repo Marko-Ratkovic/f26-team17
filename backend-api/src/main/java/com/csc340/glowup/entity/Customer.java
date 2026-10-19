@@ -31,4 +31,12 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PreferredTimeRange> preferredTimeRanges = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+        name = "customer_saved_providers",
+        joinColumns = @JoinColumn(name = "customer_id"),
+        inverseJoinColumns = @JoinColumn(name = "provider_id")
+    )
+    private Set<Provider> savedProviders = new HashSet<>();
 }

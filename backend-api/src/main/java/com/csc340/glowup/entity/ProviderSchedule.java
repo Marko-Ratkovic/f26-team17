@@ -20,7 +20,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table (name = "provider_schedule")
@@ -38,11 +38,11 @@ public class ProviderSchedule {
 
     @NotNull
     @Column(nullable = false)
-    private LocalDateTime startTime;
+    private LocalTime startTime;
 
     @NotNull
     @Column(nullable = false)
-    private LocalDateTime endTime;
+    private LocalTime endTime;
 
     @NotNull
     @Column(nullable = false)

@@ -1,8 +1,5 @@
 package com.csc340.glowup.dto;
 
-import com.csc340.glowup.entity.Provider;
-
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

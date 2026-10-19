@@ -6,7 +6,7 @@ import com.csc340.glowup.dto.ProviderServiceResponse;
 import com.csc340.glowup.service.ProviderProfileService;
 import com.csc340.glowup.service.ServiceCatalogService;
 import com.csc340.glowup.dto.ProviderUpdateRequest;
-
+import com.csc340.glowup.dto.ProviderRegistrationRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+import java.security.Provider;
 import java.util.List;
 
 @RestController
@@ -35,6 +36,12 @@ public class ProviderController {
         ServiceCatalogService catalogService){
         this.providerService = providerService;
         this.catalogService = catalogService;
+    }
+
+    @PostMapping
+    public ResponseEntity<ProviderResponse> register(@Valid @RequestBody ProviderRegistrationRequest request){
+        ProviderResponse provider = providerService.register(request);
+        return ResponseEntity.created(URI.create("/api/providers/" + provider.id())).body(provider);
     }
 
     @GetMapping("/{providerId}")

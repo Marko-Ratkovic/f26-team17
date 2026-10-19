@@ -15,11 +15,12 @@ import java.util.Locale;
 import java.util.Set;
 
 @Service
+@Transactional 
 public class ServiceCatalogService {
     private static final Set<String> SERVICE_STATUSES = Set.of("APPROVED", "PENDING", "CHANGE_REQUESTED");
 
-    private ProviderRepository providerRepository;
-    private ProviderServiceRepository providerServiceRepository;
+    private final ProviderRepository providerRepository;
+    private final ProviderServiceRepository providerServiceRepository;
 
     public ServiceCatalogService(
         ProviderServiceRepository providerServiceRepository,
@@ -32,8 +33,19 @@ public class ServiceCatalogService {
         Provider provider = findProvider(providerId);
         ProviderService providerService = new ProviderService();
         providerService.setProvider(provider);
-        apply(providerService, request, "PENDING");
+        apply(providerService, request, "PENDING",false);
         return ProviderServiceResponse.from(providerServiceRepository.save(providerService));
+    }
+
+    public ProviderServiceResponse update(
+            Long providerId, Long serviceId, ProviderServiceRequest request){
+        ProviderService providerService = findService(serviceId);
+        if(!providerService.getProvider().getId().equals(providerId)){
+            throw new NotFoundException("Service "+serviceId+" was not found for provider "+providerId+".");
+        }
+        apply(providerService, request, providerService.getStatus(),providerService.getIsVisible());
+        return ProviderServiceResponse.from(providerServiceRepository.save(providerService));
+
     }
 
     private Provider findProvider(Long providerId){
@@ -42,7 +54,7 @@ public class ServiceCatalogService {
     }
 
     private void apply(
-        ProviderService providerService, ProviderServiceRequest request, String existingStatus){
+        ProviderService providerService, ProviderServiceRequest request, String existingStatus, Boolean isVisible){
             providerService.setName(request.name().trim());
             providerService.setDescription(request.description());
             providerService.setPrice(request.price());
@@ -51,19 +63,28 @@ public class ServiceCatalogService {
             providerService.setImagePath(request.imagePath());
             String status = request.status() == null || request.status().isBlank()
                     ? existingStatus : request.status();
+            validate(status);
             providerService.setStatus(status.trim().toUpperCase(Locale.ROOT));
+            providerService.setIsVisible(
+                request.isVisible()==null ? isVisible : request.isVisible());
+    }
+
+    private void validate(String status){
+        if(!SERVICE_STATUSES.contains(status.trim().toUpperCase(Locale.ROOT))){
+            throw new BadRequestException("Service status must be APPROVED, PENDING, or CHANGE_REQUESTED");
+        }
     }
 
     public List<ProviderServiceResponse> listApproved(){
         return providerServiceRepository
-                .findAllByStatusIgnoreCaseOrderById("APPROVED")
+                .findAllByStatusIgnoreCaseAndIsVisibleOrderById("APPROVED",true)
                 .stream().map(ProviderServiceResponse::from).toList();
     }
 
     @Transactional(readOnly = true)
     public List<ProviderServiceResponse> listApprovedByCategory(ServiceCategory category){
         return providerServiceRepository
-                .findAllByCategoryIgnoreCaseAndStatusIgnoreCaseOrderById(category, "APPROVED")
+                .findAllByCategoryIgnoreCaseAndStatusIgnoreCaseAndIsVisibleOrderById(category, "APPROVED",true)
                 .stream().map(ProviderServiceResponse::from).toList();
     }
 
@@ -71,8 +92,14 @@ public class ServiceCatalogService {
     public List<ProviderServiceResponse> listApprovedForProvider(Long providerId){
         ensureProviderExists(providerId);
         return providerServiceRepository
-                .findAllByProviderIdAndStatusIgnoreCaseOrderById(providerId, "APPROVED")
+                .findAllByProviderIdAndStatusIgnoreCaseAndIsVisibleOrderById(providerId, "APPROVED",true)
                 .stream().map(ProviderServiceResponse::from).toList();
+    }
+
+    private ProviderService findService(Long serviceId){
+        return providerServiceRepository.findById(serviceId)
+                .orElseThrow(() -> new NotFoundException(
+                    "Service "+serviceId+" was not found."));
     }
 
     private void ensureProviderExists(Long providerId){

@@ -78,6 +78,9 @@ public class ProviderService {
     @Column(nullable = false)
     private String status;
 
+    @Column(nullable = false)
+    private Boolean isVisible;
+
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "provider_id", nullable = false)

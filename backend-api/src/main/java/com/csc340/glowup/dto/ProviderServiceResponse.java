@@ -12,11 +12,12 @@ public record ProviderServiceResponse(
     BigDecimal price,
     ServiceCategory category,
     String status,
+    Boolean isVisible,
     Long providerId) {
 
     public static ProviderServiceResponse from(ProviderService providerService){
         return new ProviderServiceResponse(providerService.getId(), providerService.getName(), providerService.getDescription(), providerService.getPrice(), 
-        providerService.getCategory(), providerService.getStatus(), providerService.getProvider().getId());
+        providerService.getCategory(), providerService.getStatus(), providerService.getIsVisible(), providerService.getProvider().getId());
     }
         
 }

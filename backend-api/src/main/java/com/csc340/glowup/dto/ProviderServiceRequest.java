@@ -18,5 +18,6 @@ public record ProviderServiceRequest(
     @NotNull ServiceCategory category,
     @NotNull @Min(0) Integer durationMin,
     @Size(max = 255) String imagePath,
-    @Size(max = 30) String status) {
+    @Size(max = 30) String status, 
+    Boolean isVisible){
 }

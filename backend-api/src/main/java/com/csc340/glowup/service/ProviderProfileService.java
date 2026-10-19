@@ -1,7 +1,11 @@
 package com.csc340.glowup.service;
 
 import com.csc340.glowup.entity.Provider;
+import com.csc340.glowup.entity.UserAccount;
+import com.csc340.glowup.enums.AccountRole;
+import com.csc340.glowup.enums.AccountStatus;
 import com.csc340.glowup.repository.ProviderRepository;
+import com.csc340.glowup.repository.UserAccountRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.csc340.glowup.dto.ProviderRegistrationRequest;
@@ -9,18 +13,25 @@ import com.csc340.glowup.dto.ProviderResponse;
 import com.csc340.glowup.dto.ProviderUpdateRequest;
 
 import org.springframework.stereotype.Service;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Service
 @Transactional
 public class ProviderProfileService {
     
-    private ProviderRepository providerRepository;
-    // private UserAccountRepository userAccountRepository;
+    private final ProviderRepository providerRepository;
+    private final UserAccountRepository userAccountRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public ProviderProfileService(ProviderRepository providerRepository){
+    public ProviderProfileService(
+        ProviderRepository providerRepository,
+        UserAccountRepository userAccountRepository,
+        PasswordEncoder passwordEncoder){
         this.providerRepository = providerRepository;
+        this.userAccountRepository = userAccountRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Provider> findAll(){
@@ -28,9 +39,20 @@ public class ProviderProfileService {
     }
 
     public ProviderResponse register(ProviderRegistrationRequest request){
-        // UserAccount userAccount = userAccountRepository.findById(userAccountId)
-        //     .orElseThrow(() -> new NotFoundException("User account " + userAccountId + " not found."));
+        ensureEmailAvailable(request.email());
+        if (request.password().getBytes(StandardCharsets.UTF_8).length > 72) {
+            throw new BadRequestException("Password must be no more than 72 UTF-8 bytes.");
+        }
+        UserAccount userAccount = new UserAccount();
+        userAccount.setEmail(request.email());
+        userAccount.setPassword(passwordEncoder.encode(request.password()));
+        userAccount.setAccountRole(AccountRole.PROVIDER);
+        userAccount.setPhoneNumber(request.phoneNumber());
+        userAccount.setAccountStatus(AccountStatus.DEACTIVATED);
+        UserAccount savedUser = userAccountRepository.save(userAccount);
+
         Provider provider = new Provider();
+        provider.setUserAccount(savedUser);
         provider.setName(request.name().trim());
         provider.setBusinessName(request.businessName());
         provider.setBio(request.bio());
@@ -68,5 +90,12 @@ public class ProviderProfileService {
         provider.setZipcode(request.zipcode());    
         return ProviderResponse.from(providerRepository.save(provider));
     }
+
+    private void ensureEmailAvailable(String email) {
+        if (userAccountRepository.existsByEmailIgnoreCase(email)) {
+            throw new ConflictException("An account with that email already exists.");
+        }
+    }
+
 
 }

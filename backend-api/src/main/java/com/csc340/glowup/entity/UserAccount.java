@@ -49,6 +49,9 @@ public class UserAccount {
 
     private OffsetDateTime lastLoginAt;
 
+    @OneToOne(mappedBy = "userAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Provider provider;
+
     @PrePersist
     void onCreate() {
         createdAt = OffsetDateTime.now();

@@ -1,7 +1,7 @@
 package com.csc340.glowup.enums;
 
 public enum AccountStatus {
-    PENDING_APPROVAL,
+    PENDING_APPROVA,
     ACTIVE,
     SUSPENDED,
     DEACTIVATED,

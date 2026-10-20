@@ -29,6 +29,10 @@ public class ProviderScheduleService {
 
     public ProviderScheduleResponse create(Long providerId, ProviderScheduleRequest request){
         Provider provider = findProvider(providerId);
+        if (providerScheduleRepository.existsByProviderIdAndWeekdayAndTimeBlock(
+                providerId, request.weekday(), request.timeBlock())) {
+            throw duplicate(request);
+        }
         ProviderSchedule providerSchedule = new ProviderSchedule();
         providerSchedule.setProvider(provider);
         apply(providerSchedule,request);
@@ -51,8 +55,17 @@ public class ProviderScheduleService {
         if(!providerSchedule.getProvider().getId().equals(providerId)){
             throw new NotFoundException("Schedule "+scheduleId+" was not found for provider " + providerId);
         }
+        if (providerScheduleRepository.existsByProviderIdAndWeekdayAndTimeBlockAndIdNot(
+                providerId, request.weekday(), request.timeBlock(), scheduleId)) {
+            throw duplicate(request);
+        }
         apply(providerSchedule, request);
         return ProviderScheduleResponse.from(providerScheduleRepository.save(providerSchedule));
+    }
+
+    private ConflictException duplicate(ProviderScheduleRequest request) {
+        return new ConflictException("There is already a " + request.weekday() + " " + request.timeBlock()
+                + " entry for this provider; update that one instead.");
     }
 
     private Provider findProvider(Long providerId){

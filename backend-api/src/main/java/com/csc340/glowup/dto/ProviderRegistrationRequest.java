@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record ProviderRegistrationRequest(
         @NotBlank @Email @Size(max = 254) String email,
-        @NotBlank @Size(max = 255) String password,
+        @NotBlank @Size(min = 8, max = 72, message = "Password must be 8 to 72 characters long") String password,
         @Size(max = 20) String phoneNumber,
         @NotBlank @Size(max = 100) String name,
         @Size(max = 2000) String bio,

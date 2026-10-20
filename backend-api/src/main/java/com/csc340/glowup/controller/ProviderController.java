@@ -10,6 +10,7 @@ import com.csc340.glowup.service.ServiceCatalogService;
 import com.csc340.glowup.service.ProviderScheduleService;
 import com.csc340.glowup.dto.ProviderUpdateRequest;
 import com.csc340.glowup.dto.ProviderRegistrationRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,7 +74,7 @@ public class ProviderController {
             @PathVariable  Long providerId,
             @Valid @RequestBody ProviderServiceRequest request){
         ProviderServiceResponse providerService = catalogService.create(providerId,request);
-        return ResponseEntity.created(URI.create("api/providers/"+providerId
+        return ResponseEntity.created(URI.create("/api/providers/"+providerId
                 + "/services/" + providerService.id())).body(providerService);
     }
 
@@ -97,7 +98,7 @@ public class ProviderController {
             @PathVariable Long providerId,
             @Valid @RequestBody ProviderScheduleRequest request){
         ProviderScheduleResponse  providerSchedule = providerScheduleService.create(providerId,request);
-        return ResponseEntity.created(URI.create("api/providers/"+providerId
+        return ResponseEntity.created(URI.create("/api/providers/"+providerId
                 +"/schedules/"+providerSchedule.id())).body(providerSchedule);   
     }
 

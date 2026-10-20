@@ -82,7 +82,9 @@ public class ProviderProfileService {
         provider.setName(request.name().trim());
         provider.setBio(request.bio());
         provider.setCertifications(request.certifications());
-        provider.setYearsOfExperience(request.yearsOfExperience());
+        if (request.yearsOfExperience() != null) {
+            provider.setYearsOfExperience(request.yearsOfExperience());
+        }
         provider.setAddressLine(request.addressLine());        
         provider.setCity(request.city());    
         provider.setState(request.state());    

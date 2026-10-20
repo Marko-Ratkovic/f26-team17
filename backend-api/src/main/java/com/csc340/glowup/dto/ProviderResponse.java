@@ -5,11 +5,9 @@ import com.csc340.glowup.entity.Provider;
 public record ProviderResponse(
     Long id,
     String name,
-    String businessName,
     String bio,
     String certifications,
     Integer yearsOfExperience,
-    String specialties,
     String imagePath,
     String addressLine,
     String city,
@@ -17,8 +15,8 @@ public record ProviderResponse(
     String state) {
     
     public static ProviderResponse from(Provider provider){
-        return new ProviderResponse(provider.getId(), provider.getName(), provider.getBusinessName(), provider.getBio(), 
-                    provider.getCertifications(), provider.getYearsOfExperience(), provider.getSpecialties(), provider.getImagePath(), 
+        return new ProviderResponse(provider.getId(), provider.getName(), provider.getBio(), 
+                    provider.getCertifications(), provider.getYearsOfExperience(), provider.getImagePath(), 
                     provider.getAddressLine(), provider.getCity(), provider.getZipcode(), provider.getState());
     }
 }

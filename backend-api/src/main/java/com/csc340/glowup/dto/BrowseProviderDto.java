@@ -10,10 +10,9 @@ import java.util.List;
 public record BrowseProviderDto(
         Long providerId,
         String name,
-        String businessName,
         String city,
         String state,
-        String specialties,
+        List<ServiceCategory> categories,
         Integer yearsOfExperience,
         String imagePath,
         List<ServiceSummary> services
@@ -36,16 +35,15 @@ public record BrowseProviderDto(
         }
     }
  
-    // all services must belong to the same provider
+    // all services must belong to the same provider; categories are derived from them
     public static BrowseProviderDto from(List<ProviderService> providerServices) {
         Provider provider = providerServices.get(0).getProvider();
         return new BrowseProviderDto(
                 provider.getId(),
                 provider.getName(),
-                provider.getBusinessName(),
                 provider.getCity(),
                 provider.getState(),
-                provider.getSpecialties(),
+                providerServices.stream().map(ProviderService::getCategory).distinct().toList(),
                 provider.getYearsOfExperience(),
                 provider.getImagePath(),
                 providerServices.stream().map(ServiceSummary::from).toList());

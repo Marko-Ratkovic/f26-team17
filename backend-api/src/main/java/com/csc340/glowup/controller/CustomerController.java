@@ -1,0 +1,84 @@
+package com.csc340.glowup.controller;
+
+import com.csc340.glowup.dto.*;
+import com.csc340.glowup.service.CustomerService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+ 
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/customers")
+public class CustomerController {
+    
+    private final CustomerService customerService;
+
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<CustomerResponse> register(@Valid @RequestBody CustomerRegisterRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerService.register(request));
+    }
+
+    @GetMapping("/{id}")
+    public CustomerResponse get(@PathVariable Long id) {
+        return customerService.getById(id);
+    }
+
+    @PutMapping("/{id}")
+    public CustomerResponse update(@PathVariable Long id, @Valid @RequestBody CustomerUpdateRequest request) {
+        return customerService.update(id, request);
+    }
+
+    @PutMapping("/{id}/password")
+    public ResponseEntity<Void> changePassword(@PathVariable Long id, 
+                                               @Valid @RequestBody ChangePasswordRequest request) {
+        customerService.changePassword(id, request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/safety-notes")
+    public SafetyNotesDto updateSafetyNotes(@PathVariable Long id, @Valid @RequestBody SafetyNotesDto dto) {
+        return customerService.updateSafetyNotes(id, dto);
+    }
+
+    @GetMapping("/{id}/preferred-times")
+    public List<PreferredTimeRangeDto> getPreferredTimes(@PathVariable Long id) {
+        return customerService.getPreferredTimes(id);
+    }
+ 
+    @PutMapping("/{id}/preferred-times")
+    public List<PreferredTimeRangeDto> replacePreferredTimes(@PathVariable Long id,
+                                                             @RequestBody List<@Valid PreferredTimeRangeDto> dtos) {
+        return customerService.replacePreferredTimes(id, dtos);
+    }
+ 
+    @GetMapping("/{id}/saved-providers")
+    public List<SavedProviderDto> getSavedProviders(@PathVariable Long id) {
+        return customerService.getSavedProviders(id);
+    }
+ 
+    @PutMapping("/{id}/saved-providers/{providerId}")
+    public ResponseEntity<Void> saveProvider(@PathVariable Long id, @PathVariable Long providerId) {
+        customerService.saveProvider(id, providerId);
+        return ResponseEntity.noContent().build();
+    }
+ 
+    @DeleteMapping("/{id}/saved-providers/{providerId}")
+    public ResponseEntity<Void> removeSavedProvider(@PathVariable Long id, @PathVariable Long providerId) {
+        customerService.removeSavedProvider(id, providerId);
+        return ResponseEntity.noContent().build();
+    }
+ 
+    @GetMapping("/browse")
+    public List<BrowseProviderDto> browse(@RequestParam(required = false) String category,
+                                          @RequestParam(required = false) String city,
+                                          @RequestParam(required = false) String day,
+                                          @RequestParam(required = false) String timeOfDay) {
+        return customerService.browse(category, city, day, timeOfDay);
+    }
+}

@@ -33,18 +33,21 @@ public class AdminUserService {
 
     private final AdminUserRepository adminUserRepository;
     private final AdminActionRepository adminActionRepository;
+    private final AdminAccess adminAccess;
 
     public AdminUserService(
         AdminUserRepository adminUserRepository,
-        AdminActionRepository adminActionRepository) {
+        AdminActionRepository adminActionRepository,
+        AdminAccess adminAccess) {
         this.adminUserRepository = adminUserRepository;
         this.adminActionRepository = adminActionRepository;
+        this.adminAccess = adminAccess;
     }
 
     @Transactional(readOnly = true)
     public AdminUserPage listUsers(Long adminId, AccountStatus status, AccountRole role,
                                    String query, int page, int size) {
-        requireAdmin(adminId);
+        adminAccess.requireAdmin(adminId);
         if (page < 0) {
             throw new BadRequestException("page must be 0 or greater.");
         }
@@ -61,13 +64,13 @@ public class AdminUserService {
 
     @Transactional(readOnly = true)
     public AdminUserResponse getUser(Long adminId, Long userId) {
-        requireAdmin(adminId);
+        adminAccess.requireAdmin(adminId);
         return toResponse(findUser(userId));
     }
 
     @Transactional(readOnly = true)
     public List<AdminActionResponse> getHistory(Long adminId, Long userId) {
-        requireAdmin(adminId);
+        adminAccess.requireAdmin(adminId);
         findUser(userId);
         return adminActionRepository
                 .findByTargetTypeAndTargetIdOrderByCreatedAtDesc(AdminTargetType.USER, userId)
@@ -76,7 +79,7 @@ public class AdminUserService {
 
     /** PENDING_APPROVAL provider → ACTIVE. Only providers wait for approval. */
     public AdminUserResponse approveProvider(Long adminId, Long userId, String reason) {
-        UserAccount admin = requireAdmin(adminId);
+        UserAccount admin = adminAccess.requireAdmin(adminId);
         UserAccount user = findUser(userId);
         if (user.getAccountRole() != AccountRole.PROVIDER) {
             throw new BadRequestException("Only provider accounts need approval.");
@@ -90,7 +93,7 @@ public class AdminUserService {
 
     /** ACTIVE or PENDING_APPROVAL → SUSPENDED. Closed accounts cannot be suspended. */
     public AdminUserResponse suspend(Long adminId, Long userId, String reason) {
-        UserAccount admin = requireAdmin(adminId);
+        UserAccount admin = adminAccess.requireAdmin(adminId);
         UserAccount user = findUser(userId);
         if (admin.getId().equals(user.getId())) {
             throw new BadRequestException("You cannot suspend your own account.");
@@ -108,7 +111,7 @@ public class AdminUserService {
      * goes back to PENDING_APPROVAL, so reinstating never skips the approval step.
      */
     public AdminUserResponse reinstate(Long adminId, Long userId, String reason) {
-        UserAccount admin = requireAdmin(adminId);
+        UserAccount admin = adminAccess.requireAdmin(adminId);
         UserAccount user = findUser(userId);
         if (user.getAccountStatus() != AccountStatus.SUSPENDED) {
             throw new ConflictException("Only suspended accounts can be reinstated (status: "
@@ -127,22 +130,6 @@ public class AdminUserService {
         adminUserRepository.save(user);
         adminActionRepository.save(AdminAction.of(admin, action, AdminTargetType.USER, user.getId(), reason.trim()));
         return toResponse(user);
-    }
-
-    /**
-     * Temporary check until login exists: the caller passes their account id and it
-     * must be an ACTIVE admin. Replace with the authenticated user once security is added.
-     */
-    UserAccount requireAdmin(Long adminId) {
-        if (adminId == null) {
-            throw new ForbiddenException("Admin access required.");
-        }
-        UserAccount admin = adminUserRepository.findById(adminId)
-                .orElseThrow(() -> new ForbiddenException("Admin access required."));
-        if (admin.getAccountRole() != AccountRole.ADMIN || admin.getAccountStatus() != AccountStatus.ACTIVE) {
-            throw new ForbiddenException("Admin access required.");
-        }
-        return admin;
     }
 
     private UserAccount findUser(Long userId) {

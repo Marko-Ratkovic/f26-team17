@@ -1,10 +1,13 @@
 package com.csc340.glowup.controller;
 
 import com.csc340.glowup.dto.ProviderResponse;
+import com.csc340.glowup.dto.ProviderScheduleRequest;
+import com.csc340.glowup.dto.ProviderScheduleResponse;
 import com.csc340.glowup.dto.ProviderServiceRequest;
 import com.csc340.glowup.dto.ProviderServiceResponse;
 import com.csc340.glowup.service.ProviderProfileService;
 import com.csc340.glowup.service.ServiceCatalogService;
+import com.csc340.glowup.service.ProviderScheduleService;
 import com.csc340.glowup.dto.ProviderUpdateRequest;
 import com.csc340.glowup.dto.ProviderRegistrationRequest;
 import jakarta.validation.Valid;
@@ -26,12 +29,15 @@ public class ProviderController {
     
     private final ProviderProfileService providerService;
     private final ServiceCatalogService catalogService;
+    private final ProviderScheduleService providerScheduleService;
 
     public ProviderController(
-        ProviderProfileService providerService,
-        ServiceCatalogService catalogService){
+            ProviderProfileService providerService,
+            ServiceCatalogService catalogService,
+            ProviderScheduleService providerScheduleService){
         this.providerService = providerService;
         this.catalogService = catalogService;
+        this.providerScheduleService = providerScheduleService;
     }
 
     @PostMapping
@@ -57,6 +63,11 @@ public class ProviderController {
         return catalogService.listApprovedForProvider(providerId);
     }
 
+    @GetMapping("/{providerId}/list_services")
+    public List<ProviderServiceResponse> listServices(@PathVariable Long providerId){
+        return catalogService.listServices(providerId);
+    }
+
     @PostMapping("/{providerId}/services")
     public ResponseEntity<ProviderServiceResponse> createService(
             @PathVariable  Long providerId,
@@ -65,4 +76,38 @@ public class ProviderController {
         return ResponseEntity.created(URI.create("api/providers/"+providerId
                 + "/services/" + providerService.id())).body(providerService);
     }
+
+    @PutMapping("/{providerId}/services/{serviceId}")
+    public ProviderServiceResponse updateService(
+            @PathVariable  Long providerId,
+            @PathVariable Long serviceId,
+            @Valid @RequestBody ProviderServiceRequest request){
+        return catalogService.update(providerId, serviceId, request);
+    }
+
+    @GetMapping("/{providerId}/schedules")
+    public List<ProviderScheduleResponse> schedules(
+        @PathVariable Long providerId,
+        @RequestParam (defaultValue = "false") boolean availableOnly){
+        return providerScheduleService.list(providerId,availableOnly);
+    }
+
+    @PostMapping("/{providerId}/schedules")
+    public ResponseEntity<ProviderScheduleResponse> addSchedule(
+            @PathVariable Long providerId,
+            @Valid @RequestBody ProviderScheduleRequest request){
+        ProviderScheduleResponse  providerSchedule = providerScheduleService.create(providerId,request);
+        return ResponseEntity.created(URI.create("api/providers/"+providerId
+                +"/schedules/"+providerSchedule.id())).body(providerSchedule);   
+    }
+
+    @PutMapping("/{providerId}/schedules/{scheduleId}")
+    public ProviderScheduleResponse updateSchedule(
+            @PathVariable Long providerId,
+            @PathVariable Long scheduleId,
+            @Valid @RequestBody ProviderScheduleRequest request){
+        return providerScheduleService.update(providerId,scheduleId,request);
+    }
+
+
 }

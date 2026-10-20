@@ -1,10 +1,12 @@
 package com.csc340.glowup.dto;
 
-import java.time.LocalTime;
+import com.csc340.glowup.enums.TimeBlock;
+import com.csc340.glowup.enums.Weekday;
+
 import jakarta.validation.constraints.NotNull;
 
 public record ProviderScheduleRequest(
-    @NotNull LocalTime starTime,
-    @NotNull LocalTime endTime,
+    @NotNull Weekday weekday,
+    @NotNull TimeBlock timeBlock,
     @NotNull Boolean isAvailable){
 }

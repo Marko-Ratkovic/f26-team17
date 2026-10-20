@@ -17,7 +17,7 @@ import java.util.Set;
 @Service
 @Transactional 
 public class ServiceCatalogService {
-    private static final Set<String> SERVICE_STATUSES = Set.of("APPROVED", "PENDING", "CHANGE_REQUESTED");
+    private static final Set<String> SERVICE_STATUSES = Set.of("APPROVED", "PENDING", "CHANGES_REQUESTED", "REJECTED", "ARCHIVED");
 
     private final ProviderRepository providerRepository;
     private final ProviderServiceRepository providerServiceRepository;
@@ -74,6 +74,14 @@ public class ServiceCatalogService {
             throw new BadRequestException("Service status must be APPROVED, PENDING, or CHANGE_REQUESTED");
         }
     }
+
+    public List<ProviderServiceResponse> listServices(Long providerId){
+        ensureProviderExists(providerId);
+        return providerServiceRepository
+        .findAllByProviderIdOrderById(providerId)
+        .stream().map(ProviderServiceResponse::from).toList();
+    }
+
 
     public List<ProviderServiceResponse> listApproved(){
         return providerServiceRepository

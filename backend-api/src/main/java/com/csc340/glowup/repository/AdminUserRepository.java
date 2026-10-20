@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,6 +36,18 @@ public interface AdminUserRepository extends JpaRepository<UserAccount, Long> {
                              @Param("role") AccountRole role,
                              @Param("pattern") String pattern,
                              Pageable pageable);
+
+    /** Role and sign-up time of every non-admin account created in [start, end). */
+    @Query("""
+            select u.accountRole, u.createdAt from UserAccount u
+            where u.createdAt >= :start and u.createdAt < :end
+              and u.accountRole <> :excludedRole
+            """)
+    List<Object[]> findSignupsBetween(@Param("start") OffsetDateTime start,
+                                      @Param("end") OffsetDateTime end,
+                                      @Param("excludedRole") AccountRole excludedRole);
+
+    long countByAccountRoleAndAccountStatus(AccountRole accountRole, AccountStatus accountStatus);
 
     @Query("select c.name from Customer c where c.userAccount.id = :userId")
     Optional<String> findCustomerName(@Param("userId") Long userId);

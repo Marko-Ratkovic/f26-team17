@@ -5,6 +5,6 @@ public enum ServiceCategory {
     NAIL_CARE,
     MAKEUP_ARTISTRY,
     SKINCARE,
-    BROWS_LASHES,
+    BROWS_AND_LASHES,
     HAIR_REMOVAL;
 }

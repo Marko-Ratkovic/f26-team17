@@ -1,7 +1,6 @@
 package com.csc340.glowup.entity;
 
-import java.time.LocalDateTime;
-
+import com.csc340.glowup.enums.TimeBlock;
 import com.csc340.glowup.enums.Weekday;
 
 import jakarta.persistence.Column;
@@ -15,12 +14,9 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalTime;
 
 @Entity
 @Table (name = "provider_schedule")
@@ -34,15 +30,13 @@ public class ProviderSchedule {
 
     @Enumerated(EnumType.STRING)
     @NotNull
+    @Column(name = "weekday", nullable = false)
     private Weekday weekday;
 
+    @Enumerated(EnumType.STRING)
     @NotNull
-    @Column(nullable = false)
-    private LocalTime startTime;
-
-    @NotNull
-    @Column(nullable = false)
-    private LocalTime endTime;
+    @Column(name = "time_block", nullable = false)
+    private TimeBlock timeBlock;
 
     @NotNull
     @Column(nullable = false)
@@ -52,10 +46,5 @@ public class ProviderSchedule {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
-
-    @AssertTrue(message = "endTime must be after startTime")
-    public boolean isTimeRangeValid() {
-        return startTime == null || endTime == null || endTime.isAfter(startTime);
-    }
 
 }

@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Locale;
 
 /**
  * US-9: admins approve pending providers and suspend or reinstate accounts.
@@ -54,11 +53,9 @@ public class AdminUserService {
         if (size < 1 || size > MAX_PAGE_SIZE) {
             throw new BadRequestException("size must be between 1 and " + MAX_PAGE_SIZE + ".");
         }
-        String search = query == null ? "" : query.trim().toLowerCase(Locale.ROOT);
-        Page<UserAccount> result = adminUserRepository.search(status, role, "%" + search + "%",
+        Page<AdminUserResponse> result = adminUserRepository.search(status, role, SearchPattern.contains(query),
                 PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt")));
-        List<AdminUserResponse> users = result.getContent().stream().map(this::toResponse).toList();
-        return new AdminUserPage(users, result.getNumber(), result.getSize(),
+        return new AdminUserPage(result.getContent(), result.getNumber(), result.getSize(),
                 result.getTotalElements(), result.getTotalPages());
     }
 
@@ -138,9 +135,9 @@ public class AdminUserService {
     }
 
     private AdminUserResponse toResponse(UserAccount user) {
-        String name = user.getProvider() != null
-                ? user.getProvider().getName()
-                : adminUserRepository.findCustomerName(user.getId()).orElse(null);
+        String name = adminUserRepository.findProviderName(user.getId())
+                .or(() -> adminUserRepository.findCustomerName(user.getId()))
+                .orElse(null);
         return AdminUserResponse.from(user, name);
     }
 }

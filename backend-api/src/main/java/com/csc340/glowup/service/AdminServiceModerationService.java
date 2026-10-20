@@ -62,8 +62,7 @@ public class AdminServiceModerationService {
             throw new BadRequestException("size must be between 1 and " + MAX_PAGE_SIZE + ".");
         }
         String statusFilter = status == null ? "" : status.trim().toUpperCase(Locale.ROOT);
-        String search = query == null ? "" : query.trim().toLowerCase(Locale.ROOT);
-        Page<ProviderService> result = adminServiceRepository.search(statusFilter, "%" + search + "%",
+        Page<ProviderService> result = adminServiceRepository.search(statusFilter, SearchPattern.contains(query),
                 PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createdAt")));
         List<AdminServiceResponse> services = result.getContent().stream().map(AdminServiceResponse::from).toList();
         return new AdminServicePage(services, result.getNumber(), result.getSize(),

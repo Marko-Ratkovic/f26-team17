@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 
@@ -17,18 +17,18 @@ public interface AdminServiceRepository extends JpaRepository<ProviderService, L
 
     /**
      * status must be upper-case, or "" for any status.
-     * pattern must be lower-case and wrapped in %, e.g. "%nail%" ("%%" matches everything).
+     * pattern comes from SearchPattern.contains(...).
      */
     @Query("""
             select s from ProviderService s join s.provider p
             where (:status = '' or upper(s.status) = :status)
-              and (lower(s.name) like :pattern or lower(p.name) like :pattern)
+              and (lower(s.name) like :pattern escape '\\' or lower(p.name) like :pattern escape '\\')
             """)
     Page<ProviderService> search(@Param("status") String status,
                                  @Param("pattern") String pattern,
                                  Pageable pageable);
 
     @Query("select s.createdAt from ProviderService s where s.createdAt >= :start and s.createdAt < :end")
-    List<LocalDateTime> findSubmissionTimesBetween(@Param("start") LocalDateTime start,
-                                                   @Param("end") LocalDateTime end);
+    List<OffsetDateTime> findSubmissionTimesBetween(@Param("start") OffsetDateTime start,
+                                                    @Param("end") OffsetDateTime end);
 }

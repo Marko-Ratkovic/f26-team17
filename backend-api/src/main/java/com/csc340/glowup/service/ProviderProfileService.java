@@ -48,7 +48,8 @@ public class ProviderProfileService {
         userAccount.setPassword(passwordEncoder.encode(request.password()));
         userAccount.setAccountRole(AccountRole.PROVIDER);
         userAccount.setPhoneNumber(request.phoneNumber());
-        userAccount.setAccountStatus(AccountStatus.DEACTIVATED);
+        // New providers wait for an admin to approve them (SRS US-5, US-9).
+        userAccount.setAccountStatus(AccountStatus.PENDING_APPROVAL);
         UserAccount savedUser = userAccountRepository.save(userAccount);
 
         Provider provider = new Provider();

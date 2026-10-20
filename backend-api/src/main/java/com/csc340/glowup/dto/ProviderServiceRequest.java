@@ -1,6 +1,5 @@
 package com.csc340.glowup.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

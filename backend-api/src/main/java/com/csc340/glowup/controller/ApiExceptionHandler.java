@@ -3,6 +3,7 @@ package com.csc340.glowup.controller;
 import com.csc340.glowup.service.NotFoundException;
 import com.csc340.glowup.service.BadRequestException;
 import com.csc340.glowup.service.ConflictException;
+import com.csc340.glowup.service.ForbiddenException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,11 @@ public class ApiExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Map<String, String>> handleNotFound(NotFoundException exception) {
         return error(HttpStatus.NOT_FOUND, exception.getMessage());
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<Map<String, String>> handleForbidden(ForbiddenException exception) {
+        return error(HttpStatus.FORBIDDEN, exception.getMessage());
     }
 
     @ExceptionHandler({ConflictException.class, DataIntegrityViolationException.class})

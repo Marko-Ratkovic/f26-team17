@@ -1,6 +1,7 @@
 package com.csc340.glowup.repository;
 
 import com.csc340.glowup.entity.ProviderService;
+import com.csc340.glowup.enums.ServiceStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,15 +17,15 @@ import java.util.List;
 public interface AdminServiceRepository extends JpaRepository<ProviderService, Long> {
 
     /**
-     * status must be upper-case, or "" for any status.
+     * status is optional (null = any status).
      * pattern comes from SearchPattern.contains(...).
      */
     @Query("""
             select s from ProviderService s join s.provider p
-            where (:status = '' or upper(s.status) = :status)
+            where (:status is null or s.status = :status)
               and (lower(s.name) like :pattern escape '\\' or lower(p.name) like :pattern escape '\\')
             """)
-    Page<ProviderService> search(@Param("status") String status,
+    Page<ProviderService> search(@Param("status") ServiceStatus status,
                                  @Param("pattern") String pattern,
                                  Pageable pageable);
 

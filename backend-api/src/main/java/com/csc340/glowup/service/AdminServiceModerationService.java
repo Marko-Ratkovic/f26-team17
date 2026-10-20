@@ -11,6 +11,7 @@ import com.csc340.glowup.enums.AccountStatus;
 import com.csc340.glowup.enums.AdminActionType;
 import com.csc340.glowup.enums.AdminTargetType;
 import com.csc340.glowup.enums.ServiceDecision;
+import com.csc340.glowup.enums.ServiceStatus;
 import com.csc340.glowup.repository.AdminActionRepository;
 import com.csc340.glowup.repository.AdminServiceRepository;
 import org.springframework.data.domain.Page;
@@ -20,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Locale;
 
 /**
  * US-10: admins review new services before customers see them.
@@ -32,10 +32,6 @@ import java.util.Locale;
 @Transactional
 public class AdminServiceModerationService {
 
-    static final String PENDING = "PENDING";
-    static final String APPROVED = "APPROVED";
-    static final String CHANGE_REQUESTED = "CHANGE_REQUESTED";
-    static final String REJECTED = "REJECTED";
     private static final int MAX_PAGE_SIZE = 100;
 
     private final AdminAccess adminAccess;
@@ -53,7 +49,7 @@ public class AdminServiceModerationService {
 
     /** The review queue: oldest submissions first so nothing waits forever. */
     @Transactional(readOnly = true)
-    public AdminServicePage listServices(Long adminId, String status, String query, int page, int size) {
+    public AdminServicePage listServices(Long adminId, ServiceStatus status, String query, int page, int size) {
         adminAccess.requireAdmin(adminId);
         if (page < 0) {
             throw new BadRequestException("page must be 0 or greater.");
@@ -61,8 +57,7 @@ public class AdminServiceModerationService {
         if (size < 1 || size > MAX_PAGE_SIZE) {
             throw new BadRequestException("size must be between 1 and " + MAX_PAGE_SIZE + ".");
         }
-        String statusFilter = status == null ? "" : status.trim().toUpperCase(Locale.ROOT);
-        Page<ProviderService> result = adminServiceRepository.search(statusFilter, SearchPattern.contains(query),
+        Page<ProviderService> result = adminServiceRepository.search(status, SearchPattern.contains(query),
                 PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createdAt")));
         List<AdminServiceResponse> services = result.getContent().stream().map(AdminServiceResponse::from).toList();
         return new AdminServicePage(services, result.getNumber(), result.getSize(),
@@ -87,7 +82,7 @@ public class AdminServiceModerationService {
     public AdminServiceResponse decide(Long adminId, Long serviceId, AdminServiceDecisionRequest request) {
         UserAccount admin = adminAccess.requireAdmin(adminId);
         ProviderService service = findService(serviceId);
-        if (!PENDING.equalsIgnoreCase(service.getStatus())) {
+        if (service.getStatus() != ServiceStatus.PENDING) {
             throw new ConflictException("Only services waiting for review can be decided (status: "
                     + service.getStatus() + ").");
         }
@@ -102,17 +97,17 @@ public class AdminServiceModerationService {
 
         AdminActionType action = switch (request.decision()) {
             case APPROVE -> {
-                service.setStatus(APPROVED);
+                service.setStatus(ServiceStatus.APPROVED);
                 service.setIsVisible(true);
                 yield AdminActionType.SERVICE_APPROVED;
             }
             case REQUEST_CHANGES -> {
-                service.setStatus(CHANGE_REQUESTED);
+                service.setStatus(ServiceStatus.CHANGES_REQUESTED);
                 service.setIsVisible(false);
                 yield AdminActionType.SERVICE_CHANGES_REQUESTED;
             }
             case REJECT -> {
-                service.setStatus(REJECTED);
+                service.setStatus(ServiceStatus.REJECTED);
                 service.setIsVisible(false);
                 yield AdminActionType.SERVICE_REJECTED;
             }

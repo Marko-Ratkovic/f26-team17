@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import com.csc340.glowup.entity.ProviderService;
 import com.csc340.glowup.enums.ServiceCategory;
+import com.csc340.glowup.enums.ServiceStatus;
 
 public record ProviderServiceResponse(
     Long id,
@@ -12,7 +13,7 @@ public record ProviderServiceResponse(
     BigDecimal price,
     ServiceCategory category,
     Integer durationMin,
-    String status,
+    ServiceStatus status,
     Boolean isVisible,
     Long providerId) {
 

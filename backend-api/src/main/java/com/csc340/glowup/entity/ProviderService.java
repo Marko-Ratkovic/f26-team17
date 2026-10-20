@@ -1,6 +1,7 @@
 package com.csc340.glowup.entity;
 
 import com.csc340.glowup.enums.ServiceCategory;
+import com.csc340.glowup.enums.ServiceStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -73,8 +74,9 @@ public class ProviderService {
     @Column(nullable = false)
     private OffsetDateTime updatedAt;
 
-    @Column(nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
+    private ServiceStatus status;
 
     @Column(nullable = false)
     private Boolean isVisible;

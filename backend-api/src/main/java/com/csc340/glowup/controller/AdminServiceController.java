@@ -4,6 +4,7 @@ import com.csc340.glowup.dto.AdminActionResponse;
 import com.csc340.glowup.dto.AdminServiceDecisionRequest;
 import com.csc340.glowup.dto.AdminServicePage;
 import com.csc340.glowup.dto.AdminServiceResponse;
+import com.csc340.glowup.enums.ServiceStatus;
 import com.csc340.glowup.service.AdminServiceModerationService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,7 @@ public class AdminServiceController {
     @GetMapping
     public AdminServicePage list(
             @RequestHeader(value = AdminUserController.ADMIN_HEADER, required = false) Long adminId,
-            @RequestParam(required = false) String status,
+            @RequestParam(required = false) ServiceStatus status,
             @RequestParam(required = false) String q,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {

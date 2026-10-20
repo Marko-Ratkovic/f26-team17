@@ -17,7 +17,5 @@ public record ProviderServiceRequest(
     @NotNull @DecimalMin("1") @Digits(integer = 8, fraction = 0, message = "must be a whole-dollar amount") BigDecimal price,
     @NotNull ServiceCategory category,
     @NotNull @Min(1) Integer durationMin,
-    @Size(max = 255) String imagePath,
-    @Size(max = 30) String status, 
-    Boolean isVisible){
+    @Size(max = 255) String imagePath){
 }

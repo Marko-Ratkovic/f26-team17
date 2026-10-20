@@ -2,6 +2,7 @@ package com.csc340.glowup.dto;
 
 import com.csc340.glowup.entity.ProviderService;
 import com.csc340.glowup.enums.ServiceCategory;
+import com.csc340.glowup.enums.ServiceStatus;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -15,7 +16,7 @@ public record AdminServiceResponse(
     BigDecimal price,
     Integer durationMin,
     String imagePath,
-    String status,
+    ServiceStatus status,
     Boolean isVisible,
     Long providerId,
     String providerName,

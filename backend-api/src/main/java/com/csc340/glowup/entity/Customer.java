@@ -29,8 +29,6 @@ public class Customer {
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private CustomerSafetyNotes safetyNotes;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PreferredTimeRange> preferredTimeRanges = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(

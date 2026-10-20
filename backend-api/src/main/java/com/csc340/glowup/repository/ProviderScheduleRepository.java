@@ -1,6 +1,8 @@
 package com.csc340.glowup.repository;
 
 import com.csc340.glowup.entity.ProviderSchedule;
+import com.csc340.glowup.enums.Weekday;
+import com.csc340.glowup.enums.TimeBlock;
 
 import jakarta.persistence.LockModeType;
 
@@ -15,7 +17,9 @@ import java.util.Optional;
 
 @Repository 
 public interface ProviderScheduleRepository extends JpaRepository<ProviderSchedule, Long> {
-    List<ProviderSchedule> findAllByProviderIdAndWeekdayAndTimeBlockOrderByWeekday(Long providerId, String weekday, String timeBlock);
+    boolean existsByProviderIdAndWeekdayAndTimeBlock(Long providerId, Weekday weekday, TimeBlock timeBlock);
+
+    boolean existsByProviderIdAndWeekdayAndTimeBlockAndIdNot(Long providerId, Weekday weekday, TimeBlock timeBlock, Long id);
     List<ProviderSchedule> findAllByProviderIdAndIsAvailableTrue(Long providerId);
     List<ProviderSchedule> findAllByProviderId(Long providerId);
     

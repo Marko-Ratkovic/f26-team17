@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @Transactional
@@ -39,26 +40,26 @@ public class ProviderProfileService {
     }
 
     public ProviderResponse register(ProviderRegistrationRequest request){
-        ensureEmailAvailable(request.email());
+        String email = request.email().trim().toLowerCase(Locale.ROOT);
+        ensureEmailAvailable(email);
         if (request.password().getBytes(StandardCharsets.UTF_8).length > 72) {
             throw new BadRequestException("Password must be no more than 72 UTF-8 bytes.");
         }
         UserAccount userAccount = new UserAccount();
-        userAccount.setEmail(request.email());
+        userAccount.setEmail(email);
         userAccount.setPassword(passwordEncoder.encode(request.password()));
         userAccount.setAccountRole(AccountRole.PROVIDER);
         userAccount.setPhoneNumber(request.phoneNumber());
-        userAccount.setAccountStatus(AccountStatus.DEACTIVATED);
+        // New providers wait for an admin to approve them (SRS US-5, US-9).
+        userAccount.setAccountStatus(AccountStatus.PENDING_APPROVAL);
         UserAccount savedUser = userAccountRepository.save(userAccount);
 
         Provider provider = new Provider();
         provider.setUserAccount(savedUser);
         provider.setName(request.name().trim());
-        provider.setBusinessName(request.businessName());
         provider.setBio(request.bio());
         provider.setCertifications(request.certifications());
         provider.setYearsOfExperience(request.yearsOfExperience());
-        provider.setSpecialties(request.specialties());
         provider.setAddressLine(request.addressLine());        
         provider.setCity(request.city());    
         provider.setState(request.state());    
@@ -79,11 +80,11 @@ public class ProviderProfileService {
     public ProviderResponse updateProfile(Long provideId, ProviderUpdateRequest request){
         Provider provider = findProvider(provideId);
         provider.setName(request.name().trim());
-        provider.setBusinessName(request.businessName());
         provider.setBio(request.bio());
         provider.setCertifications(request.certifications());
-        provider.setYearsOfExperience(request.yearsOfExperience());
-        provider.setSpecialties(request.specialties());
+        if (request.yearsOfExperience() != null) {
+            provider.setYearsOfExperience(request.yearsOfExperience());
+        }
         provider.setAddressLine(request.addressLine());        
         provider.setCity(request.city());    
         provider.setState(request.state());    

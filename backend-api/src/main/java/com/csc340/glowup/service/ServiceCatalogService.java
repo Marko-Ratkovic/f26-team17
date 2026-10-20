@@ -5,19 +5,22 @@ import com.csc340.glowup.dto.ProviderServiceResponse;
 import com.csc340.glowup.entity.Provider;
 import com.csc340.glowup.entity.ProviderService;
 import com.csc340.glowup.enums.ServiceCategory;
+import com.csc340.glowup.enums.ServiceStatus;
 import com.csc340.glowup.repository.ProviderRepository;
 import com.csc340.glowup.repository.ProviderServiceRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Locale;
-import java.util.Set;
 
+/**
+ * Providers create and edit services; only admins approve them (US-6, US-10).
+ * A provider can never set a service's status or visibility directly:
+ * every new or edited service goes to PENDING and stays hidden until an admin approves it.
+ */
 @Service
-@Transactional 
+@Transactional
 public class ServiceCatalogService {
-    private static final Set<String> SERVICE_STATUSES = Set.of("APPROVED", "PENDING", "CHANGES_REQUESTED", "REJECTED", "ARCHIVED");
 
     private final ProviderRepository providerRepository;
     private final ProviderServiceRepository providerServiceRepository;
@@ -33,19 +36,25 @@ public class ServiceCatalogService {
         Provider provider = findProvider(providerId);
         ProviderService providerService = new ProviderService();
         providerService.setProvider(provider);
-        apply(providerService, request, "PENDING",false);
+        apply(providerService, request);
+        submitForReview(providerService);
         return ProviderServiceResponse.from(providerServiceRepository.save(providerService));
     }
 
+    /** Any edit sends the service back to review. Rejected and archived services cannot be edited. */
     public ProviderServiceResponse update(
             Long providerId, Long serviceId, ProviderServiceRequest request){
         ProviderService providerService = findService(serviceId);
         if(!providerService.getProvider().getId().equals(providerId)){
             throw new NotFoundException("Service "+serviceId+" was not found for provider "+providerId+".");
         }
-        apply(providerService, request, providerService.getStatus(),providerService.getIsVisible());
+        if (providerService.getStatus() == ServiceStatus.REJECTED
+                || providerService.getStatus() == ServiceStatus.ARCHIVED) {
+            throw new ConflictException("A " + providerService.getStatus() + " service cannot be edited.");
+        }
+        apply(providerService, request);
+        submitForReview(providerService);
         return ProviderServiceResponse.from(providerServiceRepository.save(providerService));
-
     }
 
     private Provider findProvider(Long providerId){
@@ -53,28 +62,22 @@ public class ServiceCatalogService {
                 .orElseThrow(() -> new NotFoundException("Provider "+providerId+" was not found."));
     }
 
-    private void apply(
-        ProviderService providerService, ProviderServiceRequest request, String existingStatus, Boolean isVisible){
+    private void apply(ProviderService providerService, ProviderServiceRequest request){
             providerService.setName(request.name().trim());
             providerService.setDescription(request.description());
             providerService.setPrice(request.price());
             providerService.setCategory(request.category());
             providerService.setDurationMin(request.durationMin());
             providerService.setImagePath(request.imagePath());
-            String status = request.status() == null || request.status().isBlank()
-                    ? existingStatus : request.status();
-            validate(status);
-            providerService.setStatus(status.trim().toUpperCase(Locale.ROOT));
-            providerService.setIsVisible(
-                request.isVisible()==null ? isVisible : request.isVisible());
     }
 
-    private void validate(String status){
-        if(!SERVICE_STATUSES.contains(status.trim().toUpperCase(Locale.ROOT))){
-            throw new BadRequestException("Service status must be APPROVED, PENDING, or CHANGE_REQUESTED");
-        }
+    private void submitForReview(ProviderService providerService) {
+        providerService.setStatus(ServiceStatus.PENDING);
+        providerService.setIsVisible(false);
     }
 
+    /** All of a provider's own services in every status (for the provider's "My services" page). */
+    @Transactional(readOnly = true)
     public List<ProviderServiceResponse> listServices(Long providerId){
         ensureProviderExists(providerId);
         return providerServiceRepository
@@ -82,25 +85,23 @@ public class ServiceCatalogService {
         .stream().map(ProviderServiceResponse::from).toList();
     }
 
-
+    /** What customers may see: approved, visible services of ACTIVE providers. */
+    @Transactional(readOnly = true)
     public List<ProviderServiceResponse> listApproved(){
-        return providerServiceRepository
-                .findAllByStatusIgnoreCaseAndIsVisibleOrderById("APPROVED",true)
+        return providerServiceRepository.findPublic(null, null)
                 .stream().map(ProviderServiceResponse::from).toList();
     }
 
     @Transactional(readOnly = true)
     public List<ProviderServiceResponse> listApprovedByCategory(ServiceCategory category){
-        return providerServiceRepository
-                .findAllByCategoryIgnoreCaseAndStatusIgnoreCaseAndIsVisibleOrderById(category, "APPROVED",true)
+        return providerServiceRepository.findPublic(category, null)
                 .stream().map(ProviderServiceResponse::from).toList();
     }
 
     @Transactional(readOnly = true)
     public List<ProviderServiceResponse> listApprovedForProvider(Long providerId){
         ensureProviderExists(providerId);
-        return providerServiceRepository
-                .findAllByProviderIdAndStatusIgnoreCaseAndIsVisibleOrderById(providerId, "APPROVED",true)
+        return providerServiceRepository.findPublic(null, providerId)
                 .stream().map(ProviderServiceResponse::from).toList();
     }
 
@@ -114,5 +115,4 @@ public class ServiceCatalogService {
         if(!providerRepository.existsById(providerId))
             throw new NotFoundException("Provider "+providerId+" was not found.");
     }
-
 }

@@ -34,15 +34,11 @@ public class Provider {
     @JoinColumn(name = "user_account_id", nullable = false, unique = true)
     private UserAccount userAccount;
     
+    /** The provider's public name, shown to customers. */
     @NotBlank
     @Size(max = 100)
     @Column(nullable = false, length = 100)
     private String name;
-
-    @NotBlank
-    @Size(max = 100)
-    @Column(nullable = false, length = 100)
-    private String businessName;
 
     @Size(max = 2000)
     @Column(length = 2000)
@@ -56,10 +52,6 @@ public class Provider {
     @Min(0)
     @Column(nullable = false)
     private Integer yearsOfExperience;
-
-    @Size(max = 100)
-    @Column(length = 100)
-    private String specialties;
 
     @Column(length = 512)
     private String imagePath;

@@ -1,6 +1,5 @@
 package com.csc340.glowup.entity;
 
-import java.time.LocalDateTime;
 
 import com.csc340.glowup.enums.Weekday;
 

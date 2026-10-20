@@ -7,6 +7,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.OffsetDateTime;
+import java.util.Locale;
 
 @Entity
 @Table(name = "user_accounts")
@@ -45,7 +46,7 @@ public class UserAccount {
     @Column(nullable = false, updatable = false)
     private OffsetDateTime createdAt;
 
-    private OffsetDateTime updateAt;
+    private OffsetDateTime updatedAt;
 
     private OffsetDateTime lastLoginAt;
 
@@ -55,11 +56,20 @@ public class UserAccount {
     @PrePersist
     void onCreate() {
         createdAt = OffsetDateTime.now();
-        updateAt = createdAt;
+        updatedAt = createdAt;
+        normalizeEmail();
     }
 
     @PreUpdate
     void onUpdate() {
-        updateAt = OffsetDateTime.now();
+        updatedAt = OffsetDateTime.now();
+        normalizeEmail();
+    }
+
+    /** Emails are stored trimmed and lower-case so "A@x.com" and "a@x.com" are the same account. */
+    private void normalizeEmail() {
+        if (email != null) {
+            email = email.trim().toLowerCase(Locale.ROOT);
+        }
     }
 }

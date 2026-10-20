@@ -4,7 +4,7 @@ import com.csc340.glowup.entity.ProviderService;
 import com.csc340.glowup.enums.ServiceCategory;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 /** A service as the admin reviews it, with who submitted it and when. */
 public record AdminServiceResponse(
@@ -19,8 +19,8 @@ public record AdminServiceResponse(
     Boolean isVisible,
     Long providerId,
     String providerName,
-    LocalDateTime submittedAt,
-    LocalDateTime updatedAt) {
+    OffsetDateTime submittedAt,
+    OffsetDateTime updatedAt) {
 
     public static AdminServiceResponse from(ProviderService service) {
         return new AdminServiceResponse(service.getId(), service.getName(), service.getCategory(),

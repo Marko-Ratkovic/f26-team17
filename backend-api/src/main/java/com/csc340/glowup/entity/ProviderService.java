@@ -16,13 +16,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,8 +51,10 @@ public class ProviderService {
     @Column(length = 2000)
     private String description;
 
+    /** Whole US dollars, display only (no payments in GlowUp). */
     @NotNull
-    @DecimalMin("0.0")
+    @DecimalMin("1")
+    @Digits(integer = 8, fraction = 0)
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
@@ -60,7 +63,7 @@ public class ProviderService {
     private ServiceCategory category;
 
     @NotNull
-    @Min(0)
+    @Min(1)
     @Column(nullable = false)
     private Integer durationMin;
 
@@ -69,11 +72,11 @@ public class ProviderService {
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 
     @UpdateTimestamp
     @Column(nullable = false)
-    private LocalDateTime updatedAt;
+    private OffsetDateTime updatedAt;
 
     @Column(nullable = false)
     private String status;

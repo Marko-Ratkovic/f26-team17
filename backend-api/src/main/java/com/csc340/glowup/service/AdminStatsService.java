@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.YearMonth;
 import java.time.ZoneId;
@@ -72,13 +71,9 @@ public class AdminStatsService {
             monthly.get(YearMonth.from(createdAt.atZoneSameInstant(REPORT_ZONE)))[0]++;
         }
 
-        // Service timestamps are LocalDateTime written in the server's default time zone.
-        ZoneId serverZone = ZoneId.systemDefault();
-        LocalDateTime serviceStart = rangeStart.atZoneSameInstant(serverZone).toLocalDateTime();
-        LocalDateTime serviceEnd = rangeEnd.atZoneSameInstant(serverZone).toLocalDateTime();
-        List<LocalDateTime> submissions = adminServiceRepository.findSubmissionTimesBetween(serviceStart, serviceEnd);
-        for (LocalDateTime createdAt : submissions) {
-            monthly.get(YearMonth.from(createdAt.atZone(serverZone).withZoneSameInstant(REPORT_ZONE)))[1]++;
+        List<OffsetDateTime> submissions = adminServiceRepository.findSubmissionTimesBetween(rangeStart, rangeEnd);
+        for (OffsetDateTime createdAt : submissions) {
+            monthly.get(YearMonth.from(createdAt.atZoneSameInstant(REPORT_ZONE)))[1]++;
         }
 
         List<AdminMonthlyStats> months = new ArrayList<>();

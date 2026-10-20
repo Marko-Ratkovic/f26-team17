@@ -46,16 +46,7 @@ public class CustomerController {
         return customerService.updateSafetyNotes(id, dto);
     }
 
-    @GetMapping("/{id}/preferred-times")
-    public List<PreferredTimeRangeDto> getPreferredTimes(@PathVariable Long id) {
-        return customerService.getPreferredTimes(id);
-    }
  
-    @PutMapping("/{id}/preferred-times")
-    public List<PreferredTimeRangeDto> replacePreferredTimes(@PathVariable Long id,
-                                                             @RequestBody List<@Valid PreferredTimeRangeDto> dtos) {
-        return customerService.replacePreferredTimes(id, dtos);
-    }
  
     @GetMapping("/{id}/saved-providers")
     public List<SavedProviderDto> getSavedProviders(@PathVariable Long id) {

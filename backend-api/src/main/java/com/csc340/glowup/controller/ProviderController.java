@@ -64,8 +64,8 @@ public class ProviderController {
         return catalogService.listApprovedForProvider(providerId);
     }
 
-    @GetMapping("/{providerId}/list_services")
-    public List<ProviderServiceResponse> listServices(@PathVariable Long providerId){
+    @GetMapping("/{providerId}/all-services")
+    public List<ProviderServiceResponse> allServices(@PathVariable Long providerId){
         return catalogService.listServices(providerId);
     }
 

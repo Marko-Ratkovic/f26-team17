@@ -4,6 +4,7 @@ import com.csc340.glowup.dto.ProviderServiceRequest;
 import com.csc340.glowup.dto.ProviderServiceResponse;
 import com.csc340.glowup.entity.Provider;
 import com.csc340.glowup.entity.ProviderService;
+import com.csc340.glowup.enums.AccountStatus;
 import com.csc340.glowup.enums.ServiceCategory;
 import com.csc340.glowup.enums.ServiceStatus;
 import com.csc340.glowup.repository.ProviderRepository;
@@ -34,6 +35,9 @@ public class ServiceCatalogService {
 
     public ProviderServiceResponse create(Long providerId, ProviderServiceRequest request){
         Provider provider = findProvider(providerId);
+        if(provider.getUserAccount().getAccountStatus()!=AccountStatus.ACTIVE){
+            throw new ForbiddenException("Your account's status is "+provider.getUserAccount().getAccountStatus()+" and cannot create service.");
+        }
         ProviderService providerService = new ProviderService();
         providerService.setProvider(provider);
         apply(providerService, request);

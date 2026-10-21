@@ -3,10 +3,8 @@ package com.csc340.glowup.service;
 import com.csc340.glowup.entity.*;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Locale;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,20 +37,34 @@ public class AppointmentService {
             .orElseThrow(() -> new NotFoundException("Customer "+customerId+" was not found"));
         ProviderService service = providerServiceRepository.findById(request.serviceId())
             .orElseThrow(() -> new NotFoundException("Service "+request.serviceId()+" was not found"));
+        // only approved, visible services of ACTIVE providers can be booked (US-3, US-5)
+        if (service.getStatus() != ServiceStatus.APPROVED || !Boolean.TRUE.equals(service.getIsVisible())
+                || service.getProvider().getUserAccount().getAccountStatus() != AccountStatus.ACTIVE) {
+            throw new BadRequestException("This service is not available for booking.");
+        }
         Long providerId = service.getProvider().getId();
         LocalDateTime startDateTime = request.startDateTime();
+        if (!startDateTime.isAfter(LocalDateTime.now(Appointment.TIME_ZONE))) {
+            throw new BadRequestException("Please choose a time in the future.");
+        }
         LocalDateTime endDateTime = startDateTime.plusMinutes(service.getDurationMin());
         Weekday weekday = Weekday.valueOf(startDateTime.getDayOfWeek().name());
-        TimeBlock timeBlock = mapTimeToBlock(startDateTime.toLocalTime());
+        TimeBlock timeBlock = TimeBlock.of(startDateTime.toLocalTime());
+        if (timeBlock == null) {
+            throw new BadRequestException("Appointments can start between 9 AM and 9 PM.");
+        }
+        // the whole service has to fit inside the block it starts in (US-7)
+        if (!endDateTime.toLocalDate().equals(startDateTime.toLocalDate())
+                || endDateTime.toLocalTime().isAfter(timeBlock.end())) {
+            throw new BadRequestException("The whole service must finish by " + timeBlock.end()
+                    + ", the end of the " + timeBlock + " block.");
+        }
         boolean isBlockAvailable = providerScheduleRepository.existsByProviderIdAndWeekdayAndTimeBlockAndIsAvailable(
             providerId, weekday, timeBlock, true);
         if (!isBlockAvailable){
             throw new BadRequestException("The selected start time falls outside the provider's available schedule blocks.");
         }
-        boolean hasOverlap = appointmentRepository.existsConflictingAppointment(
-            providerId, startDateTime, endDateTime);
-
-        if (hasOverlap) {
+        if (overlapsConfirmed(providerId, startDateTime, endDateTime, null)) {
             throw new BadRequestException("This time slot overlaps with an existing booking.");
         }
         Appointment appointment = new Appointment();
@@ -87,6 +99,13 @@ public class AppointmentService {
         if (appointment.getStatus() != AppointmentStatus.REQUESTED) {
             throw new BadRequestException("Only appointments with REQUESTED status can be confirmed.");
         }
+        if (!appointment.getStartsAt().isAfter(LocalDateTime.now(Appointment.TIME_ZONE))) {
+            throw new ConflictException("This request's time has already passed.");
+        }
+        // confirming is what prevents double-booking (US-7): requests may overlap, confirmed ones may not
+        if (overlapsConfirmed(providerId, appointment.getStartsAt(), appointment.getEndsAt(), appointment.getId())) {
+            throw new ConflictException("This time overlaps another confirmed appointment.");
+        }
         appointment.setStatus(AppointmentStatus.CONFIRMED);
         appointment.setDecidedAt(OffsetDateTime.now());
         return AppoinmentResponse.from(appointmentRepository.save(appointment));
@@ -99,8 +118,11 @@ public class AppointmentService {
             throw new ForbiddenException("Appointment "+appointmentId+" was not found for provider "+providerId+".");
         }
         ensureBooked(appointment);
+        if (!appointment.hasEnded()) {
+            throw new ConflictException("An appointment can only be marked completed after it ends.");
+        }
         appointment.setStatus(AppointmentStatus.COMPLETED);
-        appointment.setDecidedAt(OffsetDateTime.now());
+        appointment.setCompletedAt(OffsetDateTime.now());
         return AppoinmentResponse.from(appointmentRepository.save(appointment));
     }
 
@@ -114,14 +136,13 @@ public class AppointmentService {
         return AppointmentDetailResponse.from(appointment);
     }
 
-    private TimeBlock mapTimeToBlock(LocalTime time) {
-        if (time.isBefore(LocalTime.of(12, 0))) {
-            return TimeBlock.MORNING;
-        } else if (time.isBefore(LocalTime.of(17, 0))) {
-            return TimeBlock.AFTERNOON;
-        } else {
-            return TimeBlock.EVENING;
-        }
+    /** True if [start, end) overlaps one of the provider's CONFIRMED appointments that day (ignoreId = the one being confirmed). */
+    private boolean overlapsConfirmed(Long providerId, LocalDateTime start, LocalDateTime end, Long ignoreId) {
+        return appointmentRepository.findConfirmedForProviderBetween(providerId,
+                        start.toLocalDate().atStartOfDay(), start.toLocalDate().plusDays(1).atStartOfDay())
+                .stream()
+                .filter(other -> !other.getId().equals(ignoreId))
+                .anyMatch(other -> start.isBefore(other.getEndsAt()) && end.isAfter(other.getStartsAt()));
     }
 
     private void ensureBooked(Appointment appointment) {

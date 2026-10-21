@@ -6,8 +6,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.csc340.glowup.entity.Appointment;
-import com.csc340.glowup.enums.TimeBlock;
-import com.csc340.glowup.enums.Weekday;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,12 +17,12 @@ public interface ApppointmentRepository extends JpaRepository<Appointment, Long>
    @Query("SELECT a FROM Appointment a WHERE a.service.provider.id = :providerId ORDER BY a.id DESC")
    List<Appointment> findAllByProviderService_Provider_IdOrderByIdDesc(@Param("providerId") Long providerId);
 
-   @Query("SELECT COUNT(a) > 0 FROM Appointment a WHERE a.service.provider.id = :providerId " +
-      "AND a.status != 'CANCELLED' " +
-      "AND (:startDateTime < FUNCTION('TIMESTAMPADD', MINUTE, a.service.durationMin, a.startsAt) " +
-      "AND :endDateTime > a.startsAt)")
-   boolean existsConflictingAppointment(
-            @Param("providerId") Long providerId, 
-            @Param("startDateTime") LocalDateTime startDateTime, 
-            @Param("endDateTime") LocalDateTime endDateTime);
+   /** A provider's CONFIRMED appointments starting in [from, to); the overlap check is done in Java. */
+   @Query("SELECT a FROM Appointment a WHERE a.service.provider.id = :providerId " +
+      "AND a.status = com.csc340.glowup.enums.AppointmentStatus.CONFIRMED " +
+      "AND a.startsAt >= :from AND a.startsAt < :to")
+   List<Appointment> findConfirmedForProviderBetween(
+            @Param("providerId") Long providerId,
+            @Param("from") LocalDateTime from,
+            @Param("to") LocalDateTime to);
 }

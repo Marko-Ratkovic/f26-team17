@@ -4,12 +4,15 @@ import com.csc340.glowup.dto.AdminMonthlyStats;
 import com.csc340.glowup.dto.AdminStatsResponse;
 import com.csc340.glowup.enums.AccountRole;
 import com.csc340.glowup.enums.AccountStatus;
+import com.csc340.glowup.enums.AppointmentStatus;
+import com.csc340.glowup.repository.AdminAppointmentRepository;
 import com.csc340.glowup.repository.AdminServiceRepository;
 import com.csc340.glowup.repository.AdminUserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.YearMonth;
 import java.time.ZoneId;
@@ -30,14 +33,17 @@ public class AdminStatsService {
     private final AdminAccess adminAccess;
     private final AdminUserRepository adminUserRepository;
     private final AdminServiceRepository adminServiceRepository;
+    private final AdminAppointmentRepository adminAppointmentRepository;
 
     public AdminStatsService(
         AdminAccess adminAccess,
         AdminUserRepository adminUserRepository,
-        AdminServiceRepository adminServiceRepository) {
+        AdminServiceRepository adminServiceRepository,
+        AdminAppointmentRepository adminAppointmentRepository) {
         this.adminAccess = adminAccess;
         this.adminUserRepository = adminUserRepository;
         this.adminServiceRepository = adminServiceRepository;
+        this.adminAppointmentRepository = adminAppointmentRepository;
     }
 
     /** from/to are optional; the default is the last 6 months including the current one. */
@@ -57,7 +63,7 @@ public class AdminStatsService {
         OffsetDateTime rangeStart = start.atStartOfDay(REPORT_ZONE).toOffsetDateTime();
         OffsetDateTime rangeEnd = end.plusDays(1).atStartOfDay(REPORT_ZONE).toOffsetDateTime();
 
-        Map<YearMonth, long[]> monthly = emptyMonths(start, end); // [newUsers, servicesSubmitted]
+        Map<YearMonth, long[]> monthly = emptyMonths(start, end); // [newUsers, servicesSubmitted, completed]
         long newCustomers = 0;
         long newProviders = 0;
         for (Object[] row : adminUserRepository.findSignupsBetween(rangeStart, rangeEnd, AccountRole.ADMIN)) {
@@ -76,13 +82,28 @@ public class AdminStatsService {
             monthly.get(YearMonth.from(createdAt.atZoneSameInstant(REPORT_ZONE)))[1]++;
         }
 
+        // completed = COMPLETED, or CONFIRMED and ended (see Appointment.isCompleted()); counted in the month it ended
+        LocalDateTime periodStart = start.atStartOfDay();
+        LocalDateTime periodEnd = end.plusDays(1).atStartOfDay();
+        LocalDateTime now = LocalDateTime.now(REPORT_ZONE);
+        long completed = 0;
+        // start one day early so an appointment that started before the period but ended in it is included
+        for (Object[] row : adminAppointmentRepository.findStartsAndDurations(
+                List.of(AppointmentStatus.CONFIRMED, AppointmentStatus.COMPLETED), periodStart.minusDays(1), periodEnd)) {
+            LocalDateTime endsAt = ((LocalDateTime) row[0]).plusMinutes((Integer) row[1]);
+            if (!endsAt.isBefore(periodStart) && endsAt.isBefore(periodEnd) && endsAt.isBefore(now)) {
+                completed++;
+                monthly.get(YearMonth.from(endsAt))[2]++;
+            }
+        }
+
         List<AdminMonthlyStats> months = new ArrayList<>();
         monthly.forEach((month, counts) ->
-                months.add(new AdminMonthlyStats(month.toString(), null, counts[0], counts[1])));
+                months.add(new AdminMonthlyStats(month.toString(), counts[2], counts[0], counts[1])));
 
         return new AdminStatsResponse(
                 start, end, REPORT_ZONE.getId(),
-                null,
+                completed,
                 newCustomers + newProviders, newCustomers, newProviders,
                 adminUserRepository.countByAccountRoleAndAccountStatus(AccountRole.PROVIDER, AccountStatus.ACTIVE),
                 adminUserRepository.countByAccountRoleAndAccountStatus(AccountRole.PROVIDER, AccountStatus.PENDING_APPROVAL),
@@ -93,7 +114,7 @@ public class AdminStatsService {
     private static Map<YearMonth, long[]> emptyMonths(LocalDate start, LocalDate end) {
         Map<YearMonth, long[]> months = new LinkedHashMap<>();
         for (YearMonth m = YearMonth.from(start); !m.isAfter(YearMonth.from(end)); m = m.plusMonths(1)) {
-            months.put(m, new long[2]);
+            months.put(m, new long[3]);
         }
         return months;
     }

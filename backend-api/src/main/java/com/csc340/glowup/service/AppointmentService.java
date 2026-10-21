@@ -71,13 +71,9 @@ public class AppointmentService {
     }
 
     public AppointmentResponse confirm(Long providerId, Long appointmentId){
-        Appointment appointment = appointmentRepository.findById(appointmentId)
-            .orElseThrow(() -> new NotFoundException("Appointment "+appointmentId+" was not found"));
-        if (!appointment.getProvider().getId().equals(providerId)) {
-            throw new ForbiddenException("You do not have permission to confirm this appointment.");
-        }
+        Appointment appointment = findForProvider(providerId, appointmentId);
         if (appointment.getStatus() != AppointmentStatus.REQUESTED) {
-            throw new BadRequestException("Only appointments with REQUESTED status can be confirmed.");
+            throw new ConflictException("Only requested appointments can be confirmed.");
         }
         if (!appointment.getStartsAt().isAfter(LocalDateTime.now(Appointment.TIME_ZONE))) {
             throw new ConflictException("This request's time has already passed.");
@@ -163,11 +159,7 @@ public class AppointmentService {
     }
 
     public AppointmentResponse markCompleted(Long providerId, Long appointmentId){
-        Appointment appointment = appointmentRepository.findById(appointmentId)
-            .orElseThrow(() -> new NotFoundException("Appointment "+appointmentId+" was not found"));
-        if (!appointment.getProvider().getId().equals(providerId)) {
-            throw new ForbiddenException("Appointment "+appointmentId+" was not found for provider "+providerId+".");
-        }
+        Appointment appointment = findForProvider(providerId, appointmentId);
         ensureBooked(appointment);
         if (!appointment.hasEnded()) {
             throw new ConflictException("An appointment can only be marked completed after it ends.");
@@ -179,11 +171,7 @@ public class AppointmentService {
 
     @Transactional(readOnly = true)
     public AppointmentDetailResponse getDetail(Long providerId,Long appointmentId){
-        Appointment appointment = appointmentRepository.findById(appointmentId)
-            .orElseThrow(() -> new NotFoundException("Appointment "+appointmentId+" was not found"));
-        if (!appointment.getProvider().getId().equals(providerId)) {
-            throw new ForbiddenException("Appointment "+appointmentId+" was not found for provider "+providerId+".");
-        }
+        Appointment appointment = findForProvider(providerId, appointmentId);
         return AppointmentDetailResponse.from(appointment);
     }
 
@@ -200,11 +188,14 @@ public class AppointmentService {
         if (!start.isAfter(LocalDateTime.now(Appointment.TIME_ZONE))) {
             throw new BadRequestException("Please choose a time in the future.");
         }
+        if (!ProviderScheduleService.isOnQuarterHour(start.toLocalTime())) {
+            throw new BadRequestException("Start times are in 15-minute steps, e.g. 4:00, 4:15, 4:30 or 4:45.");
+        }
         Long providerId = service.getProvider().getId();
         LocalDateTime end = start.plusMinutes(durationMin);
         requireWithinOpeningHours(providerId, start, end);
         if (overlapsConfirmed(providerId, start, end, ignoreAppointmentId, null)) {
-            throw new BadRequestException("This time overlaps with an existing booking.");
+            throw new ConflictException("This time overlaps with an existing booking.");
         }
     }
 
@@ -242,7 +233,8 @@ public class AppointmentService {
         Appointment appointment = appointmentRepository.findById(appointmentId)
             .orElseThrow(() -> new NotFoundException("Appointment "+appointmentId+" was not found"));
         if (!appointment.getProvider().getId().equals(providerId)) {
-            throw new ForbiddenException("Appointment "+appointmentId+" was not found for provider "+providerId+".");
+            // 404, not 403: another provider's appointment is treated as not existing, so ids reveal nothing
+            throw new NotFoundException("Appointment "+appointmentId+" was not found.");
         }
         return appointment;
     }
@@ -251,7 +243,7 @@ public class AppointmentService {
         Appointment appointment = appointmentRepository.findById(appointmentId)
             .orElseThrow(() -> new NotFoundException("Appointment "+appointmentId+" was not found"));
         if (!appointment.getCustomer().getId().equals(customerId)) {
-            throw new ForbiddenException("Appointment "+appointmentId+" was not found for customer "+customerId+".");
+            throw new NotFoundException("Appointment "+appointmentId+" was not found.");
         }
         return appointment;
     }

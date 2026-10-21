@@ -95,6 +95,14 @@ public class ProviderScheduleService {
         if (!openTime.isBefore(closeTime)) {
             throw new BadRequestException("Opening time must be before closing time.");
         }
+        if (!isOnQuarterHour(openTime) || !isOnQuarterHour(closeTime)) {
+            throw new BadRequestException("Opening and closing times are in 15-minute steps, e.g. 9:00 or 7:30.");
+        }
+    }
+
+    /** Appointment start times and opening hours use 15-minute steps (:00, :15, :30, :45). */
+    static boolean isOnQuarterHour(LocalTime time) {
+        return time.getMinute() % 15 == 0 && time.getSecond() == 0 && time.getNano() == 0;
     }
 
     private ProviderSchedule newDay(Provider provider, Weekday weekday) {

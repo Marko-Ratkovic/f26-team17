@@ -11,6 +11,7 @@ import com.csc340.glowup.service.ServiceCatalogService;
 import com.csc340.glowup.service.ProviderScheduleService;
 import com.csc340.glowup.dto.ProviderUpdateRequest;
 import com.csc340.glowup.dto.AppoinmentResponse;
+import com.csc340.glowup.dto.AppointmentDetailResponse;
 import com.csc340.glowup.dto.ProviderRegistrationRequest;
 import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -119,6 +121,28 @@ public class ProviderController {
     public List<AppoinmentResponse> listAppointment(@PathVariable Long providerId){
         return appointmentService.listForProvider(providerId);
     }
+
+    @GetMapping("/{providerId}/appointments/{appointmentId}")
+    public ResponseEntity<AppointmentDetailResponse> appointmentDetail(
+            @PathVariable Long providerId,
+            @PathVariable Long appointmentId){
+        return ResponseEntity.ok(appointmentService.getDetail(providerId, appointmentId));
+    }
+
+    @PatchMapping("/{providerId}/appointments/{appointmentId}/confirm")
+    public AppoinmentResponse confirmAppointment(
+            @PathVariable Long providerId,
+            @PathVariable Long appointmentId){
+        return appointmentService.confirm(providerId, appointmentId);
+    }
+
+    @PatchMapping("/{providerId}/appointments/{appointmentId}/complete")
+    public AppoinmentResponse completedAppointment(
+            @PathVariable Long providerId,
+            @PathVariable Long appointmentId){
+        return appointmentService.markCompleted(providerId, appointmentId);
+    }
+
 
 
 

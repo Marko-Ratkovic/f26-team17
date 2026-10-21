@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -91,6 +92,27 @@ public class AppointmentService {
         return AppoinmentResponse.from(appointmentRepository.save(appointment));
     }
 
+    public AppoinmentResponse markCompleted(Long providerId, Long appointmentId){
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+            .orElseThrow(() -> new NotFoundException("Appointment "+appointmentId+" was not found"));
+        if (!appointment.getProvider().getId().equals(providerId)) {
+            throw new ForbiddenException("Appointment "+appointmentId+" was not found for provider "+providerId+".");
+        }
+        ensureBooked(appointment);
+        appointment.setStatus(AppointmentStatus.COMPLETED);
+        appointment.setDecidedAt(OffsetDateTime.now());
+        return AppoinmentResponse.from(appointmentRepository.save(appointment));
+    }
+
+    @Transactional(readOnly = true)
+    public AppointmentDetailResponse getDetail(Long providerId,Long appointmentId){
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+            .orElseThrow(() -> new NotFoundException("Appointment "+appointmentId+" was not found"));
+        if (!appointment.getProvider().getId().equals(providerId)) {
+            throw new ForbiddenException("Appointment "+appointmentId+" was not found for provider "+providerId+".");
+        }
+        return AppointmentDetailResponse.from(appointment);
+    }
 
     private TimeBlock mapTimeToBlock(LocalTime time) {
         if (time.isBefore(LocalTime.of(12, 0))) {
@@ -99,6 +121,12 @@ public class AppointmentService {
             return TimeBlock.AFTERNOON;
         } else {
             return TimeBlock.EVENING;
+        }
+    }
+
+    private void ensureBooked(Appointment appointment) {
+        if (appointment.getStatus()!=AppointmentStatus.CONFIRMED) {
+            throw new ConflictException("Only confirmed appointment can be changed.");
         }
     }
 }

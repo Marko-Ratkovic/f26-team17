@@ -4,13 +4,13 @@ import com.csc340.glowup.entity.*;
 import com.csc340.glowup.dto.*;
 import com.csc340.glowup.enums.*;
 import com.csc340.glowup.repository.*;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
+import java.time.OffsetDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerService {
@@ -140,6 +140,10 @@ public class CustomerService {
         Customer customer = findCustomer(customerId);
         Provider provider = providerRepository.findById(providerId)
                 .orElseThrow(() -> new NotFoundException("Provider not found."));
+        // only ACTIVE providers can be saved; anything else looks the same as a missing provider
+        if (provider.getUserAccount().getAccountStatus() != AccountStatus.ACTIVE) {
+            throw new NotFoundException("Provider not found.");
+        }
         customer.getSavedProviders().add(provider);
     }
  
@@ -151,27 +155,38 @@ public class CustomerService {
  
     @Transactional(readOnly = true)
     public List<SavedProviderDto> getSavedProviders(Long customerId) {
+        // inasctive providers stay saved but are hidden; they reappear if the provider is reinstated
         return findCustomer(customerId).getSavedProviders().stream()
+                .filter(provider -> provider.getUserAccount().getAccountStatus() == AccountStatus.ACTIVE)
                 .map(SavedProviderDto::from)
                 .toList();
     }
 
     /* browse(): approved, visible services from active providers, grouped by provider.
-     All filters are optional. Rating and sorting come later (they need Review).
-       category  - a ServiceCategory name
-       city      - exact match, ignoring case
-       day       - a Weekday name; provider must be available that day
-       timeOfDay - MORNING, AFTERNOON or EVENING; provider must be available in that block
+     All filters are optional and can be combined:
+       category   - a ServiceCategory name
+       city       - exact match, ignoring case
+       day        - a Weekday name; provider must be available that day
+       timeOfDay  - MORNING, AFTERNOON or EVENING (see TimeBlock)
+       keyword    - matches the provider name, or a service name or description
+       savedOnly  - true to show only the customer's saved providers (needs customerId)
+       customerId - whose saved providers to use with savedOnly
+       sort       - NEWEST puts the most recently created services first.
+                    Sorting by rating or reviews comes later (it needs Review).
     */
     @Transactional(readOnly = true)
-    public List<BrowseProviderDto> browse(String category, String city, String day, String timeOfDay) {
+        public List<BrowseProviderDto> browse(String category, String city, String day, String timeOfDay,
+                                          String keyword, boolean savedOnly, Long customerId, String sort) {
         ServiceCategory wantedCategory = parseCategory(category);
         Weekday wantedDay = parseDay(day);
         TimeBlock wantedBlock = parseTimeOfDay(timeOfDay);
+        BrowseSort wantedSort = parseSort(sort);
         boolean filterByCity = city != null && !city.isBlank();
+        String wantedKeyword = (keyword == null || keyword.isBlank()) ? null : keyword.trim().toLowerCase();
+        Set<Long> savedProviderIds = savedOnly ? savedProviderIds(customerId) : null;
 
         List<ProviderService> services =
-                providerServiceRepository.findPublic(null, null);
+                providerServiceRepository.findPublic(wantedCategory, null);
 
         Map<Long, List<ProviderService>> byProvider = new LinkedHashMap<>();
         for (ProviderService service : services) {
@@ -180,10 +195,13 @@ public class CustomerService {
             if (provider.getUserAccount().getAccountStatus() != AccountStatus.ACTIVE) {
                 continue;
             }
-            if (wantedCategory != null && service.getCategory() != wantedCategory) {
+            if (filterByCity && !provider.getCity().equalsIgnoreCase(city.trim())) {
                 continue;
             }
-            if (filterByCity && !provider.getCity().equalsIgnoreCase(city.trim())) {
+            if (savedProviderIds != null && !savedProviderIds.contains(provider.getId())) {
+                continue;
+            }
+            if (wantedKeyword != null && !matchesKeyword(service, wantedKeyword)) {
                 continue;
             }
             byProvider.computeIfAbsent(provider.getId(), key -> new ArrayList<>()).add(service); 
@@ -200,7 +218,12 @@ public class CustomerService {
                         && (wantedBlock == null || slot.getTimeBlock() == wantedBlock)));
         }
         
-        return byProvider.values().stream().map(BrowseProviderDto::from).toList();
+        List<List<ProviderService>> groups = new ArrayList<>(byProvider.values());
+        if (wantedSort == BrowseSort.NEWEST) {
+            groups.sort(Comparator.comparing(CustomerService::newestCreatedAt, Comparator.reverseOrder()));
+        }
+
+        return groups.stream().map(BrowseProviderDto::from).toList();
     }
 
 
@@ -252,5 +275,47 @@ public class CustomerService {
         } catch (IllegalArgumentException e) {
             throw new BadRequestException("Unknown time of day. Use MORNING, AFTERNOON or EVENING.");
         }
+    }
+
+    private BrowseSort parseSort(String sort) {
+        if (sort == null || sort.isBlank()) {
+            return null;
+        }
+        String value = sort.trim().toUpperCase();
+        if (value.equals("NEWEST")) {
+            return BrowseSort.NEWEST;
+        }
+
+        if (value.equals("TOP_RATED") || value.equals("MOST_REVIEWED")) {
+            throw new BadRequestException("Sorting by rating or number of reviews is not available yet.");
+        }
+        throw new BadRequestException("Unknown sort. Use NEWEST");
+    }
+
+    // a provider name match keeps all of that provider's services; otherwise the service itself must match
+    private boolean matchesKeyword(ProviderService service, String keyword) {
+        return containsIgnoreCase(service.getProvider().getName(), keyword)
+                || containsIgnoreCase(service.getName(), keyword)
+                || containsIgnoreCase(service.getDescription(), keyword);
+    }
+
+    private boolean containsIgnoreCase(String text, String keyword) {
+        return text != null && text.toLowerCase().contains(keyword);
+    }
+
+    private Set<Long> savedProviderIds(Long customerId) {
+        if (customerId == null) {
+            throw new BadRequestException("Customer id is required when saved only is true.");
+        }
+        return findCustomer(customerId).getSavedProviders().stream()
+                .map(Provider::getId)
+                .collect(Collectors.toSet());
+    }
+
+    private static OffsetDateTime newestCreatedAt(List<ProviderService> providerServices) {
+        return providerServices.stream()
+                .map(ProviderService::getCreatedAt)
+                .max(Comparator.naturalOrder())
+                .orElseThrow();
     }
 }

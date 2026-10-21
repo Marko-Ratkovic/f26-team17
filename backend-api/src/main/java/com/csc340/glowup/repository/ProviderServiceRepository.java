@@ -15,7 +15,10 @@ import java.util.List;
 public interface ProviderServiceRepository extends JpaRepository<ProviderService, Long>{
 
     List<ProviderService> findAllByProviderIdOrderById(Long providerId);
-    
+
+    @Query("SELECT COUNT(ps) > 0 FROM ProviderService ps WHERE ps.parentService.id = :parentServiceId AND ps.status = :status")
+    Boolean existsByParentServiceIdAndStatus(@Param("parentServiceId") Long parentServiceId, @Param("status") ServiceStatus status);
+
     default List<ProviderService> findPublic(ServiceCategory category, Long providerId) {
         return findPublic(ServiceStatus.APPROVED, AccountStatus.ACTIVE, category, providerId);
     }

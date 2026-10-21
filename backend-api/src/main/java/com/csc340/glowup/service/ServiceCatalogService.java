@@ -40,6 +40,7 @@ public class ServiceCatalogService {
         }
         ProviderService providerService = new ProviderService();
         providerService.setProvider(provider);
+        providerService.setParentService(null);
         apply(providerService, request);
         submitForReview(providerService);
         return ProviderServiceResponse.from(providerServiceRepository.save(providerService));
@@ -52,9 +53,26 @@ public class ServiceCatalogService {
         if(!providerService.getProvider().getId().equals(providerId)){
             throw new NotFoundException("Service "+serviceId+" was not found for provider "+providerId+".");
         }
+        if(findProvider(providerId).getUserAccount().getAccountStatus()!=AccountStatus.ACTIVE){
+            throw new ForbiddenException("Your account's status is "+findProvider(providerId).getUserAccount().getAccountStatus()+" and cannot create service.");
+        }
+        if(providerService.getStatus() == ServiceStatus.PENDING){
+            throw new ConflictException("An update for this service is already pending for admin review");
+        }
         if (providerService.getStatus() == ServiceStatus.REJECTED
                 || providerService.getStatus() == ServiceStatus.ARCHIVED) {
             throw new ConflictException("A " + providerService.getStatus() + " service cannot be edited.");
+        }
+        if(providerService.getStatus() == ServiceStatus.APPROVED){
+            if(providerServiceRepository.existsByParentServiceIdAndStatus(providerService.getId(),ServiceStatus.PENDING)){
+                throw new ConflictException("An update for this service is already pending for admin review");
+            }
+            ProviderService draft = new ProviderService();
+            draft.setProvider(providerService.getProvider());
+            draft.setParentService(providerService);
+            apply(draft,request);
+            submitForReview(draft);
+            return ProviderServiceResponse.from(providerServiceRepository.save(draft));
         }
         apply(providerService, request);
         submitForReview(providerService);

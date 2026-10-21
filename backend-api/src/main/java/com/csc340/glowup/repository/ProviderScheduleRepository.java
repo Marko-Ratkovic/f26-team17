@@ -26,4 +26,7 @@ public interface ProviderScheduleRepository extends JpaRepository<ProviderSchedu
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select providerSchedule from ProviderSchedule providerSchedule where providerSchedule.id = :id")
     Optional<ProviderSchedule> findByIdForUpdate(@Param("id") Long id);
+
+    boolean existsByProviderIdAndWeekdayAndTimeBlockAndIsAvailable(Long providerId, Weekday weekday, TimeBlock timeBlock, boolean isAvailable);
+
 }

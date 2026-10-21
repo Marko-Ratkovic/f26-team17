@@ -1,4 +1,5 @@
 -- GlowUp database changes (shared Neon database)
+-- This file contains SQL updates needed to keep the database in sync with the app.
 -- spring.jpa.hibernate.ddl-auto=update adds new tables and columns, but it never drops columns,
 -- renames anything, or updates CHECK constraints. Every change it cannot do is written here.
 -- Run each block once, in order, in the Neon SQL editor. Newest at the bottom.
@@ -19,3 +20,4 @@ ALTER TABLE provider_services ALTER COLUMN parent_service_id DROP NOT NULL;
 -- The old rows (one per weekday + block) cannot be merged automatically, so the table is recreated;
 -- Hibernate creates the new one on the next start. Providers set their hours again (test data only).
 DROP TABLE IF EXISTS provider_schedule;
+

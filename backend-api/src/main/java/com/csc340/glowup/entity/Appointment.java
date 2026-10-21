@@ -1,5 +1,6 @@
 package com.csc340.glowup.entity;
 
+import com.csc340.glowup.enums.AccountRole;
 import com.csc340.glowup.enums.AppointmentStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -49,6 +50,11 @@ public class Appointment {
 
     private OffsetDateTime cancelledAt;
 
+    /** Who cancelled: CUSTOMER or PROVIDER (null unless CANCELLED). */
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private AccountRole cancelledBy;
+
     private OffsetDateTime completedAt;
 
     @Size(max = 500)
@@ -78,6 +84,11 @@ public class Appointment {
 
     public boolean hasEnded() {
         return getEndsAt().isBefore(LocalDateTime.now(TIME_ZONE));
+    }
+
+    /** A request nobody answered before its start time. Worked out from the time, not stored. */
+    public boolean isExpired() {
+        return status == AppointmentStatus.REQUESTED && !startsAt.isAfter(LocalDateTime.now(TIME_ZONE));
     }
 
     /**

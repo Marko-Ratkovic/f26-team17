@@ -96,4 +96,24 @@ public class CustomerController {
         return ResponseEntity.created(URI.create("/api/customers/" + customerId
                 + "/appointments/" + appointment.id())).body(appointment);
     }
+
+    /** Cancel a request or a confirmed appointment before it starts; the body {"reason": "..."} is optional. */
+    @PatchMapping("/{customerId}/appointments/{appointmentId}/cancel")
+    public AppoinmentResponse cancelAppointment(
+                @PathVariable Long customerId,
+                @PathVariable Long appointmentId,
+                @Valid @RequestBody(required = false) AppointmentReasonRequest request){
+        return appointmentService.cancelByCustomer(customerId, appointmentId, request == null ? null : request.reason());
+    }
+
+    /** Ask for a new time for a confirmed appointment (US-3); the original stays confirmed until the provider answers. */
+    @PostMapping("/{customerId}/appointments/{appointmentId}/reschedule")
+    public ResponseEntity<AppoinmentResponse> requestReschedule(
+                @PathVariable Long customerId,
+                @PathVariable Long appointmentId,
+                @Valid @RequestBody RescheduleRequest request){
+        AppoinmentResponse newTime = appointmentService.requestReschedule(customerId, appointmentId, request);
+        return ResponseEntity.created(URI.create("/api/customers/" + customerId
+                + "/appointments/" + newTime.id())).body(newTime);
+    }
 }

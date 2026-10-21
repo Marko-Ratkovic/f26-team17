@@ -1,5 +1,6 @@
 package com.csc340.glowup.dto;
 
+import com.csc340.glowup.enums.AccountRole;
 import com.csc340.glowup.enums.AppointmentStatus;
 import com.csc340.glowup.entity.Appointment;
 
@@ -18,12 +19,18 @@ public record AppoinmentResponse(
         LocalDateTime endsAt,
         AppointmentStatus status,
         boolean completed,
+        boolean expired,
+        String statusReason,
+        AccountRole cancelledBy,
+        Long rescheduledFromId,
         OffsetDateTime requestedAt) {
     
     public static AppoinmentResponse from(Appointment appointment){
         return new AppoinmentResponse(appointment.getId(),appointment.getCustomer().getId(),appointment.getCustomer().getName(),
                 appointment.getService().getId(),appointment.getService().getName(),appointment.getProvider().getId(),
                 appointment.getProvider().getName(),appointment.getStartsAt(),appointment.getEndsAt(),appointment.getStatus(),
-                appointment.isCompleted(),appointment.getRequestedAt());
+                appointment.isCompleted(),appointment.isExpired(),appointment.getStatusReason(),appointment.getCancelledBy(),
+                appointment.getRescheduledFrom() == null ? null : appointment.getRescheduledFrom().getId(),
+                appointment.getRequestedAt());
     }
 }

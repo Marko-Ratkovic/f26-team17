@@ -13,6 +13,7 @@ import com.csc340.glowup.service.ProviderScheduleService;
 import com.csc340.glowup.dto.ProviderUpdateRequest;
 import com.csc340.glowup.dto.AppoinmentResponse;
 import com.csc340.glowup.dto.AppointmentDetailResponse;
+import com.csc340.glowup.dto.AppointmentReasonRequest;
 import com.csc340.glowup.dto.ProviderRegistrationRequest;
 import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
@@ -127,6 +128,24 @@ public class ProviderController {
             @PathVariable Long providerId,
             @PathVariable Long appointmentId){
         return appointmentService.confirm(providerId, appointmentId);
+    }
+
+    /** Decline a request or a reschedule request; {"reason": "..."} is required (US-7). */
+    @PatchMapping("/{providerId}/appointments/{appointmentId}/decline")
+    public AppoinmentResponse declineAppointment(
+            @PathVariable Long providerId,
+            @PathVariable Long appointmentId,
+            @Valid @RequestBody AppointmentReasonRequest request){
+        return appointmentService.decline(providerId, appointmentId, request.reason());
+    }
+
+    /** Cancel a confirmed appointment before it starts; {"reason": "..."} is required. */
+    @PatchMapping("/{providerId}/appointments/{appointmentId}/cancel")
+    public AppoinmentResponse cancelAppointment(
+            @PathVariable Long providerId,
+            @PathVariable Long appointmentId,
+            @Valid @RequestBody AppointmentReasonRequest request){
+        return appointmentService.cancelByProvider(providerId, appointmentId, request.reason());
     }
 
     @PatchMapping("/{providerId}/appointments/{appointmentId}/complete")

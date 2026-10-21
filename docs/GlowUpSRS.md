@@ -3,8 +3,8 @@
 **Project Name:** GlowUp \
 **Team:** Marko Ratkovic - Customer, Hana Lenh - Provider, Alisena Nasirali - SysAdmin \
 **Course:** CSC 340\
-**Version:** 1.1\
-**Date:** 2026-10-11
+**Version:** 1.2\
+**Date:** 2026-10-21
 
 ---
 ## 1. Overview
@@ -14,8 +14,10 @@
 - **Customer:** A person booking beauty or grooming services.
 - **Provider:** A nail technician, barber, or makeup artist offering services.
 - **SysAdmin:** The user who approves providers and moderates services and reviews.
-- **Time block:** Morning (9 AM–12 PM), Afternoon (12–5 PM), or Evening (5–9 PM).
+- **Opening hours:** For each weekday, a provider is either closed or open from an opening time to a closing time.
+- **Time of day:** Morning (9 AM–12 PM), Afternoon (12–5 PM), or Evening (5–9 PM). Used only to filter providers: a provider matches if they are open at some point in that range.
 - **Completed appointment:** A confirmed appointment whose end time has passed. The provider can also mark it completed after it ends, but reviews and statistics never wait for that.
+- **Expired request:** A request the provider did not answer before its start time. It can no longer be confirmed.
 
 **Scope**
 - Customer and provider profiles
@@ -59,7 +61,7 @@
   _Story:_ As a customer, I want to filter and sort services so I can find a provider who fits my needs and schedule.
   ```gherkin
   Scenario: Browse services
-    When I filter by category, keyword, city, day and time block, minimum rating, or saved providers
+    When I filter by category, keyword, city, day and time of day, minimum rating, or saved providers
     Then I see only approved services from approved providers that match every filter
     And I can sort by top rated, most reviewed, or newest
     And ratings count only visible reviews
@@ -75,15 +77,22 @@
   _Story:_ As a customer, I want to request a time for a service and track or change my booking.
   ```gherkin
   Scenario: Request an appointment
-    When I choose a date and a time inside one of the provider's available time blocks
-    Then the request is saved as Requested and appears in my history
+    When I choose a service, a date, and a start time
+    Then the whole service must fit inside the provider's opening hours that day
+    And the request is saved as Requested and appears in my history
     And I receive an email when the provider confirms or declines it
+    And if the provider does not answer before the start time, the request expires
 
   Scenario: Reschedule a confirmed appointment
     When I request a new available time
     Then my original appointment stays confirmed until the provider responds
     And if accepted, the original becomes Rescheduled and the new one Confirmed
     And if declined, the original is unchanged
+
+  Scenario: Cancel an appointment
+    When I cancel a request or a confirmed appointment before it starts
+    Then it is saved as Cancelled with who cancelled it and an optional reason
+    And the provider is emailed
   ```
 
 - **US‑4 — Review and report**  
@@ -108,7 +117,7 @@
   *Story:* As a provider, I want a public professional profile so customers can find and evaluate me.
   ```gherkin
   Scenario: Register as a provider
-    When I sign up with my account details, professional details, and available days and time blocks
+    When I sign up with my account details, professional details, the days I work, and my opening hours
     Then my account is Pending approval after I verify my email
     And I can edit my profile and availability, but cannot submit services or receive bookings until approved
 
@@ -137,8 +146,9 @@
   *Story:* As a provider, I want to set my availability and handle booking requests.
   ```gherkin
   Scenario: Set availability
-    When I choose my available time blocks for each day
-    Then customers can only request times inside those blocks
+    When I set each weekday as closed or open with an opening and closing time
+    Then customers can only request times that fit inside those hours
+    And a closed day keeps its hours, so I can reopen it later
     And changing availability never cancels confirmed appointments
 
   Scenario: Respond to a request or reschedule
@@ -146,6 +156,7 @@
     Then the change is saved with a timestamp and the customer is emailed
     And confirming prevents double-booking that time
     And declining requires a reason
+    And I can cancel a confirmed appointment before it starts, with a reason for the customer
 
   Scenario: View appointment details
     Given I am the provider of a confirmed appointment
@@ -226,5 +237,29 @@ A low rating or respectful criticism is not a reason to hide a review. Reportabl
   - After 14 days, personal details are removed and the name shows as "Deleted user"; appointment and review history is kept.
 
 **Notifications:** All notifications are email. Verification and password-reset emails are always sent.
+
+---
+## 3. Non-functional requirements
+- **Security:** Every account logs in; each role can only use its own pages and data (see section 4). Passwords are 8–72 characters and stored only as a BCrypt hash.
+- **Privacy:** Safety notes (allergies, sensitivities) are shown only to the provider of the customer's confirmed appointment. Email and phone never appear on public pages. Closed accounts are anonymized after 14 days.
+- **Accountability:** Every admin decision (account access, service review, content moderation) is recorded with who made it, when, and why.
+- **Time:** Appointment times are the provider's local time (America/New_York). Opening hours and booking checks use that time.
+- **Data integrity:** A provider has one schedule row per weekday, a service has at most one open draft, and confirmed appointments for the same provider never overlap.
+- **Accessibility:** Pages follow WCAG 2.1 AA: labelled form fields, keyboard access, visible focus, and enough color contrast. Pages work on phone-width screens.
+- **Notifications:** Email only; no SMS or in-app notifications.
+
+## 4. Access by role
+| Action | Visitor | Customer | Provider | SysAdmin |
+|---|---|---|---|---|
+| Browse services, provider profiles and reviews | ✓ | ✓ | ✓ | ✓ |
+| Register, log in, reset password | ✓ | – | – | – |
+| Book, reschedule, cancel own appointments | – | ✓ | – | – |
+| Write, edit own reviews; report others' reviews or replies | – | ✓ | report only | – |
+| See a customer's contact info and safety notes | – | own | confirmed appointments only | – |
+| Manage own profile, opening hours and services | – | own profile | ✓ | – |
+| Confirm, decline, cancel, complete appointments | – | – | own | – |
+| Reply to reviews of own services | – | – | ✓ | – |
+| Approve providers, suspend or reinstate accounts | – | – | – | ✓ |
+| Review services, moderate reports, view statistics | – | – | – | ✓ |
 
 ---

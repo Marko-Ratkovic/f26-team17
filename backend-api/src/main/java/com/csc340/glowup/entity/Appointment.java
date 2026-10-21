@@ -7,6 +7,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.OffsetDateTime;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -37,6 +38,15 @@ public class Appointment {
     @NotNull
     @Column(nullable = false) 
     private LocalDateTime startsAt;
+
+    /**
+     * Duration and price saved when the appointment is requested, so a later edit of the service
+     * never changes an existing booking. Null only on rows made before these columns existed.
+     */
+    private Integer durationMin;
+
+    @Column(precision = 10, scale = 2)
+    private BigDecimal price;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -75,7 +85,17 @@ public class Appointment {
 
     // not a column: JPA maps the fields above, so these two are plain convenience methods
     public LocalDateTime getEndsAt() {
-        return  startsAt.plusMinutes(service.getDurationMin());
+        return startsAt.plusMinutes(getBookedDurationMin());
+    }
+
+    /** The duration saved at booking; falls back to the service for rows made before it was saved. */
+    public int getBookedDurationMin() {
+        return durationMin != null ? durationMin : service.getDurationMin();
+    }
+
+    /** The price saved at booking; falls back to the service for rows made before it was saved. */
+    public BigDecimal getBookedPrice() {
+        return price != null ? price : service.getPrice();
     }
 
     public Provider getProvider() {

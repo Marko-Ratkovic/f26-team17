@@ -26,8 +26,8 @@ public record AppointmentDetailResponse(
         boolean booked = appointment.getStatus() == AppointmentStatus.CONFIRMED
                 || appointment.getStatus() == AppointmentStatus.COMPLETED;
         return new AppointmentDetailResponse(appointment.getId(), appointment.getCustomer().getName(),
-                appointment.getService().getName(), appointment.getService().getDurationMin(),
-                appointment.getStatus(), appointment.getStartsAt(), appointment.getService().getPrice(),
+                appointment.getService().getName(), appointment.getBookedDurationMin(),
+                appointment.getStatus(), appointment.getStartsAt(), appointment.getBookedPrice(),
                 booked ? appointment.getCustomer().getUserAccount().getEmail() : null,
                 booked ? appointment.getCustomer().getUserAccount().getPhoneNumber() : null,
                 booked ? SafetyNotesDto.from(appointment.getCustomer().getSafetyNotes()) : null);

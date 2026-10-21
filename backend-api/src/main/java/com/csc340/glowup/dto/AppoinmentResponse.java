@@ -4,6 +4,7 @@ import com.csc340.glowup.enums.AccountRole;
 import com.csc340.glowup.enums.AppointmentStatus;
 import com.csc340.glowup.entity.Appointment;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
@@ -17,6 +18,8 @@ public record AppoinmentResponse(
         String providerName,
         LocalDateTime startAt,
         LocalDateTime endsAt,
+        Integer durationMin,
+        BigDecimal price,
         AppointmentStatus status,
         boolean completed,
         boolean expired,
@@ -28,7 +31,8 @@ public record AppoinmentResponse(
     public static AppoinmentResponse from(Appointment appointment){
         return new AppoinmentResponse(appointment.getId(),appointment.getCustomer().getId(),appointment.getCustomer().getName(),
                 appointment.getService().getId(),appointment.getService().getName(),appointment.getProvider().getId(),
-                appointment.getProvider().getName(),appointment.getStartsAt(),appointment.getEndsAt(),appointment.getStatus(),
+                appointment.getProvider().getName(),appointment.getStartsAt(),appointment.getEndsAt(),
+                appointment.getBookedDurationMin(),appointment.getBookedPrice(),appointment.getStatus(),
                 appointment.isCompleted(),appointment.isExpired(),appointment.getStatusReason(),appointment.getCancelledBy(),
                 appointment.getRescheduledFrom() == null ? null : appointment.getRescheduledFrom().getId(),
                 appointment.getRequestedAt());

@@ -40,16 +40,14 @@ public class AppointmentService {
             .orElseThrow(() -> new NotFoundException("Customer "+customerId+" was not found"));
         ProviderService service = providerServiceRepository.findById(request.serviceId())
             .orElseThrow(() -> new NotFoundException("Service "+request.serviceId()+" was not found"));
-        // only approved, visible services of ACTIVE providers can be booked (US-3, US-5)
-        if (service.getStatus() != ServiceStatus.APPROVED || !Boolean.TRUE.equals(service.getIsVisible())
-                || service.getProvider().getUserAccount().getAccountStatus() != AccountStatus.ACTIVE) {
-            throw new BadRequestException("This service is not available for booking.");
-        }
-        requireBookableTime(service, request.startDateTime(), null);
+        requireBookableService(service);
+        requireBookableTime(service, service.getDurationMin(), request.startDateTime(), null);
         Appointment appointment = new Appointment();
         appointment.setCustomer(customer);
         appointment.setService(service);
         appointment.setStartsAt(request.startDateTime());
+        appointment.setDurationMin(service.getDurationMin());
+        appointment.setPrice(service.getPrice());
         appointment.setStatus(AppointmentStatus.REQUESTED);
         return AppoinmentResponse.from(appointmentRepository.save(appointment));
     }
@@ -150,11 +148,15 @@ public class AppointmentService {
         if (!appointmentRepository.findAllByRescheduledFromIdAndStatus(appointmentId, AppointmentStatus.REQUESTED).isEmpty()) {
             throw new ConflictException("A new time was already requested for this appointment; wait for the provider or cancel that request.");
         }
-        requireBookableTime(original.getService(), request.startDateTime(), original.getId());
+        requireBookableService(original.getService());
+        requireBookableTime(original.getService(), original.getBookedDurationMin(), request.startDateTime(), original.getId());
         Appointment newTime = new Appointment();
         newTime.setCustomer(original.getCustomer());
         newTime.setService(original.getService());
         newTime.setStartsAt(request.startDateTime());
+        // the same service at the same terms as the booking being moved
+        newTime.setDurationMin(original.getBookedDurationMin());
+        newTime.setPrice(original.getBookedPrice());
         newTime.setStatus(AppointmentStatus.REQUESTED);
         newTime.setRescheduledFrom(original);
         return AppoinmentResponse.from(appointmentRepository.save(newTime));
@@ -185,13 +187,21 @@ public class AppointmentService {
         return AppointmentDetailResponse.from(appointment);
     }
 
+    /** Only approved, visible services of ACTIVE providers can be booked or moved (US-3, US-5). */
+    private static void requireBookableService(ProviderService service) {
+        if (service.getStatus() != ServiceStatus.APPROVED || !Boolean.TRUE.equals(service.getIsVisible())
+                || service.getProvider().getUserAccount().getAccountStatus() != AccountStatus.ACTIVE) {
+            throw new BadRequestException("This service is not available for booking.");
+        }
+    }
+
     /** Shared by booking and rescheduling: in the future, inside opening hours, no clash with a confirmed appointment. */
-    private void requireBookableTime(ProviderService service, LocalDateTime start, Long ignoreAppointmentId) {
+    private void requireBookableTime(ProviderService service, int durationMin, LocalDateTime start, Long ignoreAppointmentId) {
         if (!start.isAfter(LocalDateTime.now(Appointment.TIME_ZONE))) {
             throw new BadRequestException("Please choose a time in the future.");
         }
         Long providerId = service.getProvider().getId();
-        LocalDateTime end = start.plusMinutes(service.getDurationMin());
+        LocalDateTime end = start.plusMinutes(durationMin);
         requireWithinOpeningHours(providerId, start, end);
         if (overlapsConfirmed(providerId, start, end, ignoreAppointmentId, null)) {
             throw new BadRequestException("This time overlaps with an existing booking.");

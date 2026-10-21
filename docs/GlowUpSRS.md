@@ -3,8 +3,7 @@
 **Project Name:** GlowUp \
 **Team:** Marko Ratkovic - Customer, Hana Lenh - Provider, Alisena Nasirali - SysAdmin \
 **Course:** CSC 340\
-**Version:** 1.2\
-**Date:** 2026-10-21
+
 
 ---
 ## 1. Overview

@@ -5,6 +5,12 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
+
+import com.csc340.glowup.enums.Weekday;
+
+import java.time.LocalTime;
+import java.util.List;
 
 public record ProviderRegistrationRequest(
         @NotBlank @Email @Size(max = 254) String email,
@@ -18,7 +24,12 @@ public record ProviderRegistrationRequest(
         @NotBlank String addressLine,
         @NotBlank String city,
         @NotBlank String state,
-        @NotBlank String zipcode
+        @NotBlank String zipcode,
+        // starting opening hours (US-5): these days are open from openTime to closeTime, the others closed;
+        // each day can be changed later with PUT /api/providers/{id}/schedules/{weekday}
+        @NotEmpty List<Weekday> availableDays,
+        @NotNull LocalTime openTime,
+        @NotNull LocalTime closeTime
         ) {
     
 }

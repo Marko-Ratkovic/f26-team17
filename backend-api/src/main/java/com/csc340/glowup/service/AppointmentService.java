@@ -48,22 +48,7 @@ public class AppointmentService {
             throw new BadRequestException("Please choose a time in the future.");
         }
         LocalDateTime endDateTime = startDateTime.plusMinutes(service.getDurationMin());
-        Weekday weekday = Weekday.valueOf(startDateTime.getDayOfWeek().name());
-        TimeBlock timeBlock = TimeBlock.of(startDateTime.toLocalTime());
-        if (timeBlock == null) {
-            throw new BadRequestException("Appointments can start between 9 AM and 9 PM.");
-        }
-        // the whole service has to fit inside the block it starts in (US-7)
-        if (!endDateTime.toLocalDate().equals(startDateTime.toLocalDate())
-                || endDateTime.toLocalTime().isAfter(timeBlock.end())) {
-            throw new BadRequestException("The whole service must finish by " + timeBlock.end()
-                    + ", the end of the " + timeBlock + " block.");
-        }
-        boolean isBlockAvailable = providerScheduleRepository.existsByProviderIdAndWeekdayAndTimeBlockAndIsAvailable(
-            providerId, weekday, timeBlock, true);
-        if (!isBlockAvailable){
-            throw new BadRequestException("The selected start time falls outside the provider's available schedule blocks.");
-        }
+        requireWithinOpeningHours(providerId, startDateTime, endDateTime);
         if (overlapsConfirmed(providerId, startDateTime, endDateTime, null)) {
             throw new BadRequestException("This time slot overlaps with an existing booking.");
         }
@@ -134,6 +119,21 @@ public class AppointmentService {
             throw new ForbiddenException("Appointment "+appointmentId+" was not found for provider "+providerId+".");
         }
         return AppointmentDetailResponse.from(appointment);
+    }
+
+    /**
+     * The whole appointment has to fit inside the provider's opening hours for that weekday (US-7):
+     * start at or after opening time, end at or before closing time, on the same day.
+     */
+    private void requireWithinOpeningHours(Long providerId, LocalDateTime start, LocalDateTime end) {
+        Weekday weekday = Weekday.valueOf(start.getDayOfWeek().name());
+        ProviderSchedule day = providerScheduleRepository.findByProviderIdAndWeekday(providerId, weekday)
+                .filter(found -> Boolean.TRUE.equals(found.getIsAvailable()))
+                .orElseThrow(() -> new BadRequestException("The provider is closed on " + weekday + "."));
+        if (!end.toLocalDate().equals(start.toLocalDate()) || !day.covers(start.toLocalTime(), end.toLocalTime())) {
+            throw new BadRequestException("The whole service must fit inside the provider's hours on " + weekday
+                    + " (" + day.getOpenTime() + "–" + day.getCloseTime() + ").");
+        }
     }
 
     /** True if [start, end) overlaps one of the provider's CONFIRMED appointments that day (ignoreId = the one being confirmed). */

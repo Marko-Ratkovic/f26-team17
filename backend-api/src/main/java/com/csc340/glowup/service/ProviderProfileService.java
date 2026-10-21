@@ -25,14 +25,17 @@ public class ProviderProfileService {
     private final ProviderRepository providerRepository;
     private final UserAccountRepository userAccountRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ProviderScheduleService providerScheduleService;
 
     public ProviderProfileService(
         ProviderRepository providerRepository,
         UserAccountRepository userAccountRepository,
-        PasswordEncoder passwordEncoder){
+        PasswordEncoder passwordEncoder,
+        ProviderScheduleService providerScheduleService){
         this.providerRepository = providerRepository;
         this.userAccountRepository = userAccountRepository;
         this.passwordEncoder = passwordEncoder;
+        this.providerScheduleService = providerScheduleService;
     }
 
     public List<Provider> findAll(){
@@ -64,7 +67,9 @@ public class ProviderProfileService {
         provider.setCity(request.city());    
         provider.setState(request.state());    
         provider.setZipcode(request.zipcode()); 
-        return ProviderResponse.from(providerRepository.save(provider));
+        Provider saved = providerRepository.save(provider);
+        providerScheduleService.createWeek(saved, request.availableDays(), request.openTime(), request.closeTime());
+        return ProviderResponse.from(saved);
     }
 
     @Transactional(readOnly = true)

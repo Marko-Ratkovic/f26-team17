@@ -91,7 +91,7 @@ public class ProviderService {
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
 
-    /** Set only on a draft edit of an APPROVED service: the live version it will replace when approved. */
+    /** Set only on a draft edit of an APPROVED service: the live service it updates when approved (the draft is then deleted). */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_service_id")
     private ProviderService parentService;

@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * US-10: admins review new services before customers see them.
- * Only PENDING services can be decided. Requesting changes or rejecting needs a
+ * Only PENDING services can be decided. Approving a draft edit copies it onto the live service and deletes the draft. Requesting changes or rejecting needs a
  * note for the provider. Every decision is written to the admin audit log in the
  * same transaction; the note is stored there as the reason.
  */
@@ -94,10 +94,12 @@ public class AdminServiceModerationService {
                 && service.getProvider().getUserAccount().getAccountStatus() != AccountStatus.ACTIVE) {
             throw new ConflictException("The provider's account is not active, so this service cannot be approved.");
         }
+        if (request.decision() == ServiceDecision.APPROVE && service.getParentService() != null) {
+            return approveDraft(admin, service, note);
+        }
 
         AdminActionType action = switch (request.decision()) {
             case APPROVE -> {
-                archiveParentVersion(service);
                 service.setStatus(ServiceStatus.APPROVED);
                 service.setIsVisible(true);
                 yield AdminActionType.SERVICE_APPROVED;
@@ -120,16 +122,29 @@ public class AdminServiceModerationService {
     }
 
     /**
-     * US-6: approving a draft edit replaces the live version, so the old version is archived
-     * (hidden, kept for history). Requesting changes or rejecting a draft leaves the live version alone.
+     * US-6: approving a draft edit copies its details onto the live service (which keeps its id and stays
+     * APPROVED and visible), then deletes the draft. The approval is logged against the live service, so it
+     * stays in that service's history. Requesting changes or rejecting a draft leaves the live service alone.
      */
-    private void archiveParentVersion(ProviderService draft) {
-        ProviderService parent = draft.getParentService();
-        if (parent != null && parent.getStatus() == ServiceStatus.APPROVED) {
-            parent.setStatus(ServiceStatus.ARCHIVED);
-            parent.setIsVisible(false);
-            adminServiceRepository.save(parent);
+    private AdminServiceResponse approveDraft(UserAccount admin, ProviderService draft, String note) {
+        ProviderService live = draft.getParentService();
+        live.setName(draft.getName());
+        live.setDescription(draft.getDescription());
+        live.setPrice(draft.getPrice());
+        live.setCategory(draft.getCategory());
+        live.setDurationMin(draft.getDurationMin());
+        live.setImagePath(draft.getImagePath());
+        live.setReviewNote(note);
+        adminServiceRepository.save(live);
+
+        String reason = "Approved changes from draft #" + draft.getId() + (note == null ? "" : ": " + note);
+        if (reason.length() > 1000) {
+            reason = reason.substring(0, 1000); // audit reason column limit
         }
+        adminActionRepository.save(AdminAction.of(admin, AdminActionType.SERVICE_APPROVED,
+                AdminTargetType.SERVICE, live.getId(), reason));
+        adminServiceRepository.delete(draft);
+        return AdminServiceResponse.from(live);
     }
 
     private ProviderService findService(Long serviceId) {

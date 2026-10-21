@@ -5,10 +5,12 @@ import com.csc340.glowup.dto.ProviderScheduleRequest;
 import com.csc340.glowup.dto.ProviderScheduleResponse;
 import com.csc340.glowup.dto.ProviderServiceRequest;
 import com.csc340.glowup.dto.ProviderServiceResponse;
+import com.csc340.glowup.service.AppointmentService;
 import com.csc340.glowup.service.ProviderProfileService;
 import com.csc340.glowup.service.ServiceCatalogService;
 import com.csc340.glowup.service.ProviderScheduleService;
 import com.csc340.glowup.dto.ProviderUpdateRequest;
+import com.csc340.glowup.dto.AppoinmentResponse;
 import com.csc340.glowup.dto.ProviderRegistrationRequest;
 import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
@@ -31,17 +33,20 @@ public class ProviderController {
     private final ProviderProfileService providerService;
     private final ServiceCatalogService catalogService;
     private final ProviderScheduleService providerScheduleService;
+    private final AppointmentService appointmentService;
 
     public ProviderController(
             ProviderProfileService providerService,
             ServiceCatalogService catalogService,
-            ProviderScheduleService providerScheduleService){
+            ProviderScheduleService providerScheduleService,
+            AppointmentService appointmentService){
         this.providerService = providerService;
         this.catalogService = catalogService;
         this.providerScheduleService = providerScheduleService;
+        this.appointmentService = appointmentService;
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<ProviderResponse> register(@Valid @RequestBody ProviderRegistrationRequest request){
         ProviderResponse provider = providerService.register(request);
         return ResponseEntity.created(URI.create("/api/providers/" + provider.id())).body(provider);
@@ -109,6 +114,12 @@ public class ProviderController {
             @Valid @RequestBody ProviderScheduleRequest request){
         return providerScheduleService.update(providerId,scheduleId,request);
     }
+
+    @GetMapping("/{providerId}/appointments")
+    public List<AppoinmentResponse> listAppointment(@PathVariable Long providerId){
+        return appointmentService.listForProvider(providerId);
+    }
+
 
 
 }

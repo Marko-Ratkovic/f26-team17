@@ -1,12 +1,14 @@
 package com.csc340.glowup.controller;
 
 import com.csc340.glowup.dto.*;
+import com.csc340.glowup.service.AppointmentService;
 import com.csc340.glowup.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
- 
+
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -14,9 +16,12 @@ import java.util.List;
 public class CustomerController {
     
     private final CustomerService customerService;
+    private final AppointmentService appointmentService;
 
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService,
+        AppointmentService appointmentService) {
         this.customerService = customerService;
+        this.appointmentService = appointmentService;
     }
 
     @PostMapping("/register")
@@ -75,5 +80,14 @@ public class CustomerController {
                                           @RequestParam(required = false) Long customerId,
                                           @RequestParam(required = false) String sort) {
         return customerService.browse(category, city, day, timeOfDay, keyword, savedOnly, customerId, sort);
+    }
+
+    @PostMapping("/{customerId}/appointments")
+    public ResponseEntity<AppoinmentResponse> bookAppointment(
+                @PathVariable Long customerId,
+                @Valid @RequestBody BookAppointmentRequest request){
+        AppoinmentResponse appointment = appointmentService.book(customerId, request);
+        return ResponseEntity.created(URI.create("/api/customers/" + customerId
+                + "/appointments/" + appointment.id())).body(appointment);
     }
 }

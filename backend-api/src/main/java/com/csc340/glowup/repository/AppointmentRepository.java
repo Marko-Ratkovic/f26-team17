@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface ApppointmentRepository extends JpaRepository<Appointment, Long>{
+public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
    List<Appointment> findAllByCustomerIdOrderByIdDesc(Long customerId);
 
    /** Reschedule requests made from an appointment (rows whose rescheduledFrom is that appointment). */

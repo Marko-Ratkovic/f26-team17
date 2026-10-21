@@ -84,22 +84,22 @@ public class CustomerController {
 
     /** The customer's appointment history, newest first (US-3). */
     @GetMapping("/{customerId}/appointments")
-    public List<AppoinmentResponse> listAppointments(@PathVariable Long customerId) {
+    public List<AppointmentResponse> listAppointments(@PathVariable Long customerId) {
         return appointmentService.listForCustomer(customerId);
     }
 
     @PostMapping("/{customerId}/appointments")
-    public ResponseEntity<AppoinmentResponse> bookAppointment(
+    public ResponseEntity<AppointmentResponse> bookAppointment(
                 @PathVariable Long customerId,
                 @Valid @RequestBody BookAppointmentRequest request){
-        AppoinmentResponse appointment = appointmentService.book(customerId, request);
+        AppointmentResponse appointment = appointmentService.book(customerId, request);
         return ResponseEntity.created(URI.create("/api/customers/" + customerId
                 + "/appointments/" + appointment.id())).body(appointment);
     }
 
     /** Cancel a request or a confirmed appointment before it starts; the body {"reason": "..."} is optional. */
     @PatchMapping("/{customerId}/appointments/{appointmentId}/cancel")
-    public AppoinmentResponse cancelAppointment(
+    public AppointmentResponse cancelAppointment(
                 @PathVariable Long customerId,
                 @PathVariable Long appointmentId,
                 @Valid @RequestBody(required = false) AppointmentReasonRequest request){
@@ -108,11 +108,11 @@ public class CustomerController {
 
     /** Ask for a new time for a confirmed appointment (US-3); the original stays confirmed until the provider answers. */
     @PostMapping("/{customerId}/appointments/{appointmentId}/reschedule")
-    public ResponseEntity<AppoinmentResponse> requestReschedule(
+    public ResponseEntity<AppointmentResponse> requestReschedule(
                 @PathVariable Long customerId,
                 @PathVariable Long appointmentId,
                 @Valid @RequestBody RescheduleRequest request){
-        AppoinmentResponse newTime = appointmentService.requestReschedule(customerId, appointmentId, request);
+        AppointmentResponse newTime = appointmentService.requestReschedule(customerId, appointmentId, request);
         return ResponseEntity.created(URI.create("/api/customers/" + customerId
                 + "/appointments/" + newTime.id())).body(newTime);
     }

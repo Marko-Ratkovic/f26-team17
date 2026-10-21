@@ -11,7 +11,7 @@ import com.csc340.glowup.service.ProviderProfileService;
 import com.csc340.glowup.service.ServiceCatalogService;
 import com.csc340.glowup.service.ProviderScheduleService;
 import com.csc340.glowup.dto.ProviderUpdateRequest;
-import com.csc340.glowup.dto.AppoinmentResponse;
+import com.csc340.glowup.dto.AppointmentResponse;
 import com.csc340.glowup.dto.AppointmentDetailResponse;
 import com.csc340.glowup.dto.AppointmentReasonRequest;
 import com.csc340.glowup.dto.ProviderRegistrationRequest;
@@ -112,7 +112,7 @@ public class ProviderController {
     }
 
     @GetMapping("/{providerId}/appointments")
-    public List<AppoinmentResponse> listAppointment(@PathVariable Long providerId){
+    public List<AppointmentResponse> listAppointment(@PathVariable Long providerId){
         return appointmentService.listForProvider(providerId);
     }
 
@@ -124,7 +124,7 @@ public class ProviderController {
     }
 
     @PatchMapping("/{providerId}/appointments/{appointmentId}/confirm")
-    public AppoinmentResponse confirmAppointment(
+    public AppointmentResponse confirmAppointment(
             @PathVariable Long providerId,
             @PathVariable Long appointmentId){
         return appointmentService.confirm(providerId, appointmentId);
@@ -132,7 +132,7 @@ public class ProviderController {
 
     /** Decline a request or a reschedule request; {"reason": "..."} is required (US-7). */
     @PatchMapping("/{providerId}/appointments/{appointmentId}/decline")
-    public AppoinmentResponse declineAppointment(
+    public AppointmentResponse declineAppointment(
             @PathVariable Long providerId,
             @PathVariable Long appointmentId,
             @Valid @RequestBody AppointmentReasonRequest request){
@@ -141,7 +141,7 @@ public class ProviderController {
 
     /** Cancel a confirmed appointment before it starts; {"reason": "..."} is required. */
     @PatchMapping("/{providerId}/appointments/{appointmentId}/cancel")
-    public AppoinmentResponse cancelAppointment(
+    public AppointmentResponse cancelAppointment(
             @PathVariable Long providerId,
             @PathVariable Long appointmentId,
             @Valid @RequestBody AppointmentReasonRequest request){
@@ -149,7 +149,7 @@ public class ProviderController {
     }
 
     @PatchMapping("/{providerId}/appointments/{appointmentId}/complete")
-    public AppoinmentResponse completedAppointment(
+    public AppointmentResponse completedAppointment(
             @PathVariable Long providerId,
             @PathVariable Long appointmentId){
         return appointmentService.markCompleted(providerId, appointmentId);

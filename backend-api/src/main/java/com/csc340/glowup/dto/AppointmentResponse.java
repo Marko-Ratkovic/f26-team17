@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
-public record AppoinmentResponse(
+public record AppointmentResponse(
         Long id,
         Long customerId,
         String customerName,
@@ -28,8 +28,8 @@ public record AppoinmentResponse(
         Long rescheduledFromId,
         OffsetDateTime requestedAt) {
     
-    public static AppoinmentResponse from(Appointment appointment){
-        return new AppoinmentResponse(appointment.getId(),appointment.getCustomer().getId(),appointment.getCustomer().getName(),
+    public static AppointmentResponse from(Appointment appointment){
+        return new AppointmentResponse(appointment.getId(),appointment.getCustomer().getId(),appointment.getCustomer().getName(),
                 appointment.getService().getId(),appointment.getService().getName(),appointment.getProvider().getId(),
                 appointment.getProvider().getName(),appointment.getStartsAt(),appointment.getEndsAt(),
                 appointment.getBookedDurationMin(),appointment.getBookedPrice(),appointment.getStatus(),

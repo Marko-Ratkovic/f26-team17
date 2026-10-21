@@ -20,16 +20,19 @@ public class AppointmentService {
     private final CustomerRepository customerRepository;
     private final ProviderServiceRepository providerServiceRepository;
     private final ProviderScheduleRepository providerScheduleRepository;
+    private final ProviderRepository providerRepository;
 
     public AppointmentService(
             ApppointmentRepository apppointmentRepository,
             CustomerRepository customerRepository,
             ProviderServiceRepository providerServiceRepository,
-            ProviderScheduleRepository providerScheduleRepository){
+            ProviderScheduleRepository providerScheduleRepository,
+            ProviderRepository providerRepository){
         this.appointmentRepository = apppointmentRepository;
         this.customerRepository = customerRepository;
         this.providerServiceRepository = providerServiceRepository;
         this.providerScheduleRepository = providerScheduleRepository;
+        this.providerRepository = providerRepository;
     }
 
     public AppoinmentResponse book(Long customerId, BookAppointmentRequest request){
@@ -71,6 +74,9 @@ public class AppointmentService {
 
     @Transactional(readOnly = true)
     public List<AppoinmentResponse> listForProvider(Long providerId) {
+        if (!providerRepository.existsById(providerId)) {
+            throw new NotFoundException("Provider " + providerId + " was not found.");
+        }
         return appointmentRepository.findAllByProviderService_Provider_IdOrderByIdDesc(providerId)
                 .stream().map(AppoinmentResponse::from).toList();
     }

@@ -82,6 +82,12 @@ public class CustomerController {
         return customerService.browse(category, city, day, timeOfDay, keyword, savedOnly, customerId, sort);
     }
 
+    /** The customer's appointment history, newest first (US-3). */
+    @GetMapping("/{customerId}/appointments")
+    public List<AppoinmentResponse> listAppointments(@PathVariable Long customerId) {
+        return appointmentService.listForCustomer(customerId);
+    }
+
     @PostMapping("/{customerId}/appointments")
     public ResponseEntity<AppoinmentResponse> bookAppointment(
                 @PathVariable Long customerId,

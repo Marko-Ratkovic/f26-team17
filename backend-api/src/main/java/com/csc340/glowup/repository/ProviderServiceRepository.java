@@ -4,12 +4,15 @@ import com.csc340.glowup.entity.ProviderService;
 import com.csc340.glowup.enums.AccountStatus;
 import com.csc340.glowup.enums.ServiceCategory;
 import com.csc340.glowup.enums.ServiceStatus;
+import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProviderServiceRepository extends JpaRepository<ProviderService, Long>{
@@ -18,6 +21,11 @@ public interface ProviderServiceRepository extends JpaRepository<ProviderService
 
     @Query("SELECT COUNT(ps) > 0 FROM ProviderService ps WHERE ps.parentService.id = :parentServiceId AND ps.status = :status")
     Boolean existsByParentServiceIdAndStatus(@Param("parentServiceId") Long parentServiceId, @Param("status") ServiceStatus status);
+
+    /** Locks the service row while it is edited, so two edits at the same moment cannot create two drafts. */
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT ps FROM ProviderService ps WHERE ps.id = :id")
+    Optional<ProviderService> findByIdForUpdate(@Param("id") Long id);
 
     default List<ProviderService> findPublic(ServiceCategory category, Long providerId) {
         return findPublic(ServiceStatus.APPROVED, AccountStatus.ACTIVE, category, providerId);

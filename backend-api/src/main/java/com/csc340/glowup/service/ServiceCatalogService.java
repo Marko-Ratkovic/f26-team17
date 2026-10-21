@@ -49,7 +49,8 @@ public class ServiceCatalogService {
     /** Any edit sends the service back to review. Rejected and archived services cannot be edited. */
     public ProviderServiceResponse update(
             Long providerId, Long serviceId, ProviderServiceRequest request){
-        ProviderService providerService = findService(serviceId);
+        ProviderService providerService = providerServiceRepository.findByIdForUpdate(serviceId)
+                .orElseThrow(() -> new NotFoundException("Service "+serviceId+" was not found."));
         if(!providerService.getProvider().getId().equals(providerId)){
             throw new NotFoundException("Service "+serviceId+" was not found for provider "+providerId+".");
         }
@@ -64,8 +65,10 @@ public class ServiceCatalogService {
             throw new ConflictException("A " + providerService.getStatus() + " service cannot be edited.");
         }
         if(providerService.getStatus() == ServiceStatus.APPROVED){
-            if(providerServiceRepository.existsByParentServiceIdAndStatus(providerService.getId(),ServiceStatus.PENDING)){
-                throw new ConflictException("An update for this service is already pending for admin review");
+            // one open draft at a time: a draft sent back with CHANGES_REQUESTED is still open (edit that draft instead)
+            if(providerServiceRepository.existsByParentServiceIdAndStatus(providerService.getId(),ServiceStatus.PENDING)
+                    || providerServiceRepository.existsByParentServiceIdAndStatus(providerService.getId(),ServiceStatus.CHANGES_REQUESTED)){
+                throw new ConflictException("An update for this service is already waiting for admin review");
             }
             ProviderService draft = new ProviderService();
             draft.setProvider(providerService.getProvider());
@@ -94,6 +97,7 @@ public class ServiceCatalogService {
     }
 
     private void submitForReview(ProviderService providerService) {
+        providerService.setReviewNote(null); // the admin's old note no longer applies to the new submission
         providerService.setStatus(ServiceStatus.PENDING);
         providerService.setIsVisible(false);
     }
@@ -125,12 +129,6 @@ public class ServiceCatalogService {
         ensureProviderExists(providerId);
         return providerServiceRepository.findPublic(null, providerId)
                 .stream().map(ProviderServiceResponse::from).toList();
-    }
-
-    private ProviderService findService(Long serviceId){
-        return providerServiceRepository.findById(serviceId)
-                .orElseThrow(() -> new NotFoundException(
-                    "Service "+serviceId+" was not found."));
     }
 
     private void ensureProviderExists(Long providerId){

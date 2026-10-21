@@ -97,6 +97,7 @@ public class AdminServiceModerationService {
 
         AdminActionType action = switch (request.decision()) {
             case APPROVE -> {
+                archiveParentVersion(service);
                 service.setStatus(ServiceStatus.APPROVED);
                 service.setIsVisible(true);
                 yield AdminActionType.SERVICE_APPROVED;
@@ -112,9 +113,23 @@ public class AdminServiceModerationService {
                 yield AdminActionType.SERVICE_REJECTED;
             }
         };
+        service.setReviewNote(note); // shown to the provider (US-10)
         adminServiceRepository.save(service);
         adminActionRepository.save(AdminAction.of(admin, action, AdminTargetType.SERVICE, serviceId, note));
         return AdminServiceResponse.from(service);
+    }
+
+    /**
+     * US-6: approving a draft edit replaces the live version, so the old version is archived
+     * (hidden, kept for history). Requesting changes or rejecting a draft leaves the live version alone.
+     */
+    private void archiveParentVersion(ProviderService draft) {
+        ProviderService parent = draft.getParentService();
+        if (parent != null && parent.getStatus() == ServiceStatus.APPROVED) {
+            parent.setStatus(ServiceStatus.ARCHIVED);
+            parent.setIsVisible(false);
+            adminServiceRepository.save(parent);
+        }
     }
 
     private ProviderService findService(Long serviceId) {

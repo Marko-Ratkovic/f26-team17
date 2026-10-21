@@ -20,6 +20,8 @@ public record AdminServiceResponse(
     Boolean isVisible,
     Long providerId,
     String providerName,
+    Long parentServiceId,
+    String reviewNote,
     OffsetDateTime submittedAt,
     OffsetDateTime updatedAt) {
 
@@ -27,6 +29,9 @@ public record AdminServiceResponse(
         return new AdminServiceResponse(service.getId(), service.getName(), service.getCategory(),
                 service.getDescription(), service.getPrice(), service.getDurationMin(), service.getImagePath(),
                 service.getStatus(), service.getIsVisible(), service.getProvider().getId(),
-                service.getProvider().getName(), service.getCreatedAt(), service.getUpdatedAt());
+                service.getProvider().getName(),
+                service.getParentService() == null ? null : service.getParentService().getId(),
+                service.getReviewNote(),
+                service.getCreatedAt(), service.getUpdatedAt());
     }
 }

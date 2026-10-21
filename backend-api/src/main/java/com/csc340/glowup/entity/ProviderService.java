@@ -23,7 +23,6 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
-import org.apache.catalina.authenticator.jaspic.PersistentProviderRegistrations.Providers;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import lombok.Getter;
@@ -82,13 +81,19 @@ public class ProviderService {
     @Column(nullable = false)
     private Boolean isVisible;
 
+    /** The admin's note on the last decision (required for changes requested / rejected), shown to the provider (US-10). */
+    @Size(max = 1000)
+    @Column(length = 1000)
+    private String reviewNote;
+
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "parent_service_id", nullable = true)
-    private ProviderService parentService; 
+    /** Set only on a draft edit of an APPROVED service: the live version it will replace when approved. */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_service_id")
+    private ProviderService parentService;
 
 }

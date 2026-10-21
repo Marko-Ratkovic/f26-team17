@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.time.OffsetDateTime;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Entity
 @Table(name = "appointments")
@@ -14,6 +15,9 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor  
 public class Appointment {
+
+    /** startsAt is a local time at the provider's business; all GlowUp providers are in this zone. */
+    public static final ZoneId TIME_ZONE = ZoneId.of("America/New_York");
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,5 +74,18 @@ public class Appointment {
 
     public Provider getProvider() {
         return service.getProvider();
+    }
+
+    public boolean hasEnded() {
+        return getEndsAt().isBefore(LocalDateTime.now(TIME_ZONE));
+    }
+
+    /**
+     * Completed = marked COMPLETED by the provider, or CONFIRMED and already over.
+     * Reviews (US-4) and admin stats (US-12) use this, so they never wait on the provider's click.
+     */
+    public boolean isCompleted() {
+        return status == AppointmentStatus.COMPLETED
+                || (status == AppointmentStatus.CONFIRMED && hasEnded());
     }
 }

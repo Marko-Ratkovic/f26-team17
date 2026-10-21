@@ -15,6 +15,7 @@
 - **Provider:** A nail technician, barber, or makeup artist offering services.
 - **SysAdmin:** The user who approves providers and moderates services and reviews.
 - **Time block:** Morning (9 AM–12 PM), Afternoon (12–5 PM), or Evening (5–9 PM).
+- **Completed appointment:** A confirmed appointment whose end time has passed. The provider can also mark it completed after it ends, but reviews and statistics never wait for that.
 
 **Scope**
 - Customer and provider profiles

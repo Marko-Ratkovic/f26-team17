@@ -2,9 +2,10 @@ package com.csc340.glowup.dto;
 
 import java.time.LocalDateTime;
 
-import com.csc340.glowup.enums.TimeBlock;
+import jakarta.validation.constraints.NotNull;
 
+/** startDateTime is the provider's local time, e.g. "2026-10-16T17:00". */
 public record BookAppointmentRequest(
-    Long serviceId,
-    LocalDateTime startDateTime){
+    @NotNull Long serviceId,
+    @NotNull LocalDateTime startDateTime){
 }

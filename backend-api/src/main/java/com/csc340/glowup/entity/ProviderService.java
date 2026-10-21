@@ -23,6 +23,7 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
+import org.apache.catalina.authenticator.jaspic.PersistentProviderRegistrations.Providers;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import lombok.Getter;
@@ -85,5 +86,9 @@ public class ProviderService {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "parent_service_id", nullable = true)
+    private ProviderService parentService; 
 
 }

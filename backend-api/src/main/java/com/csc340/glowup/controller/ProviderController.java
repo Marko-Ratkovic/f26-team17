@@ -56,8 +56,15 @@ public class ProviderController {
         return ResponseEntity.created(URI.create("/api/providers/" + provider.id())).body(provider);
     }
 
+    /** Public profile: 404 unless the provider is ACTIVE (pending, suspended and closed providers are hidden). */
     @GetMapping("/{providerId}")
-    public ProviderResponse getProfile(@PathVariable Long providerId){
+    public ProviderResponse getPublicProfile(@PathVariable Long providerId){
+        return providerService.getPublicProfile(providerId);
+    }
+
+    /** The provider's own profile in any status (for their profile page while pending approval). */
+    @GetMapping("/{providerId}/profile")
+    public ProviderResponse getOwnProfile(@PathVariable Long providerId){
         return providerService.getProfile(providerId);
     }
 

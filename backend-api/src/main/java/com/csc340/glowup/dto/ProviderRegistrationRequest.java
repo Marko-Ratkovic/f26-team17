@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.NotEmpty;
 
 import com.csc340.glowup.enums.Weekday;
@@ -15,12 +16,12 @@ import java.util.List;
 public record ProviderRegistrationRequest(
         @NotBlank @Email @Size(max = 254) String email,
         @NotBlank @Size(min = 8, max = 72, message = "Password must be 8 to 72 characters long") String password,
-        @Size(max = 20) String phoneNumber,
+        @Size(max = 20) @Pattern(regexp = "^$|^\\+?[0-9 ()-]{7,20}$", message = "Invalid phone number format") String phoneNumber,
         @NotBlank @Size(max = 100) String name,
         @Size(max = 2000) String bio,
         @Size(max = 2000) String certifications,
         @NotNull @Min(0) Integer yearsOfExperience,
-        String imagePath,
+        @Size(max = 512) String imagePath,
         @NotBlank String addressLine,
         @NotBlank String city,
         @NotBlank String state,

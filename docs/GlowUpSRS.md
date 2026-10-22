@@ -139,13 +139,18 @@
     When I change an approved service
     Then the changes go to Pending review
     And customers keep seeing the approved version until the changes are approved
+
+  Scenario: Stop offering a service
+    When I archive a service, or withdraw one still waiting for review
+    Then customers no longer see it and it can no longer be edited
+    And unanswered requests for it are declined, while confirmed appointments stay as booked
   ```
 
 - **US-7 — Manage availability and appointments** \
   *Story:* As a provider, I want to set my availability and handle booking requests.
   ```gherkin
   Scenario: Set availability
-    When I set each weekday as closed or open with an opening and closing time
+    When I save my week, setting each weekday as closed or open with an opening and closing time
     Then customers can only request times that fit inside those hours
     And a closed day keeps its hours, so I can reopen it later
     And changing availability never cancels confirmed appointments
@@ -186,6 +191,11 @@
     When I approve a pending provider, or suspend or reinstate any account, with a reason
     Then the change takes effect immediately
     And the decision is recorded in the admin audit log
+
+  Scenario: Suspend an account with upcoming appointments
+    When I suspend a customer or provider
+    Then their upcoming requested and confirmed appointments are cancelled and both sides are emailed
+    And the other side sees a neutral reason, never the reason I gave for the suspension
   ```
 
 **US-10 — Moderate services** \
@@ -196,6 +206,11 @@
     Then I approve it, request changes, or reject it
     And changes-requested and rejected decisions require a reason shown to the provider
     And the decision is recorded in the admin audit log
+
+  Scenario: Take down a live service
+    When an approved service breaks GlowUp's terms
+    Then I archive it with a reason shown to the provider, and the decision is recorded in the audit log
+    And unanswered requests for it are declined, while confirmed appointments stay as booked
   ```
 
 **US-11 — Moderate reported content** \

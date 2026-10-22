@@ -11,6 +11,7 @@ import com.csc340.glowup.repository.ProviderServiceRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -24,12 +25,15 @@ public class ServiceCatalogService {
 
     private final ProviderRepository providerRepository;
     private final ProviderServiceRepository providerServiceRepository;
+    private final AppointmentService appointmentService;
 
     public ServiceCatalogService(
         ProviderServiceRepository providerServiceRepository,
-        ProviderRepository providerRepository){
+        ProviderRepository providerRepository,
+        AppointmentService appointmentService){
             this.providerServiceRepository = providerServiceRepository;
             this.providerRepository = providerRepository;
+            this.appointmentService = appointmentService;
     }
 
     public ProviderServiceResponse create(Long providerId, ProviderServiceRequest request){
@@ -79,6 +83,31 @@ public class ServiceCatalogService {
         apply(providerService, request);
         submitForReview(providerService);
         return ProviderServiceResponse.from(providerServiceRepository.save(providerService));
+    }
+
+    public ProviderServiceResponse archive(Long providerId, Long serviceId){
+        ProviderService providerService = providerServiceRepository.findByIdForUpdate(serviceId)
+                .orElseThrow(() -> new NotFoundException("Service "+serviceId+" was not found."));
+        if(!providerService.getProvider().getId().equals(providerId)){
+            throw new NotFoundException("Service "+serviceId+" was not found for provider "+providerId+".");
+        }
+        if(providerService.getStatus() == ServiceStatus.ARCHIVED){
+            throw new ConflictException("This service is already archived.");
+        }
+        archive(providerService);
+        return ProviderServiceResponse.from(providerService);
+    }
+
+    void archive(ProviderService providerService){
+        providerService.setStatus(ServiceStatus.ARCHIVED);
+        providerService.setIsVisible(false);
+        for(ProviderService draft : providerServiceRepository.findAllByParentServiceIdAndStatusIn(
+                providerService.getId(), EnumSet.of(ServiceStatus.PENDING, ServiceStatus.CHANGES_REQUESTED))){
+            draft.setStatus(ServiceStatus.ARCHIVED);
+            draft.setIsVisible(false);
+        }
+        providerServiceRepository.save(providerService);
+        appointmentService.declineRequestsForArchivedService(providerService.getId());
     }
 
     private Provider findProvider(Long providerId){

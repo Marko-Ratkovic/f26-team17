@@ -21,3 +21,11 @@ ALTER TABLE provider_services ALTER COLUMN parent_service_id DROP NOT NULL;
 -- Hibernate creates the new one on the next start. Providers set their hours again (test data only).
 DROP TABLE IF EXISTS provider_schedule;
 
+
+-- 2026-10-22  New admin action SERVICE_ARCHIVED (admin takes down a live service). Hibernate made a CHECK
+-- constraint listing the allowed actions when it created the table, and ddl-auto=update never changes it.
+ALTER TABLE admin_actions DROP CONSTRAINT IF EXISTS admin_actions_action_check;
+ALTER TABLE admin_actions ADD CONSTRAINT admin_actions_action_check CHECK (action IN (
+    'PROVIDER_APPROVED', 'ACCOUNT_SUSPENDED', 'ACCOUNT_REINSTATED',
+    'SERVICE_APPROVED', 'SERVICE_CHANGES_REQUESTED', 'SERVICE_REJECTED', 'SERVICE_ARCHIVED',
+    'CONTENT_KEPT_VISIBLE', 'CONTENT_HIDDEN', 'CONTENT_RESTORED'));

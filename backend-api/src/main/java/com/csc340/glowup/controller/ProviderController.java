@@ -105,6 +105,13 @@ public class ProviderController {
         return catalogService.update(providerId, serviceId, request);
     }
 
+    @PatchMapping("/{providerId}/services/{serviceId}/archive")
+    public ProviderServiceResponse archiveService(
+            @PathVariable Long providerId,
+            @PathVariable Long serviceId){
+        return catalogService.archive(providerId, serviceId);
+    }
+
     @GetMapping("/{providerId}/schedules")
     public List<ProviderScheduleResponse> schedules(
         @PathVariable Long providerId,

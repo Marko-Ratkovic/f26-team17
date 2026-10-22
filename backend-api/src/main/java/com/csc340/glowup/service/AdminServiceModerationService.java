@@ -37,14 +37,17 @@ public class AdminServiceModerationService {
     private final AdminAccess adminAccess;
     private final AdminServiceRepository adminServiceRepository;
     private final AdminActionRepository adminActionRepository;
+    private final ServiceCatalogService serviceCatalogService;
 
     public AdminServiceModerationService(
         AdminAccess adminAccess,
         AdminServiceRepository adminServiceRepository,
-        AdminActionRepository adminActionRepository) {
+        AdminActionRepository adminActionRepository,
+        ServiceCatalogService serviceCatalogService) {
         this.adminAccess = adminAccess;
         this.adminServiceRepository = adminServiceRepository;
         this.adminActionRepository = adminActionRepository;
+        this.serviceCatalogService = serviceCatalogService;
     }
 
     /** The review queue: oldest submissions first so nothing waits forever. */
@@ -118,6 +121,21 @@ public class AdminServiceModerationService {
         service.setReviewNote(note); // shown to the provider (US-10)
         adminServiceRepository.save(service);
         adminActionRepository.save(AdminAction.of(admin, action, AdminTargetType.SERVICE, serviceId, note));
+        return AdminServiceResponse.from(service);
+    }
+
+    public AdminServiceResponse archive(Long adminId, Long serviceId, String reason) {
+        UserAccount admin = adminAccess.requireAdmin(adminId);
+        ProviderService service = findService(serviceId);
+        if (service.getStatus() != ServiceStatus.APPROVED) {
+            throw new ConflictException("Only live (approved) services can be taken down (status: "
+                    + service.getStatus() + ").");
+        }
+        String note = reason.trim();
+        service.setReviewNote(note);
+        serviceCatalogService.archive(service);
+        adminActionRepository.save(AdminAction.of(admin, AdminActionType.SERVICE_ARCHIVED,
+                AdminTargetType.SERVICE, serviceId, note));
         return AdminServiceResponse.from(service);
     }
 

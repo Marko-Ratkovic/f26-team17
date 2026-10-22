@@ -23,6 +23,8 @@ public interface ProviderServiceRepository extends JpaRepository<ProviderService
     Boolean existsByParentServiceIdAndStatus(@Param("parentServiceId") Long parentServiceId, @Param("status") ServiceStatus status);
 
     /** Locks the service row while it is edited, so two edits at the same moment cannot create two drafts. */
+    List<ProviderService> findAllByParentServiceIdAndStatusIn(Long parentServiceId, java.util.Collection<ServiceStatus> statuses);
+
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT ps FROM ProviderService ps WHERE ps.id = :id")
     Optional<ProviderService> findByIdForUpdate(@Param("id") Long id);

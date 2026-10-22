@@ -175,6 +175,32 @@ public class AppointmentService {
         return AppointmentDetailResponse.from(appointment);
     }
 
+    public int cancelUpcomingForAccount(UserAccount account, String reason) {
+        int cancelled = 0;
+        for (Appointment appointment : appointmentRepository.findUpcomingOpenForUser(
+                account.getId(), LocalDateTime.now(Appointment.TIME_ZONE))) {
+            // its reschedule request may already be cancelled along with it
+            if (appointment.getStatus() == AppointmentStatus.REQUESTED
+                    || appointment.getStatus() == AppointmentStatus.CONFIRMED) {
+                cancel(appointment, AccountRole.ADMIN, reason);
+                cancelled++;
+            }
+        }
+        return cancelled;
+    }
+
+    public int declineRequestsForArchivedService(Long serviceId) {
+        List<Appointment> requests = appointmentRepository.findUpcomingRequestsForService(
+                serviceId, LocalDateTime.now(Appointment.TIME_ZONE));
+        OffsetDateTime now = OffsetDateTime.now();
+        for (Appointment request : requests) {
+            request.setStatus(AppointmentStatus.DECLINED);
+            request.setDecidedAt(now);
+            request.setStatusReason("This service is no longer offered.");
+        }
+        return requests.size();
+    }
+
     /** Only approved, visible services of ACTIVE providers can be booked or moved (US-3, US-5). */
     private static void requireBookableService(ProviderService service) {
         if (service.getStatus() != ServiceStatus.APPROVED || !Boolean.TRUE.equals(service.getIsVisible())

@@ -1,6 +1,7 @@
 package com.csc340.glowup.controller;
 
 import com.csc340.glowup.dto.AdminActionResponse;
+import com.csc340.glowup.dto.AdminDecisionRequest;
 import com.csc340.glowup.dto.AdminServiceDecisionRequest;
 import com.csc340.glowup.dto.AdminServicePage;
 import com.csc340.glowup.dto.AdminServiceResponse;
@@ -55,6 +56,14 @@ public class AdminServiceController {
             @RequestHeader(value = AdminUserController.ADMIN_HEADER, required = false) Long adminId,
             @PathVariable Long serviceId) {
         return moderationService.getHistory(adminId, serviceId);
+    }
+
+    @PostMapping("/{serviceId}/archive")
+    public AdminServiceResponse archive(
+            @RequestHeader(value = AdminUserController.ADMIN_HEADER, required = false) Long adminId,
+            @PathVariable Long serviceId,
+            @Valid @RequestBody AdminDecisionRequest request) {
+        return moderationService.archive(adminId, serviceId, request.reason());
     }
 
     @PostMapping("/{serviceId}/decision")

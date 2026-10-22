@@ -33,14 +33,17 @@ public class AdminUserService {
     private final AdminUserRepository adminUserRepository;
     private final AdminActionRepository adminActionRepository;
     private final AdminAccess adminAccess;
+    private final AppointmentService appointmentService;
 
     public AdminUserService(
         AdminUserRepository adminUserRepository,
         AdminActionRepository adminActionRepository,
-        AdminAccess adminAccess) {
+        AdminAccess adminAccess,
+        AppointmentService appointmentService) {
         this.adminUserRepository = adminUserRepository;
         this.adminActionRepository = adminActionRepository;
         this.adminAccess = adminAccess;
+        this.appointmentService = appointmentService;
     }
 
     @Transactional(readOnly = true)
@@ -100,7 +103,12 @@ public class AdminUserService {
             throw new ConflictException("Only active or pending accounts can be suspended (status: "
                     + status + ").");
         }
-        return changeStatus(admin, user, AccountStatus.SUSPENDED, AdminActionType.ACCOUNT_SUSPENDED, reason);
+        AdminUserResponse response = changeStatus(admin, user, AccountStatus.SUSPENDED,
+                AdminActionType.ACCOUNT_SUSPENDED, reason);
+        appointmentService.cancelUpcomingForAccount(user, user.getAccountRole() == AccountRole.PROVIDER
+                ? "Cancelled by GlowUp: this provider is no longer available."
+                : "Cancelled by GlowUp: this customer's account is no longer active.");
+        return response;
     }
 
     /**

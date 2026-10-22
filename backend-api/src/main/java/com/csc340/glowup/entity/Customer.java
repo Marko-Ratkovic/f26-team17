@@ -29,7 +29,6 @@ public class Customer {
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private CustomerSafetyNotes safetyNotes;
 
-
     @ManyToMany
     @JoinTable(
         name = "customer_saved_providers",

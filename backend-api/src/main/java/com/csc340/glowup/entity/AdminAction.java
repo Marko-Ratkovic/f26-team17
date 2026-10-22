@@ -22,10 +22,6 @@ import lombok.Setter;
 
 import java.time.OffsetDateTime;
 
-/**
- * Audit log: one row for every admin decision (approve, suspend, reinstate,
- * service decisions, report decisions). Rows are never updated or deleted.
- */
 @Entity
 @Table(name = "admin_actions",
         indexes = @Index(name = "idx_admin_actions_target", columnList = "target_type, target_id"))

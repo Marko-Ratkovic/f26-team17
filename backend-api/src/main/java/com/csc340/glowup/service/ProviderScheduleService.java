@@ -15,14 +15,12 @@ import com.csc340.glowup.repository.ProviderScheduleRepository;
 
 import java.time.LocalTime;
 import java.util.Collection;
+import java.util.EnumSet;
+import java.util.Set;
 import java.util.Comparator;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Provider opening hours: one row per weekday with open and close times (US-5, US-7).
- * A closed day is isAvailable = false and keeps its times, so reopening it does not lose them.
- */
 @Service 
 @Transactional 
 public class ProviderScheduleService {
@@ -50,10 +48,6 @@ public class ProviderScheduleService {
                 .map(ProviderScheduleResponse::from).toList();
     }
 
-    /**
-     * Creates all 7 days at registration: the chosen days are open with the given hours,
-     * the others are closed but keep the same hours as a starting point.
-     */
     public void createWeek(Provider provider, Collection<Weekday> openDays, LocalTime openTime, LocalTime closeTime) {
         if (openDays == null || openDays.isEmpty()) {
             throw new BadRequestException("Choose at least one day you are available.");
@@ -70,28 +64,28 @@ public class ProviderScheduleService {
 
     public ProviderUpdateScheduleResponse updateWeek(Long providerId, ProviderUpdateScheduleRequest request){
         Provider provider = findProvider(providerId);
+        Set<Weekday> seen = EnumSet.noneOf(Weekday.class);
+        for(ProviderDailyScheduleUpdate newDailySchedule : request.providerDailySchedule()){
+            if(!seen.add(newDailySchedule.weekday())){
+                throw new BadRequestException(newDailySchedule.weekday() + " is listed more than once.");
+            }
+        }
         for(ProviderDailyScheduleUpdate newDailySchedule : request.providerDailySchedule()){
             ProviderSchedule day = providerScheduleRepository.findForUpdateByProviderIdAndWeekday(providerId, newDailySchedule.weekday())
-                        .orElseThrow(() -> new IllegalStateException("Schedule not found for weekday: " + newDailySchedule.weekday()));
-            if(newDailySchedule.isAvailable()){
-                LocalTime open = newDailySchedule.openTime() != null ? newDailySchedule.openTime() : day.getOpenTime();
-                LocalTime close = newDailySchedule.closeTime() != null ? newDailySchedule.closeTime() : day.getCloseTime();
-                validateHours(true, open, close);
-                day.setIsAvailable(true);
-                day.setOpenTime(open);
-                day.setCloseTime(close);
-                
-            }
-            else {
-                day.setIsAvailable(false);
-            }
+                        .orElseGet(() -> newDay(provider, newDailySchedule.weekday()));
+            LocalTime open = newDailySchedule.openTime() != null ? newDailySchedule.openTime() : day.getOpenTime();
+            LocalTime close = newDailySchedule.closeTime() != null ? newDailySchedule.closeTime() : day.getCloseTime();
+            validateHours(newDailySchedule.isAvailable(), open, close);
+            day.setIsAvailable(newDailySchedule.isAvailable());
+            day.setOpenTime(open);
+            day.setCloseTime(close);
             providerScheduleRepository.save(day);
         }
-        List<ProviderSchedule> providerSchedules = providerScheduleRepository.findAllByProviderId(providerId);
+        List<ProviderSchedule> providerSchedules = providerScheduleRepository.findAllByProviderId(providerId).stream()
+                .sorted(Comparator.comparing(ProviderSchedule::getWeekday)).toList();
         return ProviderUpdateScheduleResponse.from(providerId,providerSchedules);
     }
 
-    /** The same rule for registration and for editing: an open day needs both times, and open before close. */
     static void validateHours(Boolean isAvailable, LocalTime openTime, LocalTime closeTime) {
         if (!Boolean.TRUE.equals(isAvailable)) {
             if (openTime != null && closeTime != null && !openTime.isBefore(closeTime)) {
@@ -110,7 +104,6 @@ public class ProviderScheduleService {
         }
     }
 
-    /** Appointment start times and opening hours use 15-minute steps (:00, :15, :30, :45). */
     static boolean isOnQuarterHour(LocalTime time) {
         return time.getMinute() % 15 == 0 && time.getSecond() == 0 && time.getNano() == 0;
     }

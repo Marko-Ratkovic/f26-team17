@@ -82,7 +82,6 @@ public class CustomerController {
         return customerService.browse(category, city, day, timeOfDay, keyword, savedOnly, customerId, sort);
     }
 
-    /** The customer's appointment history, newest first (US-3). */
     @GetMapping("/{customerId}/appointments")
     public List<AppointmentResponse> listAppointments(@PathVariable Long customerId) {
         return appointmentService.listForCustomer(customerId);
@@ -97,7 +96,6 @@ public class CustomerController {
                 + "/appointments/" + appointment.id())).body(appointment);
     }
 
-    /** Cancel a request or a confirmed appointment before it starts; the body {"reason": "..."} is optional. */
     @PatchMapping("/{customerId}/appointments/{appointmentId}/cancel")
     public AppointmentResponse cancelAppointment(
                 @PathVariable Long customerId,
@@ -106,7 +104,6 @@ public class CustomerController {
         return appointmentService.cancelByCustomer(customerId, appointmentId, request == null ? null : request.reason());
     }
 
-    /** Ask for a new time for a confirmed appointment (US-3); the original stays confirmed until the provider answers. */
     @PostMapping("/{customerId}/appointments/{appointmentId}/reschedule")
     public ResponseEntity<AppointmentResponse> requestReschedule(
                 @PathVariable Long customerId,

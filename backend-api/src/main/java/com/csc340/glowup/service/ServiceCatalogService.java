@@ -11,25 +11,24 @@ import com.csc340.glowup.repository.ProviderServiceRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.EnumSet;
 import java.util.List;
 
-/**
- * Providers create and edit services; only admins approve them (US-6, US-10).
- * A provider can never set a service's status or visibility directly:
- * every new or edited service goes to PENDING and stays hidden until an admin approves it.
- */
 @Service
 @Transactional
 public class ServiceCatalogService {
 
     private final ProviderRepository providerRepository;
     private final ProviderServiceRepository providerServiceRepository;
+    private final AppointmentService appointmentService;
 
     public ServiceCatalogService(
         ProviderServiceRepository providerServiceRepository,
-        ProviderRepository providerRepository){
+        ProviderRepository providerRepository,
+        AppointmentService appointmentService){
             this.providerServiceRepository = providerServiceRepository;
             this.providerRepository = providerRepository;
+            this.appointmentService = appointmentService;
     }
 
     public ProviderServiceResponse create(Long providerId, ProviderServiceRequest request){
@@ -45,7 +44,6 @@ public class ServiceCatalogService {
         return ProviderServiceResponse.from(providerServiceRepository.save(providerService));
     }
 
-    /** Any edit sends the service back to review. Rejected and archived services cannot be edited. */
     public ProviderServiceResponse update(
             Long providerId, Long serviceId, ProviderServiceRequest request){
         ProviderService providerService = providerServiceRepository.findByIdForUpdate(serviceId)
@@ -64,7 +62,7 @@ public class ServiceCatalogService {
             throw new ConflictException("A " + providerService.getStatus() + " service cannot be edited.");
         }
         if(providerService.getStatus() == ServiceStatus.APPROVED){
-            // one open draft at a time: a draft sent back with CHANGES_REQUESTED is still open (edit that draft instead)
+            // only one open draft at a time
             if(providerServiceRepository.existsByParentServiceIdAndStatus(providerService.getId(),ServiceStatus.PENDING)
                     || providerServiceRepository.existsByParentServiceIdAndStatus(providerService.getId(),ServiceStatus.CHANGES_REQUESTED)){
                 throw new ConflictException("An update for this service is already waiting for admin review");
@@ -79,6 +77,31 @@ public class ServiceCatalogService {
         apply(providerService, request);
         submitForReview(providerService);
         return ProviderServiceResponse.from(providerServiceRepository.save(providerService));
+    }
+
+    public ProviderServiceResponse archive(Long providerId, Long serviceId){
+        ProviderService providerService = providerServiceRepository.findByIdForUpdate(serviceId)
+                .orElseThrow(() -> new NotFoundException("Service "+serviceId+" was not found."));
+        if(!providerService.getProvider().getId().equals(providerId)){
+            throw new NotFoundException("Service "+serviceId+" was not found for provider "+providerId+".");
+        }
+        if(providerService.getStatus() == ServiceStatus.ARCHIVED){
+            throw new ConflictException("This service is already archived.");
+        }
+        archive(providerService);
+        return ProviderServiceResponse.from(providerService);
+    }
+
+    void archive(ProviderService providerService){
+        providerService.setStatus(ServiceStatus.ARCHIVED);
+        providerService.setIsVisible(false);
+        for(ProviderService draft : providerServiceRepository.findAllByParentServiceIdAndStatusIn(
+                providerService.getId(), EnumSet.of(ServiceStatus.PENDING, ServiceStatus.CHANGES_REQUESTED))){
+            draft.setStatus(ServiceStatus.ARCHIVED);
+            draft.setIsVisible(false);
+        }
+        providerServiceRepository.save(providerService);
+        appointmentService.declineRequestsForArchivedService(providerService.getId());
     }
 
     private Provider findProvider(Long providerId){
@@ -96,12 +119,11 @@ public class ServiceCatalogService {
     }
 
     private void submitForReview(ProviderService providerService) {
-        providerService.setReviewNote(null); // the admin's old note no longer applies to the new submission
+        providerService.setReviewNote(null);
         providerService.setStatus(ServiceStatus.PENDING);
         providerService.setIsVisible(false);
     }
 
-    /** All of a provider's own services in every status (for the provider's "My services" page). */
     @Transactional(readOnly = true)
     public List<ProviderServiceResponse> listServices(Long providerId){
         ensureProviderExists(providerId);

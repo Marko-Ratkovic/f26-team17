@@ -57,13 +57,11 @@ public class ProviderController {
         return ResponseEntity.created(URI.create("/api/providers/" + provider.id())).body(provider);
     }
 
-    /** Public profile: 404 unless the provider is ACTIVE (pending, suspended and closed providers are hidden). */
     @GetMapping("/{providerId}")
     public ProviderResponse getPublicProfile(@PathVariable Long providerId){
         return providerService.getPublicProfile(providerId);
     }
 
-    /** The provider's own profile in any status (for their profile page while pending approval). */
     @GetMapping("/{providerId}/profile")
     public ProviderResponse getOwnProfile(@PathVariable Long providerId){
         return providerService.getProfile(providerId);
@@ -105,6 +103,13 @@ public class ProviderController {
         return catalogService.update(providerId, serviceId, request);
     }
 
+    @PatchMapping("/{providerId}/services/{serviceId}/archive")
+    public ProviderServiceResponse archiveService(
+            @PathVariable Long providerId,
+            @PathVariable Long serviceId){
+        return catalogService.archive(providerId, serviceId);
+    }
+
     @GetMapping("/{providerId}/schedules")
     public List<ProviderScheduleResponse> schedules(
         @PathVariable Long providerId,
@@ -138,7 +143,6 @@ public class ProviderController {
         return appointmentService.confirm(providerId, appointmentId);
     }
 
-    /** Decline a request or a reschedule request; {"reason": "..."} is required (US-7). */
     @PatchMapping("/{providerId}/appointments/{appointmentId}/decline")
     public AppointmentResponse declineAppointment(
             @PathVariable Long providerId,
@@ -147,7 +151,6 @@ public class ProviderController {
         return appointmentService.decline(providerId, appointmentId, request.reason());
     }
 
-    /** Cancel a confirmed appointment before it starts; {"reason": "..."} is required. */
     @PatchMapping("/{providerId}/appointments/{appointmentId}/cancel")
     public AppointmentResponse cancelAppointment(
             @PathVariable Long providerId,

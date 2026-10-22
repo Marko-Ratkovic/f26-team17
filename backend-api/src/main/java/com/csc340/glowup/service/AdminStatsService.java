@@ -46,7 +46,6 @@ public class AdminStatsService {
         this.adminAppointmentRepository = adminAppointmentRepository;
     }
 
-    /** from/to are optional; the default is the last 6 months including the current one. */
     public AdminStatsResponse getStats(Long adminId, LocalDate from, LocalDate to) {
         adminAccess.requireAdmin(adminId);
         LocalDate today = LocalDate.now(REPORT_ZONE);
@@ -59,7 +58,6 @@ public class AdminStatsService {
             throw new BadRequestException("The reporting period can be at most 24 months.");
         }
 
-        // [start of first day, start of the day after the last day) in the report zone
         OffsetDateTime rangeStart = start.atStartOfDay(REPORT_ZONE).toOffsetDateTime();
         OffsetDateTime rangeEnd = end.plusDays(1).atStartOfDay(REPORT_ZONE).toOffsetDateTime();
 
@@ -82,7 +80,6 @@ public class AdminStatsService {
             monthly.get(YearMonth.from(createdAt.atZoneSameInstant(REPORT_ZONE)))[1]++;
         }
 
-        // completed = COMPLETED, or CONFIRMED and ended (see Appointment.isCompleted()); counted in the month it ended
         LocalDateTime periodStart = start.atStartOfDay();
         LocalDateTime periodEnd = end.plusDays(1).atStartOfDay();
         LocalDateTime now = LocalDateTime.now(REPORT_ZONE);

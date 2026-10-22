@@ -82,15 +82,13 @@ public class AppointmentService {
         if (original != null && (original.getStatus() != AppointmentStatus.CONFIRMED || hasStarted(original))) {
             throw new ConflictException("The original appointment is no longer upcoming, so this new time cannot be accepted.");
         }
-        // confirming is what prevents double-booking (US-7): requests may overlap, confirmed ones may not.
-        // For a reschedule the original slot is being given up, so it does not count as a clash.
+        // confirming prevents double-booking; requests may overlap
         Long originalId = original == null ? null : original.getId();
         if (overlapsConfirmed(providerId, appointment.getStartsAt(), appointment.getEndsAt(), appointment.getId(), originalId)) {
             throw new ConflictException("This time overlaps another confirmed appointment.");
         }
         OffsetDateTime now = OffsetDateTime.now();
         if (original != null) {
-            // US-3: on accept the original becomes RESCHEDULED and the new time CONFIRMED
             original.setStatus(AppointmentStatus.RESCHEDULED);
             original.setDecidedAt(now);
         }
@@ -99,7 +97,6 @@ public class AppointmentService {
         return AppointmentResponse.from(appointmentRepository.save(appointment));
     }
 
-    /** US-7: declining a request (or a reschedule request) needs a reason; a declined reschedule leaves the original as it was. */
     public AppointmentResponse decline(Long providerId, Long appointmentId, String reason) {
         Appointment appointment = findForProvider(providerId, appointmentId);
         if (appointment.getStatus() != AppointmentStatus.REQUESTED) {
@@ -111,7 +108,6 @@ public class AppointmentService {
         return AppointmentResponse.from(appointmentRepository.save(appointment));
     }
 
-    /** A provider can cancel a confirmed appointment before it starts, with a reason for the customer. */
     public AppointmentResponse cancelByProvider(Long providerId, Long appointmentId, String reason) {
         Appointment appointment = findForProvider(providerId, appointmentId);
         if (appointment.getStatus() != AppointmentStatus.CONFIRMED) {
@@ -121,7 +117,6 @@ public class AppointmentService {
         return AppointmentResponse.from(appointment);
     }
 
-    /** A customer can cancel a request or a confirmed appointment before it starts; the reason is optional. */
     public AppointmentResponse cancelByCustomer(Long customerId, Long appointmentId, String reason) {
         Appointment appointment = findForCustomer(customerId, appointmentId);
         if (appointment.getStatus() != AppointmentStatus.REQUESTED
@@ -132,10 +127,6 @@ public class AppointmentService {
         return AppointmentResponse.from(appointment);
     }
 
-    /**
-     * US-3: the customer asks for a new time for a confirmed appointment. The new time is saved as its own
-     * REQUESTED appointment linked to the original; the original stays CONFIRMED until the provider answers.
-     */
     public AppointmentResponse requestReschedule(Long customerId, Long appointmentId, RescheduleRequest request) {
         Appointment original = findForCustomer(customerId, appointmentId);
         if (original.getStatus() != AppointmentStatus.CONFIRMED || hasStarted(original)) {
@@ -150,7 +141,6 @@ public class AppointmentService {
         newTime.setCustomer(original.getCustomer());
         newTime.setService(original.getService());
         newTime.setStartsAt(request.startDateTime());
-        // the same service at the same terms as the booking being moved
         newTime.setDurationMin(original.getBookedDurationMin());
         newTime.setPrice(original.getBookedPrice());
         newTime.setStatus(AppointmentStatus.REQUESTED);
@@ -175,7 +165,32 @@ public class AppointmentService {
         return AppointmentDetailResponse.from(appointment);
     }
 
-    /** Only approved, visible services of ACTIVE providers can be booked or moved (US-3, US-5). */
+    public int cancelUpcomingForAccount(UserAccount account, String reason) {
+        int cancelled = 0;
+        for (Appointment appointment : appointmentRepository.findUpcomingOpenForUser(
+                account.getId(), LocalDateTime.now(Appointment.TIME_ZONE))) {
+            // its reschedule request may already be cancelled along with it
+            if (appointment.getStatus() == AppointmentStatus.REQUESTED
+                    || appointment.getStatus() == AppointmentStatus.CONFIRMED) {
+                cancel(appointment, AccountRole.ADMIN, reason);
+                cancelled++;
+            }
+        }
+        return cancelled;
+    }
+
+    public int declineRequestsForArchivedService(Long serviceId) {
+        List<Appointment> requests = appointmentRepository.findUpcomingRequestsForService(
+                serviceId, LocalDateTime.now(Appointment.TIME_ZONE));
+        OffsetDateTime now = OffsetDateTime.now();
+        for (Appointment request : requests) {
+            request.setStatus(AppointmentStatus.DECLINED);
+            request.setDecidedAt(now);
+            request.setStatusReason("This service is no longer offered.");
+        }
+        return requests.size();
+    }
+
     private static void requireBookableService(ProviderService service) {
         if (service.getStatus() != ServiceStatus.APPROVED || !Boolean.TRUE.equals(service.getIsVisible())
                 || service.getProvider().getUserAccount().getAccountStatus() != AccountStatus.ACTIVE) {
@@ -183,7 +198,6 @@ public class AppointmentService {
         }
     }
 
-    /** Shared by booking and rescheduling: in the future, inside opening hours, no clash with a confirmed appointment. */
     private void requireBookableTime(ProviderService service, int durationMin, LocalDateTime start, Long ignoreAppointmentId) {
         if (!start.isAfter(LocalDateTime.now(Appointment.TIME_ZONE))) {
             throw new BadRequestException("Please choose a time in the future.");
@@ -233,7 +247,7 @@ public class AppointmentService {
         Appointment appointment = appointmentRepository.findById(appointmentId)
             .orElseThrow(() -> new NotFoundException("Appointment "+appointmentId+" was not found"));
         if (!appointment.getProvider().getId().equals(providerId)) {
-            // 404, not 403: another provider's appointment is treated as not existing, so ids reveal nothing
+            // 404, not 403, so ids reveal nothing
             throw new NotFoundException("Appointment "+appointmentId+" was not found.");
         }
         return appointment;
@@ -248,10 +262,6 @@ public class AppointmentService {
         return appointment;
     }
 
-    /**
-     * The whole appointment has to fit inside the provider's opening hours for that weekday (US-7):
-     * start at or after opening time, end at or before closing time, on the same day.
-     */
     private void requireWithinOpeningHours(Long providerId, LocalDateTime start, LocalDateTime end) {
         Weekday weekday = Weekday.valueOf(start.getDayOfWeek().name());
         ProviderSchedule day = providerScheduleRepository.findByProviderIdAndWeekday(providerId, weekday)
@@ -263,7 +273,6 @@ public class AppointmentService {
         }
     }
 
-    /** True if [start, end) overlaps one of the provider's CONFIRMED appointments that day, ignoring the given ids. */
     private boolean overlapsConfirmed(Long providerId, LocalDateTime start, LocalDateTime end, Long ignoreId, Long alsoIgnoreId) {
         return appointmentRepository.findConfirmedForProviderBetween(providerId,
                         start.toLocalDate().atStartOfDay(), start.toLocalDate().plusDays(1).atStartOfDay())

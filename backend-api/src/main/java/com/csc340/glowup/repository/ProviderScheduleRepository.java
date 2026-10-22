@@ -21,7 +21,7 @@ public interface ProviderScheduleRepository extends JpaRepository<ProviderSchedu
 
     Optional<ProviderSchedule> findByProviderIdAndWeekday(Long providerId, Weekday weekday);
 
-    /** Locks the day's row while it is edited, so two edits at once cannot both create it. */
+    // row lock so two edits at once can't both create the day
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Optional<ProviderSchedule> findForUpdateByProviderIdAndWeekday(Long providerId, Weekday weekday);
 }

@@ -6,10 +6,6 @@ import com.csc340.glowup.entity.Appointment;
 import com.csc340.glowup.enums.AppointmentStatus;
 import java.math.BigDecimal;
 
-/**
- * One appointment as its provider sees it. The customer's email, phone and safety notes are only
- * included while the appointment is booked (CONFIRMED or COMPLETED); otherwise they are null (US-1, US-7).
- */
 public record AppointmentDetailResponse(
         Long appointmentId,
         String customerName,

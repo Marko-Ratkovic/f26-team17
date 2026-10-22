@@ -6,7 +6,6 @@ import com.csc340.glowup.enums.AccountStatus;
 
 import java.time.OffsetDateTime;
 
-/** One account as the admin sees it. name is the customer or provider name (null for admins). */
 public record AdminUserResponse(
     Long id,
     String name,

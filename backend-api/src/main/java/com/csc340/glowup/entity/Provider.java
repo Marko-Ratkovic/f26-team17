@@ -34,7 +34,6 @@ public class Provider {
     @JoinColumn(name = "user_account_id", nullable = false, unique = true)
     private UserAccount userAccount;
     
-    /** The provider's public name, shown to customers. */
     @NotBlank
     @Size(max = 100)
     @Column(nullable = false, length = 100)

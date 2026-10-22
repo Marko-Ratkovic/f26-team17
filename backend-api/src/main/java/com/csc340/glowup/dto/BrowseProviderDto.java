@@ -35,7 +35,6 @@ public record BrowseProviderDto(
         }
     }
  
-    // all services must belong to the same provider; categories are derived from them
     public static BrowseProviderDto from(List<ProviderService> providerServices) {
         Provider provider = providerServices.get(0).getProvider();
         return new BrowseProviderDto(

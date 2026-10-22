@@ -2225,7 +2225,7 @@ footer{
     margin-top: 4rem;
     font-weight: bold;
 }
-/* Provider reviews page (customer/provider-reviews.html) */
+/* Provider reviews page */
 .review-summary-card {
   display: flex;
   flex-wrap: wrap;
@@ -2591,7 +2591,7 @@ footer{
 }
 
 
-/* Booking request (customer/book-appointment.html): service -> day and start time -> send */
+/* Booking request */
 .booking-services {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -2677,7 +2677,7 @@ footer{
   font-weight: 600;
 }
 
-/* Provider appointment actions: Confirm plus a Decline/Cancel form that asks for a reason (US-7) */
+/* Provider appointment actions */
 .appt-actions {
   display: flex;
   flex-wrap: wrap;

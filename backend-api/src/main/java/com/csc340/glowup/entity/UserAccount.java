@@ -66,7 +66,6 @@ public class UserAccount {
         normalizeEmail();
     }
 
-    /** Emails are stored trimmed and lower-case so "A@x.com" and "a@x.com" are the same account. */
     private void normalizeEmail() {
         if (email != null) {
             email = email.trim().toLowerCase(Locale.ROOT);

@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 
-/**
- * Admin usage statistics (US-12).
- * Example: GET /api/admin/stats?from=2026-04-01&to=2026-09-30  (dates are optional)
- */
 @RestController
 @RequestMapping("/api/admin/stats")
 public class AdminStatsController {

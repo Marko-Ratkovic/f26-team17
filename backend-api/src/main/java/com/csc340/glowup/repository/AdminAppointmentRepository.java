@@ -11,11 +11,9 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-/** Admin-only appointment queries (usage statistics), kept apart from the customer/provider appointment code. */
 @Repository
 public interface AdminAppointmentRepository extends JpaRepository<Appointment, Long> {
 
-    /** Start time and duration of every appointment with one of these statuses starting in [from, to). */
     @Query("""
             select a.startsAt, coalesce(a.durationMin, s.durationMin) from Appointment a join a.service s
             where a.status in :statuses and a.startsAt >= :from and a.startsAt < :to

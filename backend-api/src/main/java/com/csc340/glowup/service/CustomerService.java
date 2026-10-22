@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -172,8 +173,8 @@ public class CustomerService {
        keyword    - matches the provider name, or a service name or description
        savedOnly  - true to show only the customer's saved providers (needs customerId)
        customerId - whose saved providers to use with savedOnly
-       sort       - NEWEST puts the most recently created services first.
-                    Sorting by rating or reviews comes later (it needs Review).
+       sort       - NEWEST puts the most recently created services first. Without a sort the order
+                    changes once a day, so no provider is always first. Rating sorts come with Review.
     */
     @Transactional(readOnly = true)
         public List<BrowseProviderDto> browse(String category, String city, String day, String timeOfDay,
@@ -222,6 +223,10 @@ public class CustomerService {
         List<List<ProviderService>> groups = new ArrayList<>(byProvider.values());
         if (wantedSort == BrowseSort.NEWEST) {
             groups.sort(Comparator.comparing(CustomerService::newestCreatedAt, Comparator.reverseOrder()));
+        } else {
+            // no sort chosen: a fair default. The order changes once a day (same order all day, so paging and
+            // testing stay stable) instead of always putting the oldest providers first.
+            Collections.shuffle(groups, new Random(LocalDate.now(Appointment.TIME_ZONE).toEpochDay()));
         }
 
         return groups.stream().map(BrowseProviderDto::from).toList();

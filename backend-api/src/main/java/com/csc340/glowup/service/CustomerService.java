@@ -168,13 +168,11 @@ public class CustomerService {
        category   - a ServiceCategory name
        city       - exact match, ignoring case
        day        - a Weekday name; provider must be available that day
-       timeOfDay  - MORNING (9–12), AFTERNOON (12–5) or EVENING (5–9): the provider is open at some
-                    point in that range (on the chosen day, or on any day when no day is given)
+       timeOfDay  - MORNING, AFTERNOON or EVENING; the provider is open some time in that range
        keyword    - matches the provider name, or a service name or description
        savedOnly  - true to show only the customer's saved providers (needs customerId)
        customerId - whose saved providers to use with savedOnly
-       sort       - NEWEST puts the most recently created services first. Without a sort the order
-                    changes once a day, so no provider is always first. Rating sorts come with Review.
+       sort       - NEWEST, or no sort for an order that changes once a day
     */
     @Transactional(readOnly = true)
         public List<BrowseProviderDto> browse(String category, String city, String day, String timeOfDay,
@@ -224,8 +222,7 @@ public class CustomerService {
         if (wantedSort == BrowseSort.NEWEST) {
             groups.sort(Comparator.comparing(CustomerService::newestCreatedAt, Comparator.reverseOrder()));
         } else {
-            // no sort chosen: a fair default. The order changes once a day (same order all day, so paging and
-            // testing stay stable) instead of always putting the oldest providers first.
+            // no sort: shuffle once a day so the oldest providers are not always first
             Collections.shuffle(groups, new Random(LocalDate.now(Appointment.TIME_ZONE).toEpochDay()));
         }
 
@@ -271,7 +268,6 @@ public class CustomerService {
         }
     }
 
-    // MORNING, AFTERNOON or EVENING (see TimeBlock); null when no time of day was given
     private TimeBlock parseTimeOfDay(String timeOfDay) {
         if (timeOfDay == null || timeOfDay.isBlank()) {
             return null;

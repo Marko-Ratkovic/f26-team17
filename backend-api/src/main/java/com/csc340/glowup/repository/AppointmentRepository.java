@@ -15,7 +15,6 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
    List<Appointment> findAllByCustomerIdOrderByIdDesc(Long customerId);
 
-   /** Reschedule requests made from an appointment (rows whose rescheduledFrom is that appointment). */
    List<Appointment> findAllByRescheduledFromIdAndStatus(Long rescheduledFromId, AppointmentStatus status);
    
    @Query("SELECT a FROM Appointment a WHERE a.service.provider.id = :providerId ORDER BY a.id DESC")
@@ -31,7 +30,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
       "AND a.status = com.csc340.glowup.enums.AppointmentStatus.REQUESTED AND a.startsAt > :now")
    List<Appointment> findUpcomingRequestsForService(@Param("serviceId") Long serviceId, @Param("now") LocalDateTime now);
 
-   /** A provider's CONFIRMED appointments starting in [from, to); the overlap check is done in Java. */
    @Query("SELECT a FROM Appointment a WHERE a.service.provider.id = :providerId " +
       "AND a.status = com.csc340.glowup.enums.AppointmentStatus.CONFIRMED " +
       "AND a.startsAt >= :from AND a.startsAt < :to")

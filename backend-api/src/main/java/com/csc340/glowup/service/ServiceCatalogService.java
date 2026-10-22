@@ -14,11 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.EnumSet;
 import java.util.List;
 
-/**
- * Providers create and edit services; only admins approve them (US-6, US-10).
- * A provider can never set a service's status or visibility directly:
- * every new or edited service goes to PENDING and stays hidden until an admin approves it.
- */
 @Service
 @Transactional
 public class ServiceCatalogService {
@@ -49,7 +44,6 @@ public class ServiceCatalogService {
         return ProviderServiceResponse.from(providerServiceRepository.save(providerService));
     }
 
-    /** Any edit sends the service back to review. Rejected and archived services cannot be edited. */
     public ProviderServiceResponse update(
             Long providerId, Long serviceId, ProviderServiceRequest request){
         ProviderService providerService = providerServiceRepository.findByIdForUpdate(serviceId)
@@ -68,7 +62,7 @@ public class ServiceCatalogService {
             throw new ConflictException("A " + providerService.getStatus() + " service cannot be edited.");
         }
         if(providerService.getStatus() == ServiceStatus.APPROVED){
-            // one open draft at a time: a draft sent back with CHANGES_REQUESTED is still open (edit that draft instead)
+            // only one open draft at a time
             if(providerServiceRepository.existsByParentServiceIdAndStatus(providerService.getId(),ServiceStatus.PENDING)
                     || providerServiceRepository.existsByParentServiceIdAndStatus(providerService.getId(),ServiceStatus.CHANGES_REQUESTED)){
                 throw new ConflictException("An update for this service is already waiting for admin review");
@@ -125,12 +119,11 @@ public class ServiceCatalogService {
     }
 
     private void submitForReview(ProviderService providerService) {
-        providerService.setReviewNote(null); // the admin's old note no longer applies to the new submission
+        providerService.setReviewNote(null);
         providerService.setStatus(ServiceStatus.PENDING);
         providerService.setIsVisible(false);
     }
 
-    /** All of a provider's own services in every status (for the provider's "My services" page). */
     @Transactional(readOnly = true)
     public List<ProviderServiceResponse> listServices(Long providerId){
         ensureProviderExists(providerId);

@@ -21,10 +21,6 @@ import java.util.Comparator;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Provider opening hours: one row per weekday with open and close times (US-5, US-7).
- * A closed day is isAvailable = false and keeps its times, so reopening it does not lose them.
- */
 @Service 
 @Transactional 
 public class ProviderScheduleService {
@@ -52,10 +48,6 @@ public class ProviderScheduleService {
                 .map(ProviderScheduleResponse::from).toList();
     }
 
-    /**
-     * Creates all 7 days at registration: the chosen days are open with the given hours,
-     * the others are closed but keep the same hours as a starting point.
-     */
     public void createWeek(Provider provider, Collection<Weekday> openDays, LocalTime openTime, LocalTime closeTime) {
         if (openDays == null || openDays.isEmpty()) {
             throw new BadRequestException("Choose at least one day you are available.");
@@ -94,7 +86,6 @@ public class ProviderScheduleService {
         return ProviderUpdateScheduleResponse.from(providerId,providerSchedules);
     }
 
-    /** The same rule for registration and for editing: an open day needs both times, and open before close. */
     static void validateHours(Boolean isAvailable, LocalTime openTime, LocalTime closeTime) {
         if (!Boolean.TRUE.equals(isAvailable)) {
             if (openTime != null && closeTime != null && !openTime.isBefore(closeTime)) {
@@ -113,7 +104,6 @@ public class ProviderScheduleService {
         }
     }
 
-    /** Appointment start times and opening hours use 15-minute steps (:00, :15, :30, :45). */
     static boolean isOnQuarterHour(LocalTime time) {
         return time.getMinute() % 15 == 0 && time.getSecond() == 0 && time.getNano() == 0;
     }

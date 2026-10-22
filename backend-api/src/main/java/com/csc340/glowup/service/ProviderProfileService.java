@@ -53,7 +53,6 @@ public class ProviderProfileService {
         userAccount.setPassword(passwordEncoder.encode(request.password()));
         userAccount.setAccountRole(AccountRole.PROVIDER);
         userAccount.setPhoneNumber(normalizePhone(request.phoneNumber()));
-        // New providers wait for an admin to approve them (SRS US-5, US-9).
         userAccount.setAccountStatus(AccountStatus.PENDING_APPROVAL);
         UserAccount savedUser = userAccountRepository.save(userAccount);
 
@@ -73,7 +72,6 @@ public class ProviderProfileService {
         return ProviderResponse.from(saved);
     }
 
-    /** The public profile customers see: only ACTIVE providers exist publicly (US-5). */
     @Transactional(readOnly = true)
     public ProviderResponse getPublicProfile(Long providerId){
         Provider provider = findProvider(providerId);
@@ -83,7 +81,6 @@ public class ProviderProfileService {
         return ProviderResponse.from(provider);
     }
 
-    /** The provider's own profile in any status, e.g. while waiting for approval (owner-only once login is added). */
     @Transactional(readOnly = true)
     public ProviderResponse getProfile(Long providerId){
         return ProviderResponse.from(findProvider(providerId));
@@ -109,7 +106,6 @@ public class ProviderProfileService {
         return ProviderResponse.from(providerRepository.save(provider));
     }
 
-    // same rule as customer registration: keep digits and a leading +; blank becomes null
     private static String normalizePhone(String phone) {
         if (phone == null || phone.isBlank()) {
             return null;

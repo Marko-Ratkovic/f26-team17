@@ -18,7 +18,6 @@ import java.time.ZoneId;
 @NoArgsConstructor  
 public class Appointment {
 
-    /** startsAt is a local time at the provider's business; all GlowUp providers are in this zone. */
     public static final ZoneId TIME_ZONE = ZoneId.of("America/New_York");
     
     @Id
@@ -39,10 +38,7 @@ public class Appointment {
     @Column(nullable = false) 
     private LocalDateTime startsAt;
 
-    /**
-     * Duration and price saved when the appointment is requested, so a later edit of the service
-     * never changes an existing booking. Null only on rows made before these columns existed.
-     */
+    // saved at booking so a later edit of the service never changes it
     private Integer durationMin;
 
     @Column(precision = 10, scale = 2)
@@ -60,7 +56,6 @@ public class Appointment {
 
     private OffsetDateTime cancelledAt;
 
-    /** Who cancelled: CUSTOMER or PROVIDER (null unless CANCELLED). */
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private AccountRole cancelledBy;
@@ -88,12 +83,10 @@ public class Appointment {
         return startsAt.plusMinutes(getBookedDurationMin());
     }
 
-    /** The duration saved at booking; falls back to the service for rows made before it was saved. */
     public int getBookedDurationMin() {
         return durationMin != null ? durationMin : service.getDurationMin();
     }
 
-    /** The price saved at booking; falls back to the service for rows made before it was saved. */
     public BigDecimal getBookedPrice() {
         return price != null ? price : service.getPrice();
     }
@@ -106,15 +99,10 @@ public class Appointment {
         return getEndsAt().isBefore(LocalDateTime.now(TIME_ZONE));
     }
 
-    /** A request nobody answered before its start time. Worked out from the time, not stored. */
     public boolean isExpired() {
         return status == AppointmentStatus.REQUESTED && !startsAt.isAfter(LocalDateTime.now(TIME_ZONE));
     }
 
-    /**
-     * Completed = marked COMPLETED by the provider, or CONFIRMED and already over.
-     * Reviews (US-4) and admin stats (US-12) use this, so they never wait on the provider's click.
-     */
     public boolean isCompleted() {
         return status == AppointmentStatus.COMPLETED
                 || (status == AppointmentStatus.CONFIRMED && hasEnded());

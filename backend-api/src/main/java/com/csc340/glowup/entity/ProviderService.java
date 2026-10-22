@@ -47,7 +47,6 @@ public class ProviderService {
     @Column(length = 2000)
     private String description;
 
-    /** Whole US dollars, display only (no payments in GlowUp). */
     @NotNull
     @DecimalMin("1")
     @Digits(integer = 8, fraction = 0)
@@ -81,7 +80,6 @@ public class ProviderService {
     @Column(nullable = false)
     private Boolean isVisible;
 
-    /** The admin's note on the last decision (required for changes requested / rejected), shown to the provider (US-10). */
     @Size(max = 1000)
     @Column(length = 1000)
     private String reviewNote;
@@ -91,7 +89,6 @@ public class ProviderService {
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
 
-    /** Set only on a draft edit of an APPROVED service: the live service it updates when approved (the draft is then deleted). */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_service_id")
     private ProviderService parentService;

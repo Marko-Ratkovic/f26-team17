@@ -19,10 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * Admin user access (US-9).
- * Until login is added, the admin's account id is sent in the X-Admin-Id header.
- */
 @RestController
 @RequestMapping("/api/admin/users")
 public class AdminUserController {

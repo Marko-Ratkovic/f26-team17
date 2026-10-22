@@ -19,11 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * Admin service review (US-10).
- * Example: GET /api/admin/services?status=PENDING  then  POST /api/admin/services/7/decision
- *          {"decision":"REQUEST_CHANGES","note":"Please add a clearer photo."}
- */
 @RestController
 @RequestMapping("/api/admin/services")
 public class AdminServiceController {

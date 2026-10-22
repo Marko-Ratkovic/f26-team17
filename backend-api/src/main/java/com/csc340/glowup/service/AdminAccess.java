@@ -6,11 +6,7 @@ import com.csc340.glowup.enums.AccountStatus;
 import com.csc340.glowup.repository.UserAccountRepository;
 import org.springframework.stereotype.Component;
 
-/**
- * Shared admin check for every admin feature (users, stats, services, reports).
- * Temporary until login exists: the caller sends their account id, and it must be
- * an ACTIVE admin. Replace with the authenticated user once security is added.
- */
+/** Temporary until login: the caller sends their account id, and it must be an ACTIVE admin. */
 @Component
 public class AdminAccess {
 

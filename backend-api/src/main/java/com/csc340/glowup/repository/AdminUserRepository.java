@@ -15,17 +15,9 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Admin-only queries over user accounts. Kept separate from UserAccountRepository
- * so the admin search does not change the customer/provider code.
- */
 @Repository
 public interface AdminUserRepository extends JpaRepository<UserAccount, Long> {
 
-    /**
-     * One page of the admin user list, built in a single query (no extra query per row).
-     * pattern comes from SearchPattern.contains(...).
-     */
     @Query(value = """
             select new com.csc340.glowup.dto.AdminUserResponse(
                 u.id, coalesce(p.name, c.name), u.email, u.phoneNumber,
@@ -55,7 +47,6 @@ public interface AdminUserRepository extends JpaRepository<UserAccount, Long> {
                                    @Param("pattern") String pattern,
                                    Pageable pageable);
 
-    /** Role and sign-up time of every non-admin account created in [start, end). */
     @Query("""
             select u.accountRole, u.createdAt from UserAccount u
             where u.createdAt >= :start and u.createdAt < :end

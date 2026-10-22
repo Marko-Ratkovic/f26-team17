@@ -16,10 +16,6 @@ import java.util.List;
 @Repository
 public interface AdminServiceRepository extends JpaRepository<ProviderService, Long> {
 
-    /**
-     * status is optional (null = any status).
-     * pattern comes from SearchPattern.contains(...).
-     */
     @Query("""
             select s from ProviderService s join s.provider p
             where (:status is null or s.status = :status)

@@ -22,12 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * US-10: admins review new services before customers see them.
- * Only PENDING services can be decided. Approving a draft edit copies it onto the live service and deletes the draft. Requesting changes or rejecting needs a
- * note for the provider. Every decision is written to the admin audit log in the
- * same transaction; the note is stored there as the reason.
- */
 @Service
 @Transactional
 public class AdminServiceModerationService {
@@ -50,7 +44,6 @@ public class AdminServiceModerationService {
         this.serviceCatalogService = serviceCatalogService;
     }
 
-    /** The review queue: oldest submissions first so nothing waits forever. */
     @Transactional(readOnly = true)
     public AdminServicePage listServices(Long adminId, ServiceStatus status, String query, int page, int size) {
         adminAccess.requireAdmin(adminId);
@@ -118,7 +111,7 @@ public class AdminServiceModerationService {
                 yield AdminActionType.SERVICE_REJECTED;
             }
         };
-        service.setReviewNote(note); // shown to the provider (US-10)
+        service.setReviewNote(note);
         adminServiceRepository.save(service);
         adminActionRepository.save(AdminAction.of(admin, action, AdminTargetType.SERVICE, serviceId, note));
         return AdminServiceResponse.from(service);
@@ -139,11 +132,6 @@ public class AdminServiceModerationService {
         return AdminServiceResponse.from(service);
     }
 
-    /**
-     * US-6: approving a draft edit copies its details onto the live service (which keeps its id and stays
-     * APPROVED and visible), then deletes the draft. The approval is logged against the live service, so it
-     * stays in that service's history. Requesting changes or rejecting a draft leaves the live service alone.
-     */
     private AdminServiceResponse approveDraft(UserAccount admin, ProviderService draft, String note) {
         ProviderService live = draft.getParentService();
         live.setName(draft.getName());

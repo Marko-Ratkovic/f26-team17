@@ -7,7 +7,6 @@ import com.csc340.glowup.enums.ServiceStatus;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
-/** A service as the admin reviews it, with who submitted it and when. */
 public record AdminServiceResponse(
     Long id,
     String name,

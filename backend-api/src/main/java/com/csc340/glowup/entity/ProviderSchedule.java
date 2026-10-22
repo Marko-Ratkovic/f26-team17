@@ -20,10 +20,6 @@ import lombok.Setter;
 
 import java.time.LocalTime;
 
-/**
- * A provider's opening hours for one weekday (one row per weekday, so at most 7 per provider).
- * isAvailable = false means closed that day; the times stay saved so the day can be reopened later.
- */
 @Entity
 @Table(name = "provider_schedule",
         uniqueConstraints = @UniqueConstraint(name = "uk_provider_schedule_day",
@@ -45,7 +41,6 @@ public class ProviderSchedule {
     @Column(nullable = false)
     private Boolean isAvailable;
 
-    /** Required when isAvailable is true; must be before closeTime. */
     private LocalTime openTime;
 
     private LocalTime closeTime;
@@ -55,13 +50,11 @@ public class ProviderSchedule {
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
 
-    /** True if the provider is open this day and [start, end] fits inside the opening hours. */
     public boolean covers(LocalTime start, LocalTime end) {
         return Boolean.TRUE.equals(isAvailable) && openTime != null && closeTime != null
                 && !start.isBefore(openTime) && !end.isAfter(closeTime);
     }
 
-    /** True if the provider is open this day at some point between from and to (used by the browse filter). */
     public boolean overlaps(LocalTime from, LocalTime to) {
         return Boolean.TRUE.equals(isAvailable) && openTime != null && closeTime != null
                 && openTime.isBefore(to) && closeTime.isAfter(from);

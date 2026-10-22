@@ -19,11 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * US-9: admins approve pending providers and suspend or reinstate accounts.
- * Every change takes effect immediately and is written to the admin audit log
- * in the same transaction, so a status change is never saved without its log row.
- */
 @Service
 @Transactional
 public class AdminUserService {
@@ -77,7 +72,6 @@ public class AdminUserService {
                 .stream().map(AdminActionResponse::from).toList();
     }
 
-    /** PENDING_APPROVAL provider → ACTIVE. Only providers wait for approval. */
     public AdminUserResponse approveProvider(Long adminId, Long userId, String reason) {
         UserAccount admin = adminAccess.requireAdmin(adminId);
         UserAccount user = findUser(userId);
@@ -91,7 +85,6 @@ public class AdminUserService {
         return changeStatus(admin, user, AccountStatus.ACTIVE, AdminActionType.PROVIDER_APPROVED, reason);
     }
 
-    /** ACTIVE or PENDING_APPROVAL → SUSPENDED. Closed accounts cannot be suspended. */
     public AdminUserResponse suspend(Long adminId, Long userId, String reason) {
         UserAccount admin = adminAccess.requireAdmin(adminId);
         UserAccount user = findUser(userId);
@@ -111,10 +104,7 @@ public class AdminUserService {
         return response;
     }
 
-    /**
-     * SUSPENDED → ACTIVE. A provider who was suspended before ever being approved
-     * goes back to PENDING_APPROVAL, so reinstating never skips the approval step.
-     */
+    /** A provider suspended before ever being approved goes back to PENDING_APPROVAL. */
     public AdminUserResponse reinstate(Long adminId, Long userId, String reason) {
         UserAccount admin = adminAccess.requireAdmin(adminId);
         UserAccount user = findUser(userId);

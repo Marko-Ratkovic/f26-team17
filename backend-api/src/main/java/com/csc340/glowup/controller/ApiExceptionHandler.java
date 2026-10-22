@@ -26,10 +26,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Every API error has the same shape: {"error": "human-readable message"}.
- * Clients (the frontend) only need to read one field, whatever went wrong.
- */
 @ControllerAdvice
 public class ApiExceptionHandler {
 
@@ -58,7 +54,6 @@ public class ApiExceptionHandler {
         return error(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
-    /** A field in the JSON body failed validation, e.g. a blank name. */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleInvalidBody(
             MethodArgumentNotValidException exception) {
@@ -68,14 +63,12 @@ public class ApiExceptionHandler {
         return error(HttpStatus.BAD_REQUEST, message);
     }
 
-    /** The body is missing, is not valid JSON, or has a wrong type (e.g. "decision": "MAYBE"). */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Map<String, String>> handleUnreadableBody(HttpMessageNotReadableException exception) {
         return error(HttpStatus.BAD_REQUEST,
                 "The request body is missing, is not valid JSON, or has a value of the wrong type.");
     }
 
-    /** A path variable, query parameter or header has the wrong type, e.g. X-Admin-Id: A. */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Map<String, String>> handleTypeMismatch(MethodArgumentTypeMismatchException exception) {
         return error(HttpStatus.BAD_REQUEST, exception.getName() + " must be " + describe(exception.getRequiredType()) + ".");
@@ -106,7 +99,7 @@ public class ApiExceptionHandler {
         return error(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "Content-Type must be application/json.");
     }
 
-    /** Anything unexpected: log the details for us, but never leak them to the client. */
+    // log the details, never send them to the client
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleUnexpected(Exception exception) {
         log.error("Unexpected error", exception);

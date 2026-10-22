@@ -13,7 +13,7 @@
 - **Customer:** A person booking beauty or grooming services.
 - **Provider:** A nail technician, barber, or makeup artist offering services.
 - **SysAdmin:** The user who approves providers and moderates services and reviews.
-- **Opening hours:** For each weekday, a provider is either closed or open from an opening time to a closing time.
+- **Opening hours:** For each weekday, a provider is either closed or open from an opening time to a closing time. Changing them only affects new bookings: confirmed appointments outside the new hours stay as booked.
 - **Time of day:** Morning (9 AM–12 PM), Afternoon (12–5 PM), or Evening (5–9 PM). Used only to filter providers: a provider matches if they are open at some point in that range.
 - **Completed appointment:** A confirmed appointment whose end time has passed. The provider can also mark it completed after it ends, but reviews and statistics never wait for that.
 - **Expired request:** A request the provider did not answer before its start time. It can no longer be confirmed.

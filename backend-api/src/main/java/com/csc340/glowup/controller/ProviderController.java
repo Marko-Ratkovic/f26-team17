@@ -1,7 +1,8 @@
 package com.csc340.glowup.controller;
 
 import com.csc340.glowup.dto.ProviderResponse;
-import com.csc340.glowup.dto.ProviderScheduleRequest;
+import com.csc340.glowup.dto.ProviderUpdateScheduleRequest;
+import com.csc340.glowup.dto.ProviderUpdateScheduleResponse;
 import com.csc340.glowup.enums.Weekday;
 import com.csc340.glowup.dto.ProviderScheduleResponse;
 import com.csc340.glowup.dto.ProviderServiceRequest;
@@ -73,6 +74,8 @@ public class ProviderController {
         return catalogService.listApprovedForProvider(providerId);
     }
 
+    
+
     @GetMapping("/{providerId}/all-services")
     public List<ProviderServiceResponse> allServices(@PathVariable Long providerId){
         return catalogService.listServices(providerId);
@@ -102,13 +105,11 @@ public class ProviderController {
         return providerScheduleService.list(providerId,availableOnly);
     }
 
-    /** Sets one weekday's hours, e.g. PUT /api/providers/5/schedules/MONDAY {"isAvailable":true,"openTime":"10:00","closeTime":"19:30"}. */
-    @PutMapping("/{providerId}/schedules/{weekday}")
-    public ProviderScheduleResponse setScheduleDay(
+    @PutMapping("/{providerId}/schedules")
+    public ProviderUpdateScheduleResponse updateWeeklySchedule(
             @PathVariable Long providerId,
-            @PathVariable Weekday weekday,
-            @Valid @RequestBody ProviderScheduleRequest request){
-        return providerScheduleService.setDay(providerId, weekday, request);
+            @Valid @RequestBody ProviderUpdateScheduleRequest request){
+        return providerScheduleService.updateWeek(providerId, request);
     }
 
     @GetMapping("/{providerId}/appointments")

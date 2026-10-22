@@ -25,8 +25,6 @@ public record ProviderRegistrationRequest(
         @NotBlank String city,
         @NotBlank String state,
         @NotBlank String zipcode,
-        // starting opening hours (US-5): these days are open from openTime to closeTime, the others closed;
-        // each day can be changed later with PUT /api/providers/{id}/schedules/{weekday}
         @NotEmpty List<Weekday> availableDays,
         @NotNull LocalTime openTime,
         @NotNull LocalTime closeTime

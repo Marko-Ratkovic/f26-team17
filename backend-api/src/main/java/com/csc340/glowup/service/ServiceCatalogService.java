@@ -117,6 +117,8 @@ public class ServiceCatalogService {
                 .stream().map(ProviderServiceResponse::from).toList();
     }
 
+    
+
     private void ensureProviderExists(Long providerId){
         if(!providerRepository.existsById(providerId))
             throw new NotFoundException("Provider "+providerId+" was not found.");

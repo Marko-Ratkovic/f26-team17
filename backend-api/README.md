@@ -24,7 +24,8 @@ transitions.
 | Method | Path                            | Purpose                                                    | Response code | Error codes | User story                                                              |
 | ------ | ------------------------------- | ---------------------------------------------------------- | ------------- | ----------- | ----------------------------------------------------------------------- |
 | `POST` | `/api/providers/register`                | Register a provider profile                                | `201 Created` | `400, 409`  | [US-5](../docs/GlowUpSRS.md#L106)                                      |
-| `PUT`  | `/api/providers/{providerId}`   | Update a provider profile                                  | `200 OK`      | `400, 404, 409` | [US-5](../docs/GlowUpSRS.md#L114)                                   |  
+| `PUT`  | `/api/providers/{providerId}`   | Update a provider profile                                  | `200 OK`      | `400, 404, 409` | [US-5](../docs/GlowUpSRS.md#L106)                                   |  
+| `GET`  | `/api/providers/{providerId}`   | Read a provider profile                                  | `200 OK`      | `400` | [US-5](../docs/GlowUpSRS.md#L106)                                   |  
 
 
 ## Example Customer Request
@@ -39,17 +40,18 @@ be exposed to untrusted clients until access control is added.
 
 | Method   | Path                                                     | Purpose                                                             | Response code    | Error codes | User story                          |
 | -------- | -------------------------------------------------------- | ------------------------------------------------------------------- | ---------------- | ----------- | ----------------------------------- |
-| `POST` | `/api/providers/{providerId}/services`                | Provider create a service and submit for admin review                               | `201 Created` | `400, 409`  | [US-6](../docs/GlowUpSRS.md#L121)  
-| `PUT`  | `/api/providers/{providerId}/services/{serviceId}`   | Provider update a service and submit for admin review                                 | `200 OK`      | `400, 404, 409` | [US-6](../docs/GlowUpSRS.md#L129)    
-| `POST` | `/api/providers/{providerId}/schedules`                | Provider add schedule timeblock and day                               | `201 Created` | `400, 409`  | [US-7](../docs/GlowUpSRS.md#L136)
+| `GET` | `/api/providers/{providerId}/services`                | List that provider's approved and visible services                               | `200 OK`  | `400, 404, 409`  | [US-6](../docs/GlowUpSRS.md#L121)
+| `GET` | `/api/providers/{providerId}/all-services`                | List that provider's all services regardless service's status                               | `200 OK` | `400, 409`  | [US-6](../docs/GlowUpSRS.md#L121)
+| `POST` | `/api/providers/{providerId}/services`                | Provider create a service and submit for admin review, PENDING status by default                               | `201 Created` | `400, 404, 409`  | [US-6](../docs/GlowUpSRS.md#L121)  
+| `PUT`  | `/api/providers/{providerId}/services/{serviceId}`   | Provider update a service and submit for admin review, old version of service keep visible                                 | `200 OK`      | `400, 404, 409` | [US-6](../docs/GlowUpSRS.md#L129)    
+| `PUT` | `/api/providers/{providerId}/schedules`                | Provider update weekly schedule 	                              | `201 Created` | `400, 409`  | [US-7](../docs/GlowUpSRS.md#L136)
 
 ### Example Service Request
 
 ```http
 POST /api/providers/{providerId}/services
 Content-Type: application/json
-NOTE: Provider account's status has to be ACTIVE
-
+NOTE: Provider account's status has to be ACTIVE to create or update service
 {
 	"name": "Eyebrows waxing",
 	"description": "Eyebrow shaping and waxing using professional wax and soothing post-wax lotion.",
@@ -60,14 +62,55 @@ NOTE: Provider account's status has to be ACTIVE
 }
 ```
 
-### Example Provider Schedule Request
+### Example Provider Update Schedule Request
 ```http
 POST /api/providers/{providerId}/schedules
 Content-Type: application/json
 {
-    "weekday":"MONDAY",
-    "timeBlock":"EVENING",
-    "isAvailable":true
+  "providerDailySchedule": [
+    {
+      "weekday": "MONDAY",
+      "isAvailable": true,
+      "openTime": "09:00:00",
+      "closeTime": "17:00:00"
+    },
+    {
+      "weekday": "TUESDAY",
+      "isAvailable": true,
+      "openTime": "09:00:00",
+      "closeTime": "17:00:00"
+    },
+    {
+      "weekday": "WEDNESDAY",
+      "isAvailable": true,
+      "openTime": "09:00:00",
+      "closeTime": "17:00:00"
+    },
+    {
+      "weekday": "THURSDAY",
+      "isAvailable": true,
+      "openTime": "09:00:00",
+      "closeTime": "17:00:00"
+    },
+    {
+      "weekday": "FRIDAY",
+      "isAvailable": true,
+      "openTime": "09:00:00",
+      "closeTime": "19:30:00"
+    },
+    {
+      "weekday": "SATURDAY",
+      "isAvailable": true,
+      "openTime": "10:00:00",
+      "closeTime": "15:00:00"
+    },
+    {
+      "weekday": "SUNDAY",
+      "isAvailable": false,
+      "openTime": null,
+      "closeTime": null
+    }
+  ]
 }
 ```
 
@@ -75,8 +118,8 @@ Content-Type: application/json
 
 | Method  | Path                                                          | Purpose                                               | Response code | Error codes | User story                                                              |
 | ------- | ------------------------------------------------------------- | ----------------------------------------------------- | ------------- | ----------- | ----------------------------------------------------------------------- |
+| `GET` | `/api/providers/{providerId}/appointments/{appointmentId}`                | Provider view CONFIRMED appointment detail                               | `200 OK` | `400, 404, 409`  | [US-7](../docs/GlowUpSRS.md#L149) 
 | `PAT` | `/api/providers//{providerId}/appointments/{appointmentId}/confirm`                | Provider confirm a REQUESTED appointment                               | `200 OK` | `400, 404, 409`  | [US-7](../docs/GlowUpSRS.md#L143) 
-| `GET` | `/api/providers/{providerId}/appointments/{appointmentId}`                | Provider view appointment detail                               | `200 OK` | `400, 404, 409`  | [US-7](../docs/GlowUpSRS.md#L149) 
 
 ### Example Appointment Request
 

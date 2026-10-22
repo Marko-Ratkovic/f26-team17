@@ -4,7 +4,9 @@ import com.csc340.glowup.entity.ProviderSchedule;
 
 import org.springframework.stereotype.Service;
 
-import com.csc340.glowup.dto.ProviderScheduleRequest;
+import com.csc340.glowup.dto.ProviderUpdateScheduleRequest;
+import com.csc340.glowup.dto.ProviderUpdateScheduleResponse;
+import com.csc340.glowup.dto.ProviderDailyScheduleUpdate;
 import com.csc340.glowup.dto.ProviderScheduleResponse;
 import com.csc340.glowup.entity.Provider;
 import com.csc340.glowup.enums.Weekday;
@@ -48,21 +50,6 @@ public class ProviderScheduleService {
                 .map(ProviderScheduleResponse::from).toList();
     }
 
-    /** Sets one weekday's hours: updates the row if it exists, creates it if not. */
-    public ProviderScheduleResponse setDay(Long providerId, Weekday weekday, ProviderScheduleRequest request){
-        Provider provider = findProvider(providerId);
-        ProviderSchedule day = providerScheduleRepository.findForUpdateByProviderIdAndWeekday(providerId, weekday)
-                .orElseGet(() -> newDay(provider, weekday));
-        // a closed day may leave the times out; then the saved times are kept
-        LocalTime open = request.openTime() != null ? request.openTime() : day.getOpenTime();
-        LocalTime close = request.closeTime() != null ? request.closeTime() : day.getCloseTime();
-        validateHours(request.isAvailable(), open, close);
-        day.setIsAvailable(request.isAvailable());
-        day.setOpenTime(open);
-        day.setCloseTime(close);
-        return ProviderScheduleResponse.from(providerScheduleRepository.save(day));
-    }
-
     /**
      * Creates all 7 days at registration: the chosen days are open with the given hours,
      * the others are closed but keep the same hours as a starting point.
@@ -79,6 +66,29 @@ public class ProviderScheduleService {
             day.setCloseTime(closeTime);
             providerScheduleRepository.save(day);
         }
+    }
+
+    public ProviderUpdateScheduleResponse updateWeek(Long providerId, ProviderUpdateScheduleRequest request){
+        Provider provider = findProvider(providerId);
+        for(ProviderDailyScheduleUpdate newDailySchedule : request.providerDailySchedule()){
+            ProviderSchedule day = providerScheduleRepository.findForUpdateByProviderIdAndWeekday(providerId, newDailySchedule.weekday())
+                        .orElseThrow(() -> new IllegalStateException("Schedule not found for weekday: " + newDailySchedule.weekday()));
+            if(newDailySchedule.isAvailable()){
+                LocalTime open = newDailySchedule.openTime() != null ? newDailySchedule.openTime() : day.getOpenTime();
+                LocalTime close = newDailySchedule.closeTime() != null ? newDailySchedule.closeTime() : day.getCloseTime();
+                validateHours(true, open, close);
+                day.setIsAvailable(true);
+                day.setOpenTime(open);
+                day.setCloseTime(close);
+                
+            }
+            else {
+                day.setIsAvailable(false);
+            }
+            providerScheduleRepository.save(day);
+        }
+        List<ProviderSchedule> providerSchedules = providerScheduleRepository.findAllByProviderId(providerId);
+        return ProviderUpdateScheduleResponse.from(providerId,providerSchedules);
     }
 
     /** The same rule for registration and for editing: an open day needs both times, and open before close. */

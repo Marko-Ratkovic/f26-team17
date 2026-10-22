@@ -7,12 +7,20 @@ import org.springframework.stereotype.Service;
 import com.csc340.glowup.dto.ProviderScheduleRequest;
 import com.csc340.glowup.dto.ProviderScheduleResponse;
 import com.csc340.glowup.entity.Provider;
+import com.csc340.glowup.enums.Weekday;
 import com.csc340.glowup.repository.ProviderRepository;
 import com.csc340.glowup.repository.ProviderScheduleRepository;
 
+import java.time.LocalTime;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Provider opening hours: one row per weekday with open and close times (US-5, US-7).
+ * A closed day is isAvailable = false and keeps its times, so reopening it does not lose them.
+ */
 @Service 
 @Transactional 
 public class ProviderScheduleService {
@@ -27,18 +35,6 @@ public class ProviderScheduleService {
         this.providerRepository = providerRepository;
     }
 
-    public ProviderScheduleResponse create(Long providerId, ProviderScheduleRequest request){
-        Provider provider = findProvider(providerId);
-        if (providerScheduleRepository.existsByProviderIdAndWeekdayAndTimeBlock(
-                providerId, request.weekday(), request.timeBlock())) {
-            throw duplicate(request);
-        }
-        ProviderSchedule providerSchedule = new ProviderSchedule();
-        providerSchedule.setProvider(provider);
-        apply(providerSchedule,request);
-        return ProviderScheduleResponse.from(providerScheduleRepository.save(providerSchedule));
-    }
-
     @Transactional(readOnly = true)
     public List<ProviderScheduleResponse> list(Long providerId, boolean availableOnly){
         if(!providerRepository.existsById(providerId)){
@@ -47,41 +43,77 @@ public class ProviderScheduleService {
         List<ProviderSchedule> providerSchedule = availableOnly
             ? providerScheduleRepository.findAllByProviderIdAndIsAvailableTrue(providerId)
             : providerScheduleRepository.findAllByProviderId(providerId);
-        return providerSchedule.stream().map(ProviderScheduleResponse::from).toList();
+        return providerSchedule.stream()
+                .sorted(Comparator.comparing(ProviderSchedule::getWeekday))
+                .map(ProviderScheduleResponse::from).toList();
     }
 
-    public ProviderScheduleResponse update(Long providerId,Long scheduleId, ProviderScheduleRequest request){
-        ProviderSchedule providerSchedule = lockSchedule(scheduleId);
-        if(!providerSchedule.getProvider().getId().equals(providerId)){
-            throw new NotFoundException("Schedule "+scheduleId+" was not found for provider " + providerId);
-        }
-        if (providerScheduleRepository.existsByProviderIdAndWeekdayAndTimeBlockAndIdNot(
-                providerId, request.weekday(), request.timeBlock(), scheduleId)) {
-            throw duplicate(request);
-        }
-        apply(providerSchedule, request);
-        return ProviderScheduleResponse.from(providerScheduleRepository.save(providerSchedule));
+    /** Sets one weekday's hours: updates the row if it exists, creates it if not. */
+    public ProviderScheduleResponse setDay(Long providerId, Weekday weekday, ProviderScheduleRequest request){
+        Provider provider = findProvider(providerId);
+        ProviderSchedule day = providerScheduleRepository.findForUpdateByProviderIdAndWeekday(providerId, weekday)
+                .orElseGet(() -> newDay(provider, weekday));
+        // a closed day may leave the times out; then the saved times are kept
+        LocalTime open = request.openTime() != null ? request.openTime() : day.getOpenTime();
+        LocalTime close = request.closeTime() != null ? request.closeTime() : day.getCloseTime();
+        validateHours(request.isAvailable(), open, close);
+        day.setIsAvailable(request.isAvailable());
+        day.setOpenTime(open);
+        day.setCloseTime(close);
+        return ProviderScheduleResponse.from(providerScheduleRepository.save(day));
     }
 
-    private ConflictException duplicate(ProviderScheduleRequest request) {
-        return new ConflictException("There is already a " + request.weekday() + " " + request.timeBlock()
-                + " entry for this provider; update that one instead.");
+    /**
+     * Creates all 7 days at registration: the chosen days are open with the given hours,
+     * the others are closed but keep the same hours as a starting point.
+     */
+    public void createWeek(Provider provider, Collection<Weekday> openDays, LocalTime openTime, LocalTime closeTime) {
+        if (openDays == null || openDays.isEmpty()) {
+            throw new BadRequestException("Choose at least one day you are available.");
+        }
+        validateHours(true, openTime, closeTime);
+        for (Weekday weekday : Weekday.values()) {
+            ProviderSchedule day = newDay(provider, weekday);
+            day.setIsAvailable(openDays.contains(weekday));
+            day.setOpenTime(openTime);
+            day.setCloseTime(closeTime);
+            providerScheduleRepository.save(day);
+        }
+    }
+
+    /** The same rule for registration and for editing: an open day needs both times, and open before close. */
+    static void validateHours(Boolean isAvailable, LocalTime openTime, LocalTime closeTime) {
+        if (!Boolean.TRUE.equals(isAvailable)) {
+            if (openTime != null && closeTime != null && !openTime.isBefore(closeTime)) {
+                throw new BadRequestException("Opening time must be before closing time.");
+            }
+            return;
+        }
+        if (openTime == null || closeTime == null) {
+            throw new BadRequestException("Opening and closing times are required for an open day.");
+        }
+        if (!openTime.isBefore(closeTime)) {
+            throw new BadRequestException("Opening time must be before closing time.");
+        }
+        if (!isOnQuarterHour(openTime) || !isOnQuarterHour(closeTime)) {
+            throw new BadRequestException("Opening and closing times are in 15-minute steps, e.g. 9:00 or 7:30.");
+        }
+    }
+
+    /** Appointment start times and opening hours use 15-minute steps (:00, :15, :30, :45). */
+    static boolean isOnQuarterHour(LocalTime time) {
+        return time.getMinute() % 15 == 0 && time.getSecond() == 0 && time.getNano() == 0;
+    }
+
+    private ProviderSchedule newDay(Provider provider, Weekday weekday) {
+        ProviderSchedule day = new ProviderSchedule();
+        day.setProvider(provider);
+        day.setWeekday(weekday);
+        return day;
     }
 
     private Provider findProvider(Long providerId){
         return providerRepository.findById(providerId)
             .orElseThrow(() -> new NotFoundException("Provider "+providerId+" was not found."));
     }
-
-    private void apply(ProviderSchedule providerSchedule,ProviderScheduleRequest request){
-        providerSchedule.setWeekday(request.weekday());
-        providerSchedule.setTimeBlock(request.timeBlock());
-        providerSchedule.setIsAvailable(request.isAvailable());
-    }
-
-    private ProviderSchedule lockSchedule(Long scheduleId){
-        return providerScheduleRepository.findByIdForUpdate(scheduleId)
-                .orElseThrow(() -> new NotFoundException("Schedule "+scheduleId+" was not found."));
-    }
-
 }

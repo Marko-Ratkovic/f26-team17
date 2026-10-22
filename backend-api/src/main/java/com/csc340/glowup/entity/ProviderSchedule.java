@@ -1,6 +1,5 @@
 package com.csc340.glowup.entity;
 
-import com.csc340.glowup.enums.TimeBlock;
 import com.csc340.glowup.enums.Weekday;
 
 import jakarta.persistence.Column;
@@ -19,10 +18,16 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalTime;
+
+/**
+ * A provider's opening hours for one weekday (one row per weekday, so at most 7 per provider).
+ * isAvailable = false means closed that day; the times stay saved so the day can be reopened later.
+ */
 @Entity
 @Table(name = "provider_schedule",
-        uniqueConstraints = @UniqueConstraint(name = "uk_provider_schedule_day_block",
-                columnNames = {"provider_id", "weekday", "time_block"}))
+        uniqueConstraints = @UniqueConstraint(name = "uk_provider_schedule_day",
+                columnNames = {"provider_id", "weekday"}))
 @Getter 
 @Setter 
 public class ProviderSchedule {
@@ -36,18 +41,29 @@ public class ProviderSchedule {
     @Column(name = "weekday", nullable = false)
     private Weekday weekday;
 
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    @Column(name = "time_block", nullable = false)
-    private TimeBlock timeBlock;
-
     @NotNull
     @Column(nullable = false)
     private Boolean isAvailable;
+
+    /** Required when isAvailable is true; must be before closeTime. */
+    private LocalTime openTime;
+
+    private LocalTime closeTime;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
 
+    /** True if the provider is open this day and [start, end] fits inside the opening hours. */
+    public boolean covers(LocalTime start, LocalTime end) {
+        return Boolean.TRUE.equals(isAvailable) && openTime != null && closeTime != null
+                && !start.isBefore(openTime) && !end.isAfter(closeTime);
+    }
+
+    /** True if the provider is open this day at some point between from and to (used by the browse filter). */
+    public boolean overlaps(LocalTime from, LocalTime to) {
+        return Boolean.TRUE.equals(isAvailable) && openTime != null && closeTime != null
+                && openTime.isBefore(to) && closeTime.isAfter(from);
+    }
 }

@@ -167,7 +167,8 @@ public class CustomerService {
        category   - a ServiceCategory name
        city       - exact match, ignoring case
        day        - a Weekday name; provider must be available that day
-       timeOfDay  - MORNING, AFTERNOON or EVENING (see TimeBlock)
+       timeOfDay  - MORNING (9–12), AFTERNOON (12–5) or EVENING (5–9): the provider is open at some
+                    point in that range (on the chosen day, or on any day when no day is given)
        keyword    - matches the provider name, or a service name or description
        savedOnly  - true to show only the customer's saved providers (needs customerId)
        customerId - whose saved providers to use with savedOnly
@@ -214,8 +215,8 @@ public class CustomerService {
         if (wantedDay != null || wantedBlock != null) {
             byProvider.keySet().removeIf(providerId -> providerScheduleRepository
                 .findAllByProviderIdAndIsAvailableTrue(providerId).stream()
-                .noneMatch(slot -> (wantedDay == null || slot.getWeekday() == wantedDay)
-                        && (wantedBlock == null || slot.getTimeBlock() == wantedBlock)));
+                .noneMatch(hours -> (wantedDay == null || hours.getWeekday() == wantedDay)
+                        && (wantedBlock == null || hours.overlaps(wantedBlock.start(), wantedBlock.end()))));
         }
         
         List<List<ProviderService>> groups = new ArrayList<>(byProvider.values());

@@ -5,7 +5,6 @@ import com.csc340.glowup.dto.ProviderServiceResponse;
 import com.csc340.glowup.entity.Provider;
 import com.csc340.glowup.entity.ProviderService;
 import com.csc340.glowup.enums.AccountStatus;
-import com.csc340.glowup.enums.ServiceCategory;
 import com.csc340.glowup.enums.ServiceStatus;
 import com.csc340.glowup.repository.ProviderRepository;
 import com.csc340.glowup.repository.ProviderServiceRepository;
@@ -109,19 +108,6 @@ public class ServiceCatalogService {
         return providerServiceRepository
         .findAllByProviderIdOrderById(providerId)
         .stream().map(ProviderServiceResponse::from).toList();
-    }
-
-    /** What customers may see: approved, visible services of ACTIVE providers. */
-    @Transactional(readOnly = true)
-    public List<ProviderServiceResponse> listApproved(){
-        return providerServiceRepository.findPublic(null, null)
-                .stream().map(ProviderServiceResponse::from).toList();
-    }
-
-    @Transactional(readOnly = true)
-    public List<ProviderServiceResponse> listApprovedByCategory(ServiceCategory category){
-        return providerServiceRepository.findPublic(category, null)
-                .stream().map(ProviderServiceResponse::from).toList();
     }
 
     @Transactional(readOnly = true)

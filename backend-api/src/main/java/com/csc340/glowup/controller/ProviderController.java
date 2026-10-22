@@ -2,6 +2,7 @@ package com.csc340.glowup.controller;
 
 import com.csc340.glowup.dto.ProviderResponse;
 import com.csc340.glowup.dto.ProviderScheduleRequest;
+import com.csc340.glowup.enums.Weekday;
 import com.csc340.glowup.dto.ProviderScheduleResponse;
 import com.csc340.glowup.dto.ProviderServiceRequest;
 import com.csc340.glowup.dto.ProviderServiceResponse;
@@ -10,8 +11,9 @@ import com.csc340.glowup.service.ProviderProfileService;
 import com.csc340.glowup.service.ServiceCatalogService;
 import com.csc340.glowup.service.ProviderScheduleService;
 import com.csc340.glowup.dto.ProviderUpdateRequest;
-import com.csc340.glowup.dto.AppoinmentResponse;
+import com.csc340.glowup.dto.AppointmentResponse;
 import com.csc340.glowup.dto.AppointmentDetailResponse;
+import com.csc340.glowup.dto.AppointmentReasonRequest;
 import com.csc340.glowup.dto.ProviderRegistrationRequest;
 import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
@@ -100,25 +102,17 @@ public class ProviderController {
         return providerScheduleService.list(providerId,availableOnly);
     }
 
-    @PostMapping("/{providerId}/schedules")
-    public ResponseEntity<ProviderScheduleResponse> addSchedule(
+    /** Sets one weekday's hours, e.g. PUT /api/providers/5/schedules/MONDAY {"isAvailable":true,"openTime":"10:00","closeTime":"19:30"}. */
+    @PutMapping("/{providerId}/schedules/{weekday}")
+    public ProviderScheduleResponse setScheduleDay(
             @PathVariable Long providerId,
+            @PathVariable Weekday weekday,
             @Valid @RequestBody ProviderScheduleRequest request){
-        ProviderScheduleResponse  providerSchedule = providerScheduleService.create(providerId,request);
-        return ResponseEntity.created(URI.create("/api/providers/"+providerId
-                +"/schedules/"+providerSchedule.id())).body(providerSchedule);   
-    }
-
-    @PutMapping("/{providerId}/schedules/{scheduleId}")
-    public ProviderScheduleResponse updateSchedule(
-            @PathVariable Long providerId,
-            @PathVariable Long scheduleId,
-            @Valid @RequestBody ProviderScheduleRequest request){
-        return providerScheduleService.update(providerId,scheduleId,request);
+        return providerScheduleService.setDay(providerId, weekday, request);
     }
 
     @GetMapping("/{providerId}/appointments")
-    public List<AppoinmentResponse> listAppointment(@PathVariable Long providerId){
+    public List<AppointmentResponse> listAppointment(@PathVariable Long providerId){
         return appointmentService.listForProvider(providerId);
     }
 
@@ -130,14 +124,32 @@ public class ProviderController {
     }
 
     @PatchMapping("/{providerId}/appointments/{appointmentId}/confirm")
-    public AppoinmentResponse confirmAppointment(
+    public AppointmentResponse confirmAppointment(
             @PathVariable Long providerId,
             @PathVariable Long appointmentId){
         return appointmentService.confirm(providerId, appointmentId);
     }
 
+    /** Decline a request or a reschedule request; {"reason": "..."} is required (US-7). */
+    @PatchMapping("/{providerId}/appointments/{appointmentId}/decline")
+    public AppointmentResponse declineAppointment(
+            @PathVariable Long providerId,
+            @PathVariable Long appointmentId,
+            @Valid @RequestBody AppointmentReasonRequest request){
+        return appointmentService.decline(providerId, appointmentId, request.reason());
+    }
+
+    /** Cancel a confirmed appointment before it starts; {"reason": "..."} is required. */
+    @PatchMapping("/{providerId}/appointments/{appointmentId}/cancel")
+    public AppointmentResponse cancelAppointment(
+            @PathVariable Long providerId,
+            @PathVariable Long appointmentId,
+            @Valid @RequestBody AppointmentReasonRequest request){
+        return appointmentService.cancelByProvider(providerId, appointmentId, request.reason());
+    }
+
     @PatchMapping("/{providerId}/appointments/{appointmentId}/complete")
-    public AppoinmentResponse completedAppointment(
+    public AppointmentResponse completedAppointment(
             @PathVariable Long providerId,
             @PathVariable Long appointmentId){
         return appointmentService.markCompleted(providerId, appointmentId);

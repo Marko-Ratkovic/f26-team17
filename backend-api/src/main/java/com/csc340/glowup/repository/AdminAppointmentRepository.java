@@ -17,7 +17,7 @@ public interface AdminAppointmentRepository extends JpaRepository<Appointment, L
 
     /** Start time and duration of every appointment with one of these statuses starting in [from, to). */
     @Query("""
-            select a.startsAt, s.durationMin from Appointment a join a.service s
+            select a.startsAt, coalesce(a.durationMin, s.durationMin) from Appointment a join a.service s
             where a.status in :statuses and a.startsAt >= :from and a.startsAt < :to
             """)
     List<Object[]> findStartsAndDurations(@Param("statuses") Collection<AppointmentStatus> statuses,

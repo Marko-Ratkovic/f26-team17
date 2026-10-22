@@ -2,7 +2,10 @@ package com.csc340.glowup.enums;
 
 import java.time.LocalTime;
 
-/** The three bookable blocks of a day, the same everywhere (registration, availability, browse, booking). */
+/**
+ * Parts of the day for the customer's browse filter only ("open in the morning").
+ * Providers set real opening hours per weekday (ProviderSchedule), not blocks.
+ */
 public enum TimeBlock {
     /** 9 AM – 12 PM */
     MORNING(LocalTime.of(9, 0), LocalTime.of(12, 0)),
@@ -25,15 +28,5 @@ public enum TimeBlock {
 
     public LocalTime end() {
         return end;
-    }
-
-    /** The block a start time falls in, or null when it is outside 9 AM – 9 PM. */
-    public static TimeBlock of(LocalTime time) {
-        for (TimeBlock block : values()) {
-            if (!time.isBefore(block.start) && time.isBefore(block.end)) {
-                return block;
-            }
-        }
-        return null;
     }
 }

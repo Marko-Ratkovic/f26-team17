@@ -45,7 +45,7 @@
             <div class="container">
                 <div class="my-appointments-header">
                     <h1 class="my-appointments-title">My Appointments</h1>
-                    <div class="my-appointments-subtitle">Review your upcoming, completed, and cancelled appointments</div>
+                    <div class="my-appointments-subtitle">Review your requests and your upcoming, completed, cancelled and declined appointments</div>
                 </div>
             </div>
         </section>
@@ -55,20 +55,42 @@
             <div class="container">
                 
                 <nav class="appt-tabs mb-4" aria-label="Jump to appointment status">
-                    <a class="nav-link" href="#upcoming">Upcoming <span>(3)</span></a>
+                    <a class="nav-link" href="#upcoming">Upcoming <span>(4)</span></a>
                     <a class="nav-link" href="#completed">Completed <span>(2)</span></a>
-                    <a class="nav-link" href="#cancelled">Cancelled <span>(1)</span></a>
+                    <a class="nav-link" href="#cancelled">Cancelled &amp; declined <span>(3)</span></a>
                 </nav>
 
                 <section class="appointment-list-section" id="upcoming" aria-labelledby="upcoming-heading">
-                    <h2 class="appointment-list-heading" id="upcoming-heading">Upcoming appointments <span>(3)</span></h2>
-                    <p class="appointment-demo-note">To reschedule, pick a new time; your original appointment stays confirmed until the provider accepts.</p>
+                    <h2 class="appointment-list-heading" id="upcoming-heading">Upcoming appointments <span>(4)</span></h2>
+                    <p class="appointment-demo-note">Requests wait for the provider to confirm. To change a confirmed appointment, request a new time; the original stays confirmed until the provider accepts.</p>
+
+                        <!-- Requested (waiting for the provider) -->
+                        <div class="customer-appt-item">
+                            <h3 class="customer-appt-title">Hair Coloring with Brian Davis</h3>
+                            <span class="customer-appt-status-badge customer-appt-status-requested">Requested</span>
+
+                            <div class="row g-2 mt-3">
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Date &amp; Time:</span> <span class="text-muted">Monday, Oct 19 • 4:00 PM</span></div>
+                                    <div class="mt-2"><span class="fw-bold">Location:</span> <span class="text-muted">Downtown Salon</span></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Duration:</span> <span class="text-muted">2 hours</span></div>
+                                    <div class="mt-2"><span class="fw-bold">Price:</span> <span class="text-accent">$75</span></div>
+                                </div>
+                            </div>
+
+                            <p class="profile-helper mt-3 mb-0">Waiting for Brian to confirm or decline. You'll get an email either way. If he hasn't answered by the start time, the request expires.</p>
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <button type="button" class="btn btn-outline-danger" disabled>Cancel request</button>
+                            </div>
+                        </div>
 
                         <!-- Upcoming Appointment Cards -->
                         <div class="customer-appt-item">
                             <!-- Appointment Card 1-->
                             <h3 class="customer-appt-title">Haircut with Brian Davis</h3>
-                            <span class="customer-appt-status-badge">Scheduled</span>
+                            <span class="customer-appt-status-badge">Confirmed</span>
 
                             <div class="row g-2 mt-3">
                                 <div class="col-md-6">
@@ -82,7 +104,7 @@
                             </div>
 
                             <div class="d-flex flex-wrap gap-2 mt-3">
-                                <a href="book-appointment.html" class="btn btn-appt-secondary">Reschedule</a>
+                                <a href="reschedule-appointment.html" class="btn btn-appt-secondary">Request a new time</a>
                                 <button type="button" class="btn btn-outline-danger" disabled>Cancel appointment</button>
                             </div>
                         </div>
@@ -91,7 +113,7 @@
                         <div class="customer-appt-item">
                             <!-- Appointment Card 2 -->
                             <h3 class="customer-appt-title">Nail Painting with Laura Johnson</h3>
-                            <span class="customer-appt-status-badge">Scheduled</span>
+                            <span class="customer-appt-status-badge">Confirmed</span>
 
                             <div class="row g-2 mt-3">
                                 <div class="col-md-6">
@@ -105,7 +127,7 @@
                             </div>
 
                             <div class="d-flex flex-wrap gap-2 mt-3">
-                                <a href="book-appointment.html" class="btn btn-appt-secondary">Reschedule</a>
+                                <a href="reschedule-appointment.html" class="btn btn-appt-secondary">Request a new time</a>
                                 <button type="button" class="btn btn-outline-danger" disabled>Cancel appointment</button>
                             </div>
                         </div>
@@ -113,7 +135,7 @@
                         <div class="customer-appt-item">
                             <!-- Appointment Card 3 -->
                             <h3 class="customer-appt-title">Makeup Application with Sarah Williams</h3>
-                            <span class="customer-appt-status-badge">Scheduled</span>
+                            <span class="customer-appt-status-badge">Confirmed</span>
 
                             <div class="row g-2 mt-3">
                                 <div class="col-md-6">
@@ -185,7 +207,7 @@
                 </section>
 
                 <section class="appointment-list-section" id="cancelled" aria-labelledby="cancelled-heading">
-                    <h2 class="appointment-list-heading" id="cancelled-heading">Cancelled appointments <span>(1)</span></h2>
+                    <h2 class="appointment-list-heading" id="cancelled-heading">Cancelled, declined &amp; expired <span>(3)</span></h2>
                         
                         <!-- Cancelled Appointment Cards -->
                         <div class="customer-appt-item">
@@ -198,7 +220,38 @@
                                     <div><span class="fw-bold">Original Date:</span> <span class="text-muted">Monday, Sep 14 • 6:00 PM</span></div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div><span class="fw-bold">Canceled By:</span> <span class="text-muted">Customer</span></div>
+                                    <div><span class="fw-bold">Cancelled by:</span> <span class="text-muted">You</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="customer-appt-item">
+                            <h3 class="customer-appt-title">Gel Manicure with Laura Johnson</h3>
+                            <span class="customer-appt-status-badge customer-appt-status-cancelled">Declined</span>
+
+                            <div class="row g-2 mt-3">
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Requested time:</span> <span class="text-muted">Saturday, Sep 26 • 10:00 AM</span></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Reason:</span> <span class="text-muted">I'm fully booked that morning, sorry! Any weekday works.</span></div>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2 mt-3">
+                                <a href="book-appointment.html" class="btn btn-appt-secondary">Request another time</a>
+                            </div>
+                        </div>
+
+                        <div class="customer-appt-item">
+                            <h3 class="customer-appt-title">Brow Shaping with Sarah Williams</h3>
+                            <span class="customer-appt-status-badge customer-appt-status-expired">Expired</span>
+
+                            <div class="row g-2 mt-3">
+                                <div class="col-md-6">
+                                    <div><span class="fw-bold">Requested time:</span> <span class="text-muted">Friday, Sep 11 • 1:00 PM</span></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div><span class="text-muted">Sarah didn't answer before the start time, so the request expired.</span></div>
                                 </div>
                             </div>
                         </div>

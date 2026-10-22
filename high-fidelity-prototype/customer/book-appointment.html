@@ -45,7 +45,7 @@
             <div class="container">
                 <div class="book-appointment-header">
                     <h1 class="book-appointment-title">Request an Appointment with Brian Davis</h1>
-                    <div class="book-appointment-subtitle">Pick a service, a day and a start time inside Brian's available hours, then send your request</div>
+                    <div class="book-appointment-subtitle">Pick a service, a day and a start time inside Brian's opening hours, then send your request</div>
                 </div>
                 <p class="profile-prototype-note" role="note">Static preview: selecting a time does not submit a request. Appointment requests and provider confirmation will be available when the backend is connected.</p>
             </div>
@@ -58,7 +58,7 @@
             </div>
 
             <!-- Booking request: service, then day and start time, then send.
-                 Providers set weekly time blocks (US-5/US-7); the customer picks a time inside one (US-3).
+                 Providers set opening hours per weekday (US-5/US-7); the customer picks a start time inside them (US-3).
                  Nothing is reserved until the provider confirms. -->
             <form method="post" class="booking-form" aria-describedby="booking-how">
 
@@ -84,39 +84,31 @@
                     </fieldset>
                 </div>
 
-                <!-- Step 2: day, time block, start time -->
+                <!-- Step 2: day and start time -->
                 <div class="filter-card">
                     <h3 class="filter-title">2. Choose a day and start time</h3>
-                    <p class="profile-helper">Brian is available <strong>Mon–Fri · Evening (5–9 PM)</strong>. Days and blocks he is not available in cannot be selected.</p>
-                    <div class="grid grid-3 booking-time-grid">
+                    <p class="profile-helper">Brian is open <strong>Mon–Fri · 4–8 PM</strong>. Days he is closed cannot be selected.</p>
+                    <div class="grid grid-2 booking-time-grid">
                         <div>
                             <label for="booking-date">Date</label>
                             <input type="date" id="booking-date" name="date" value="2026-10-16" min="2026-10-15">
                         </div>
                         <div>
-                            <label for="booking-block">Time of day</label>
-                            <select id="booking-block" name="timeBlock">
-                                <option value="MORNING" disabled>Morning (9 AM–12 PM) · not available</option>
-                                <option value="AFTERNOON" disabled>Afternoon (12–5 PM) · not available</option>
-                                <option value="EVENING" selected>Evening (5–9 PM)</option>
-                            </select>
-                        </div>
-                        <div>
                             <label for="booking-start">Start time</label>
                             <select id="booking-start" name="startTime" aria-describedby="booking-start-help">
-                                <option value="17:00" selected>5:00 PM</option>
-                                <option value="17:15">5:15 PM</option>
+                                <option value="16:00" selected>4:00 PM</option>
+                                <option value="16:15">4:15 PM</option>
+                                <option value="16:30">4:30 PM</option>
+                                <option value="16:45">4:45 PM</option>
+                                <option value="17:00" disabled>5:00 PM · overlaps a confirmed booking</option>
+                                <option value="17:15" disabled>5:15 PM · overlaps a confirmed booking</option>
                                 <option value="17:30">5:30 PM</option>
                                 <option value="17:45">5:45 PM</option>
-                                <option value="18:00" disabled>6:00 PM · overlaps a confirmed booking</option>
-                                <option value="18:15" disabled>6:15 PM · overlaps a confirmed booking</option>
-                                <option value="18:30">6:30 PM</option>
-                                <option value="18:45">6:45 PM</option>
-                                <option value="19:00">7:00 PM</option>
+                                <option value="18:00">6:00 PM</option>
                             </select>
                         </div>
                     </div>
-                    <p class="profile-helper mt-3 mb-0" id="booking-start-help">Only start times that let the full 2-hour service finish by 9:00 PM are listed. Times that overlap one of Brian's confirmed bookings cannot be picked.</p>
+                    <p class="profile-helper mt-3 mb-0" id="booking-start-help">Only start times that let the full 2-hour service finish by 8:00 PM, when Brian closes, are listed. Times that overlap one of his confirmed bookings cannot be picked.</p>
                 </div>
 
                 <!-- Step 3: review and send -->
@@ -124,7 +116,7 @@
                     <h3 class="filter-title">3. Review and send your request</h3>
                     <dl class="booking-summary">
                         <div><dt>Service</dt><dd>Hair Coloring · 2 hours</dd></div>
-                        <div><dt>When</dt><dd>Friday, Oct 16 · 5:00–7:00 PM</dd></div>
+                        <div><dt>When</dt><dd>Friday, Oct 16 · 4:00–6:00 PM</dd></div>
                         <div><dt>Location</dt><dd>Downtown Salon, Charlotte, NC</dd></div>
                         <div><dt>Price</dt><dd><span class="text-accent">$75</span> · paid in person</dd></div>
                     </dl>

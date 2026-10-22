@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a New Time - Glow Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="sticky-top">
+            <div class="navbar">
+                <a href="../index.html" class="navbar-brand mb-2">
+                    <img src="../images/logo.png" alt="GlowUp home" class="img-fluid logo" style="width: 150px; height: 50px;">
+                </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link under-scored">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="browse-services.html" class="nav-link under-scored">Browse Services & Providers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="my-appointments.html" aria-current="page" class="nav-link fw-bold" style="border-bottom: 1px solid;">My Appointments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.html" class="nav-link under-scored">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../index.html" class="nav-link fw-bold">Log out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Reschedule Header -->
+        <section class="section ">
+            <div class="container">
+                <div class="book-appointment-header">
+                    <h1 class="book-appointment-title">Request a New Time with Brian Davis</h1>
+                    <div class="book-appointment-subtitle">Same service, new day or time. Your current appointment stays confirmed until Brian accepts.</div>
+                </div>
+                <p class="profile-prototype-note" role="note">Static preview: choosing a time does not submit a request. Reschedule requests will work when the backend is connected.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="mb-3">
+                <a href="my-appointments.html" class="btn btn-appt-secondary">&larr; Back to My Appointments</a>
+            </div>
+
+            <!-- Reschedule request: the same 3 steps as booking, with the service fixed (US-3).
+                 Sends a new REQUESTED appointment linked to the original; the original stays CONFIRMED until accepted. -->
+            <form method="post" class="booking-form" aria-describedby="reschedule-how">
+
+                <!-- Step 1: service (fixed) and current time -->
+                <div class="filter-card">
+                    <h3 class="filter-title">1. Your current appointment</h3>
+                    <dl class="booking-summary mb-0">
+                        <div><dt>Service</dt><dd>Haircut · 15 minutes</dd></div>
+                        <div><dt>Current time</dt><dd>Friday, Oct 9 · 6:00–6:15 PM</dd></div>
+                        <div><dt>Status</dt><dd>Confirmed</dd></div>
+                    </dl>
+                </div>
+
+                <!-- Step 2: new day and start time -->
+                <div class="filter-card">
+                    <h3 class="filter-title">2. Choose a new day and start time</h3>
+                    <p class="profile-helper">Brian is open <strong>Mon–Fri · 4–8 PM</strong>. Days he is closed cannot be selected.</p>
+                    <div class="grid grid-2 booking-time-grid">
+                        <div>
+                            <label for="reschedule-date">Date</label>
+                            <input type="date" id="reschedule-date" name="date" value="2026-10-12" min="2026-10-08">
+                        </div>
+                        <div>
+                            <label for="reschedule-start">Start time</label>
+                            <select id="reschedule-start" name="startTime" aria-describedby="reschedule-start-help">
+                                <option value="16:00">4:00 PM</option>
+                                <option value="16:15">4:15 PM</option>
+                                <option value="16:30" selected>4:30 PM</option>
+                                <option value="16:45">4:45 PM</option>
+                                <option value="17:00">5:00 PM</option>
+                                <option value="17:15">5:15 PM</option>
+                                <option value="17:30">5:30 PM</option>
+                                <option value="17:45">5:45 PM</option>
+                                <option value="18:00" disabled>6:00 PM · overlaps a confirmed booking</option>
+                                <option value="18:15" disabled>6:15 PM · overlaps a confirmed booking</option>
+                                <option value="18:30">6:30 PM</option>
+                                <option value="18:45">6:45 PM</option>
+                                <option value="19:00">7:00 PM</option>
+                                <option value="19:15">7:15 PM</option>
+                                <option value="19:30">7:30 PM</option>
+                                <option value="19:45">7:45 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p class="profile-helper mt-3 mb-0" id="reschedule-start-help">Only start times that let the 15-minute haircut finish by 8:00 PM are listed. Times that overlap one of Brian's confirmed bookings cannot be picked.</p>
+                </div>
+
+                <!-- Step 3: review and send -->
+                <div class="filter-card">
+                    <h3 class="filter-title">3. Review and send your request</h3>
+                    <dl class="booking-summary">
+                        <div><dt>From</dt><dd>Friday, Oct 9 · 6:00 PM</dd></div>
+                        <div><dt>To</dt><dd>Monday, Oct 12 · 4:30–4:45 PM</dd></div>
+                        <div><dt>Location</dt><dd>Downtown Salon, Charlotte, NC</dd></div>
+                        <div><dt>Price</dt><dd><span class="text-accent">$20</span> · paid in person</dd></div>
+                    </dl>
+                    <p class="profile-helper" id="reschedule-how">If Brian accepts, the new time is confirmed and your current one is released. If he declines, your current appointment stays exactly as it is. You get an email either way.</p>
+                    <button type="submit" class="btn btn-appt-primary" disabled>Send new time request</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Footer -->
+         <footer>
+            <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

@@ -152,7 +152,7 @@
 
                             <div class="signup-section-heading availability-heading">
                                 <h3>Set your availability</h3>
-                                <p>Pick your usual days and time blocks. You can fine-tune each day later on your Availability page.</p>
+                                <p>Pick the days you work and your usual hours. You can set different hours for each day later on your Availability page.</p>
                             </div>
                             <div class="availability-panel">
                                 <div class="availability-group">
@@ -189,21 +189,24 @@
                                     </div>
                                 </div>
                                 <div class="availability-group">
-                                    <h4>Typical appointment hours</h4>
-                                    <div class="availability-options availability-time-options">
-                                        <label class="availability-option">
-                                            <input type="checkbox" name="available-hours" value="morning">
-                                            <span>Morning <small>9 AM - 12 PM</small></span>
-                                        </label>
-                                        <label class="availability-option">
-                                            <input type="checkbox" name="available-hours" value="afternoon">
-                                            <span>Afternoon <small>12 PM - 5 PM</small></span>
-                                        </label>
-                                        <label class="availability-option">
-                                            <input type="checkbox" name="available-hours" value="evening">
-                                            <span>Evening <small>5 PM - 9 PM</small></span>
-                                        </label>
+                                    <h4>Opening hours on those days</h4>
+                                    <div class="availability-presets" role="group" aria-label="Quick fill opening hours">
+                                        <button type="button" class="btn btn-sm btn-appt-secondary" data-open="09:00" data-close="12:00">Morning</button>
+                                        <button type="button" class="btn btn-sm btn-appt-secondary" data-open="12:00" data-close="17:00">Afternoon</button>
+                                        <button type="button" class="btn btn-sm btn-appt-secondary" data-open="17:00" data-close="21:00">Evening</button>
+                                        <button type="button" class="btn btn-sm btn-appt-secondary" data-open="09:00" data-close="17:00">Full day</button>
                                     </div>
+                                    <div class="availability-hours">
+                                        <div>
+                                            <label for="provider-open-time">Opens at</label>
+                                            <input type="time" id="provider-open-time" name="openTime" value="09:00" step="900">
+                                        </div>
+                                        <div>
+                                            <label for="provider-close-time">Closes at</label>
+                                            <input type="time" id="provider-close-time" name="closeTime" value="17:00" step="900">
+                                        </div>
+                                    </div>
+                                    <small class="form-help">The buttons only fill in the times; you can type your own. Days you don't pick are saved as closed.</small>
                                 </div>
                             </div>
                         </div>
@@ -261,6 +264,15 @@
         </footer>
     </div>
 
+    <script>
+        // Quick-fill buttons for the provider's opening hours (they only set the two time fields).
+        document.querySelectorAll('.availability-presets [data-open]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                document.getElementById('provider-open-time').value = button.dataset.open;
+                document.getElementById('provider-close-time').value = button.dataset.close;
+            });
+        });
+    </script>
 </body>
 
 </html>

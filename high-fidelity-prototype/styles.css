@@ -714,8 +714,28 @@ nav{
   font-weight: 400;
 }
 
-.availability-time-options {
+.availability-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.availability-hours {
+  display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.availability-hours label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+}
+
+.availability-hours input {
+  width: 100%;
 }
 
 .signup-existing {
@@ -833,8 +853,7 @@ nav{
     grid-template-columns: 1fr;
   }
 
-  .availability-options,
-  .availability-time-options {
+  .availability-options {
     grid-template-columns: 1fr;
   }
 }
@@ -850,8 +869,7 @@ nav{
     padding: 1rem;
   }
 
-  .availability-options,
-  .availability-time-options {
+  .availability-options {
     grid-template-columns: 1fr;
   }
 
@@ -1566,6 +1584,11 @@ nav{
   color: #292421;
 }
 
+.provider-schedule-table th,
+.provider-schedule-table td {
+  vertical-align: middle;
+}
+
 .provider-schedule-table thead th {
   background: #e8ded8;
   color: #292421;
@@ -1867,6 +1890,14 @@ textarea:focus {
 
 .customer-appt-status-cancelled {
   background-color: #f3dddd;
+}
+
+.customer-appt-status-requested {
+  background-color: #f4ead6;
+}
+
+.customer-appt-status-expired {
+  background-color: var(--background-neutral-strong);
 }
 
 .text-accent {
@@ -2644,4 +2675,20 @@ footer{
   margin: 0;
   color: var(--text-dark);
   font-weight: 600;
+}
+
+/* Provider appointment actions: Confirm plus a Decline/Cancel form that asks for a reason (US-7) */
+.appt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.appt-reason-details {
+  min-width: 14rem;
+}
+
+.appt-reason-details textarea {
+  width: 100%;
 }

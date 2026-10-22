@@ -3,7 +3,6 @@ package com.csc340.glowup.controller;
 import com.csc340.glowup.dto.ProviderResponse;
 import com.csc340.glowup.dto.ProviderUpdateScheduleRequest;
 import com.csc340.glowup.dto.ProviderUpdateScheduleResponse;
-import com.csc340.glowup.enums.Weekday;
 import com.csc340.glowup.dto.ProviderScheduleResponse;
 import com.csc340.glowup.dto.ProviderServiceRequest;
 import com.csc340.glowup.dto.ProviderServiceResponse;

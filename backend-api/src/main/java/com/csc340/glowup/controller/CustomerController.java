@@ -50,8 +50,6 @@ public class CustomerController {
     public SafetyNotesDto updateSafetyNotes(@PathVariable Long id, @Valid @RequestBody SafetyNotesDto dto) {
         return customerService.updateSafetyNotes(id, dto);
     }
-
- 
  
     @GetMapping("/{id}/saved-providers")
     public List<SavedProviderDto> getSavedProviders(@PathVariable Long id) {

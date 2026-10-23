@@ -15,6 +15,8 @@ public record BrowseProviderDto(
         List<ServiceCategory> categories,
         Integer yearsOfExperience,
         String imagePath,
+        Double averageRating,
+        long reviewCount,
         List<ServiceSummary> services
 ) {
  
@@ -35,7 +37,7 @@ public record BrowseProviderDto(
         }
     }
  
-    public static BrowseProviderDto from(List<ProviderService> providerServices) {
+    public static BrowseProviderDto from(List<ProviderService> providerServices, Double averageRating, long reviewCount) {
         Provider provider = providerServices.get(0).getProvider();
         return new BrowseProviderDto(
                 provider.getId(),
@@ -45,6 +47,8 @@ public record BrowseProviderDto(
                 providerServices.stream().map(ProviderService::getCategory).distinct().toList(),
                 provider.getYearsOfExperience(),
                 provider.getImagePath(),
+                averageRating,
+                reviewCount,
                 providerServices.stream().map(ServiceSummary::from).toList());
     }
 }

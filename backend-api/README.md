@@ -82,7 +82,8 @@ Content-Type: application/json
 Passwords are accepted only by registration endpoints, hashed with BCrypt, and
 never included in API responses. Authentication and authorization are not yet
 implemented; IDs in paths are not proof of identity and these endpoints must not
-be exposed to untrusted clients until access control is added.
+be exposed to untrusted clients until access control is added. Login, access
+control, and email notifications are planned for the next milestone.
 
 ## Services and availability
 
@@ -189,6 +190,57 @@ POST /api/customers/{customerId}/appointments
 }
 ```
 
+## Reviews and reports
+
+A customer can review their own completed appointment within 30 days of it ending, once per appointment, and edit the review until the provider replies. A provider can reply once and cannot edit the reply. Hidden reviews do not count toward a provider's rating and hidden replies are not shown. Anyone can report someone else's review or reply (providers: reviews of their own services); one open report per person per item.
+
+| Method | Path | Purpose | Response code | Error codes | User story |
+| ------ | ---- | ------- | ------------- | ----------- | ---------- |
+| `POST` | `/api/customers/{customerId}/appointments/{appointmentId}/review` | Review a completed appointment (rating 1–5 and a comment) | `201 Created` | `400, 403, 404, 409` | [US-4](../docs/GlowUpSRS.md#L97) |
+| `PUT` | `/api/customers/{customerId}/reviews/{reviewId}` | Edit own review (only before the provider replies) | `200 OK` | `400, 403, 404, 409` | [US-4](../docs/GlowUpSRS.md#L97) |
+| `GET` | `/api/customers/{customerId}/reviews` | List the customer's own reviews | `200 OK` | `404` | [US-4](../docs/GlowUpSRS.md#L97) |
+| `GET` | `/api/providers/{providerId}/reviews` | Provider reviews page: average rating, review count, and visible reviews | `200 OK` | `404` | [US-4](../docs/GlowUpSRS.md#L97) |
+| `POST` | `/api/providers/{providerId}/reviews/{reviewId}/reply` | Reply to a review of the provider's service (once) | `201 Created` | `400, 403, 404, 409` | [US-8](../docs/GlowUpSRS.md#L171) |
+| `POST` | `/api/customers/{customerId}/reports` | Report a review or reply | `201 Created` | `400, 403, 404, 409` | [US-4](../docs/GlowUpSRS.md#L97) |
+| `POST` | `/api/providers/{providerId}/reports` | Report a review of the provider's own service | `201 Created` | `400, 403, 404, 409` | [US-8](../docs/GlowUpSRS.md#L171) |
+
+### Example Review Request
+
+```http
+POST /api/customers/1/appointments/5/review
+Content-Type: application/json
+
+{
+  "rating": 5,
+  "comment": "Great gel manicure, lasted three weeks."
+}
+```
+
+### Example Reply Request
+
+```http
+POST /api/providers/3/reviews/1/reply
+Content-Type: application/json
+
+{ "text": "Thank you, see you next time!" }
+```
+
+### Example Report Request
+
+`target` is `REVIEW` (default) or `REPLY`. `reason` is `HARASSMENT`, `THREATS`, `HATE_OR_EXPLICIT`, `PERSONAL_INFORMATION`, `SPAM`, or `OFF_TOPIC`.
+
+```http
+POST /api/customers/2/reports
+Content-Type: application/json
+
+{
+  "reviewId": 1,
+  "target": "REVIEW",
+  "reason": "SPAM",
+  "details": "Advertises another salon."
+}
+```
+
 ## Admin
 
 Every admin request sends the admin's account id in the `X-Admin-Id` header until login is added (`403` otherwise).
@@ -196,9 +248,21 @@ Every decision needs a reason and is written to the admin audit log.
 
 | Method | Path | Purpose | Response code | Error codes | User story |
 | ------ | ---- | ------- | ------------- | ----------- | ---------- |
+| `GET` | `/api/admin/users?status=&role=&q=&page=0&size=20` | List and search accounts | `200 OK` | `400, 403` | [US-9](../docs/GlowUpSRS.md#L187) |
+| `GET` | `/api/admin/users/{userId}` | View an account | `200 OK` | `403, 404` | [US-9](../docs/GlowUpSRS.md#L187) |
+| `GET` | `/api/admin/users/{userId}/actions` | Admin decisions on an account | `200 OK` | `403, 404` | [US-9](../docs/GlowUpSRS.md#L187) |
+| `POST` | `/api/admin/users/{userId}/approve` | Approve a provider waiting for approval | `200 OK` | `400, 403, 404, 409` | [US-9](../docs/GlowUpSRS.md#L187) |
 | `POST` | `/api/admin/users/{userId}/suspend` | Suspend an account; its upcoming requested and confirmed appointments are cancelled | `200 OK` | `400, 403, 404, 409` | [US-9](../docs/GlowUpSRS.md#L187) |
+| `POST` | `/api/admin/users/{userId}/reinstate` | Reinstate a suspended account | `200 OK` | `400, 403, 404, 409` | [US-9](../docs/GlowUpSRS.md#L187) |
+| `GET` | `/api/admin/services?status=&q=&page=0&size=20` | List and search services | `200 OK` | `400, 403` | [US-10](../docs/GlowUpSRS.md#L201) |
+| `GET` | `/api/admin/services/{serviceId}` | View a service | `200 OK` | `403, 404` | [US-10](../docs/GlowUpSRS.md#L201) |
+| `GET` | `/api/admin/services/{serviceId}/actions` | Admin decisions on a service | `200 OK` | `403, 404` | [US-10](../docs/GlowUpSRS.md#L201) |
 | `POST` | `/api/admin/services/{serviceId}/decision` | Approve, request changes, or reject a PENDING service | `200 OK` | `400, 403, 404, 409` | [US-10](../docs/GlowUpSRS.md#L201) |
 | `POST` | `/api/admin/services/{serviceId}/archive` | Take down a live (approved) service; the reason is shown to the provider | `200 OK` | `400, 403, 404, 409` | [US-10](../docs/GlowUpSRS.md#L210) |
+| `GET` | `/api/admin/reviews?hiddenOnly=false` | Reviews with open reports (or, with `hiddenOnly=true`, with hidden content) | `200 OK` | `403` | [US-11](../docs/GlowUpSRS.md#L216) |
+| `GET` | `/api/admin/reviews/{reviewId}` | A review and its reply with all reports and decisions | `200 OK` | `403, 404` | [US-11](../docs/GlowUpSRS.md#L216) |
+| `POST` | `/api/admin/reviews/{reviewId}/decision` | Keep visible, hide, or restore the review or its reply; resolves its open reports | `200 OK` | `400, 403, 404, 409` | [US-11](../docs/GlowUpSRS.md#L216) |
+| `GET` | `/api/admin/stats?from=&to=` | Usage statistics for a period (at most 24 months) | `200 OK` | `400, 403` | [US-12](../docs/GlowUpSRS.md#L231) |
 
 ```http
 POST /api/admin/services/{serviceId}/archive
@@ -206,4 +270,12 @@ X-Admin-Id: 1
 Content-Type: application/json
 
 { "reason": "The photos are not of the provider's own work." }
+```
+
+```http
+POST /api/admin/reviews/{reviewId}/decision
+X-Admin-Id: 1
+Content-Type: application/json
+
+{ "target": "REVIEW", "decision": "HIDE", "reason": "Contains the provider's home address." }
 ```

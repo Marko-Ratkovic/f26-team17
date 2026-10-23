@@ -22,6 +22,7 @@ public class CustomerService {
     private final ProviderRepository providerRepository;
     private final ProviderServiceRepository providerServiceRepository;
     private final ProviderScheduleRepository providerScheduleRepository;
+    private final ReviewRepository reviewRepository;
     private final PasswordEncoder passwordEncoder;
 
         public CustomerService(CustomerRepository customerRepository,
@@ -30,6 +31,7 @@ public class CustomerService {
                            ProviderRepository providerRepository,
                            ProviderServiceRepository providerServiceRepository,
                            ProviderScheduleRepository providerScheduleRepository,
+                           ReviewRepository reviewRepository,
                            PasswordEncoder passwordEncoder) {
         this.customerRepository = customerRepository;
         this.userAccountRepository = userAccountRepository;
@@ -37,6 +39,7 @@ public class CustomerService {
         this.providerRepository = providerRepository;
         this.providerServiceRepository = providerServiceRepository;
         this.providerScheduleRepository = providerScheduleRepository;
+        this.reviewRepository = reviewRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -218,15 +221,35 @@ public class CustomerService {
                         && (wantedBlock == null || hours.overlaps(wantedBlock.start(), wantedBlock.end()))));
         }
         
-        List<List<ProviderService>> groups = new ArrayList<>(byProvider.values());
-        if (wantedSort == BrowseSort.NEWEST) {
-            groups.sort(Comparator.comparing(CustomerService::newestCreatedAt, Comparator.reverseOrder()));
-        } else {
-            // no sort: shuffle once a day so the oldest providers are not always first
-            Collections.shuffle(groups, new Random(LocalDate.now(Appointment.TIME_ZONE).toEpochDay()));
+        Map<Long, ReviewRepository.RatingSummary> ratings = new HashMap<>();
+        for (ReviewRepository.RatingSummary rating : reviewRepository.findRatingsForAllProviders()) {
+            ratings.put(rating.getProviderId(), rating);
+        }
+        List<BrowseProviderDto> providers = new ArrayList<>();
+        for (List<ProviderService> group : byProvider.values()) {
+            ReviewRepository.RatingSummary rating = ratings.get(group.get(0).getProvider().getId());
+            providers.add(rating == null
+                    ? BrowseProviderDto.from(group, null, 0)
+                    : BrowseProviderDto.from(group, ReviewService.roundRating(rating.getAverageRating()),
+                            rating.getReviewCount()));
         }
 
-        return groups.stream().map(BrowseProviderDto::from).toList();
+        Comparator<BrowseProviderDto> byRating = Comparator.comparing(BrowseProviderDto::averageRating,
+                Comparator.nullsLast(Comparator.reverseOrder()));
+        Comparator<BrowseProviderDto> byReviewCount = Comparator.comparingLong(BrowseProviderDto::reviewCount).reversed();
+        if (wantedSort == BrowseSort.NEWEST) {
+            Map<Long, OffsetDateTime> newest = new HashMap<>();
+            byProvider.forEach((providerId, group) -> newest.put(providerId, newestCreatedAt(group)));
+            providers.sort(Comparator.comparing(provider -> newest.get(provider.providerId()), Comparator.reverseOrder()));
+        } else if (wantedSort == BrowseSort.TOP_RATED) {
+            providers.sort(byRating.thenComparing(byReviewCount));
+        } else if (wantedSort == BrowseSort.MOST_REVIEWED) {
+            providers.sort(byReviewCount.thenComparing(byRating));
+        } else {
+            // no sort: shuffle once a day so the oldest providers are not always first
+            Collections.shuffle(providers, new Random(LocalDate.now(Appointment.TIME_ZONE).toEpochDay()));
+        }
+        return providers;
     }
 
 
@@ -283,15 +306,11 @@ public class CustomerService {
         if (sort == null || sort.isBlank()) {
             return null;
         }
-        String value = sort.trim().toUpperCase();
-        if (value.equals("NEWEST")) {
-            return BrowseSort.NEWEST;
+        try {
+            return BrowseSort.valueOf(sort.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException("Unknown sort. Use NEWEST, TOP_RATED or MOST_REVIEWED.");
         }
-
-        if (value.equals("TOP_RATED") || value.equals("MOST_REVIEWED")) {
-            throw new BadRequestException("Sorting by rating or number of reviews is not available yet.");
-        }
-        throw new BadRequestException("Unknown sort. Use NEWEST");
     }
 
     // a provider name match keeps all of that provider's services; otherwise the service itself must match

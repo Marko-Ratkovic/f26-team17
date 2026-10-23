@@ -239,6 +239,8 @@ A low rating or respectful criticism is not a reason to hide a review. Reportabl
 
 ### 2.4 Account settings (customers and providers)
 
+_Login, account security (US-13, US-14), and email notifications are planned for the next milestone. Until then the API takes the user's id in the path, and admins send `X-Admin-Id`._
+
 - **US-13 — Password security**
   - Changing a password requires the current password.
   - Only a password hash is stored; passwords are never shown or emailed.
@@ -254,7 +256,7 @@ A low rating or respectful criticism is not a reason to hide a review. Reportabl
 
 ---
 ## 3. Non-functional requirements
-- **Security:** Every account logs in; each role can only use its own pages and data (see section 4). Passwords are 8–72 characters and stored only as a BCrypt hash.
+- **Security:** Every account logs in; each role can only use its own pages and data (see section 4). Login and access control come in the next milestone. Passwords are 8–72 characters and stored only as a BCrypt hash.
 - **Privacy:** Safety notes (allergies, sensitivities) are shown only to the provider of the customer's confirmed appointment. Email and phone never appear on public pages. Closed accounts are anonymized after 14 days.
 - **Accountability:** Every admin decision (account access, service review, content moderation) is recorded with who made it, when, and why.
 - **Time:** Appointment times are the provider's local time (America/New_York). Opening hours and booking checks use that time.

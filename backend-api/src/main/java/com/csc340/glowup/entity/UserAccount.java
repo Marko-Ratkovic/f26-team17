@@ -48,8 +48,6 @@ public class UserAccount {
 
     private OffsetDateTime updatedAt;
 
-    private OffsetDateTime lastLoginAt;
-
     @OneToOne(mappedBy = "userAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Provider provider;
 

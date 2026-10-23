@@ -29,3 +29,7 @@ ALTER TABLE admin_actions ADD CONSTRAINT admin_actions_action_check CHECK (actio
     'PROVIDER_APPROVED', 'ACCOUNT_SUSPENDED', 'ACCOUNT_REINSTATED',
     'SERVICE_APPROVED', 'SERVICE_CHANGES_REQUESTED', 'SERVICE_REJECTED', 'SERVICE_ARCHIVED',
     'CONTENT_KEPT_VISIBLE', 'CONTENT_HIDDEN', 'CONTENT_RESTORED'));
+
+-- 2026-10-23  lastLoginAt removed from user accounts (login comes next milestone).
+-- The new review_reports table is created by Hibernate on the next start.
+ALTER TABLE user_accounts DROP COLUMN IF EXISTS last_login_at;

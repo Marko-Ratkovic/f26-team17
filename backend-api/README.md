@@ -23,6 +23,16 @@ transitions.
 
 | Method | Path                            | Purpose                                                    | Response code | Error codes | User story                                                              |
 | ------ | ------------------------------- | ---------------------------------------------------------- | ------------- | ----------- | ----------------------------------------------------------------------- |
+| POST   | `/api/customers/register`       | Register a customer profile                                | `201 Created` | `400`, `409` | [US-1](../docs/GlowUpSRS.md) |
+| GET    | `/api/customers/{id}`           | Read a customer profile                                    | `200 OK`      | `404`        | [US-1](../docs/GlowUpSRS.md) |
+| PUT    | `/api/customers/{id}`           | Update a customer profile (name, email, phone number)      | `200 OK`      | `400`, `404`, `409`   | [US-1](../docs/GlowUpSRS.md) |
+| PUT    | `/api/customers/{id}/password`  | Change the password (current password required)            | `204 No Content` | `400`, `404`       | [US-1](../docs/GlowUpSRS.md) |
+| PUT    | `/api/customers/{id}/safety-notes` | Set allergy and sensitivity notes                       | `200 OK` | `400`, `404`      | [US-1](../docs/GlowUpSRS.md) |
+| GET    | `/api/customers/{id}/saved-providers` | List the customer's saved providers                  | `200 OK` | `404`             | [US-1](../docs/GlowUpSRS.md) |
+| PUT    | `/api/customers/{id}/saved-providers/{providerId}` | Save a provider                         | `204 No Content` | `404`     | [US-1](../docs/GlowUpSRS.md) |
+| DELETE | `/api/customers/{id}/saved-providers/{providerId}` | Remove a saved provider                 | `204 No Content` | `404`     | [US-1](../docs/GlowUpSRS.md) |
+| GET    | `/api/customers/browse` | Browse providers and their approved services by category, city, day, time of day, keyword, saved providers, and sort | `200 OK` | `400`, `404` | [US-2](../docs/GlowUpSRS.md) |
+| POST   | `/api/customers/{customerId}/appointments` | Request an appointment for an approved service  | `201 Created` | `400`, `404` | [US-3](../docs/GlowUpSRS.md) |
 | `POST` | `/api/providers/register`                | Register a provider profile with starting opening hours    | `201 Created` | `400, 409`  | [US-5](../docs/GlowUpSRS.md#L115) |
 | `GET`  | `/api/providers/{providerId}`   | Read a provider's public profile (ACTIVE providers only)   | `200 OK`      | `404`       | [US-5](../docs/GlowUpSRS.md#L115) |
 | `GET`  | `/api/providers/{providerId}/profile` | Provider reads their own profile in any status       | `200 OK`      | `404`       | [US-5](../docs/GlowUpSRS.md#L115) |
@@ -30,6 +40,18 @@ transitions.
 
 
 ## Example Customer Request
+
+```http
+POST /api/customers/register
+Content-Type: application/json
+
+{
+  "name": "Jane Rob",
+  "email": "jane.rob@example.com",
+  "password": "securePassword123",
+  "phoneNumber": "336-555-0101"
+}
+```
 
 ### Example 
 Passwords are accepted only by registration endpoints, hashed with BCrypt, and

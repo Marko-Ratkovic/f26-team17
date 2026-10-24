@@ -12,7 +12,7 @@
 **Base URL:**
 
 - local: http://localhost:8080/api
-- production: https://glow-up-api.onrender.com/
+- production: https://glow-up-api.onrender.com/api
 
 JSON request bodies are validated. The endpoint tables list applicable error
 code: `400 Bad Request` for invalid input, `404 Not Found` for missing

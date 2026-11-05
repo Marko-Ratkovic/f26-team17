@@ -1,0 +1,169 @@
+<#assign pageTitle="Glow Up">
+    <#include "/shared/head.ftlh">
+        <#include "/shared/nav.ftlh">
+            <main>
+                <!-- Hero section-->
+                <section class="hero">
+                    <div class="text-secondary px-4 py-5 text-center">
+                        <div class="py-5">
+                            <h1 class="display-5 fw-bold" style="color: var(--primary-color);">Find beauty professionals
+                                who fit your style</h1>
+                            <div class="mx-3">
+                                <p class="fs-5 mb-4">Explore services, compare provider details, and find an appointment
+                                    that works for you.</p>
+                                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                                    <a href="register.html"
+                                        class="btn btn-outline-darkbrown btn-lg px-4 me-sm-3 fw-bold">I'm a Customer</a>
+                                    <a href="register.html" class="btn btn-outline-neutral btn-lg px-4">I'm a
+                                        Provider</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="features" class="section landing-section" aria-labelledby="features-heading">
+                    <div class="container">
+                        <div class="landing-section-intro">
+                            <p class="landing-eyebrow">WHY GLOWUP</p>
+                            <h2 id="features-heading">Beauty services, made easier.</h2>
+                            <p>Get the details you need to choose a service and feel prepared for your appointment.</p>
+                        </div>
+                        <div class="grid grid-3 landing-card-grid">
+                            <article class="landing-info-card">
+                                <span class="landing-card-number" aria-hidden="true">01</span>
+                                <h3>Find the right fit</h3>
+                                <p>Browse approved services and compare provider details, specialties, availability, and
+                                    customer ratings.</p>
+                            </article>
+                            <article class="landing-info-card">
+                                <span class="landing-card-number" aria-hidden="true">02</span>
+                                <h3>Know what to expect</h3>
+                                <p>Review a service’s description, price, and duration before choosing an appointment.
+                                </p>
+                            </article>
+                            <article class="landing-info-card">
+                                <span class="landing-card-number" aria-hidden="true">03</span>
+                                <h3>Reviews with context</h3>
+                                <p>Share feedback after an appointment. Reported reviews are handled through GlowUp’s
+                                    moderation process.</p>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+
+                <!--Service grid-->
+                <section class="section">
+                    <div class="container">
+                        <h2 class="display-5 fw-bold text-center mb-5">Our Services</h2>
+                        <div class="grid grid-3">
+
+                            <!-- Service Card 1 -->
+                            <div class="service-card">
+                                <div class="service-image">
+                                    <img class="card-img-top" src="images/haircut.jpg" alt="Haircut" />
+                                </div>
+                                <div class="service-info">
+                                    <h3 class="service-name">Haircuts</h3>
+                                    <p class="service-category">Hair Styling</p>
+                                    <div class="service-price">$18-25 · 12 to 20 min</div>
+                                    <div class="service-description">Professional haircuts for a fresh, styled look.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Service Card 2 -->
+                            <div class="service-card">
+                                <div class="service-image">
+                                    <img class="card-img-top" src="images/nail-painting.jpg" alt="Nail Painting" />
+                                </div>
+                                <div class="service-info">
+                                    <h3 class="service-name">Nail Painting</h3>
+                                    <p class="service-category">Nail Care</p>
+                                    <div class="service-price">$15-55 · 15 min to 1 hour</div>
+                                    <div class="service-description">Precision nail painting and polish application for
+                                        a clean, polished finish.</div>
+                                </div>
+                            </div>
+
+                            <!-- Service Card 3 -->
+                            <div class="service-card">
+                                <div class="service-image">
+                                    <img class="card-img-top" src="images/makeup.jpg" alt="Makeup Application" />
+                                </div>
+                                <div class="service-info">
+                                    <h3 class="service-name">Makeup Application</h3>
+                                    <p class="service-category">Makeup Artistry</p>
+                                    <div class="service-price">$75-150 · 30 min to 1 hour</div>
+                                    <div class="service-description">Professional makeup application for a polished,
+                                        camera-ready look.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="how-it-works" class="section landing-section landing-how-it-works"
+                    aria-labelledby="how-heading">
+                    <div class="container">
+                        <div class="landing-section-intro">
+                            <p class="landing-eyebrow">A SIMPLE PLACE TO START</p>
+                            <h2 id="how-heading">How It Works</h2>
+                            <p>Whether you’re booking a service or offering one, here’s what to expect.</p>
+                        </div>
+                        <div class="grid grid-2 landing-card-grid">
+                            <article class="landing-info-card landing-flow-card">
+                                <h3>For customers</h3>
+                                <ol class="landing-steps">
+                                    <li><strong>Browse approved services.</strong> Compare providers and the services
+                                        they offer.</li>
+                                    <li><strong>Choose an appointment.</strong> Review the service details and select an
+                                        available time.</li>
+                                    <li><strong>Manage and review.</strong> Keep track of your appointment and share
+                                        feedback after it’s completed.</li>
+                                </ol>
+                                <a href="register.html" class="landing-text-link">Go to sign up <span
+                                        aria-hidden="true">→</span></a>
+                                <p class="landing-signup-note">Choose Customer as your account type.</p>
+                            </article>
+                            <article class="landing-info-card landing-flow-card">
+                                <h3>For providers</h3>
+                                <ol class="landing-steps">
+                                    <li><strong>Create a provider account.</strong> Set up a profile to introduce your
+                                        services.</li>
+                                    <li><strong>Submit your listing for review.</strong> Add service details and wait
+                                        for admin review.</li>
+                                    <li><strong>Manage your services.</strong> Approved listings become visible to
+                                        customers so you can manage appointments.</li>
+                                </ol>
+                                <a href="register.html" class="landing-text-link">Go to sign up <span
+                                        aria-hidden="true">→</span></a>
+                                <p class="landing-signup-note">Choose Provider as your account type.</p>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+
+                <!--CTA-->
+                <section class="section cta">
+                    <div class="container">
+                        <h2 class="display-5 fw-bold">Ready to Glow Up?</h2>
+                        <p class="text">Join our community of beauty professionals and customers today!</p>
+                        <a href="register.html" class="btn btn-outline-neutral btn-lg fw-bold">Get Started</a>
+                    </div>
+                </section>
+            </main>
+
+            <!--Footer-->
+            <footer>
+                <p class="mb-0">© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p>
+            </footer>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+                crossorigin="anonymous">
+                </script>
+            </body>
+
+            </html>

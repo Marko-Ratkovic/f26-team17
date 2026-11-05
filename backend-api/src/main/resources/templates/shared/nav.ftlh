@@ -5,16 +5,16 @@
         </a>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a href="#features" class="nav-link under-scored">Features</a>
+                <a href="/#features" class="nav-link under-scored">Features</a>
             </li>
             <li class="nav-item">
-                <a href="#how-it-works" class="nav-link under-scored">How It Works</a>
+                <a href="/#how-it-works" class="nav-link under-scored">How It Works</a>
             </li>
             <li class="nav-item">
-                <a href="login.html" class="nav-link fw-bold pill-badge">Log in</a>
+                <a href="/login" class="nav-link fw-bold pill-badge">Log in</a>
             </li>
             <li class="nav-item">
-                <a href="register.html" class="nav-link fw-bold pill-badge">Get started</a>
+                <a href="/register" class="nav-link fw-bold pill-badge">Get started</a>
             </li>
         </ul>
     </div>

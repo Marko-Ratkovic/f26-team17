@@ -1,4 +1,4 @@
-<#assign pageTitle="Glow Up">
+<#assign pageTitle="GlowUp">
     <#include "/shared/head.ftlh">
         <#include "/shared/nav.ftlh">
             <main>

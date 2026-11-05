@@ -20,4 +20,13 @@ public class AppController {
         return "public/index";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "public/login";
+    }
+
+    @GetMapping("/register")
+    public String register() {
+        return "public/register";
+    }
 }

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - Glow Up</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <#include "/shared/nav.ftlh">
+        <main class="login-page section">
+            <div class="login-card">
+                <div class="login-card-intro">
+                    <p class="login-eyebrow">WELCOME BACK</p>
+                    <h1>Ready to glow up?</h1>
+                    <p>Sign in to manage your appointments, discover trusted providers, and keep your beauty routine on track.</p>
+                </div>
+
+                <div class="login-form-wrap">
+                    <h2>Log in to your account</h2>
+                    <p class="login-form-subtitle">Enter your details below to continue.</p>
+
+                    <form action="/login" method="post">
+                        <fieldset class="role-selector">
+                            <legend>Log in as</legend>
+                            <div class="role-options">
+                                <label class="role-option">
+                                    <input type="radio" name="login-role" value="customer" checked>
+                                    <span>
+                                        <strong>Customer</strong>
+                                        <small>Book and manage appointments</small>
+                                    </span>
+                                </label>
+                                <label class="role-option">
+                                    <input type="radio" name="login-role" value="provider">
+                                    <span>
+                                        <strong>Provider</strong>
+                                        <small>Manage services and bookings</small>
+                                    </span>
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="password-row">
+                                <label for="password">Password</label>
+                                <a href="#" class="login-link">Forgot password?</a>
+                            </div>
+                            <input type="password" id="password" name="password" placeholder="Enter your password"
+                                autocomplete="current-password" required>
+                        </div>
+
+                        <div class="remember-row">
+                            <input type="checkbox" id="remember-me" name="remember-me">
+                            <label for="remember-me">Remember me</label>
+                        </div>
+
+                        <div class="login-button">
+                            <button type="submit" class="btn-login">Log in</button>
+                        </div>
+                    </form>
+
+                    <div class="login-divider"><span>or</span></div>
+
+                    <p class="login-register-prompt">
+                        New to Glow Up?
+                        <a href="/register" class="login-link create-account">Create an account</a>
+                    </p>
+
+                    <div class="login-role-links">
+                        <span>View demo dashboard:</span>
+                        <a href="customer/dashboard.html">Customer demo</a>
+                        <a href="provider/dashboard.html">Provider demo</a>
+                        <a href="admin/dashboard.html">Admin demo</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2026 GlowUp. All rights reserved. Connecting customers with beauty professionals.</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

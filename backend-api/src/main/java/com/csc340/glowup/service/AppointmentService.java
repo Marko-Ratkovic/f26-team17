@@ -63,10 +63,7 @@ public class AppointmentService {
 
     @Transactional(readOnly = true)
     public List<AppointmentResponse> listForProvider(Long providerId) {
-        if (!providerRepository.existsById(providerId)) {
-            throw new NotFoundException("Provider " + providerId + " was not found.");
-        }
-        return appointmentRepository.findAllByProviderService_Provider_IdOrderByIdDesc(providerId)
+         return appointmentRepository.findAllByProviderService_Provider_IdOrderByIdDesc(providerId)
                 .stream().map(AppointmentResponse::from).toList();
     }
 

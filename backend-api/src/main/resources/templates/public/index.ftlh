@@ -12,9 +12,9 @@
                                 <p class="fs-5 mb-4">Explore services, compare provider details, and find an appointment
                                     that works for you.</p>
                                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                                    <a href="register.html"
+                                    <a href="/register"
                                         class="btn btn-outline-darkbrown btn-lg px-4 me-sm-3 fw-bold">I'm a Customer</a>
-                                    <a href="register.html" class="btn btn-outline-neutral btn-lg px-4">I'm a
+                                    <a href="/register" class="btn btn-outline-neutral btn-lg px-4">I'm a
                                         Provider</a>
                                 </div>
                             </div>

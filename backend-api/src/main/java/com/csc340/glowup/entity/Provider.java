@@ -33,7 +33,7 @@ public class Provider {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_account_id", nullable = false, unique = true)
     private UserAccount userAccount;
-    
+
     @NotBlank
     @Size(max = 100)
     @Column(nullable = false, length = 100)

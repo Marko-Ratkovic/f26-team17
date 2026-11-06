@@ -73,6 +73,17 @@ public class ProviderProfileService {
     }
 
     @Transactional(readOnly = true)
+    public ProviderResponse authenticate(String email, String password){
+        UserAccount userAccount = userAccountRepository.findByEmailIgnoreCase(email.trim())
+                .orElseThrow(() -> new BadRequestException("Invalid email or password."));
+        if(!passwordEncoder.matches(password, userAccount.getPassword())){
+            throw new BadRequestException("Invalid email or password.");
+        }
+        Provider provider = findProvider(userAccount.getProvider().getId());
+        return ProviderResponse.from(provider);
+    }
+
+    @Transactional(readOnly = true)
     public ProviderResponse getPublicProfile(Long providerId){
         Provider provider = findProvider(providerId);
         if (provider.getUserAccount().getAccountStatus() != AccountStatus.ACTIVE) {

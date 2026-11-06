@@ -29,14 +29,14 @@
                             <legend>Log in as</legend>
                             <div class="role-options">
                                 <label class="role-option">
-                                    <input type="radio" name="login-role" value="customer" checked>
+                                    <input type="radio" name="role" value="customer" checked>
                                     <span>
                                         <strong>Customer</strong>
                                         <small>Book and manage appointments</small>
                                     </span>
                                 </label>
                                 <label class="role-option">
-                                    <input type="radio" name="login-role" value="provider">
+                                    <input type="radio" name="role" value="provider">
                                     <span>
                                         <strong>Provider</strong>
                                         <small>Manage services and bookings</small>
@@ -80,7 +80,7 @@
                     <div class="login-role-links">
                         <span>View demo dashboard:</span>
                         <a href="customer/dashboard.html">Customer demo</a>
-                        <a href="provider/dashboard.html">Provider demo</a>
+                        <a href="/providers">Provider demo</a>
                         <a href="admin/dashboard.html">Admin demo</a>
                     </div>
                 </div>

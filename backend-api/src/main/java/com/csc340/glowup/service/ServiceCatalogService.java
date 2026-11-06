@@ -140,7 +140,6 @@ public class ServiceCatalogService {
     }
 
     
-
     private void ensureProviderExists(Long providerId){
         if(!providerRepository.existsById(providerId))
             throw new NotFoundException("Provider "+providerId+" was not found.");

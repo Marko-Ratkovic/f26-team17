@@ -11,6 +11,10 @@ import com.csc340.glowup.dto.ProviderRegistrationRequest;
 import com.csc340.glowup.dto.ProviderResponse;
 import com.csc340.glowup.enums.AccountRole;
 import com.csc340.glowup.enums.Weekday;
+import com.csc340.glowup.dto.CustomerResponse;
+import com.csc340.glowup.service.ProviderProfileService;
+import com.csc340.glowup.service.BadRequestException;
+import com.csc340.glowup.service.CustomerService;
 import com.csc340.glowup.service.ProviderProfileService;
 
 import jakarta.servlet.http.HttpSession;
@@ -20,9 +24,11 @@ import jakarta.validation.Valid;
 public class AppController {
 
     private final ProviderProfileService providerProfileService;
+    private final CustomerService customerService;
 
-    public AppController(ProviderProfileService providerProfileService){
+    public AppController(ProviderProfileService providerProfileService, CustomerService customerService){
         this.providerProfileService = providerProfileService;
+        this.customerService = customerService;
     }
 
     @GetMapping("/")
@@ -46,15 +52,23 @@ public class AppController {
             @RequestParam  String loginRole,
             @RequestParam String email,
             @RequestParam String password,
-            HttpSession session){
-        if("provider".equalsIgnoreCase(loginRole)){
+            HttpSession session,
+            Model model) {
+        try {
+            if ("provider".equalsIgnoreCase(loginRole)) {
             ProviderResponse provider = providerProfileService.authenticate(email,password);
             session.setAttribute("userId", provider.id());
             session.setAttribute("userRole", "provider");
             session.setAttribute("userName", provider.name());
             return "redirect:/providers/dashboard";
+            }
+            CustomerResponse customer = customerService.authenticate(email, password);
+            setSession(session, customer.id(), "customer", customer.name());
+            return "redirect:/customers/dashboard";
+        } catch (BadRequestException e){
+            model.addAttribute("error", e.getMessage());
+            return "public/login";
         }
-        return "redirect:/login";
     }
 
     @PostMapping("/provider/register")

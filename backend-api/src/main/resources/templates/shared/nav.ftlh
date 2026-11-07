@@ -17,6 +17,19 @@
                 <li class="nav-item">
                     <a href="/providers/profile" class="nav-link under-scored">My Profile</a>
                 </li>
+                <#elseif userRole?? && userRole=="customer">
+                <li class="nav-item">
+                    <a href="#" class="nav-link under-scored">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link under-scored">Browse Services &amp; Providers</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link under-scored">My Appointments</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/customers/profile" class="nav-link under-scored">My Profile</a>
+                </li>
                 <#else>
                     <li class="nav-item">
                         <a href="/#features" class="nav-link under-scored">Features</a>

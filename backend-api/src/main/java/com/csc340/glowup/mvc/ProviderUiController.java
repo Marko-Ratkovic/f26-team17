@@ -1,11 +1,14 @@
 package com.csc340.glowup.mvc;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.csc340.glowup.dto.ProviderResponse;
+import com.csc340.glowup.dto.ProviderScheduleResponse;
 import com.csc340.glowup.service.AppointmentService;
 import com.csc340.glowup.service.ProviderProfileService;
 import com.csc340.glowup.service.ProviderScheduleService;
@@ -41,6 +44,17 @@ public class ProviderUiController {
         Long providerId = UiSession.requireId(session,"provider");
         addDashboardData(providerId,model);
         return "/provider/dashboard";
+    }
+
+    @GetMapping("/profile")
+    public String profile(HttpSession session, Model model){
+        Long providerId = UiSession.requireId(session,"provider" );
+        ProviderResponse provider = providerProfileService.getProfile(providerId);
+        List<ProviderScheduleResponse> providerSchedules = providerScheduleService.listForProvider(providerId);
+        model.addAttribute("provider",provider);
+        model.addAttribute("services", catalogService.listServices(providerId));
+        model.addAttribute("providerSchedules",providerSchedules);
+        return "/provider/profile";
     }
 
     private void addDashboardData(Long providerId, Model model){

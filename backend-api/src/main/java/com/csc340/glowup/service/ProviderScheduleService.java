@@ -48,6 +48,17 @@ public class ProviderScheduleService {
                 .map(ProviderScheduleResponse::from).toList();
     }
 
+    @Transactional(readOnly = true)
+    public List<ProviderScheduleResponse> listForProvider(Long providerId){
+        if(!providerRepository.existsById(providerId)){
+            throw new NotFoundException("Provider " + providerId + " was not found.");
+        }
+        List<ProviderSchedule> providerSchedule = providerScheduleRepository.findAllByProviderId(providerId);
+        return providerSchedule.stream()
+                .sorted(Comparator.comparing(ProviderSchedule::getWeekday))
+                .map(ProviderScheduleResponse::from).toList();
+    }
+
     public void createWeek(Provider provider, Collection<Weekday> openDays, LocalTime openTime, LocalTime closeTime) {
         if (openDays == null || openDays.isEmpty()) {
             throw new BadRequestException("Choose at least one day you are available.");

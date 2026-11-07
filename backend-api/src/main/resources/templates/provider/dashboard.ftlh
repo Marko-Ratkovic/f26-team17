@@ -10,7 +10,7 @@
                                 <p class="provider-eyebrow">PROVIDER WORKSPACE</p>
                                 <h1>Welcome back, ${provider.name()}!</h1>
                                 <p>Your account is pending review. Please wait for approval to view additional features. You can edit your profile 
-                                    <a href="" style="color:antiquewhite">here</a> or in My Profile tab.</p>
+                                    <a href="/providers/profile" style="color:antiquewhite">here</a> or in My Profile tab.</p>
                             </div>
                         </div>
                     </div>

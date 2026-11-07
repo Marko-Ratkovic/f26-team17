@@ -6,6 +6,8 @@ import com.csc340.glowup.enums.AccountStatus;
 public record ProviderResponse(
     Long id,
     String name,
+    String email,
+    String phone,
     String bio,
     String certifications,
     Integer yearsOfExperience,
@@ -17,8 +19,8 @@ public record ProviderResponse(
     AccountStatus accountStatus) {
     
     public static ProviderResponse from(Provider provider){
-        return new ProviderResponse(provider.getId(), provider.getName(), provider.getBio(), 
-                    provider.getCertifications(), provider.getYearsOfExperience(), provider.getImagePath(), 
+        return new ProviderResponse(provider.getId(), provider.getName(), provider.getUserAccount().getEmail(), provider.getUserAccount().getPhoneNumber(),
+                    provider.getBio(), provider.getCertifications(), provider.getYearsOfExperience(), provider.getImagePath(), 
                     provider.getAddressLine(), provider.getCity(), provider.getZipcode(), provider.getState(),provider.getUserAccount().getAccountStatus());
     }
 }

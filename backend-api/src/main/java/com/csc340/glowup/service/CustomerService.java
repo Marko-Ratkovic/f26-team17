@@ -67,6 +67,26 @@ public class CustomerService {
         return CustomerResponse.from(customer);
     }
 
+    // authenticate(): used by the MVC login page.
+    // Every credential failure gives the same message so it does not reveal which emails exist.
+    @Transactional(readOnly = true)
+    public CustomerResponse authenticate(String email, String password) {
+        UserAccount account = userAccountRepository.findByEmailIgnoreCase(email.trim())
+                .orElseThrow(() -> new BadRequestException("Invalid email or password."));
+        
+        if (!passwordEncoder.matches(password, account.getPassword())
+                || account.getAccountRole() != AccountRole.CUSTOMER) {
+            throw new BadRequestException("Invalid email or password.");
+        }
+        if (account.getAccountStatus() != AccountStatus.ACTIVE) {
+            throw new BadRequestException("Account is not active.");
+        }
+
+        Customer customer = customerRepository.findByUserAccountId(account.getId())
+                .orElseThrow(() -> new BadRequestException("Invalid email or password."));
+        return CustomerResponse.from(customer);
+    }
+
     @Transactional(readOnly = true)
     public CustomerResponse getById(Long id) {
         Customer customer = customerRepository.findById(id)

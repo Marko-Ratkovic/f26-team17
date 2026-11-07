@@ -29,14 +29,14 @@
                             <legend>Log in as</legend>
                             <div class="role-options">
                                 <label class="role-option">
-                                    <input type="radio" name="role" value="customer" checked>
+                                    <input type="radio" name="loginRole" value="customer" checked>
                                     <span>
                                         <strong>Customer</strong>
                                         <small>Book and manage appointments</small>
                                     </span>
                                 </label>
                                 <label class="role-option">
-                                    <input type="radio" name="role" value="provider">
+                                    <input type="radio" name="loginRole" value="provider">
                                     <span>
                                         <strong>Provider</strong>
                                         <small>Manage services and bookings</small>

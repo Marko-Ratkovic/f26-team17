@@ -59,6 +59,7 @@ public class ProviderProfileService {
         Provider provider = new Provider();
         provider.setUserAccount(savedUser);
         provider.setName(request.name().trim());
+        provider.setBusinessName(request.businessName().trim());
         provider.setBio(request.bio());
         provider.setCertifications(request.certifications());
         provider.setYearsOfExperience(request.yearsOfExperience());

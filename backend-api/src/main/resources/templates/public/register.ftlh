@@ -25,6 +25,11 @@
                         <h2>Create your account</h2>
                         <p class="login-form-subtitle">Choose an account type to get started.</p>
 
+                        <#-- Shows the message when registration fails -->
+                        <#if error??>
+                            <div role="alert" style="color:#ff8a8a; background:rgba(255,80,80,0.12); border:1px solid #ff8a8a; border-radius:8px; padding:10px 14px; margin-bottom:16px;">${error}</div>
+                        </#if>
+
                         <form method="post" action="/register" id="registerForm">
                             <fieldset class="role-selector">
                                 <legend>I am signing up as a</legend>
@@ -50,26 +55,26 @@
                             <div class="form-group">
                                 <label for="full-name">Full name</label>
                                 <input type="text" id="full-name" name="name" placeholder="Your full name"
-                                    autocomplete="name" required>
+                                    value="${formName!}" autocomplete="name" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="signup-email">Email address</label>
                                 <input type="email" id="signup-email" name="email" placeholder="you@example.com"
-                                    autocomplete="email" required>
+                                    value="${formEmail!}" autocomplete="email" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="signup-password">Password</label>
                                 <input type="password" id="signup-password" name="password"
-                                    placeholder="Create a password" autocomplete="new-password" minlength="8" required>
+                                    value="${formPassword!}" placeholder="Create a password" autocomplete="new-password" minlength="8" required>
                                 <small class="form-help">Use at least 8 characters.</small>
                             </div>
 
                             <div class="form-group">
                                 <label for="confirm-password">Confirm password</label>
                                 <input type="password" id="confirm-password" name="confirm-password"
-                                    placeholder="Re-enter your password" autocomplete="new-password" minlength="8"
+                                    value="${formConfirmPassword!}" placeholder="Re-enter your password" autocomplete="new-password" minlength="8"
                                     required>
                             </div>
 
@@ -78,7 +83,7 @@
                                     <label for="customer-phone">Phone number <span
                                             class="optional-label">(optional)</span></label>
                                     <input type="tel" id="customer-phone" name="customer-phone"
-                                        placeholder="(555) 555-5555" autocomplete="tel">
+                                        value="${formPhone!}" placeholder="(555) 555-5555" autocomplete="tel">
                                 </div>
                             </div>
 
@@ -264,6 +269,17 @@
                 }
             });
         });
+
+        // Disable the fields of the role that is not selected, so hidden required fields cannot block the submit
+        function syncRoleFields() {
+            const selected = document.querySelector('input[name="signup-role"]:checked').value;
+            document.querySelectorAll('#provider-fields input, #provider-fields select, #provider-fields textarea')
+                .forEach(el => el.disabled = selected !== 'provider');
+            document.querySelectorAll('#customer-fields input')
+                .forEach(el => el.disabled = selected !== 'customer');
+        }
+        role.forEach(radio => radio.addEventListener('change', syncRoleFields));
+        syncRoleFields();
 
         const dayBoxes = document.querySelectorAll('input[name="availableDays"]');
         function checkDays() {

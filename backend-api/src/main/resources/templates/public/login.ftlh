@@ -23,7 +23,12 @@
                 <div class="login-form-wrap">
                     <h2>Log in to your account</h2>
                     <p class="login-form-subtitle">Enter your details below to continue.</p>
-
+                    
+                    <#-- Shows the message when login fails -->
+                    <#if error??>
+                        <div role="alert" style="color:#ff8a8a; background:rgba(255,80,80,0.12); border:1px solid #ff8a8a; border-radius:8px; padding:10px 14px; margin-bottom:16px;">${error}</div>
+                    </#if>
+                    
                     <form action="/login" method="post">
                         <fieldset class="role-selector">
                             <legend>Log in as</legend>

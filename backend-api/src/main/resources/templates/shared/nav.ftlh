@@ -15,7 +15,7 @@
                     <a href="" class="nav-link under-scored">My Appointments</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link under-scored">My Profile</a>
+                    <a href="/providers/profile" class="nav-link under-scored">My Profile</a>
                 </li>
                 <#else>
                     <li class="nav-item">

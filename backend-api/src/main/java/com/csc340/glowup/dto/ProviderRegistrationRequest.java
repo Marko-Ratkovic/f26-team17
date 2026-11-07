@@ -18,6 +18,7 @@ public record ProviderRegistrationRequest(
         @NotBlank @Size(min = 8, max = 72, message = "Password must be 8 to 72 characters long") String password,
         @Size(max = 20) @Pattern(regexp = "^$|^\\+?[0-9 ()-]{7,20}$", message = "Invalid phone number format") String phoneNumber,
         @NotBlank @Size(max = 100) String name,
+        @Size(max = 200) String businessName,
         @Size(max = 2000) String bio,
         @Size(max = 2000) String certifications,
         @NotNull @Min(0) Integer yearsOfExperience,
@@ -26,7 +27,8 @@ public record ProviderRegistrationRequest(
         @NotBlank String city,
         @NotBlank String state,
         @NotBlank String zipcode,
-        @NotEmpty List<Weekday> availableDays,
+        @NotEmpty(message = "Select at least one working day") 
+        List<Weekday> availableDays,
         @NotNull LocalTime openTime,
         @NotNull LocalTime closeTime
         ) {

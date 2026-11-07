@@ -43,6 +43,10 @@ public class Provider {
     @Column(length = 2000)
     private String bio;
 
+    @NotBlank
+    @Size(max = 100)
+    @Column(nullable = false, length = 100)
+    private String businessName;
 
     @Size(max = 2000)
     @Column(length = 2000, nullable = true)

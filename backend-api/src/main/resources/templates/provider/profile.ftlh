@@ -6,7 +6,7 @@
                 <div class="container">
                     <div class="provider-profile-hero mb-3">
                         <p class="provider-eyebrow">PROVIDER ACCOUNT</p>
-                        <h1>${provider.name()}</h1>
+                        <h1>${provider.businessName()}</h1>
                         <#if provider?? && provider.accountStatus?? && provider.accountStatus().name() == "ACTIVE">
                             <span class="provider-visibility-badge">Profile visible to customers</span>
                         <#else>
@@ -25,7 +25,7 @@
                             <dl class="profile-data-grid">
                                 <div><dt>Name</dt><dd>${provider.name()}</dd></div>
                                 <div><dt>Email</dt><dd>${provider.email()}</dd></div>
-                                <div><dt>Phone</dt><dd>${provider.phone()}</dd></div>
+                                <div><dt>Phone</dt><dd>${provider.phone()!''}</dd></div>
                             </dl>
                             <p class="profile-helper">Contact details are for account and appointment coordination. They should not be shown on a public profile unless explicitly approved for display.</p>
                             <a href="edit-details.html" class="btn profile-edit-btn">Edit contact details</a>

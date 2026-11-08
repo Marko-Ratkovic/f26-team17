@@ -41,7 +41,7 @@
                                 </#if>
                                 <div><dt>Experience</dt><dd>${provider.yearsOfExperience()} years</dd></div>
                                 <div class="profile-data-wide"><dt>About</dt><dd>${provider.bio()}</dd></div>
-                                <div><dt>City</dt><dd>${provider.city()}, ${provider.state()}</dd></div>
+                                <div><dt>Address</dt><dd>${provider.addressLine()}, ${provider.city()}, ${provider.state()}, ${provider.zipcode()}</dd></div>
                                 <div><dt>Certifications</dt><dd>${provider.certifications()}</dd></div>
                             </dl>
                             <p class="profile-helper">Certifications are self-reported and are not verified by GlowUp.</p>

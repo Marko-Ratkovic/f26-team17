@@ -106,6 +106,8 @@ public class ProviderProfileService {
     public ProviderResponse updateProfile(Long provideId, ProviderUpdateRequest request){
         Provider provider = findProvider(provideId);
         provider.setName(request.name().trim());
+        provider.getUserAccount().setPhoneNumber(request.phoneNumber());
+        provider.setBusinessName(request.businessName());
         provider.setBio(request.bio());
         provider.setCertifications(request.certifications());
         if (request.yearsOfExperience() != null) {

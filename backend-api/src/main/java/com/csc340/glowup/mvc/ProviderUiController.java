@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.csc340.glowup.dto.ProviderResponse;
 import com.csc340.glowup.dto.ProviderScheduleResponse;
+import com.csc340.glowup.dto.ProviderUpdateRequest;
+import com.csc340.glowup.dto.ProviderUpdateScheduleRequest;
 import com.csc340.glowup.service.AppointmentService;
 import com.csc340.glowup.service.ProviderProfileService;
 import com.csc340.glowup.service.ProviderScheduleService;
@@ -16,6 +19,7 @@ import com.csc340.glowup.service.ReviewService;
 import com.csc340.glowup.service.ServiceCatalogService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller 
 @RequestMapping("/providers")
@@ -64,12 +68,29 @@ public class ProviderUiController {
         return "/provider/edit-details";
     }
 
+    @PostMapping("/update-details")
+    public String updateDetails(HttpSession session, ProviderUpdateRequest request){
+        Long providerId = UiSession.requireId(session, "provider");
+        providerProfileService.updateProfile(providerId, request);
+        return "redirect:/providers/profile";
+    }
+
     @GetMapping("/manage-availability")
     public String manageAvailability(HttpSession session, Model model){
         Long providerId = UiSession.requireId(session,"provider" );
         model.addAttribute("providerSchedules",providerScheduleService.listForProvider(providerId));
         return "/provider/manage-availability";
     }
+
+    @PostMapping("/update-availability")
+    public String updateAvailability(HttpSession session,
+        @Valid ProviderUpdateScheduleRequest providerUpdateScheduleRequest){
+        Long providerId = UiSession.requireId(session,"provider" );
+        providerScheduleService.updateWeek(providerId, providerUpdateScheduleRequest);
+        return "/providers/profile";
+    }
+
+    
 
     private void addDashboardData(Long providerId, Model model){
         ProviderResponse provider = providerProfileService.getProfile(providerId);

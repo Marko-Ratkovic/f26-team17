@@ -69,7 +69,6 @@
                 timeInputs.forEach(input => {
                     input.disabled = !isChecked;
                 });
-
             });
         });
     </script>

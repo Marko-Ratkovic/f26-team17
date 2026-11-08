@@ -280,12 +280,15 @@ public class CustomerService {
                 .orElseThrow(() -> new NotFoundException("Customer not found."));
     }
 
-    // strips formatting like spaces, dashes and parentheses; blank becomes null
+    // keeps the 10 digits of a US phone number (a leading 1 is dropped); blank becomes null
     private String normalizePhone(String phone) {
         if (phone == null || phone.isBlank()) {
             return null;
         }
-        String digits = phone.replaceAll("[^0-9+]", "");
+        String digits = phone.replaceAll("\\D", "");
+        if (digits.length() == 11 && digits.startsWith("1")) {
+            digits = digits.substring(1);
+        }
         return digits.isEmpty() ? null : digits;
     }
 

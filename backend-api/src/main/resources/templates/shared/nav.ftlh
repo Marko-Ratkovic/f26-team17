@@ -22,7 +22,7 @@
                     <a href="#" class="nav-link under-scored">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link under-scored">Browse Services &amp; Providers</a>
+                    <a href="/customers/browse-services" class="nav-link under-scored">Browse Services &amp; Providers</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link under-scored">My Appointments</a>

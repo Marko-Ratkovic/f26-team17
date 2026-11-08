@@ -26,7 +26,7 @@
                                 <h1>Welcome back, ${provider.name()}!</h1>
                                 <p>Here are your booking requests, upcoming appointments, and service review status.</p>
                             </div>
-                            <a href="new-service.html" class="btn btn-light fw-bold">Add a service</a>
+                            <a href="/providers/new-service" class="btn btn-light fw-bold">Add a service</a>
                         </div>
                         <div class="row g-3 provider-summary-grid">
                             <div class="col-md-6 col-xl-3"><a class="provider-summary-card"

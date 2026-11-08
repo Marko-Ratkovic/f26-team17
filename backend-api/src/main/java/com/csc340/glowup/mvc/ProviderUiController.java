@@ -12,6 +12,7 @@ import com.csc340.glowup.dto.ProviderResponse;
 import com.csc340.glowup.dto.ProviderScheduleResponse;
 import com.csc340.glowup.dto.ProviderUpdateRequest;
 import com.csc340.glowup.dto.ProviderUpdateScheduleRequest;
+import com.csc340.glowup.entity.ProviderService;
 import com.csc340.glowup.service.AppointmentService;
 import com.csc340.glowup.service.ProviderProfileService;
 import com.csc340.glowup.service.ProviderScheduleService;
@@ -90,7 +91,20 @@ public class ProviderUiController {
         return "redirect:/providers/profile";
     }
 
-    
+    @GetMapping("/manage-services")
+    public String manageServices(HttpSession session, Model model){
+        Long providerId = UiSession.requireId(session,"provider" );
+        model.addAttribute("services", catalogService.listServices(providerId));
+        model.addAttribute("provider",providerProfileService.getProfile(providerId));
+        return "/provider/manage-services";
+    }
+
+    @GetMapping("/new-service")
+    public String newService(HttpSession session, Model model){
+        Long providerId = UiSession.requireId(session,"provider" );
+        model.addAttribute("provider",providerProfileService.getProfile(providerId));
+        return "/provider/new-service";
+    }
 
     private void addDashboardData(Long providerId, Model model){
         ProviderResponse provider = providerProfileService.getProfile(providerId);

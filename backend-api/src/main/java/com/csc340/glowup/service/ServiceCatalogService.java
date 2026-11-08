@@ -17,6 +17,7 @@ import java.util.List;
 @Service
 @Transactional
 public class ServiceCatalogService {
+    private static final String DEFAULT_PICTURE_CONTENT_TYPE = "image/jpeg";
 
     private final ProviderRepository providerRepository;
     private final ProviderServiceRepository providerServiceRepository;

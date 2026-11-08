@@ -76,8 +76,9 @@ public class CustomerController {
                                           @RequestParam(required = false) String keyword,
                                           @RequestParam(defaultValue = "false") boolean savedOnly,
                                           @RequestParam(required = false) Long customerId,
-                                          @RequestParam(required = false) String sort) {
-        return customerService.browse(category, city, day, timeOfDay, keyword, savedOnly, customerId, sort);
+                                          @RequestParam(required = false) String sort,
+                                          @RequestParam(required = false) Double minRating) {
+        return customerService.browse(category, city, day, timeOfDay, keyword, savedOnly, customerId, sort, minRating);
     }
 
     @GetMapping("/{customerId}/appointments")

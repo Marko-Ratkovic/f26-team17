@@ -196,14 +196,19 @@ public class CustomerService {
        savedOnly  - true to show only the customer's saved providers (needs customerId)
        customerId - whose saved providers to use with savedOnly
        sort       - NEWEST, or no sort for an order that changes once a day
+       minRating  - only providers with at least this average rating (1 to 5); unrated providers are left out
     */
     @Transactional(readOnly = true)
         public List<BrowseProviderDto> browse(String category, String city, String day, String timeOfDay,
-                                          String keyword, boolean savedOnly, Long customerId, String sort) {
+                                              String keyword, boolean savedOnly, Long customerId,
+                                              String sort, Double minRating) {
         ServiceCategory wantedCategory = parseCategory(category);
         Weekday wantedDay = parseDay(day);
         TimeBlock wantedBlock = parseTimeOfDay(timeOfDay);
         BrowseSort wantedSort = parseSort(sort);
+        if (minRating != null && (minRating < 1 || minRating > 5)) {
+            throw new BadRequestException("Minimum rating must be between 1 and 5.");
+        }
         boolean filterByCity = city != null && !city.isBlank();
         String wantedKeyword = (keyword == null || keyword.isBlank()) ? null : keyword.trim().toLowerCase();
         Set<Long> savedProviderIds = savedOnly ? savedProviderIds(customerId) : null;
@@ -252,6 +257,10 @@ public class CustomerService {
                     ? BrowseProviderDto.from(group, null, 0)
                     : BrowseProviderDto.from(group, ReviewService.roundRating(rating.getAverageRating()),
                             rating.getReviewCount()));
+        }
+
+        if (minRating != null) {
+            providers.removeIf(provider -> provider.averageRating() == null || provider.averageRating() < minRating);
         }
 
         Comparator<BrowseProviderDto> byRating = Comparator.comparing(BrowseProviderDto::averageRating,

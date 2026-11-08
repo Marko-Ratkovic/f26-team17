@@ -11,7 +11,7 @@
                     <div class="card profile-card">
                         <div class="profile-card-header"><h2 class="profile-card-title">Weekly schedule</h2></div>
                         <div class="card-content">
-                            <form method="post" action="">
+                            <form method="post" action="/providers/update-availability">
                                 <div class="table-responsive">
                                     <table class="table provider-schedule-table">
                                         <caption class="visually-hidden">Weekly opening hours</caption>
@@ -23,18 +23,20 @@
                                         </tr></thead>
                                         <tbody>
                                          <#list providerSchedules as providerSchedule>
-                                            <tr><th scope="row">${providerSchedule.weekday()?lower_case?cap_first}</th>
+                                            <tr><th scope="row">${providerSchedule.weekday()?lower_case?cap_first}
+                                                <input type="hidden" name="providerDailySchedule[${providerSchedule?index}].weekday" value="${providerSchedule.weekday().name()}">
+                                            </th>
                                             <td>
-                                                <input class="form-check-input" type="checkbox" id="${providerSchedule.weekday()?lower_case}-open" name="isAvailable" value="${providerSchedule.isAvailable()?string('true','false')}" <#if providerSchedule.isAvailable()>checked</#if>>
+                                                <input class="form-check-input" type="checkbox" id="${providerSchedule.weekday()?lower_case}-open" name="providerDailySchedule[${providerSchedule?index}].isAvailable" value="${providerSchedule.isAvailable()?string('true','false')}" <#if providerSchedule.isAvailable()>checked</#if>>
                                                 <label class="visually-hidden" for="${providerSchedule.weekday()?lower_case}-open">Open on ${providerSchedule.weekday()?lower_case?cap_first}</label>
                                             </td>
                                             <td>
                                                 <label class="visually-hidden" for="${providerSchedule.weekday()?lower_case}-opens">${providerSchedule.weekday()?lower_case?cap_first} opening time</label>
-                                                <input type="time" class="form-control form-control-sm schedule-time" id="${providerSchedule.weekday()?lower_case}-opens" name="openTime" value="${providerSchedule.openTime()}" <#if !providerSchedule.isAvailable()>disabled</#if> step="900">
+                                                <input type="time" class="form-control form-control-sm schedule-time" id="${providerSchedule.weekday()?lower_case}-opens" name="providerDailySchedule[${providerSchedule?index}].openTime" value="${providerSchedule.openTime()}" <#if !providerSchedule.isAvailable()>disabled</#if> step="900">
                                             </td>
                                             <td>
                                                 <label class="visually-hidden" for="${providerSchedule.weekday()?lower_case}-closes">${providerSchedule.weekday()?lower_case?cap_first} closing time</label>
-                                                <input type="time" class="form-control form-control-sm schedule-time" id="${providerSchedule.weekday()?lower_case}-closes" name="closeTime" value="${providerSchedule.closeTime()}" <#if !providerSchedule.isAvailable()>disabled</#if> step="900">
+                                                <input type="time" class="form-control form-control-sm schedule-time" id="${providerSchedule.weekday()?lower_case}-closes" name="providerDailySchedule[${providerSchedule?index}].closeTime" value="${providerSchedule.closeTime()}" <#if !providerSchedule.isAvailable()>disabled</#if> step="900">
                                             </td>
                                             </tr>
                                         </#list>   

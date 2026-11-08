@@ -11,4 +11,8 @@ public record ProviderDailyScheduleUpdate(
     @NotNull Boolean isAvailable,
     LocalTime openTime,
     LocalTime closeTime) {
+    
+    public ProviderDailyScheduleUpdate {
+        isAvailable = Boolean.TRUE.equals(isAvailable);  
+    }
 }

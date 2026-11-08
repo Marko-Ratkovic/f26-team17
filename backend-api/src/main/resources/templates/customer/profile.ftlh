@@ -54,7 +54,7 @@
                                     </div>
                                 </#list>
                             </#if>
-                            <a class="btn profile-edit-btn" href="#">Browse providers</a>
+                            <a class="btn profile-edit-btn" href="/customers/browse-services">Browse providers</a>
                         </div>
                     </section>
 

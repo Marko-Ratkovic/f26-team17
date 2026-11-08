@@ -1694,7 +1694,7 @@ nav{
   }
 }
 
-.provider-cost, .provider-rating, .provider-availability {
+.provider-cost, .provider-rating, .provider-availability, .provider-experience  {
   font-weight: 700;
   font-size: 1.1rem;
   color: var(--text-dark);
@@ -2383,6 +2383,15 @@ footer{
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
+}
+
+/* shows at most 4 lines of the bio on a card */
+.provider-bio {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
 }
 
 .provider-card-actions {

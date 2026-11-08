@@ -64,7 +64,7 @@ public class AppController {
             }
             CustomerResponse customer = customerService.authenticate(email, password);
             setSession(session, customer.id(), "customer", customer.name());
-            return "redirect:/customers/dashboard";
+            return "redirect:/customers/profile";
         } catch (BadRequestException e){
             model.addAttribute("error", e.getMessage());
             return "public/login";

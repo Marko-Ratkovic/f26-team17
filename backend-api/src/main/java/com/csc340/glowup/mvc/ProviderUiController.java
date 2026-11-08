@@ -87,7 +87,7 @@ public class ProviderUiController {
         @Valid ProviderUpdateScheduleRequest providerUpdateScheduleRequest){
         Long providerId = UiSession.requireId(session,"provider" );
         providerScheduleService.updateWeek(providerId, providerUpdateScheduleRequest);
-        return "/providers/profile";
+        return "redirect:/providers/profile";
     }
 
     

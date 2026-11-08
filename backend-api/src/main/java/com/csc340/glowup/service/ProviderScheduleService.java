@@ -84,10 +84,11 @@ public class ProviderScheduleService {
         for(ProviderDailyScheduleUpdate newDailySchedule : request.providerDailySchedule()){
             ProviderSchedule day = providerScheduleRepository.findForUpdateByProviderIdAndWeekday(providerId, newDailySchedule.weekday())
                         .orElseGet(() -> newDay(provider, newDailySchedule.weekday()));
+            boolean available = Boolean.TRUE.equals(newDailySchedule.isAvailable());
             LocalTime open = newDailySchedule.openTime() != null ? newDailySchedule.openTime() : day.getOpenTime();
             LocalTime close = newDailySchedule.closeTime() != null ? newDailySchedule.closeTime() : day.getCloseTime();
-            validateHours(newDailySchedule.isAvailable(), open, close);
-            day.setIsAvailable(newDailySchedule.isAvailable());
+            validateHours(available, open, close);
+            day.setIsAvailable(available);
             day.setOpenTime(open);
             day.setCloseTime(close);
             providerScheduleRepository.save(day);

@@ -10,6 +10,7 @@ import java.util.List;
 public record BrowseProviderDto(
         Long providerId,
         String name,
+        String bio,
         String city,
         String state,
         List<ServiceCategory> categories,
@@ -42,6 +43,7 @@ public record BrowseProviderDto(
         return new BrowseProviderDto(
                 provider.getId(),
                 provider.getName(),
+                provider.getBio(),
                 provider.getCity(),
                 provider.getState(),
                 providerServices.stream().map(ProviderService::getCategory).distinct().toList(),

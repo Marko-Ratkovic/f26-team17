@@ -28,7 +28,7 @@
                                 <div><dt>Phone</dt><dd>${provider.phone()!''}</dd></div>
                             </dl>
                             <p class="profile-helper">Contact details are for account and appointment coordination. They should not be shown on a public profile unless explicitly approved for display.</p>
-                            <a href="edit-details.html" class="btn profile-edit-btn">Edit contact details</a>
+                            <a href="/providers/edit-details" class="btn profile-edit-btn">Edit contact details</a>
                         </div>
                     </section>
 
@@ -45,7 +45,7 @@
                                 <div><dt>Certifications</dt><dd>${provider.certifications()}</dd></div>
                             </dl>
                             <p class="profile-helper">Certifications are self-reported and are not verified by GlowUp.</p>
-                            <a href="edit-details.html" class="btn profile-edit-btn">Edit professional details</a>
+                            <a href="/providers/edit-details" class="btn profile-edit-btn">Edit professional details</a>
                         </div>
                     </section>
 
@@ -85,7 +85,7 @@
                     <section class="card provider-settings-card" id="provider-availability" aria-labelledby="availability-heading">
                         <div class="profile-card-header provider-section-header">
                             <h2 class="profile-card-title" id="availability-heading">Availability</h2>
-                            <a href="availability.html" class="btn btn-light">Manage availability</a>
+                            <a href="/providers/manage-availability" class="btn btn-light">Manage availability</a>
                         </div>
                         <div class="card-content">
                             <dl class="provider-availability-list">

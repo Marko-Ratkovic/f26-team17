@@ -57,6 +57,20 @@ public class ProviderUiController {
         return "/provider/profile";
     }
 
+    @GetMapping("/edit-details")
+    public String editDetals(HttpSession session, Model model){
+        Long providerId = UiSession.requireId(session,"provider" );
+        model.addAttribute("provider", providerProfileService.getProfile(providerId));
+        return "/provider/edit-details";
+    }
+
+    @GetMapping("/manage-availability")
+    public String manageAvailability(HttpSession session, Model model){
+        Long providerId = UiSession.requireId(session,"provider" );
+        model.addAttribute("providerSchedules",providerScheduleService.listForProvider(providerId));
+        return "/provider/manage-availability";
+    }
+
     private void addDashboardData(Long providerId, Model model){
         ProviderResponse provider = providerProfileService.getProfile(providerId);
         model.addAttribute("provider",provider);

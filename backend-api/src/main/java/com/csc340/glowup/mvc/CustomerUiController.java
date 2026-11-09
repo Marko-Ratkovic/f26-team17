@@ -10,6 +10,7 @@ import jakarta.validation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -174,6 +175,124 @@ public class CustomerUiController {
         return "redirect:" + safeReturnPath(returnTo);
     }
 
+    // edit contact information
+    @GetMapping("/customers/edit-info")
+    public String editInfo(HttpSession session, Model model) {
+        Long customerId = UiSession.requireId(session, "customer");
+        CustomerResponse customer = customerService.getById(customerId);
+        addInfoForm(model, customer.name(), customer.email(), customer.phoneNumber());
+        return "customer/edit-info";
+    }
+
+    // When something is wrong the form is shown again with what was typed, except the field that caused the error.
+    @PostMapping("/customers/edit-info")
+    public String saveInfo(@RequestParam String name,
+                           @RequestParam String email,
+                           @RequestParam(required = false) String phone,
+                           HttpSession session,
+                           Model model,
+                           RedirectAttributes redirect) {
+        Long customerId = UiSession.requireId(session, "customer");
+        CustomerUpdateRequest request = new CustomerUpdateRequest(name, email, phone);
+        String error;
+        Set<String> clear = new HashSet<>();
+
+        Set<ConstraintViolation<CustomerUpdateRequest>> violations = validator.validate(request);
+        if (!violations.isEmpty()) {
+            error = describe(violations);
+            violations.forEach(violation -> clear.add(violation.getPropertyPath().toString()));
+        } else {
+            try {
+                CustomerResponse updated = customerService.update(customerId, request);
+                session.setAttribute("userName", updated.name());
+                redirect.addFlashAttribute("success", "Your contact information was updated.");
+                return "redirect:/customers/profile";
+            } catch (ConflictException e) {
+                error = e.getMessage();
+                clear.add("email");
+            }
+
+        }
+
+        model.addAttribute("error", error);
+        addInfoForm(model,
+                clear.contains("name") ? "" : name,
+                clear.contains("email") ? "" : email,
+                clear.contains("phoneNumber") ? "" : phone);
+        return "customer/edit-info";
+    }
+
+    // edit beauty and safety notes
+    @GetMapping("/customers/edit-allergies")
+    public String editAllergies(HttpSession session, Model model) {
+        Long customerId = UiSession.requireId(session, "customer");
+        SafetyNotesDto notes = customerService.getById(customerId).safetyNotes();
+
+        if (notes == null || notes.allergyStatus() == null) {
+            addNotesForm(model, AllergyStatus.NOT_PROVIDED.name(), "", "");
+        } else {
+            addNotesForm(model, notes.allergyStatus().name(), notes.allergyDetails(), notes.sensitivities());
+        }
+
+        return "customer/edit-allergies";
+    }
+
+    @PostMapping("/customers/edit-allergies")
+    public String saveAllergies(@RequestParam String allergyStatus,
+                                @RequestParam(required = false) String allergies,
+                                @RequestParam(required = false) String sensitivities,
+                                HttpSession session,
+                                Model model,
+                                RedirectAttributes redirect) {
+        Long customerId = UiSession.requireId(session, "customer");
+        try {
+            SafetyNotesDto dto = new SafetyNotesDto(parseAllergyStatus(allergyStatus), allergies, sensitivities);
+            Set<ConstraintViolation<SafetyNotesDto>> violations = validator.validate(dto);
+            if (!violations.isEmpty()) {
+                throw new BadRequestException(describe(violations));
+            }
+            customerService.updateSafetyNotes(customerId, dto);
+            redirect.addFlashAttribute("success", "Your beauty and safety notes were saved");
+            return "redirect:/customers/profile";           
+        } catch (BadRequestException e) {
+            model.addAttribute("error", e.getMessage());
+            addNotesForm(model, allergyStatus, allergies, sensitivities);
+            return "customer/edit-allergies";
+        }
+    }
+
+    // password and sign-in security
+    @GetMapping("/customers/security")
+    public String security(HttpSession session) {
+        UiSession.requireId(session, "customer");
+        return "customer/security";
+    }
+
+    @PostMapping("/customers/security")
+    public String changePassword(@RequestParam String currentPassword,
+                                 @RequestParam String newPassword,
+                                 @RequestParam String confirmPassword,
+                                 HttpSession session,
+                                 Model model,
+                                 RedirectAttributes redirect) {
+        Long customerId = UiSession.requireId(session, "customer");
+        try {
+            if (!newPassword.equals(confirmPassword)) {
+                throw new BadRequestException("New passwords do not match.");
+            }
+            ChangePasswordRequest request = new ChangePasswordRequest(currentPassword, newPassword);
+            Set<ConstraintViolation<ChangePasswordRequest>> violations = validator.validate(request);
+            if (!violations.isEmpty()) {
+                throw new BadRequestException(describe(violations));
+            }
+            customerService.changePassword(customerId, request);
+            redirect.addFlashAttribute("success", "Your password was updated.");
+            return "redirect:/customers/profile";
+        } catch (BadRequestException e) {
+            model.addAttribute("error", e.getMessage());
+            return "customer/security";
+        }
+    }
 
     // Helper Methods
     private String allergyLabel(SafetyNotesDto notes) {
@@ -294,5 +413,32 @@ public class CustomerUiController {
             return returnTo;
         }
         return "/customers/browse-services";
+    }
+
+    private void addInfoForm(Model model, String name, String email, String phone) {
+        model.addAttribute("formName", orEmpty(name));
+        model.addAttribute("formEmail", orEmpty(email));
+        model.addAttribute("formPhone", orEmpty(phone));
+    }
+
+    private void addNotesForm(Model model, String status, String details, String sensitivities) {
+        model.addAttribute("formStatus", orEmpty(status));
+        model.addAttribute("formDetails", orEmpty(details));
+        model.addAttribute("formSensitivities", orEmpty(sensitivities));
+    }
+
+    private AllergyStatus parseAllergyStatus(String status) {
+        try {
+            return AllergyStatus.valueOf(status.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException("Please choose an allergy option.");
+        }
+    }
+
+    private <T> String describe(Set<ConstraintViolation<T>> violations) {
+        return violations.stream()
+                .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
+                .sorted()
+                .collect(Collectors.joining("; "));
     }
 }

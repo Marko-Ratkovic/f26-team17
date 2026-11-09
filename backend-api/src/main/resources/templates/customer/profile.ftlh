@@ -14,6 +14,9 @@
 
             <section class="section">
                 <div class="container profile-page-content">
+                    <#if success??>
+                        <div class="form-success" role="status">${success}</div>
+                    </#if>
                     <section class="card profile-card" aria-labelledby="personal-heading">
                         <div class="profile-card-header"><h2 class="profile-card-title" id="personal-heading">Personal information</h2></div>
                         <div class="card-content">
@@ -22,8 +25,8 @@
                                 <div><dt>Email address</dt><dd>${customer.email()}</dd></div>
                                 <div><dt>Phone number</dt><dd>${customer.phoneNumber()!"Not provided"}</dd></div>
                             </dl>
-                            <p class="profile-helper">Email changes require confirmation at the new address. Phone number is optional.</p>
-                            <a class="btn profile-edit-btn" href="#">Edit contact information</a>
+                            <p class="profile-helper">Phone number is optional.</p>
+                            <a class="btn profile-edit-btn" href="/customers/edit-info">Edit contact information</a>
                         </div>
                     </section>
 
@@ -36,7 +39,7 @@
                                 <div><dt>Allergies</dt><dd>${allergyDetails}</dd></div>
                                 <div><dt>Sensitivities</dt><dd>${sensitivities}</dd></div>
                             </dl>
-                            <a class="btn profile-edit-btn" href="#">Update beauty &amp; safety notes</a>
+                            <a class="btn profile-edit-btn" href="/customers/edit-allergies">Update beauty &amp; safety notes</a>
                         </div>
                     </section>
 
@@ -50,7 +53,10 @@
                                 <#list savedProviders as saved>
                                     <div class="profile-provider-row">
                                         <div><h3>${saved.name()}</h3></div>
-                                        <span class="profile-status">Saved</span>
+                                        <form method="post" action="/customers/saved-providers/${saved.id()?c}/remove">
+                                            <input type="hidden" name="returnTo" value="/customers/profile">
+                                            <button type="submit" class="btn btn-appt-secondary">Remove</button>
+                                        </form>
                                     </div>
                                 </#list>
                             </#if>
@@ -78,7 +84,7 @@
                     <section class="card profile-card" aria-labelledby="account-heading">
                         <div class="profile-card-header"><h2 class="profile-card-title" id="account-heading">Account &amp; privacy</h2></div>
                         <div class="card-content profile-settings-links">
-                            <a href="#">Password &amp; sign-in security <span aria-hidden="true">&rarr;</span></a>
+                            <a href="/customers/security">Password &amp; sign-in security <span aria-hidden="true">&rarr;</span></a>
                             <a href="#">Close account <span aria-hidden="true">&rarr;</span></a>
                         </div>
                     </section>

@@ -2385,7 +2385,7 @@ footer{
   flex-direction: column;
 }
 
-/* shows at most 4 lines of the bio on a card */
+/* Shows at most 4 lines of the bio on a card */
 .provider-bio {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -2402,6 +2402,28 @@ footer{
 .provider-card-actions > * {
   flex: 1 1 auto;
   white-space: nowrap;
+}
+
+/* Error message box on the customer forms */
+.form-error {
+  color: #8a1c1c;
+  background: #fdecea;
+  border: 1px solid #d99a9a;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+/* Success message box on the customer forms */
+.form-success {
+  color: #1f5d33;
+  background: #e8f5ec;
+  border: 1px solid #9fd0ad;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-weight: 600;
 }
 
 /* Write a review */

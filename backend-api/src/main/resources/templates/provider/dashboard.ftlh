@@ -86,7 +86,7 @@
                                                     <p>${appt.customerName()}</p>
                                                 </div>
                                                 <div class="align-self-center">
-                                                    <a href="" class="btn btn-appt-secondary">View details</a>
+                                                    <a href="/providers/appointment/${appt.id()?c}/details" class="btn btn-appt-secondary">View details</a>
                                                 </div>
                                             </div>
                                         </article>

@@ -8,17 +8,16 @@
             </div></div></section>
             <section class="section">
                 <div class="container provider-profile-content">
-                    <p class="provider-prototype-note" role="note">Privacy preview: the live app should authorize this view only for the provider assigned to a confirmed appointment. This static page cannot enforce identity or access rules.</p>
                     <section class="card provider-settings-card " id="confirmed-booking" aria-labelledby="booking-heading">
                         <div class="profile-card-header"><h2 class="profile-card-title" id="booking-heading">Confirmed appointment</h2></div>
                         <div class="card-content">
                             <dl class="profile-data-grid">
-                                <div><dt>Customer</dt><dd>Laura Johnson</dd></div>
-                                <div><dt>Status</dt><dd>Confirmed</dd></div>
-                                <div><dt>Service</dt><dd>Full set acrylic nails</dd></div>
-                                <div><dt>Date &amp; time</dt><dd>Friday, Oct 9, 2026 · 9:00 AM</dd></div>
-                                <div><dt>Duration</dt><dd>30 minutes</dd></div>
-                                <div><dt>Price</dt><dd>$75</dd></div>
+                                <div><dt>Customer</dt><dd>${appointment.customerName()}</dd></div>
+                                <div><dt>Status</dt><dd>${appointment.status()?lower_case?cap_first}</dd></div>
+                                <div><dt>Service</dt><dd>${appointment.serviceName()}</dd></div>
+                                <div><dt>Date &amp; time</dt><dd>${appointment.startAt()}</dd></div>
+                                <div><dt>Duration</dt><dd>${appointment.durationMin()?c} minutes</dd></div>
+                                <div><dt>Price</dt><dd>$${appointment.price()?c}</dd></div>
                             </dl>
                         </div>
                     </section>
@@ -27,8 +26,8 @@
                         <div class="card-content">
                             <p class="profile-helper">Use this contact information only to coordinate this booking. It is not public profile information.</p>
                             <dl class="profile-data-grid">
-                                <div><dt>Email</dt><dd>laura@example.com</dd></div>
-                                <div><dt>Phone</dt><dd>+1 (336) 555-0142</dd></div>
+                                <div><dt>Email</dt><dd>${appointment.customerEmail()}</dd></div>
+                                <div><dt>Phone</dt><dd>${appointment.customerPhoneNumber()}</dd></div>
                             </dl>
                         </div>
                     </section>
@@ -43,7 +42,7 @@
                             <p class="profile-helper mb-0">These customer-entered notes are not medical advice. Ask the customer if clarification is needed before proceeding.</p>
                         </div>
                     </section>
-                    <a href="appointments.html#confirmed" class="btn btn-appt-secondary">Back to confirmed appointments</a>
+                    <a href="/providers/manage-appointments" class="btn btn-appt-secondary">Back to manage appointments</a>
                 </div>
             </section>
         </main>

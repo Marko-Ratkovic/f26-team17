@@ -100,6 +100,13 @@ public class ProviderUiController {
         return "/provider/manage-appointments";
     }
 
+    @GetMapping("/appointment/{appointmentId}/details")
+    public String appointmentDetails(@PathVariable Long appointmentId,HttpSession session, Model model){
+        Long providerId = UiSession.requireId(session,"provider" );
+        model.addAttribute("appointment", appointmentService.getDetail(providerId, appointmentId));
+        return "/provider/appointment-details";
+    }
+
     @PostMapping("/appointment/{appointmentId}/confirm")
     public String confirmAppointment(@PathVariable Long appointmentId,HttpSession session){
         Long providerId = UiSession.requireId(session,"provider" );

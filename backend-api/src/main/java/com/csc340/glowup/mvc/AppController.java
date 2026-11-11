@@ -14,6 +14,7 @@ import com.csc340.glowup.enums.Weekday;
 import com.csc340.glowup.dto.CustomerResponse;
 import com.csc340.glowup.service.ProviderProfileService;
 import com.csc340.glowup.service.BadRequestException;
+import com.csc340.glowup.service.ConflictException;
 import com.csc340.glowup.service.CustomerService;
 import com.csc340.glowup.service.ProviderProfileService;
 
@@ -74,10 +75,17 @@ public class AppController {
     @PostMapping("/provider/register")
     public String createProvider(
             @Valid ProviderRegistrationRequest providerRegistrationRequest,
-            HttpSession session){
-        ProviderResponse provider = providerProfileService.register(providerRegistrationRequest);
-        setSession(session, provider.id(), "provider", provider.name());
-        return "redirect:/providers/dashboard";
+            HttpSession session,Model model){
+        String error;
+        try {        
+            ProviderResponse provider = providerProfileService.register(providerRegistrationRequest);
+            setSession(session, provider.id(), "provider", provider.name());
+            return "redirect:/providers/dashboard";
+        } catch (ConflictException e){
+            model.addAttribute("error",e.getMessage());
+            return "public/register";
+        }
+
     }
     
     @PostMapping("/logout")

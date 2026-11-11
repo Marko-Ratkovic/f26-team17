@@ -12,7 +12,7 @@
                     <a href="/providers/manage-services" class="nav-link under-scored">My Services</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link under-scored">My Appointments</a>
+                    <a href="/providers/manage-appointments" class="nav-link under-scored">My Appointments</a>
                 </li>
                 <li class="nav-item">
                     <a href="/providers/profile" class="nav-link under-scored">My Profile</a>

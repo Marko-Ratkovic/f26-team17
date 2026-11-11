@@ -2542,10 +2542,10 @@ footer{
   display: inline-flex;
   align-items: center;
   width: fit-content;
-  padding: 0.2rem 0.7rem;
-  border: 1px solid #b9aca5;
-  border-radius: 999px;
-  color: #5a4f4a;
+  padding: 5px 12px;
+  border: 1px solid #e92b2b;
+  border-radius: 4px;
+  color: #e92b2b;
   font-size: 0.82rem;
   font-weight: 600;
   list-style: none;
@@ -2557,10 +2557,9 @@ footer{
 }
 
 .report-details > summary:hover,
-.report-details[open] > summary {
-  border-color: var(--primary-color);
-  background: #efe8e3;
-  color: var(--text-dark);
+.report-details[open] > summary{
+  background-color: #e92b2b;
+  color: white;
 }
 
 .report-details > summary:focus-visible {

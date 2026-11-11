@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,6 +13,7 @@ import com.csc340.glowup.dto.ProviderResponse;
 import com.csc340.glowup.dto.ProviderScheduleResponse;
 import com.csc340.glowup.dto.ProviderUpdateRequest;
 import com.csc340.glowup.dto.ProviderUpdateScheduleRequest;
+import com.csc340.glowup.dto.AppointmentReasonRequest;
 import com.csc340.glowup.entity.ProviderService;
 import com.csc340.glowup.service.AppointmentService;
 import com.csc340.glowup.service.ProviderProfileService;
@@ -89,6 +91,34 @@ public class ProviderUiController {
         Long providerId = UiSession.requireId(session,"provider" );
         providerScheduleService.updateWeek(providerId, providerUpdateScheduleRequest);
         return "redirect:/providers/profile";
+    }
+
+    @GetMapping("/manage-appointments")
+    public String manageAppointments(HttpSession session, Model model){
+        Long providerId = UiSession.requireId(session, "provider");
+        model.addAttribute("appointments",appointmentService.listForProvider(providerId));
+        return "/provider/manage-appointments";
+    }
+
+    @PostMapping("/appointment/{appointmentId}/confirm")
+    public String confirmAppointment(@PathVariable Long appointmentId,HttpSession session){
+        Long providerId = UiSession.requireId(session,"provider" );
+        appointmentService.confirm(providerId, appointmentId);
+        return "redirect:/providers/manage-appointments";
+    }
+
+    @PostMapping("/appointment/{appointmentId}/cancel")
+    public String cancelAppointment(@PathVariable Long appointmentId,String reason, HttpSession session){
+        Long providerId = UiSession.requireId(session,"provider" );
+        appointmentService.cancelByProvider(providerId,appointmentId,reason);
+        return "redirect:/providers/manage-appointments";
+    }
+
+    @PostMapping("/appointment/{appointmentId}/decline")
+    public String declineAppointment(@PathVariable Long appointmentId,String reason, HttpSession session){
+        Long providerId = UiSession.requireId(session,"provider" );
+        appointmentService.decline(providerId,appointmentId,reason);
+        return "redirect:/providers/manage-appointments";
     }
 
     @GetMapping("/manage-services")

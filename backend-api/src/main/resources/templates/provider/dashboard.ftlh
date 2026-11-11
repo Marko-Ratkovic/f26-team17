@@ -29,16 +29,29 @@
                             <a href="/providers/new-service" class="btn btn-light fw-bold">Add a service</a>
                         </div>
                         <div class="row g-3 provider-summary-grid">
+                            <#assign requestAppt = 0>
+                                <#assign confirmAppt = 0>
+                                <#assign completeAppt = 0>
+                                <#if appointments??>
+                                    <#list appointments as appt>
+                                        <#if appt.status?? && appt.status().name()=="REQUESTED">
+                                            <#assign requestAppt = requestAppt + 1>
+                                        <#elseif appt.status?? && appt.status().name()=="CONFIRMED">
+                                            <#assign confirmAppt = confirmAppt + 1>
+                                        <#elseif appt.status?? && appt.status().name()=="COMPLETED">
+                                            <#assign completeAppt = completeAppt + 1> 
+                                        </#if>
+                                    </#list>
+                                </#if>
                             <div class="col-md-6 col-xl-3"><a class="provider-summary-card"
                                     href="appointments.html#requests"><span>Requests to
-                                        review</span><strong>2</strong><small>Respond to booking requests</small></a>
+                                        review</span><strong>${requestAppt}</strong><small>Respond to booking requests</small></a>
+                            </div>
+                            <div class="col-md-6 col-xl-3">
+                                <a class="provider-summary-card" href="appointments.html#confirmed"><span>Upcoming bookings</span><strong>${confirmAppt}</strong><small>Confirmed appointments</small></a>
                             </div>
                             <div class="col-md-6 col-xl-3"><a class="provider-summary-card"
-                                    href="appointments.html#confirmed"><span>Upcoming
-                                        bookings</span><strong>3</strong><small>Confirmed appointments</small></a></div>
-                            <div class="col-md-6 col-xl-3"><a class="provider-summary-card"
-                                    href="appointments.html#completed"><span>Completed this
-                                        month</span><strong>3</strong><small>Appointment history</small></a></div>
+                                    href="appointments.html#completed"><span>Completed appointments</span><strong>${completeAppt}</strong><small>Appointment history</small></a></div>
                             <div class="col-md-6 col-xl-3"><a class="provider-summary-card"
                                     href="#recent-reviews"><span>Customer rating</span><strong>4.8 <small>/
                                             5</small></strong><small>Across 10 reviews</small></a></div>
@@ -52,73 +65,35 @@
                             <div>
                                 <h2>Upcomming appointments</h2>
                                 <p>Confirmed bookings only. Pending requests are listed separately.</p>
-                            </div><a href="appointments.html#confirmed"
+                            </div><a href="/providers/manage-appointments"
                                 class="btn btn-appt-secondary align-self-center">View all appointments</a>
                         </div>
                         <div class="provider-dashboard-list">
-                            <article class="provider-dashboard-booking">
-                                <div class="d-flex justify-content-between">
-                                    <div class="fw-bold align-content-center">
-                                        <h3>Friday, Oct 9, 2026 · 9:00 AM</h3>
-                                    </div>
-                                    <span class="provider-listing-status is-approved">Confirmed</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-content-center mt-2">
-                                    <div class="mt-1 mb-2">
-                                        <div class="fs-5">Full set acrylic nails - <span
-                                                class="provider-booking-price">$100 <small>· 90 min</small></span></div>
-                                        <p>Christina Raul</p>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <a href="customer-info.html" class="btn btn-appt-secondary">View details</a>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="provider-dashboard-booking">
-                                <div class="d-flex justify-content-between">
-                                    <div class="fw-bold align-content-center">
-                                        <h3>Saturday, Oct 10, 2026 · 12:00 PM</h3>
-                                    </div>
-                                    <span class="provider-listing-status is-approved">Confirmed</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-content-center mt-2">
-                                    <div class="mt-1 mb-2">
-                                        <div class="fs-5">Pedicure &amp; manicure - <span
-                                                class="provider-booking-price">$100 <small>· 90 min</small></span></div>
-                                        <p>Karen Smith</p>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <a href="customer-info.html" class="btn btn-appt-secondary">View details</a>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="provider-dashboard-booking">
-                                <div class="d-flex justify-content-between">
-                                    <div class="fw-bold align-content-center">
-                                        <h3>Monday, Oct 12, 2026 · 10:00 AM</h3>
-                                    </div>
-                                    <span class="provider-listing-status is-approved">Confirmed</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-content-center mt-2">
-                                    <div class="mt-1 mb-2">
-                                        <div class="fs-5">Nail design - <span class="provider-booking-price">$50
-                                                <small>· 60 min</small></span></div>
-                                        <p>Christina Raul </p>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <a href="customer-info.html" class="btn btn-appt-secondary">View details</a>
-                                    </div>
-                                </div>
-                            </article>
+                            <#if appointments??>
+                                <#list appointments as appt>
+                                    <#if appt.status?? && appt.status().name()=="CONFIRMED">
+                                        <article class="provider-dashboard-booking">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="fw-bold align-content-center">
+                                                    <h3>${appt.formattedDate()}</h3>
+                                                </div>
+                                                <span class="provider-listing-status is-approved">Confirmed</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-content-center mt-2">
+                                                <div class="mt-1 mb-2">
+                                                    <div class="fs-5">${appt.serviceName()} - <span
+                                                            class="provider-booking-price">$${appt.price()?c} <small>· ${appt.durationMin()?c} min</small></span></div>
+                                                    <p>${appt.customerName()}</p>
+                                                </div>
+                                                <div class="align-self-center">
+                                                    <a href="" class="btn btn-appt-secondary">View details</a>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </#if>
+                                </#list>
+                            </#if>
                         </div>
-                        <!-- <aside class="provider-request-callout">
-                            <div><strong>2 requests need a response</strong>
-                                <p class="mb-0">Alice Hayes requested a pedicure and manicure for Saturday, Oct 10 at
-                                    10:00 AM, and Karen Smith asked to reschedule to Monday, Oct 12 at 2:00 PM. Neither
-                                    is confirmed yet.</p>
-                            </div>
-                            <a href="appointments.html#requests" class="btn btn-appt-primary">Review requests</a>
-                        </aside> -->
                     </div>
                 </section>
 
@@ -129,7 +104,7 @@
                                 <h2>Service listing status</h2>
                                 <p>Only approved listings are visible and bookable.</p>
                             </div>
-                            <a href="manage-services.html" class="btn btn-appt-secondary align-self-center">Manage
+                            <a href="/providers/manage-services" class="btn btn-appt-secondary align-self-center">Manage
                                 services</a>
                         </div>
                         <div class="provider-status-summary">

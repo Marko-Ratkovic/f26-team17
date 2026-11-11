@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Started - Glow Up</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/register.css">
 </head>
 
 <body>
@@ -152,7 +152,7 @@
                                     <div class="availability-group">
                                         <h4>Days you are available</h4>
                                         <div class="availability-options">
-                                            <#list weekdays as day>
+                                            <#list weekdays! as day>
                                                 <label class="availability-option">
                                                     <input type="checkbox" name="availableDays" value="${day}">
                                                     <span>${day?lower_case?cap_first}</span>

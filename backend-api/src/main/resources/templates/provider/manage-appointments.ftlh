@@ -153,7 +153,7 @@
                                                             <td><span
                                                                     class="provider-listing-status is-approved">Confirmed</span>
                                                             </td>
-                                                            <td><a href="">Appointment details</a></td>
+                                                            <td><a href="/providers/appointment/${appt.id()?c}/details">Appointment details</a></td>
                                                             <td>
                                                                 <details class="report-details appt-reason-details">
                                                                     <summary class="btn">Cancel</summary>

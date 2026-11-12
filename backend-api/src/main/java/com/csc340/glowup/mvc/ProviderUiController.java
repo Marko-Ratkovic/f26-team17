@@ -16,7 +16,10 @@ import com.csc340.glowup.dto.ProviderScheduleResponse;
 import com.csc340.glowup.dto.ProviderUpdateRequest;
 import com.csc340.glowup.dto.ProviderUpdateScheduleRequest;
 import com.csc340.glowup.dto.AppointmentReasonRequest;
+import com.csc340.glowup.dto.AppointmentDetailResponse;
+import com.csc340.glowup.dto.SafetyNotesDto;
 import com.csc340.glowup.entity.ProviderService;
+import com.csc340.glowup.service.CustomerService;
 import com.csc340.glowup.service.AppointmentService;
 import com.csc340.glowup.service.ConflictException;
 import com.csc340.glowup.service.ProviderProfileService;
@@ -31,6 +34,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/providers")
 public class ProviderUiController {
     private final ProviderProfileService providerProfileService;
+    private final CustomerService customerService;
     private final ServiceCatalogService catalogService;
     private final ProviderScheduleService providerScheduleService;
     private final AppointmentService appointmentService;
@@ -38,11 +42,13 @@ public class ProviderUiController {
 
     public ProviderUiController(
             ProviderProfileService providerService,
+            CustomerService customerService,
             ServiceCatalogService catalogService,
             ProviderScheduleService providerScheduleService,
             AppointmentService appointmentService,
             ReviewService reviewService){
         this.providerProfileService = providerService;
+        this.customerService = customerService;
         this.catalogService = catalogService;
         this.providerScheduleService = providerScheduleService;
         this.appointmentService = appointmentService;
@@ -121,7 +127,10 @@ public class ProviderUiController {
     @GetMapping("/appointment/{appointmentId}/details")
     public String appointmentDetails(@PathVariable Long appointmentId,HttpSession session, Model model){
         Long providerId = UiSession.requireId(session,"provider" );
-        model.addAttribute("appointment", appointmentService.getDetail(providerId, appointmentId));
+        AppointmentDetailResponse appointment = appointmentService.getDetail(providerId, appointmentId);
+        SafetyNotesDto notes = appointment.customerSafetyNotes();
+        model.addAttribute("appointment", appointment);
+        model.addAttribute("safetyNote", notes);
         return "/provider/appointment-details";
     }
 

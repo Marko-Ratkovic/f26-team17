@@ -44,14 +44,14 @@
                                     </#list>
                                 </#if>
                             <div class="col-md-6 col-xl-3"><a class="provider-summary-card"
-                                    href="appointments.html#requests"><span>Requests to
+                                    href="/providers/manage-appointments#requests"><span>Requests to
                                         review</span><strong>${requestAppt}</strong><small>Respond to booking requests</small></a>
                             </div>
                             <div class="col-md-6 col-xl-3">
-                                <a class="provider-summary-card" href="appointments.html#confirmed"><span>Upcoming bookings</span><strong>${confirmAppt}</strong><small>Confirmed appointments</small></a>
+                                <a class="provider-summary-card" href="/providers/manage-appointments#confirmed"><span>Upcoming bookings</span><strong>${confirmAppt}</strong><small>Confirmed appointments</small></a>
                             </div>
                             <div class="col-md-6 col-xl-3"><a class="provider-summary-card"
-                                    href="appointments.html#completed"><span>Completed appointments</span><strong>${completeAppt}</strong><small>Appointment history</small></a></div>
+                                    href="/providers/manage-appointments#completed"><span>Completed appointments</span><strong>${completeAppt}</strong><small>Appointment history</small></a></div>
                             <div class="col-md-6 col-xl-3"><a class="provider-summary-card"
                                     href="#recent-reviews"><span>Customer rating</span><strong>4.8 <small>/
                                             5</small></strong><small>Across 10 reviews</small></a></div>

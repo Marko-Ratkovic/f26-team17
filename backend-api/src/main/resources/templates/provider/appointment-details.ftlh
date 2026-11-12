@@ -36,8 +36,13 @@
                         <div class="card-content">
                             <p class="profile-privacy-callout"><strong>Appointment-specific information.</strong> The live service should expose these notes only to the provider assigned to this confirmed appointment. Do not copy notes into general customer lists or use them for marketing.</p>
                             <dl class="profile-data-grid">
-                                <div><dt>Allergy status</dt><dd>No known allergies reported</dd></div>
-                                <div><dt>Sensitivities</dt><dd>Not provided</dd></div>
+                                <#if safetyNote?? && safetyNote.allergyStatus()=="KNOWN">
+                                        <div><dt>Allergy status</dt><dd>${safetyNote.allergyDetails()}</dd></div>
+                                        <div><dt>Sensitivities</dt><dd>${safetyNote.sensitivities()}</dd></div>
+                                    <#else> 
+                                        <div><dt>Allergy status</dt><dd>No known allergies reported</dd></div>
+                                        <div><dt>Sensitivities</dt><dd>Not provided</dd></div>
+                                </#if>
                             </dl>
                             <p class="profile-helper mb-0">These customer-entered notes are not medical advice. Ask the customer if clarification is needed before proceeding.</p>
                         </div>

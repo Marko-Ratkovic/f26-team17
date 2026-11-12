@@ -7,6 +7,7 @@ import com.csc340.glowup.enums.AccountStatus;
 import com.csc340.glowup.repository.ProviderRepository;
 import com.csc340.glowup.repository.UserAccountRepository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.csc340.glowup.dto.ProviderRegistrationRequest;
 import com.csc340.glowup.dto.ProviderResponse;
@@ -14,7 +15,13 @@ import com.csc340.glowup.dto.ProviderUpdateRequest;
 
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Locale;
 
@@ -26,6 +33,8 @@ public class ProviderProfileService {
     private final UserAccountRepository userAccountRepository;
     private final PasswordEncoder passwordEncoder;
     private final ProviderScheduleService providerScheduleService;
+
+    private static final String UPLOAD_DIR = "src/main/resources/static/images/providers/";
 
     public ProviderProfileService(
         ProviderRepository providerRepository,
@@ -131,6 +140,23 @@ public class ProviderProfileService {
     private void ensureEmailAvailable(String email) {
         if (userAccountRepository.existsByEmailIgnoreCase(email)) {
             throw new ConflictException("An account with that email already exists.");
+        }
+    }
+
+    public void saveImg(Long providerId, MultipartFile file){
+        String originalFileName = file.getOriginalFilename();
+        try {
+            String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+            String newFileName = "provider_" + providerId + "." + fileExtension;
+            Path path = Paths.get(UPLOAD_DIR + newFileName);
+            InputStream inputStream = file.getInputStream();
+            Files.createDirectories(Paths.get(UPLOAD_DIR)); 
+            Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
+            Provider provider = providerRepository.findById(providerId).orElseThrow(() -> new NotFoundException("Provider " + providerId + " was not found."));
+            provider.setImagePath(newFileName);
+            providerRepository.save(provider);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

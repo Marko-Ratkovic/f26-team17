@@ -18,9 +18,17 @@
                             <h2 class="profile-card-title">Provider information</h2>
                         </div>
                         <div class="card-content">
-                            <form method="post" action="/providers/update-details">
+                            <form method="post" action="/providers/update-details" enctype="multipart/form-data">
                                 <fieldset class="provider-form-section">
                                     <legend>Account contact</legend>
+                                    <div class="form-group">
+                                        <#if provider.imagePath()?has_content>
+                                            <img src="/providers/${provider.id()?c}/image" alt="${provider.name()}" style="width:120px;height:120px; border-radius: 5px;">
+                                        
+                                        </#if>
+                                        <label for="imageFile">Profile Image</label>
+                                        <input id="imageFile" name="imageFile" type="file" accept="image/jpeg,image/png,image/gif,image/webp">
+                                    </div>
                                     <div class="form-group"><label for="fullName">Full name</label><input id="fullName" type="text"
                                             name="name" value="${provider.name()}" autocomplete="name" required>
                                     </div>

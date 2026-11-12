@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.csc340.glowup.dto.ProviderRegistrationRequest;
 import com.csc340.glowup.dto.ProviderResponse;
@@ -75,10 +76,12 @@ public class AppController {
     @PostMapping("/provider/register")
     public String createProvider(
             @Valid ProviderRegistrationRequest providerRegistrationRequest,
-            HttpSession session,Model model){
-        String error;
+            MultipartFile imageFile, HttpSession session,Model model){
         try {        
             ProviderResponse provider = providerProfileService.register(providerRegistrationRequest);
+            if(imageFile != null && !imageFile.isEmpty()){
+                providerProfileService.saveImg(provider.id(),imageFile);
+            }
             setSession(session, provider.id(), "provider", provider.name());
             return "redirect:/providers/dashboard";
         } catch (ConflictException e){

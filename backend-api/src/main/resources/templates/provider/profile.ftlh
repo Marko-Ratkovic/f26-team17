@@ -4,21 +4,33 @@
         <main>
             <section class="section">
                 <div class="container">
-                    <div class="provider-profile-hero mb-3">
-                        <p class="provider-eyebrow">PROVIDER ACCOUNT</p>
-                        <h1>${provider.businessName()}</h1>
-                        <#if provider?? && provider.accountStatus?? && provider.accountStatus().name() == "ACTIVE">
-                            <span class="provider-visibility-badge">Profile visible to customers</span>
-                        <#else>
-                            <span class="provider-visibility-badge" style="background: #fff2d9; color: #704600;border: 1px solid #704600">Profile is hidden from customers</span>
-                        </#if>
+                    <div class="provider-profile-hero mb-3 d-flex justify-content-between">
+                        <div>
+                            <p class="provider-eyebrow">PROVIDER ACCOUNT</p>
+                            <h1>${provider.businessName()}</h1>
+                            <#if provider?? && provider.accountStatus?? && provider.accountStatus().name() == "ACTIVE">
+                                <span class="provider-visibility-badge">Profile visible to customers</span>
+                            <#else>
+                                <span class="provider-visibility-badge" style="background: #fff2d9; color: #704600;border: 1px solid #704600">Profile is hidden from customers</span>
+                            </#if>
+                        </div>
+                        <div>
+                            <#if provider.imagePath()?has_content>
+                                <img src="/images/providers/${provider.imagePath()}" alt="${provider.name()}" style="width:120px;height:120px; border-radius: 5px;">
+                            <#else>
+                                <img src="/images/providers/provider-placeholder.svg" alt="Default Placeholder" style="width:120px;height:120px; border-radius: 5px;">
+                            </#if>
+                        </div>
                     </div>
                     
                 </div>
             </section>
-
+                    
             <section class="section">
                 <div class="container provider-profile-content">
+                    <#if success??>
+                        <div class="form-success" role="status">${success}</div>
+                    </#if>
                     <section class="card provider-settings-card" aria-labelledby="contact-heading">
                         <div class="profile-card-header"><h2 class="profile-card-title" id="contact-heading">Account &amp; contact</h2></div>
                         <div class="card-content">
@@ -37,7 +49,15 @@
                         <div class="card-content">
                             <dl class="profile-data-grid">
                                 <#if provider?? && provider.accountStatus?? && provider.accountStatus().name() == "ACTIVE">
-                                <div><dt>Service categories</dt><dd>Nail Care <small class="text-muted">(from your approved services)</small></dd></div>
+                                <div><dt>Service categories</dt><dd>
+                                        <#if services??>
+                                            <#list services as service>
+                                                <#if service.status?? && service.status().name() == "APPROVED">
+                                                    ${service.category().toString()}<br>
+                                                </#if>
+                                            </#list>
+                                        </#if>
+                                    <small class="text-muted">(from your approved services)</small></dd></div>
                                 </#if>
                                 <div><dt>Experience</dt><dd>${provider.yearsOfExperience()} years</dd></div>
                                 <div class="profile-data-wide"><dt>About</dt><dd>${provider.bio()}</dd></div>
@@ -53,7 +73,7 @@
                     <section class="card provider-settings-card" id="provider-services" aria-labelledby="services-heading">
                         <div class="profile-card-header provider-section-header">
                             <h2 class="profile-card-title" id="services-heading">Service listings</h2>
-                            <a href="manage-services.html" class="btn btn-light">Manage services</a>
+                            <a href="/providers/manage-services" class="btn btn-light">Manage services</a>
                         </div>
                         <div class="card-content">
                             <dl class="provider-availability-list mb-3">
@@ -73,7 +93,7 @@
                                             <#if service.isVisible()>
                                                 <#assign listingStatus = "is-approved">
                                             </#if>
-                                        <div class="provider-listing-row"><div><h3>${service.name()}</h3><p>${service.status()?lower_case?cap_first}· ${service.durationMin()} min · $${service.price()?c}</p></div><span class="provider-listing-status ${listingStatus}"><#if service.isVisible()>Visible<#else>Hidden</#if></span></div>
+                                        <div class="provider-listing-row"><div><h3>${service.name()}</h3><p>${service.status()?lower_case?cap_first?replace("_", " ")}· ${service.durationMin()} min · $${service.price()?c}</p></div><span class="provider-listing-status ${listingStatus}"><#if service.isVisible()>Visible<#else>Hidden</#if></span></div>
                                     </#list>
                                 </#if>
                                     <p class="profile-helper mb-0">Only approved listings appear in customer search and can be booked. Editing an approved listing submits a new version for review; the edited version stays hidden until approved.</p>
@@ -89,15 +109,15 @@
                         </div>
                         <div class="card-content">
                             <dl class="provider-availability-list">
+                            <#if providerSchedules??>
                                 <#list providerSchedules as providerSchedule>
                                     <#if providerSchedule.isAvailable()>
                                         <div><dt>${providerSchedule.weekday()?lower_case?cap_first}</dt><dd>${providerSchedule.openTime()} – ${providerSchedule.closeTime()}</dd></div>
                                     <#else>
                                         <div><dt>${providerSchedule.weekday()?lower_case?cap_first}</dt><dd>Closed</dd></div> 
                                     </#if>
-                                <#else>
-                                    <div>You haven't add any availability yet.</div>
                                 </#list>
+                            </#if>
                             </dl>
                             <p class="profile-helper mb-0">Opening hours are not the same as a confirmed appointment. Changing your hours never cancels confirmed appointments.</p>
                         </div>

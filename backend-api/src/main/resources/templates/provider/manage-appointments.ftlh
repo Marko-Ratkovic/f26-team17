@@ -32,6 +32,18 @@
                         </section>
                         <section class="section">
                             <div class="container">
+                                <#if success??>
+                                    <div class="alert alert-dismissible fade show container mt-3 d-flex align-items-center justify-content-between" role="alert" style="color:#51cf66; background:rgba(81,207,102,0.12); border:1px solid #51cf66; border-radius:8px; padding:12px 16px; margin-bottom:16px;">
+                                        <div>${success}</div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="padding-bottom: 16px;"></button>
+                                    </div>
+                                </#if>
+                                <#if error??>
+                                    <div class="alert alert-dismissible fade show container mt-3 d-flex align-items-center justify-content-between" role="alert" style="color:#ff8a8a; background:rgba(255,80,80,0.12); border:1px solid #ff8a8a; border-radius:8px; padding:12px 16px; margin-bottom:16px;">
+                                        <div>${error}</div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="padding-bottom: 16px;"></button>
+                                    </div>
+                                </#if>
                                 <#assign requestAppt = 0>
                                 <#assign confirmAppt = 0>
                                 <#assign completeAppt = 0>
@@ -155,6 +167,9 @@
                                                             </td>
                                                             <td><a href="/providers/appointment/${appt.id()?c}/details">Appointment details</a></td>
                                                             <td>
+                                                                <form method="post" action="/providers/appointment/${appt.id()?c}/complete">
+                                                                        <button class="btn btn-sm btn-success" type="submit">Mark complete</button>
+                                                                </form>
                                                                 <details class="report-details appt-reason-details">
                                                                     <summary class="btn">Cancel</summary>
                                                                     <form method="post" action="/providers/appointment/${appt.id()?c}/cancel">
@@ -184,9 +199,6 @@
                                     aria-labelledby="completed-heading">
                                     <h2 class="appointment-list-heading" id="completed-heading">Completed appointments
                                         <span>(${completeAppt})</span></h2>
-                                    <p class="profile-helper">A confirmed appointment counts as completed once its end
-                                        time passes, so customers can review it even if you forget to mark it. You can
-                                        still mark it completed yourself after it ends.</p>
                                     <div class="table-responsive provider-table-wrap">
                                         <table class="table table-hover align-middle provider-appointment-table">
                                             <caption class="visually-hidden">Completed provider appointments this month
@@ -274,6 +286,7 @@
                     </footer>
                     </div>
                     </body>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
                     <script>
                         const declineBtn = document.getElementById('declineBtn');
                         const cancelBtn = document.getElementById('cancelDecline');

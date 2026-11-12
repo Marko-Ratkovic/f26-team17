@@ -30,7 +30,7 @@
                             <div role="alert" style="color:#ff8a8a; background:rgba(255,80,80,0.12); border:1px solid #ff8a8a; border-radius:8px; padding:10px 14px; margin-bottom:16px;">${error}</div>
                         </#if>
 
-                        <form method="post" action="/register" id="registerForm">
+                        <form method="post" action="/register" id="registerForm" enctype="multipart/form-data">
                             <fieldset class="role-selector">
                                 <legend>I am signing up as a</legend>
                                 <div class="role-options">
@@ -53,26 +53,26 @@
                             </fieldset>
 
                             <div class="form-group">
-                                <label for="full-name">Full name</label>
+                                <label for="full-name">Full name*</label>
                                 <input type="text" id="full-name" name="name" placeholder="Your full name"
                                     value="${formName!}" autocomplete="name" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="signup-email">Email address</label>
+                                <label for="signup-email">Email address*</label>
                                 <input type="email" id="signup-email" name="email" placeholder="you@example.com"
                                     value="${formEmail!}" autocomplete="email" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="signup-password">Password</label>
+                                <label for="signup-password">Password*</label>
                                 <input type="password" id="signup-password" name="password"
                                     value="${formPassword!}" placeholder="Create a password" autocomplete="new-password" minlength="8" required>
                                 <small class="form-help">Use at least 8 characters.</small>
                             </div>
 
                             <div class="form-group">
-                                <label for="confirm-password">Confirm password</label>
+                                <label for="confirm-password">Confirm password*</label>
                                 <input type="password" id="confirm-password" name="confirm-password"
                                     value="${formConfirmPassword!}" placeholder="Re-enter your password" autocomplete="new-password" minlength="8"
                                     required>
@@ -94,42 +94,44 @@
                                 </div>
                                 <div class="signup-form-grid">
                                     <div class="form-group">
-                                        <label for="business-name">Public name</label>
+                                        <label for="business-name">Public name*</label>
                                         <input type="text" id="business-name" name="businessName"
-                                            placeholder="Name customers will see">
+                                            placeholder="Name customers will see" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="provider-experience">Years of experience</label>
+                                        <label for="provider-experience">Years of experience*</label>
                                         <input type="number" id="provider-experience" name="yearsOfExperience"
                                             placeholder="e.g. 5" min="0" max="70" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="provider-phone">Phone</label>
+                                        <label for="provider-phone">Phone number <span
+                                            class="optional-label">(optional)</span></label>
                                         <input type="tel" id="provider-phone" name="phoneNumber"
                                             placeholder="(555) 555-5555" autocomplete="tel">
                                     </div>
                                     <div class="form-group">
-                                        <label for="provider-street">Street address</label>
+                                        <label for="provider-street">Street address*</label>
                                         <input type="text" id="provider-street" name="addressLine"
                                             placeholder="123 Elm St, Suite 4" autocomplete="street-address" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="provider-city">City</label>
+                                        <label for="provider-city">City*</label>
                                         <input type="text" id="provider-city" name="city" placeholder="Greensboro"
                                             autocomplete="address-level2" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="provider-state">State</label>
+                                        <label for="provider-state">State*</label>
                                         <input type="text" id="provider-state" name="state" placeholder="NC"
                                             maxlength="2" autocomplete="address-level1" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="provider-zip">ZIP code</label>
+                                        <label for="provider-zip">ZIP code*</label>
                                         <input type="text" id="provider-zip" name="zipcode" placeholder="27401"
                                             inputmode="numeric" autocomplete="postal-code" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="certification">Certifications (optional)</label>
+                                        <label for="certification">Certifications <span
+                                            class="optional-label">(optional)</span></label>
                                         <input type="text" id="certification" name="certifications"
                                             placeholder="e.g. State cosmetology license">
                                     </div>
@@ -141,6 +143,12 @@
                                         placeholder="Share your experience, specialties, and what clients can expect."></textarea>
                                     <small class="form-help">A short introduction helps customers feel confident booking
                                         with you.</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="provider-img">Upload profile image <span
+                                            class="optional-label">(optional)</span></label>
+                                    <input id="provider-img" name="imageFile" type="file" accept="image/jpeg,image/png,image/gif,image/webp">
                                 </div>
 
                                 <div class="signup-section-heading availability-heading">

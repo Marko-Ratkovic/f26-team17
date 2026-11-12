@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.csc340.glowup.dto.ProviderResponse;
 import com.csc340.glowup.dto.ProviderScheduleResponse;
@@ -16,6 +18,7 @@ import com.csc340.glowup.dto.ProviderUpdateScheduleRequest;
 import com.csc340.glowup.dto.AppointmentReasonRequest;
 import com.csc340.glowup.entity.ProviderService;
 import com.csc340.glowup.service.AppointmentService;
+import com.csc340.glowup.service.ConflictException;
 import com.csc340.glowup.service.ProviderProfileService;
 import com.csc340.glowup.service.ProviderScheduleService;
 import com.csc340.glowup.service.ReviewService;
@@ -64,6 +67,16 @@ public class ProviderUiController {
         return "/provider/profile";
     }
 
+    @GetMapping("/{providerId}/image")
+    public String getImg(HttpSession session){
+        Long providerId = UiSession.requireId(session, "provider");
+        ProviderResponse provider = providerProfileService.getProfile(providerId);
+        if(provider.imagePath()!=null && !provider.imagePath().isEmpty()){
+            return "redirect:/images/providers/"+provider.imagePath();
+        }
+        return "redirect:/images/provider-placeholder.svg";
+    }
+
     @GetMapping("/edit-details")
     public String editDetals(HttpSession session, Model model){
         Long providerId = UiSession.requireId(session,"provider" );
@@ -72,9 +85,13 @@ public class ProviderUiController {
     }
 
     @PostMapping("/update-details")
-    public String updateDetails(HttpSession session, ProviderUpdateRequest request){
+    public String updateDetails(HttpSession session, ProviderUpdateRequest request, MultipartFile imageFile,RedirectAttributes redirect){
         Long providerId = UiSession.requireId(session, "provider");
         providerProfileService.updateProfile(providerId, request);
+        if(imageFile != null && !imageFile.isEmpty()){
+            providerProfileService.saveImg(providerId,imageFile);
+        }
+        redirect.addFlashAttribute("success", "Your profile have been updated.");
         return "redirect:/providers/profile";
     }
 
@@ -87,9 +104,10 @@ public class ProviderUiController {
 
     @PostMapping("/update-availability")
     public String updateAvailability(HttpSession session,
-        @Valid ProviderUpdateScheduleRequest providerUpdateScheduleRequest){
+        @Valid ProviderUpdateScheduleRequest providerUpdateScheduleRequest,RedirectAttributes redirect){
         Long providerId = UiSession.requireId(session,"provider" );
         providerScheduleService.updateWeek(providerId, providerUpdateScheduleRequest);
+        redirect.addFlashAttribute("success", "Your availability hours have been updated.");
         return "redirect:/providers/profile";
     }
 
@@ -108,23 +126,42 @@ public class ProviderUiController {
     }
 
     @PostMapping("/appointment/{appointmentId}/confirm")
-    public String confirmAppointment(@PathVariable Long appointmentId,HttpSession session){
+    public String confirmAppointment(@PathVariable Long appointmentId,HttpSession session,RedirectAttributes redirect){
         Long providerId = UiSession.requireId(session,"provider" );
-        appointmentService.confirm(providerId, appointmentId);
+        try{
+            appointmentService.confirm(providerId, appointmentId);
+            redirect.addFlashAttribute("success", "Appointment confirmed successfully.");
+        } catch (ConflictException e){
+            redirect.addFlashAttribute("error", e.getMessage());
+        }
         return "redirect:/providers/manage-appointments";
     }
 
     @PostMapping("/appointment/{appointmentId}/cancel")
-    public String cancelAppointment(@PathVariable Long appointmentId,String reason, HttpSession session){
+    public String cancelAppointment(@PathVariable Long appointmentId,String reason, HttpSession session,RedirectAttributes redirect){
         Long providerId = UiSession.requireId(session,"provider" );
         appointmentService.cancelByProvider(providerId,appointmentId,reason);
+        redirect.addFlashAttribute("success", "Appointment cancelled successfully.");
         return "redirect:/providers/manage-appointments";
     }
 
     @PostMapping("/appointment/{appointmentId}/decline")
-    public String declineAppointment(@PathVariable Long appointmentId,String reason, HttpSession session){
+    public String declineAppointment(@PathVariable Long appointmentId,String reason, HttpSession session,RedirectAttributes redirect){
         Long providerId = UiSession.requireId(session,"provider" );
         appointmentService.decline(providerId,appointmentId,reason);
+        redirect.addFlashAttribute("success", "Appointment declined successfully.");
+        return "redirect:/providers/manage-appointments";
+    }
+
+    @PostMapping("/appointment/{appointmentId}/complete")
+    public String markComplete(@PathVariable Long appointmentId,String reason, HttpSession session,RedirectAttributes redirect){
+        Long providerId = UiSession.requireId(session,"provider" );
+        try{
+            appointmentService.markCompleted(providerId,appointmentId);
+            redirect.addFlashAttribute("success", "Appointment mark completed successfully.");
+        } catch (ConflictException e){
+            redirect.addFlashAttribute("error", e.getMessage());
+        }
         return "redirect:/providers/manage-appointments";
     }
 
